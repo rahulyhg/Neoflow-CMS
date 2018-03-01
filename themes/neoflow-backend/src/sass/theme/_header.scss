@@ -1,0 +1,18 @@
+#header {
+    background: $header-bg;
+    padding: $spacer 0;
+
+    h1 {
+        margin: 0;
+    }
+
+    .buttons {
+        margin-bottom: 0;
+    }
+
+    .breadcrumb, .buttons .btn {
+        margin-top: .5rem;
+        margin-bottom: 0;
+    }
+
+}

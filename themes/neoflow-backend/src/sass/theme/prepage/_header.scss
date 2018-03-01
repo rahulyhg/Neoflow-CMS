@@ -1,0 +1,7 @@
+#prepageHeader {
+    padding: ($spacer * 3) 0  ($spacer * 2);
+
+    @include media-breakpoint-up(lg) {
+        padding: ($spacer * 5) 0 ($spacer * 2);
+    }
+}

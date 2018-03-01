@@ -1,0 +1,102 @@
+.card {
+    border-width: 3px 0 0 0;
+    @include box-shadow(none);
+    margin: 0 0 $spacer 0;
+
+    > .table, > .dataTables_wrapper table {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+
+        /*        > tbody, thead {
+                    tr {
+                        &:first-child {
+                            td, th {
+                                border-top: 0;
+                            }
+                        }
+                    }
+                }*/
+
+        &.responsive {
+            td, th {
+                &:nth-of-type(2) {
+                    padding-left: $card-spacer-x;
+                }
+            }
+        }
+
+
+        td, th {
+            &:first-child {
+                padding-left: $card-spacer-x;
+            }
+            &:last-child {
+                padding-right: $card-spacer-x;
+            }
+        }
+
+        + .card-body {
+            padding-top: ($card-spacer-x / 2);
+        }
+    }
+
+    > .nav-tabs, > .nav-pills {
+        &:last-child {
+            border-bottom: 0;
+
+            .nav-item {
+                &:hover, &:active, &:focus {
+                    .nav-link {
+                        border-bottom: 0;
+                    }
+                }
+            }
+        }
+
+        .nav-item {
+            border-bottom: 1px solid $card-border-color;
+
+            &:hover, &:active, &:focus {
+                .nav-link {
+                    border-top: none;
+                }
+            }
+
+            &:first-child {
+                .nav-link {
+                    border-left: none;
+                }
+            }
+
+            .nav-link {
+                margin: 0;
+                border-top: 0;
+                border-bottom: 0;
+            }
+        }
+
+        @include media-breakpoint-up(sm) {
+            .nav-item {
+                border-bottom: 0;
+            }
+        }
+    }
+}
+
+.card-header {
+    border-bottom-width: 1px;
+    font-size: $font-size-lg;
+    padding-left: $spacer;
+    padding-right: $spacer;
+
+    &.card-header-dark {
+        background: theme-color('dark');
+        color: $white;
+    }
+}
+
+.card-body {
+    .alert {
+        margin: 0 0 $card-spacer-x 0;
+    }
+}

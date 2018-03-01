@@ -1,0 +1,117 @@
+table.dataTable > tbody > tr.child span.dtr-title {
+    min-width: 100px;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td:first-child,
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child {
+    padding-left: $card-spacer-x;
+    padding-right: $card-spacer-x;
+}
+
+div.dataTables_wrapper {
+    div {
+        &.dataTables_length,
+        &.dataTables_filter {
+            label {
+                margin: 0;
+            }
+        }
+
+        &.dataTables_length {
+            margin-bottom: $spacer;
+
+            .select2 {
+                display: inline-block;
+            }
+
+            @include media-breakpoint-up(sm) {
+                margin-bottom: 0;
+                text-align: left;
+            }
+        }
+
+        @include media-breakpoint-up(sm) {
+            &.dataTables_filter {
+                text-align: right !important;
+            }
+        }
+
+        &.dataTables_paginate {
+            margin-bottom: $spacer;
+
+            ul.pagination {
+                justify-content: center;
+
+                @include media-breakpoint-up(md) {
+                    margin-bottom: 0;
+                    justify-content: flex-end;
+                }
+            }
+        }
+
+        &.paginate_button {
+            a {
+                font-weight: normal;
+            }
+        }
+
+        &.dataTables_info {
+            padding-top: 0;
+            white-space: normal;
+
+            *:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+}
+
+table.dataTable > tbody > tr.child ul.dtr-details {
+    display: block;
+}
+
+
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td:first-child:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child:before {
+
+    border-radius: 0;
+    box-shadow: none;
+
+    height: auto;
+    width: auto;
+
+    margin: ($input-btn-padding-y-sm / 2) 0;
+
+    display: inline-block;
+    position: relative;
+
+    font-family: 'Font Awesome 5 Free';
+    content: "\f0fe";
+    top: 0;
+    padding: 0;
+    border: $input-btn-border-width solid transparent;
+    line-height: $input-btn-line-height-sm;
+    font-size: $font-size-sm;
+    //width: (1.24971rem + ($input-btn-padding-x-sm * 2));
+    text-align: left;
+    left: 0;
+    background: transparent;
+
+    //@include button-outline-variant(darken(theme-color('light'), 5%), $body-color);
+    color: $body-color;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td:first-child,
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child {
+    transition: background ease .3s;
+
+    &:hover {
+        background: $gray-150;
+    }
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td:first-child:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before {
+    content: "\f146";
+}

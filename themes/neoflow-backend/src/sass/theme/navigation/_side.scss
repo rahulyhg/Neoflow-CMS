@@ -1,0 +1,263 @@
+#sideNavigation {
+    margin-top: $navbar-base-height-xs;
+    min-height: $sidenav-base-height;
+
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+
+    .navbar-toggler {
+        border: none;
+    }
+
+    .navbar-collapse {
+        overflow: auto;
+        max-height: 75vh;
+        margin: 0 (-1* $spacer);
+        flex-basis: calc(100% + #{(2 * $spacer)});
+
+        .navbar-nav {
+            .nav-item {
+                .nav-link {
+                    cursor: pointer;
+                    font-weight: normal;
+                    font-size: $font-size-lg;
+                }
+            }
+        }
+
+        .navbar-sidenav {
+            margin-top: 1rem;
+            background: $sidenav-bg;
+
+            .nav-link-icon {
+                text-align: center;
+                margin-right: -2.5rem;
+            }
+
+            .nav-link-text {
+                padding-left: 3rem;
+            }
+
+            .nav-link {
+                font-family: $headings-font-family;
+                padding: $navbar-padding-y;
+                border: 0 solid $sidenav-link-border-color;
+                color: $sidenav-link-color;
+                background: $sidenav-link-bg;
+
+                &.nav-link-collapse {
+                    &:after {
+                        float: right;
+                        content: '\f107';
+                        font-family: 'Font Awesome 5 Free';
+                    }
+
+                    &.collapsed {
+                        &:after {
+                            content: '\f105';
+                        }
+                    }
+                }
+
+                &[aria-expanded="true"], &:hover {
+                    border-color: $sidenav-link-hover-border-color;
+                    color: $sidenav-link-hover-color;
+                    background: $sidenav-link-hover-bg;
+                }
+            }
+
+            .sidenav-second-level {
+                padding-left: 0;
+
+                .nav-link {
+                    display: block;
+
+                    &:hover {
+                        border-color: $sidenav-second-level-link-hover-border-color;
+                        color: $sidenav-second-level-link-hover-color;
+                        background: $sidenav-second-level-link-hover-bg;
+                    }
+                }
+
+                .nav-link-text {
+                    padding-left: 2rem;
+                }
+            }
+
+            [aria-expanded="true"] {
+                border-color: $sidenav-link-hover-border-color;
+                color: $sidenav-link-hover-color;
+                background: $sidenav-link-hover-bg;
+
+                + .sidenav-second-level {
+                    background: $sidenav-link-hover-bg;
+                }
+            }
+
+            .active,  {
+                > .nav-link {
+                    border-color: $sidenav-link-active-border-color;
+                    color: $sidenav-link-active-color;
+                    background: $sidenav-link-active-bg;
+
+                    &:focus, &:hover {
+                        border-color: $sidenav-link-active-border-color;
+                        color: $sidenav-link-active-color;
+                        background: $sidenav-link-active-bg;
+                    }
+                }
+
+                > .sidenav-second-level {
+                    background: $sidenav-link-active-bg;
+
+                    .active {
+                        > .nav-link {
+                            border-color: $sidenav-second-level-link-active-border-color;
+                            color: $sidenav-second-level-link-active-color;
+                            background: $sidenav-second-level-link-active-bg;
+
+                            &:focus, &:hover {
+                                border-color: $sidenav-second-level-link-active-border-color;
+                                color: $sidenav-second-level-link-active-color;
+                                background: $sidenav-second-level-link-active-bg;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .sidenav-content {
+        display: none;
+    }
+
+    .sidenav-brand {
+        height: ($sidenav-base-height - ($navbar-padding-y * 2));
+        line-height: ($sidenav-base-height - ($navbar-padding-y * 2));
+
+        .brand {
+            > span {
+                display: none;
+            }
+        }
+    }
+
+    .sidenav-toggle-btn {
+        display: none;
+
+        a {
+            &:after {
+                content: '\f104';
+                font-family: 'Font Awesome 5 Free';
+            }
+        }
+    }
+
+
+
+    @include media-breakpoint-up(lg) {
+        margin-top: 0;
+        max-width: $sidenav-base-width;
+        width: $sidenav-base-width;
+        padding: 0;
+        background: $sidenav-bg;
+        display: block;
+        height: 100vh;
+        max-height: 100vh;
+        overflow: hidden;
+
+        .sidenav-toggle-btn {
+            width: 100%;
+            background-color: darken($sidenav-bg, 5%);
+            cursor: pointer;
+            display: block;
+
+            > .nav-item {
+                padding: 0;
+
+                > .nav-link {
+                    line-height: $navbar-base-height;
+                    height: $navbar-base-height;
+                    padding: 0;
+                }
+            }
+        }
+
+        .sidenav-content {
+            padding: $spacer;
+            color: $white;
+            display: block;
+            background: $sidenav-content-bg;
+            margin-top: $spacer;
+
+            :last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .sidenav-brand {
+            display: block;
+            padding: ($navbar-padding-y * 2);
+            height: auto;
+            line-height: inherit;
+
+            .brand {
+                > span {
+                    display: block;
+                }
+            }
+        }
+
+        .navbar-collapse {
+            overflow: visible;
+            max-height: none;
+            margin: 0;
+            width: auto;
+
+            .navbar-sidenav {
+                margin-top: 0;
+                display: block;
+                width: 100%;
+
+                .nav-item {
+                    display: block;
+                }
+
+                .nav-link {
+                    display: block;
+                    border-right-width: 3px;
+                    padding: .75rem .5rem;
+                }
+
+                .sidenav-second-level, .sidenav-third-level {
+                    list-style: none;
+
+                    .nav-link {
+                        padding: .5rem;
+                    }
+                }
+            }
+
+            .navbar-nav {
+                > .nav-item.dropdown {
+                    > .nav-link {
+                        min-width: 0;
+
+                        &:after {
+                            width: 24px;
+                            text-align: center;
+                        }
+                    }
+
+                    .dropdown-menu > .dropdown-item > .dropdown-message {
+                        max-width: 300px;
+                    }
+                }
+            }
+        }
+    }
+}

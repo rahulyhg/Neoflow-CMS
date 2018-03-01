@@ -1,0 +1,46 @@
+.CodeMirror {
+    border: 1px solid $input-border-color;
+    border-radius: $input-border-radius; // Note: This has no effect on <select>s in some browsers, due to the limited stylability of <select>s in CSS.
+    background: $input-bg;
+
+    &.CodeMirror-focused {
+        color: $input-focus-color;
+        background-color: $input-focus-bg;
+        border-color: $input-focus-border-color;
+        outline: none;
+    }
+
+    .CodeMirror-lines {
+        padding: $input-btn-padding-y 0;
+
+        .CodeMirror-line {
+            padding: 0 $input-btn-padding-x; 
+        }
+    }
+
+    .CodeMirror-linenumber {
+        color: $input-color;
+    }
+
+    .CodeMirror-gutters {
+        background: $input-group-addon-bg;
+    }
+}
+
+.has-success {
+    .CodeMirror {
+        border-color: theme-color('success');
+    }
+}
+
+.has-warning {
+    .CodeMirror {
+        border-color: theme-color('warning');
+    }
+}
+
+.has-error {
+    .CodeMirror {
+        border-color:theme-color('danger');
+    }
+}

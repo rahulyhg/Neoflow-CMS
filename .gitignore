@@ -1,0 +1,19 @@
+# IDE files and folders
+.php_cs.cache
+nbproject/
+node_modules/
+
+# Application files and folders
+temp/cache/cache_*
+logs/log_*
+config.php
+!application/config.php
+!installation/config.php
+robots.txt
+sitemap.xml
+media/modules/wysiwyg/section-*/
+!media/modules/wysiwyg/section-*/.gitkeep
+media/public/
+!media/public/.gitkeep
+temp/update/install
+!temp/update/install/.gitkeep

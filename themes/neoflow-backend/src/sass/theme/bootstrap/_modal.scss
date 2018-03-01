@@ -1,0 +1,11 @@
+.modal-body {
+
+    &.modal-body-scrollbar {
+        max-height: calc(100vh - 200px);
+        overflow: auto;
+    }
+
+    pre {
+        overflow: visible;
+    }
+}

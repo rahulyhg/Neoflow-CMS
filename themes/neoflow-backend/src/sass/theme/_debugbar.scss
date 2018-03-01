@@ -1,0 +1,67 @@
+// Debugbar
+#debugbar {
+    position: fixed;
+    left: 0;
+    z-index: 99999;
+    bottom: 0;
+    width: 100%;
+    color: #fff;
+    background: rgba(theme-color("dark"), 0.4);
+
+    > .btn {
+        margin: 0 $spacer 0 0;
+
+        .btn-icon {
+            &:before {
+                content: '\f107';
+                font-family: 'Font Awesome 5 Free';
+            }
+        }
+
+        &.collapsed {
+            .btn-icon {
+                &:before {
+                    content: '\f105';
+                }
+            }
+        }
+    }
+
+    > ul {
+        margin: 0;
+        font-size: 11px;
+
+        li {
+            height: 22px;
+            line-height: 22px;
+        }
+    }
+}
+
+#debugbarBody {
+    clear: right;
+    background: rgba(theme-color("dark"), 0.8);
+    position: relative;
+    color: $white;
+
+    h4 {
+        border-bottom: 1px solid #fff;
+        margin: 0;
+        padding: 10px 0 5px;
+        color: $white;
+    }
+
+    p {
+        margin: 0;
+        padding: 5px 0;
+    }
+
+    ul {
+        padding: 0 0 5px 0;
+        margin: 0;
+
+        li {
+            padding: 5px 15px 5px 0;
+        }
+    }
+}

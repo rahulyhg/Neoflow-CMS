@@ -1,0 +1,15 @@
+@mixin bg-gradient($color) {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#00d6bd+0,00b19d+100 */
+    background: $color; /* Old browsers */
+    background: -moz-linear-gradient(-45deg,  $color 0%, darken($color, 15%) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg,  $color 0%, darken($color, 15%) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg,  $color 0%, darken($color, 15%) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+@mixin border-gradient($color, $color2) {
+    -webkit-border-image: -webkit-linear-gradient(left $color 0%, $color2 100%);
+    -moz-border-image: -moz-linear-gradient(left $color 0%, $color2 100%);
+    -o-border-image: -o-linear-gradient(left $color 0%, $color2 100%);
+    border-image: linear-gradient(to right, $color 0%, $color2 100%);
+    border-image-slice: 1;
+}

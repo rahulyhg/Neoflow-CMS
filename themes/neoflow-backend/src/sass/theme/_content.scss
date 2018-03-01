@@ -1,0 +1,16 @@
+#content {
+    overflow-x: hidden;
+    background: $content-bg;
+
+    .content-body {
+        margin: $spacer 0;
+    }
+
+    @include media-breakpoint-up(sm) {
+        min-height: calc(100vh - #{$navbar-base-height});
+    }
+
+    @include media-breakpoint-up(lg) {
+        margin-left: $sidenav-base-width;
+    }
+}

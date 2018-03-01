@@ -1,0 +1,107 @@
+body {
+    background: $content-bg;
+
+    &.fixed-nav {
+        padding-top: ($sidenav-base-height + $navbar-base-height-xs);
+
+        @include media-breakpoint-up(lg) {
+            padding-top: $navbar-base-height;
+        }
+    }
+
+    &.plain {
+        &.fixed-nav {
+            padding-top: 0;
+        }
+
+        @include media-breakpoint-up(lg) {
+            padding-top: 0
+        }
+    }
+
+    &.prepage {
+        padding-top: $navbar-base-height-xs;
+
+        #sideNavigation {
+            display: none;
+            width: 0;
+        }
+
+        #content {
+            margin-left: 0;
+            background: theme-color('secondary');
+            height: calc(100vh - #{$navbar-base-height-xs});
+        }
+
+        @include media-breakpoint-up(lg) {
+            #sideNavigation {
+                display: none;
+            }
+
+            #topNavigation {
+                padding-left: $navbar-padding-x;
+            }
+
+            #content {
+                height: auto;
+            }
+        }
+    }
+
+    @include media-breakpoint-up(lg) {
+        &.side-navigation-minimized:not(.prepage) {
+            #content {
+                @include media-breakpoint-up(lg) {
+                    margin-left: $side-navigation-minimized-width;
+                }
+            }
+
+            #topNavigation {
+                padding-left: ($side-navigation-minimized-width + $navbar-padding-x);
+            }
+
+            #sideNavigation {
+                width: $side-navigation-minimized-width;
+
+                .sidenav-toggle-btn {
+                    a {
+                        &:after {
+                            content: '\f105';
+                            font-family: 'Font Awesome 5 Free';
+                        }
+                    }
+                }
+
+                .sidenav-content {
+                    display: none;
+                }
+
+                .sidenav-brand {
+                    display: none;
+                }
+
+                .navbar-sidenav {
+                    overflow-x: hidden;
+                    width: $side-navigation-minimized-width;
+
+                    .nav-link-text {
+                        display: none;
+                    }
+
+                    .nav-link-icon {
+                        display: block;
+                        margin-right: 0;
+                    }
+
+                    .nav-item, .nav-link {
+                        width: $side-navigation-minimized-width !important;
+
+                        &:after {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

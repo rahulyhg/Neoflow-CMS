@@ -1,0 +1,24 @@
+.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_today {
+    color: theme-color('primary') !important;
+    box-shadow: none !important;
+    font-weight: bold;
+}
+
+.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_default,
+.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current,
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box >div >div.xdsoft_current,
+.xdsoft_datetimepicker .xdsoft_label > .xdsoft_select > div > .xdsoft_option.xdsoft_current,
+.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current.xdsoft_disabled:hover,
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box>div>div.xdsoft_current.xdsoft_disabled:hover {
+    background: theme-color('primary') !important;
+    box-shadow: darken(theme-color('primary'), 10%) 0 1px 3px 0 inset !important;
+    color: #fff !important;
+}
+
+.xdsoft_datetimepicker .xdsoft_calendar td:hover,
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box >div >div:hover,
+.xdsoft_datetimepicker .xdsoft_label > .xdsoft_select > div > .xdsoft_option:hover {
+    background: theme-color('secondary') !important;
+    color: #fff !important;
+    box-shadow: none !important;
+}

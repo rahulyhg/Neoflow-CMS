@@ -1,0 +1,1 @@
+<textarea name="<?= $name; ?>" <?= ($id ? 'id="'.$id.'"' : ''); ?> width="100%"><?= $content; ?></textarea>

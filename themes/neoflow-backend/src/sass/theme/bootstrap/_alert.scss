@@ -1,0 +1,27 @@
+.alert {
+    border-width: 3px 0 0 0;
+
+    > * {
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    ul {
+        margin-bottom: 5px;
+    }
+
+    p {
+        margin-bottom: 5px;
+    }
+}
+
+@each $color, $value in $theme-colors {
+    .alert-#{$color} {
+        @include alert-variant(lighten($value, 20%), lighten($value, 15%), darken($value, 33%));
+    }
+}

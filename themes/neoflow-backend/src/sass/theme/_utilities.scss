@@ -1,0 +1,29 @@
+// Additional Text Helper Class
+.smaller {
+    font-size: 0.7rem;
+}
+
+// Helper class for the overflow property
+.o-hidden {
+    overflow: hidden !important;
+}
+
+// Helper classes for z-index
+.z-0 {
+    z-index: 0;
+}
+
+.z-1 {
+    z-index: 1;
+}
+
+.hyphens {
+    hyphenate-limit-chars: auto 5;
+    hyphenate-limit-lines: 2;
+    -moz-hyphens: auto;
+    -moz-hyphenate-limit-chars: auto 5;
+    -moz-hyphenate-limit-lines: 2;
+    -webkit-hyphens: auto;
+    -webkit-hyphenate-limit-chars: auto 5;
+    -webkit-hyphenate-limit-lines: 2;
+}

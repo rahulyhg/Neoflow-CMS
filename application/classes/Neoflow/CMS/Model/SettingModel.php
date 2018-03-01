@@ -1,0 +1,280 @@
+<?php
+
+namespace Neoflow\CMS\Model;
+
+use Neoflow\CMS\Core\AbstractModel;
+use Neoflow\Framework\ORM\EntityCollection;
+use Neoflow\Framework\ORM\EntityValidator;
+use Neoflow\Framework\ORM\Repository;
+use RuntimeException;
+
+class SettingModel extends AbstractModel
+{
+    /**
+     * @var string
+     */
+    public static $tableName = 'settings';
+
+    /**
+     * @var string
+     */
+    public static $primaryKey = 'setting_id';
+
+    /**
+     * @var array
+     */
+    public $language_ids = [];
+
+    /**
+     * @var array
+     */
+    public static $properties = ['setting_id', 'website_title', 'website_description',
+        'keywords', 'author', 'theme_id', 'login_attempts', 'session_lifetime',
+        'backend_theme_id', 'default_language_id', 'show_debugbar',
+        'sender_emailaddress', 'session_name', 'allowed_file_extensions',
+        'show_error_details', 'custom_css', 'custom_js',
+        'show_custom_js', 'show_custom_css', 'timezone',
+        'version_number', 'version_release',
+    ];
+
+    /**
+     * Constructor.
+     *
+     * @param array $data       Data of model entity
+     * @param bool  $isReadOnly State whether model entity is read-only or not
+     */
+    public function __construct(array $data = array(), $isReadOnly = false)
+    {
+        parent::__construct($data, $isReadOnly);
+
+        if ($this->app()->get('database')) {
+            $this->language_ids = $this->getLanguages()->mapValue('language_id');
+        }
+    }
+
+    /**
+     * Get version.
+     *
+     * @param bool $withRelease Set FALSE to get version without release
+     *
+     * @return string
+     */
+    public function getVersion(bool $withRelease = true)
+    {
+        if ($withRelease && $this->version_release) {
+            return $this->version_number.'-'.$this->version_release;
+        }
+
+        return $this->version_number;
+    }
+
+    /**
+     * Get repository to fetch frontend theme.
+     *
+     * @return Repository
+     */
+    public function frontendTheme()
+    {
+        return $this->belongsTo('\\Neoflow\\CMS\\Model\\ThemeModel', 'theme_id');
+    }
+
+    /**
+     * Get allowed file extensions.
+     *
+     * @return array
+     */
+    public function getAllowedFileExtensions(): array
+    {
+        if ($this->allowed_file_extensions) {
+            return explode(',', $this->allowed_file_extensions);
+        }
+
+        return [];
+    }
+
+    /**
+     * Get frontend theme.
+     *
+     * @return ThemeModel
+     *
+     * @throws RuntimeException
+     */
+    public function getFrontendTheme()
+    {
+        $theme = $this->frontendTheme()->fetch();
+        if ($theme) {
+            return $theme;
+        }
+        throw new RuntimeException('Frontend theme not found');
+    }
+
+    /**
+     * Get backend theme.
+     *
+     * @return ThemeModel
+     *
+     * @throws RuntimeException
+     */
+    public function getBackendTheme()
+    {
+        $theme = $this->backendTheme()->fetch();
+        if ($theme) {
+            return $theme;
+        }
+        throw new RuntimeException('Backend theme not found');
+    }
+
+    /**
+     * Get repository to fetch backend theme.
+     *
+     * @return Repository
+     */
+    public function backendTheme()
+    {
+        return $this->belongsTo('\\Neoflow\\CMS\\Model\\ThemeModel', 'backend_theme_id');
+    }
+
+    /**
+     * Get repository to fetch language.
+     *
+     * @return Repository
+     */
+    public function defaultLanguage()
+    {
+        return $this->belongsTo('\\Neoflow\\CMS\\Model\\LanguageModel', 'default_language_id');
+    }
+
+    /**
+     * Get repository to fetch languages.
+     *
+     * @return Repository
+     */
+    public function languages()
+    {
+        return $this->hasManyThrough('\\Neoflow\\CMS\\Model\\LanguageModel', '\\Neoflow\\CMS\\Model\\SettingLanguageModel', 'setting_id', 'language_id');
+    }
+
+    /**
+     * Validate setting.
+     *
+     * @return bool
+     */
+    public function validate()
+    {
+        $validator = new EntityValidator($this);
+
+        $validator
+            ->required()
+            ->betweenLength(3, 50)
+            ->set('website_title', 'Website title');
+
+        $validator
+            ->maxlength(150)
+            ->set('website_description', 'Website description');
+
+        $validator
+            ->maxlength(255)
+            ->set('keywords', 'Keyword', [], true);
+
+        $validator
+            ->maxlength(50)
+            ->set('author', 'Author');
+
+        $validator
+            ->integer()
+            ->min(3)
+            ->set('login_attempts', 'Login attempt', [], true);
+
+        $validator
+            ->integer()
+            ->min(300)
+            ->set('session_lifetime', 'Session lifetime');
+
+        $validator
+            ->required()
+            ->email()
+            ->maxLength(100)
+            ->set('sender_emailaddress', 'E-Mailaddress');
+
+        $validator
+            ->maxlength(50)
+            ->set('session_name', 'Session name');
+
+        return $validator->validate();
+    }
+
+    /**
+     * Save settings.
+     *
+     * @param bool $preventCacheClearing Prevent that the cached database results will get deleted
+     *
+     * @return bool
+     */
+    public function save(bool $preventCacheClearing = false): bool
+    {
+        // Set random string for session name when empty
+        if (!$this->session_name) {
+            $this->session_name = random_string(10);
+        }
+
+        if (parent::save($preventCacheClearing)) {
+            // Save setting langauges
+            if ($this->language_ids && is_array($this->language_ids)) {
+                // The default language must also be selectable
+                if (!in_array($this->default_language_id, $this->language_ids)) {
+                    $this->language_ids[] = $this->default_language_id;
+                }
+
+                // Delete old setting languages
+                SettingLanguageModel::deleteAllByColumn('setting_id', $this->id());
+
+                // Create new setting languages
+                foreach ($this->language_ids as $language_id) {
+                    SettingLanguageModel::create(array(
+                        'setting_id' => $this->id(),
+                        'language_id' => $language_id,
+                    ))->save($preventCacheClearing);
+                }
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get selectable languages.
+     *
+     * @return EntityCollection
+     */
+    public function getLanguages(): EntityCollection
+    {
+        return $this->languages()->fetchAll();
+    }
+
+    /**
+     * Get selectable language codes.
+     *
+     * @return array
+     */
+    public function getLanguageCodes(): array
+    {
+        // Get language codes from database if connection is etablished
+        if ($this->app()->get('database') && self::findById(1)) {
+            return $this->getLanguages()->mapValue('code');
+        }
+
+        return $this->config()->get('languages');
+    }
+
+    /**
+     * Get default language.
+     *
+     * @return LanguageModel
+     */
+    public function getDefaultLanguage(): LanguageModel
+    {
+        return $this->defaultLanguage()->fetch();
+    }
+}

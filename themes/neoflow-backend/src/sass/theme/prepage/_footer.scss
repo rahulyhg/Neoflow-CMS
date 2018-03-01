@@ -1,0 +1,15 @@
+#prepageFooter {
+    color: $white;
+    text-align: center;
+    font-size: $font-size-sm;
+    margin: 0 0 $spacer 0;
+
+    a {
+        color: theme-color('primary');
+
+        &:hover, &:focus {
+            text-decoration: none;
+            color: darken(theme-color('primary'), 10%);
+        }
+    }
+}

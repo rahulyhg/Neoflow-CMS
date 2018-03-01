@@ -1,0 +1,21 @@
+.table {
+    td {
+        vertical-align: middle;
+
+        &.icon-only {
+            width: 3.5rem;
+        }
+    }
+
+    .table {
+        background-color: $card-bg;
+    }
+}
+
+.table-muted {
+    background: $gray-150;
+}
+
+@each $color, $value in $theme-colors {
+    @include table-row-variant($color, theme-color-level($color, -11));
+}

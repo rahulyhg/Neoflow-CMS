@@ -1,0 +1,10 @@
+legend {
+    font-size: $font-size-lg;
+    font-family: $headings-font-family;
+    font-weight: 500;
+    color: $gray-700;
+}
+
+.input-group-btn:not(:first-child) > .btn, .input-group-btn:not(:first-child) > .btn-group {
+    margin-left: 0;
+}

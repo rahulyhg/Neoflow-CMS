@@ -1,0 +1,18 @@
+{
+  "name": "neoflow-cms",
+  "version": "1.0.0-dev",
+  "description": "Module-based content management system with a user friendly interface, based on a perfect optimized MVC framework.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error:  no test specified\" && exit 1"
+  },
+  "author": "Jonathan Nessier, Neoflow.ch",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-run": "^1.7.1",
+    "gulp-zip": "^4.1.0",
+    "shelljs": "^0.8.0"
+  },
+  "dependencies": {}
+}

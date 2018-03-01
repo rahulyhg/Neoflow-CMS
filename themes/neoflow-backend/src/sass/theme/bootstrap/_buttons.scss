@@ -1,0 +1,73 @@
+.btn {
+    cursor: pointer;
+
+
+    &.btn-light {
+        @include button-variant(theme-color('light'), darken(theme-color('light'), 5%));
+        color: $body-color;
+    }
+
+    &.btn-outline-light {
+        @include button-outline-variant(darken(theme-color('light'), 5%), $body-color);
+        color: $body-color;
+    }
+
+    &.btn-icon-left, &.btn-icon-right {
+        position: relative;
+    }
+
+    &.btn-icon-left {
+        padding-left: 3.25rem;
+
+        .btn-icon {
+            left: 0;
+        }
+    }
+
+    &.btn-icon-right {
+        padding-right: 3.25rem;
+
+        .btn-icon {
+            right: 0;
+        }
+    }
+
+    .btn-icon {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: calc(3.25rem - #{$input-btn-padding-x});
+        padding: $input-btn-padding-y $input-btn-padding-x;
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+    &.btn-sm {
+        &.btn-icon-left {
+            padding-left: 2.75rem;
+        }
+
+        &.btn-icon-right {
+            padding-right: 2.75rem;
+        }
+
+        .btn-icon {
+            width: calc(2.75rem - #{$input-btn-padding-x-sm});
+            padding: $input-btn-padding-y-sm $input-btn-padding-x-sm;
+        }
+    }
+
+    &.btn-lg {
+        &.btn-icon-left {
+            padding-left: 3.75rem;
+        }
+
+        &.btn-icon-right {
+            padding-right: 3.75rem;
+        }
+
+        .btn-icon {
+            width: calc(3.75rem - #{$input-btn-padding-x-sm});
+            padding: $input-btn-padding-y-lg $input-btn-padding-x-lg;
+        }
+    }
+}

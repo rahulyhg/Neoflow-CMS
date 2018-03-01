@@ -1,0 +1,260 @@
+// Roboto
+$r-font-path: '../fonts/roboto/';
+
+// Robot Condensed
+$rc-font-path: '../fonts/roboto-condensed/';
+
+// Font Awesome
+$fa-font-path: '../fonts/font-awesome/';
+
+// Flags
+$flag-icon-css-path: '../fonts/flags/';
+
+// Base colors (Bootstrap)
+$white:  #fff;
+$gray-100: lighten(#32323A, 80%);
+$gray-125: lighten(#32323A, 77.5%);
+$gray-150: lighten(#32323A, 75%);
+$gray-175: lighten(#32323A, 72.5%);
+$gray-200: lighten(#32323A, 70%);
+$gray-225: lighten(#32323A, 67.5%);
+$gray-250: lighten(#32323A, 65%);
+$gray-275: lighten(#32323A, 62.5%);
+$gray-300: lighten(#32323A, 60%);
+$gray-400: lighten(#32323A, 50%);
+$gray-500: lighten(#32323A, 40%);
+$gray-600: lighten(#32323A, 30%);
+$gray-700: lighten(#32323A, 20%);
+$gray-800: lighten(#32323A, 10%);
+$gray-825: lighten(#32323A, 7.5%);
+$gray-850: lighten(#32323A, 5%);
+$gray-875: lighten(#32323A, 2.5%);
+$gray-900: #32323A;
+$black: darken(#32323A, 5%);
+
+$grays: (
+100: $gray-100,
+200: $gray-200,
+300: $gray-300,
+400: $gray-400,
+500: $gray-500,
+600: $gray-600,
+700: $gray-700,
+800: $gray-800,
+900: $gray-900
+);
+
+$blue:    #007bff;
+$indigo:  #6610f2;
+$purple:  #6f42c1;
+$pink:    #e83e8c;
+$red:     #D9534F;
+$orange:  #fd7e14;
+$yellow:  #F0AD4E;
+$green:   #5CB85C;
+$teal:    #20c997;
+$cyan:    #5BC0DE;
+
+$theme-colors: (
+primary: #d55d4e,
+secondary: #32323A,
+success: $green,
+info: $cyan,
+warning: $yellow,
+danger: $red,
+light: $gray-200,
+dark: $gray-800
+);
+
+// Base styling (Bootstrap)
+$border-radius: 0;
+$border-radius-lg: 0;
+$border-radius-sm: 0;
+
+$caret-width: .3rem;
+
+// Grid breakpoints (Bootstrap)
+$grid-breakpoints: (
+xs: 0,
+sm: 648px,
+md: 768px,
+lg: 992px,
+xl: 1300px
+);
+
+// Body (Bootstrap)
+$body-bg: theme-color('secondary');
+$body-color: $gray-800;
+
+// Type (Bootstrap)
+$headings-font-family: 'Roboto Condensed', sans-serif;
+$headings-font-weight: 600;
+$headings-color: $gray-800;
+
+$font-family-sans-serif: 'Roboto', sans-serif;
+$font-size-base: .875rem;
+$font-size-lg: 1rem;
+$font-size-sm: .750rem;
+
+$small-font-size: $font-size-sm;
+
+$h1-font-size: 1.5rem;
+$h2-font-size: 1.4rem;
+$h3-font-size: 1.3rem;
+$h4-font-size: 1.2rem;
+$h5-font-size: 1.1rem;
+$h6-font-size: 1rem;
+
+$link-color: $body-color;
+$link-hover-color: $body-color;
+
+// Table (Bootstrap)
+$table-cell-padding: .75rem;
+$table-cell-padding-sm: .45rem;
+
+// Form (Bootstrap)
+$input-bg: $gray-125;
+$input-border-color: $gray-250;
+
+$input-focus-bg: $white;
+$input-focus-border-color: $gray-300;
+
+$input-btn-focus-width: .2rem;
+$input-btn-focus-color: rgba(theme-color("secondary"), .15);
+$input-btn-focus-box-shadow: 0 0 0 $input-btn-focus-width $input-btn-focus-color;
+
+$input-disabled-bg: $gray-200;
+
+$input-color: $body-color;
+$input-placeholder-color: $gray-600;
+
+$custom-control-indicator-focus-box-shadow: 0 0 0 1px $white, 0 0 0 3px theme-color("primary");
+
+/*$custom-file-text: (
+placeholder: (
+en: 'Choose file...',
+de: 'Datei wählen...',
+fr: 'Choisir le fichier...',
+),
+button-label: (
+en: 'Browse',
+de: 'Durchsuchen',
+fr: 'Feuilleter'
+)
+);*/
+$custom-file-text: (
+en: 'Browse',
+de: 'Durchsuchen',
+fr: 'Feuilleter'
+); 
+
+// Navigation Bar (Bootstrap)
+$navbar-base-height: 3rem;
+$navbar-base-height-xs: 2.5rem;
+
+$navbar-dark-color: $white;
+$navbar-dark-hover-color: $white;
+$navbar-dark-active-color: $white;
+
+$navbar-light-color: $gray-800;
+$navbar-light-hover-color: $black;
+$navbar-light-active-color: $black;
+
+// Navigation (Bootstrap)
+$nav-link-padding-y: .75rem;
+$nav-link-padding-x: 1rem;
+
+// Navigation Tabs (Bootstrap)
+$nav-tabs-border-color: $gray-175;
+$nav-tabs-link-hover-border-color: transparent;
+$nav-tabs-link-active-color: $body-color;
+$nav-tabs-link-active-bg: $white;
+$nav-tabs-link-active-border-color: $gray-175;
+
+// Card (Bootstrap)
+$card-spacer-y: .75rem;
+$card-spacer-x: 1.25rem;
+$card-border-width: 3px;
+$card-cap-bg: $white;
+$card-bg: $white;
+$card-border-color: $gray-175;
+
+// Component (Bootstrap)
+$component-active-color: $body-color;
+$component-active-bg: $gray-150;
+
+// Dropdown (Bootstrap)
+$dropdown-border-width: 0;
+$dropdown-item-padding-x: .75rem;
+$dropdown-border-color: theme-color('primary');
+$dropdown-link-active-bg: $component-active-bg;
+$dropdown-link-active-color: $component-active-color;
+$dropdown-link-hover-bg: theme-color('primary');
+$dropdown-link-hover-color: $white;
+$dropdown-link-disabled-color: $gray-600;
+$dropdown-header-color: $gray-600;
+
+// Breadcrumb (Bootstrap)
+$breadcrumb-padding-y: 0;
+$breadcrumb-padding-x: 0;
+$breadcrumb-item-padding: .5rem ;
+$breadcrumb-bg: transparent;
+
+// Select2 (Bootstrap 4 theme)
+$s2bs-border-radius-base: $border-radius;
+$s2bs-border-radius-large: $border-radius-lg;
+$s2bs-border-radius-small: $border-radius-sm;
+
+$s2bs-choice-btn-bg: darken(theme-color('light'), 5%);
+$s2bs-choice-btn-border: $body-color;
+$s2bs-choice-btn-color: $body-color;
+
+$s2bs-caret-width-base: $caret-width;
+$s2bs-caret-width-large: $caret-width;
+$s2bs-cursor-disabled: not-allowed;
+$s2bs-dropdown-header-color: $dropdown-header-color;
+$s2bs-dropdown-link-active-bg: $dropdown-link-active-bg;
+$s2bs-dropdown-link-active-color: $dropdown-link-active-color;
+$s2bs-dropdown-link-disabled-color: $dropdown-link-disabled-color;
+$s2bs-dropdown-link-hover-bg: $dropdown-link-hover-bg;
+$s2bs-dropdown-link-hover-color: $dropdown-link-hover-color;
+$s2bs-font-size-base: $font-size-base;
+$s2bs-font-size-large: $font-size-lg;
+$s2bs-font-size-small: $font-size-sm;
+$s2bs-input-bg: $input-bg;
+$s2bs-input-bg-disabled: $input-disabled-bg;
+$s2bs-input-color: $input-color;
+$s2bs-input-color-placeholder: $input-placeholder-color;
+$s2bs-input-focus-bg: $input-focus-bg;
+$s2bs-input-focus-border-color: $input-focus-border-color;
+
+// Theme
+$content-bg: $gray-225;
+$header-bg: $gray-175;
+
+$sidenav-base-height: $navbar-base-height + 1rem;
+
+$sidenav-base-width: 16rem;
+$side-navigation-minimized-width: 4rem;
+$sidenav-bg: theme-color('secondary');
+$sidenav-content-bg: lighten($sidenav-bg, 2.5%);
+
+$sidenav-link-border-color: transparent;
+$sidenav-link-color: $white;
+$sidenav-link-bg: transparent;
+
+$sidenav-link-hover-border-color: transparent;
+$sidenav-link-hover-color: $white;
+$sidenav-link-hover-bg: darken($sidenav-bg, 1%);
+
+$sidenav-link-active-border-color: theme-color('primary');
+$sidenav-link-active-color: theme-color('primary');
+$sidenav-link-active-bg: darken($sidenav-bg, 2%);
+
+$sidenav-second-level-link-hover-border-color: transparent;
+$sidenav-second-level-link-hover-color: $white;
+$sidenav-second-level-link-hover-bg: darken($sidenav-bg, 3%);
+
+$sidenav-second-level-link-active-border-color: transparent;
+$sidenav-second-level-link-active-color: theme-color('primary');
+$sidenav-second-level-link-active-bg: darken($sidenav-bg, 4%);
