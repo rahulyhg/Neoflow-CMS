@@ -1,5 +1,4 @@
 <?php
-
 // Theme info
 return [
     'name' => 'Cloudy',

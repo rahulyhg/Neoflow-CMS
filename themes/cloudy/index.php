@@ -75,7 +75,7 @@
         </header>
 
         <div class="container">
-asd
+
             <?= $view->renderBreadcrumbs(0, 5); ?>
 
         </div>
@@ -90,7 +90,7 @@ asd
 
             <hr />
 
-            [[GoogleAnalytics?asd=123]]
+            [[GoogleAnalytics?id=123]]
 
             <ul class="list-inline">
                 <li>
