@@ -1,6 +1,7 @@
 <?php
 namespace Neoflow\CMS\Manager;
 
+use Neoflow\CMS\AppTrait;
 use Neoflow\Filesystem\Folder;
 
 abstract class AbstractUpdateManager
@@ -22,6 +23,14 @@ abstract class AbstractUpdateManager
     protected $folder;
 
     /**
+     * @var string
+     */
+    protected $versionNumber;
+    protected $versionRelease;
+    protected $newVersionNumber;
+    protected $newVersionRelease;
+
+    /**
      * Constructor.
      *
      * @param Folder $folder Update folder
@@ -31,6 +40,12 @@ abstract class AbstractUpdateManager
     {
         $this->folder = $folder;
         $this->info = $info;
+
+        $this->versionNumber = $this->settings()->version_number;
+        $this->versionRelease = $this->settings()->version_release;
+
+        $this->newVersionNumber = $this->info['version'][0];
+        $this->newVersionRelease = $this->info['version'][1];
     }
 
     /**
@@ -50,19 +65,16 @@ abstract class AbstractUpdateManager
     /**
      * Update CMS version.
      *
-     * @param string $versionNumber  Version number
-     * @param string $versionRelease Version release (e.g. dev, alpha, beta, ...)
-     *
      * @return bool
      */
-    protected function updateVersion(string $versionNumber, string $versionRelease = ''): bool
+    protected function updateVersion(): bool
     {
         return (bool) $this
                 ->settings()
                 ->setReadOnly(false)
                 ->update([
-                    'version_number' => $versionNumber,
-                    'version_release' => $versionRelease,
+                    'version_number' => $this->newVersionNumber,
+                    'version_release' => $this->newVersionRelease,
                 ])
                 ->setReadOnly(true);
     }
@@ -93,7 +105,7 @@ abstract class AbstractUpdateManager
         $filesDirectoryPath = $this->folder->getPath($this->info['files']);
         $this->updateFiles($filesDirectoryPath);
 
-        $this->updateVersion($this->info['version'][0], $this->info['version'][1]);
+        $this->updateVersion();
 
         return true;
     }

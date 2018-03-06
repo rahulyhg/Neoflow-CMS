@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
@@ -13,6 +12,7 @@ use ZipArchive;
 
 class UpdateService extends AbstractService
 {
+
     /**
      * Unpack update package.
      *
@@ -26,7 +26,7 @@ class UpdateService extends AbstractService
     protected function unpack(File $updatePackageFile, bool $delete = true): Folder
     {
         // Create temporary update folder
-        $updateFolderPath = $this->config()->getTempPath('/update_'.uniqid());
+        $updateFolderPath = $this->config()->getTempPath('/update_' . uniqid());
         $updateFolder = Folder::create($updateFolderPath);
 
         // Extract package
@@ -149,7 +149,7 @@ class UpdateService extends AbstractService
         if (isset($info['modules'])) {
             foreach ($info['modules'] as $identifier => $packageName) {
                 $module = ModuleModel::findByColumn('identifier', $identifier);
-                $file = $updateFolder->findFiles('modules/'.$packageName);
+                $file = $updateFolder->findFiles('modules/' . $packageName);
                 if ($module && $file->count()) {
                     try {
                         $module->installUpdate($file->first());
@@ -173,12 +173,12 @@ class UpdateService extends AbstractService
      *
      * @return bool
      */
-    protected function updateTheme(array $info, Folder $updateFolder): bool
+    protected function updateThemes(array $info, Folder $updateFolder): bool
     {
         if (isset($info['themes'])) {
             foreach ($info['themes'] as $identifier => $packageName) {
                 $theme = ThemeModel::findByColumn('themes', $identifier);
-                $file = $updateFolder->findFiles('themes/'.$packageName);
+                $file = $updateFolder->findFiles('themes/' . $packageName);
                 if ($theme && $file->count()) {
                     try {
                         $theme->installUpdate($file->first());
