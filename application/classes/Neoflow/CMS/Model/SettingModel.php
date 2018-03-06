@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -10,6 +9,7 @@ use RuntimeException;
 
 class SettingModel extends AbstractModel
 {
+
     /**
      * @var string
      */
@@ -34,7 +34,7 @@ class SettingModel extends AbstractModel
         'sender_emailaddress', 'session_name', 'allowed_file_extensions',
         'show_error_details', 'custom_css', 'custom_js',
         'show_custom_js', 'show_custom_css', 'timezone',
-        'version_number', 'version_release',
+        'version',
     ];
 
     /**
@@ -50,22 +50,6 @@ class SettingModel extends AbstractModel
         if ($this->app()->get('database')) {
             $this->language_ids = $this->getLanguages()->mapValue('language_id');
         }
-    }
-
-    /**
-     * Get version.
-     *
-     * @param bool $withRelease Set FALSE to get version without release
-     *
-     * @return string
-     */
-    public function getVersion(bool $withRelease = true)
-    {
-        if ($withRelease && $this->version_release) {
-            return $this->version_number.'-'.$this->version_release;
-        }
-
-        return $this->version_number;
     }
 
     /**

@@ -50,7 +50,7 @@ INSERT INTO `languages` VALUES(3, 'fr', 'French', 'fr');
 INSERT INTO `themes` VALUES(1, 'Neoflow Backend', 'neoflow-backend', 'backend', 'MIT', 'Jonathan Nessier <jonathan.nessier@neoflow.ch>', 'Official backend theme of the Neoflow CMS', 'Copyright (c) 2016-2017 Jonathan Nessier, Neoflow', '1.0', 'sequential', 'neoflow-backend');
 INSERT INTO `themes` VALUES(2, 'Cloudy', 'cloudy', 'frontend', 'MIT', 'Jonathan Nessier <jonathan.nessier@neoflow.ch>', 'Lorem ipsum', 'Copyright (c) 2016-2017 Jonathan Nessier, Neoflow', '1.0', 'grouped', 'cloudy');
 
-INSERT INTO `settings` VALUES (1,'','','','',1,1,10,1800,1,'','','jpeg,jpg,doc,docx,xls,xlsx,ppt,pptx,pdf,gif,png,bmp,psd,tiff,zip,tar,rar,txt',1,2,'',0,'',0,'UTC', '1.0.0', 'dev');
+INSERT INTO `settings` VALUES (1,'','','','',1,1,10,1800,1,'','','jpeg,jpg,doc,docx,xls,xlsx,ppt,pptx,pdf,gif,png,bmp,psd,tiff,zip,tar,rar,txt',1,2,'',0,'',0,'UTC', '1.0.0-dev');
 
 INSERT INTO `settings_languages` VALUES (1,1,1);
 INSERT INTO `settings_languages` VALUES (2,1,2);

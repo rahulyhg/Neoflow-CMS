@@ -79,20 +79,17 @@ class UpdateService extends AbstractService
      */
     protected function validateVersion(array $info)
     {
-        $versionNumber = $this->settings()->version_number;
-        $versionRelease = $this->settings()->version_release;
-
-        if ($info['version'][0] === $versionNumber && $info['version'][1] === $versionRelease) {
+        if ($info['version'] === $this->settings()->version) {
             throw new ValidationException(translate('The CMS is already up to date'));
         }
 
         foreach ($info['for'] as $supportedVersion) {
-            if ($supportedVersion[0] === $versionNumber && $supportedVersion[1] === $versionRelease) {
+            if ($supportedVersion === $this->settings()->version) {
                 return true;
             }
         }
 
-        throw new ValidationException(translate('The version ({0}) of the CMS is not supported', [$this->settings()->getVersion()]));
+        throw new ValidationException(translate('The version ({0}) of the CMS is not supported', [$this->settings()->version]));
     }
 
     /**

@@ -71,6 +71,7 @@ gulp.task('release:build', function () {
         '!' + dir + '/robots.txt',
         '!' + dir + '/sitemap.xml',
         '!' + dir + '/temp/update{,/**}',
+        '!' + dir + '/temp/media/modules/{,/**}',
         '!' + dir + '/themes/*/package*',
         '!' + dir + '/themes/*/node_modules{,/**}',
         '!' + dir + '/themes/*/src{,/**}',

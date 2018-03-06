@@ -25,10 +25,8 @@ abstract class AbstractUpdateManager
     /**
      * @var string
      */
-    protected $versionNumber;
-    protected $versionRelease;
-    protected $newVersionNumber;
-    protected $newVersionRelease;
+    protected $version;
+    protected $newVersion;
 
     /**
      * Constructor.
@@ -41,11 +39,8 @@ abstract class AbstractUpdateManager
         $this->folder = $folder;
         $this->info = $info;
 
-        $this->versionNumber = $this->settings()->version_number;
-        $this->versionRelease = $this->settings()->version_release;
-
-        $this->newVersionNumber = $this->info['version'][0];
-        $this->newVersionRelease = $this->info['version'][1];
+        $this->version = $this->settings()->version;
+        $this->newVersion = $this->info['version'];
     }
 
     /**
@@ -73,8 +68,7 @@ abstract class AbstractUpdateManager
                 ->settings()
                 ->setReadOnly(false)
                 ->update([
-                    'version_number' => $this->newVersionNumber,
-                    'version_release' => $this->newVersionRelease,
+                    'version' => $this->newVersion,
                 ])
                 ->setReadOnly(true);
     }
