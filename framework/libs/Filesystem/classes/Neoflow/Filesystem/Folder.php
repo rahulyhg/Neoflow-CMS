@@ -358,7 +358,7 @@ class Folder extends AbstractObject
      *
      * @return bool
      */
-    public static function unlink($path, $recursivly = false)
+    public static function unlink($path, $recursivly = true)
     {
         return static::load($path)->delete($recursivly);
     }
