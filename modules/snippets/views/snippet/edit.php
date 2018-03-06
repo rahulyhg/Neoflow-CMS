@@ -49,6 +49,31 @@
                         </div>
                     </div>
 
+
+                    <div class="form-group row <?= has_validation_error('vars', 'has-danger'); ?>">
+                        <label for="inputVars" class="col-sm-3 col-form-label">
+                            <?= translate('Variable', [], true); ?>
+                        </label>
+                        <div class="col-sm-9">
+                            <select class="form-control select2" data-tags="true" name="vars[]" multiple id="inputVars">
+                                <?php foreach ($snippet->getVars() as $var) {
+
+                                    ?>
+                                    <option value="<?= $var ?>" selected><?= $var; ?></option>
+                                <?php }
+
+                                ?>
+                            </select>
+
+                            <span class="form-text small text-muted">
+                                <?= translate('Argument variables for the snippet code which are added as query parameters to the placeholder (e. g.[[MySnippet? foo=1&bar=2]]).'); ?>
+                            </span>
+                        </div>
+                    </div>
+
+
+
+
                     <div class="form-group row <?= has_validation_error('code', 'has-error'); ?>">
                         <label for="textareaCode" class="col-sm-3 control-label">
                             <?= translate('Code'); ?>
@@ -57,14 +82,16 @@
                             <?= Neoflow\CMS\App::instance()->getService('code')->renderEditor('code', 'textareaCode', $snippet->code); ?>
                             <span class="help-block <?= ($codeStatus ? 'text-success' : 'text-danger'); ?>">
                                 <?php if ($codeStatus) {
-    ?>
+
+                                    ?>
                                     <i class="fa fa-fw fa-check"></i>
                                     <?php
-} else {
-        ?>
+                                } else {
+
+                                    ?>
                                     <i class="fa fa-fw fa-times"></i>
-                                <?php
-    }
+                                    <?php
+                                }
 
                                 ?>
                                 <?= htmlentities($codeStatusMessage); ?>

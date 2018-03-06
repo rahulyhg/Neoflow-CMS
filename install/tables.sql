@@ -77,6 +77,7 @@ CREATE TABLE IF NOT EXISTS `mod_snippets` (
   `code` text COLLATE utf8_bin NOT NULL,
   `placeholder` varchar(100) COLLATE utf8_bin NOT NULL,
   `description` text COLLATE utf8_bin DEFAULT NULL,
+  `vars` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`snippet_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 

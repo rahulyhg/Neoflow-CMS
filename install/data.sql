@@ -50,7 +50,7 @@ INSERT INTO `languages` VALUES(3, 'fr', 'French', 'fr');
 INSERT INTO `themes` VALUES(1, 'Neoflow Backend', 'neoflow-backend', 'backend', 'MIT', 'Jonathan Nessier <jonathan.nessier@neoflow.ch>', 'Official backend theme of the Neoflow CMS', 'Copyright (c) 2016-2017 Jonathan Nessier, Neoflow', '1.0', 'sequential', 'neoflow-backend');
 INSERT INTO `themes` VALUES(2, 'Cloudy', 'cloudy', 'frontend', 'MIT', 'Jonathan Nessier <jonathan.nessier@neoflow.ch>', 'Lorem ipsum', 'Copyright (c) 2016-2017 Jonathan Nessier, Neoflow', '1.0', 'grouped', 'cloudy');
 
-INSERT INTO `settings` VALUES (1,'','','','',1,1,10,1800,1,'','','jpeg,jpg,doc,docx,xls,xlsx,ppt,pptx,pdf,gif,png,bmp,psd,tiff,zip,tar,rar,txt',1,2,'',0,'',0,'UTC', '1.0.0-dev');
+INSERT INTO `settings` VALUES (1,'','','','',1,1,10,1800,1,'','','jpeg,jpg,doc,docx,xls,xlsx,ppt,pptx,pdf,gif,png,bmp,psd,tiff,zip,tar,rar,txt',1,2,'',0,'',0,'UTC', '1.0.0-alpha1');
 
 INSERT INTO `settings_languages` VALUES (1,1,1);
 INSERT INTO `settings_languages` VALUES (2,1,2);
@@ -58,8 +58,7 @@ INSERT INTO `settings_languages` VALUES (3,1,3);
 
 INSERT INTO `mod_sitemap_settings` VALUES(1, 'monthly', '1', 72, 1);
 
-INSERT INTO `mod_snippets` VALUES(1, 'Dummy', 'return \'8988\';', 'dummy', 'Dummy snippet....');
-INSERT INTO `mod_snippets` VALUES(2, 'Google Analytics', 'return \'this is google analytics\';', 'GoogleAnalytics', 'Platziert den JavaScript Code für Google Analytics. this is google analytics');
-INSERT INTO `mod_snippets` VALUES(3, '456345', '', '89089', '');
+INSERT INTO `mod_snippets` VALUES(1, 'Dummy', 'return \'Just a snippet\';', 'dummy', 'Dummy snippet....', '');
+INSERT INTO `mod_snippets` VALUES(2, 'Google Analytics', 'return \'<script>\r\n	(function (i, s, o, g, r, a, m) {\r\n		i[\"GoogleAnalyticsObject\"] = r;\r\n		i[r] = i[r] || function () {\r\n			(i[r].q = i[r].q || []).push(arguments)\r\n		}, i[r].l = 1 * new Date();\r\n		a = s.createElement(o),\r\n				m = s.getElementsByTagName(o)[0];\r\n		a.async = 1;\r\n		a.src = g;\r\n		m.parentNode.insertBefore(a, m);\r\n	})(window, document, \"script\", \"https://www.google-analytics.com/analytics.js\", \"ga\");\r\n\r\n	ga(\"create\", \"\' . $id . \'\", \"auto\");\r\n	ga(\"send\", \"pageview\");\r\n</script>\';', 'GoogleAnalytics', 'Platziert den JavaScript Code für Google Analytics. this is google analytics', 'id');
 
 COMMIT;

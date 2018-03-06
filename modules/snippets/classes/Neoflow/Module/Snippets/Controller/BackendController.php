@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Module\Snippets\Controller;
 
 use Neoflow\CMS\Controller\Backend\AbstractToolModuleController;
@@ -12,6 +11,7 @@ use RuntimeException;
 
 class BackendController extends AbstractToolModuleController
 {
+
     public function __construct(BackendView $view = null, array $args = array())
     {
         parent::__construct($view, $args);
@@ -111,7 +111,7 @@ class BackendController extends AbstractToolModuleController
             ]);
         }
 
-        throw new RuntimeException('Code snippet not found (ID: '.$this->args['id'].')');
+        throw new RuntimeException('Code snippet not found (ID: ' . $this->args['id'] . ')');
     }
 
     /**
@@ -133,13 +133,14 @@ class BackendController extends AbstractToolModuleController
                     'description' => $postData->get('description'),
                     'placeholder' => $postData->get('placeholder'),
                     'code' => $postData->get('code'),
+                    'vars' => $postData->get('vars') ? implode(',', $postData->get('vars')) : '',
                     ), $postData->get('snippet_id'));
 
             // Validate and save snippet
             if ($snippet && $snippet->validate() && $snippet->save()) {
                 $this->view->setSuccessAlert(translate('Successfully updated'));
             } else {
-                throw new RuntimeException('Updating snippet failed (ID: '.$postData->get('snippet_id').')');
+                throw new RuntimeException('Updating snippet failed (ID: ' . $postData->get('snippet_id') . ')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
@@ -164,6 +165,6 @@ class BackendController extends AbstractToolModuleController
 
             return $this->redirectToRoute('tmod_snippets_backend_index');
         }
-        throw new RuntimeException('Deleting snippet failed (ID: '.$this->args['id'].')');
+        throw new RuntimeException('Deleting snippet failed (ID: ' . $this->args['id'] . ')');
     }
 }
