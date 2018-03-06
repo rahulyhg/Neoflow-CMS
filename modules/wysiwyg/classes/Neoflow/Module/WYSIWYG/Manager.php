@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Module\WYSIWYG;
 
 use Neoflow\CMS\Model\SectionModel;
@@ -8,6 +7,7 @@ use Neoflow\Filesystem\Folder;
 
 class Manager extends AbstractPageModuleManager
 {
+
     /**
      * Add WYSWYG module to section.
      *
@@ -17,8 +17,10 @@ class Manager extends AbstractPageModuleManager
      */
     public function add(SectionModel $section): bool
     {
-        $mediaPath = $this->config()->getMediaPath('/modules/wysiwyg/section-'.$section->id());
-        Folder::create($mediaPath);
+        $mediaPath = $this->config()->getMediaPath('/modules/wysiwyg/section-' . $section->id());
+        if (!is_dir($mediaPath)) {
+            Folder::create($mediaPath);
+        }
 
         return (bool) Model::create(array(
                 'section_id' => $section->id(),
@@ -35,8 +37,10 @@ class Manager extends AbstractPageModuleManager
      */
     public function remove(SectionModel $section): bool
     {
-        $mediaPath = $this->config()->getMediaPath('/modules/wysiwyg/section-'.$section->id());
-        Folder::unlink($mediaPath);
+        $mediaPath = $this->config()->getMediaPath('/modules/wysiwyg/section-' . $section->id());
+        if (is_dir($mediaPath)) {
+            Folder::unlink($mediaPath);
+        }
 
         return (bool) Model::deleteAllByColumn('section_id', $section->id());
     }
