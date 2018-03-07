@@ -23,30 +23,44 @@
                 </thead>
                 <tbody>
                     <?php foreach ($roles as $role) {
-    ?>
+
+                        ?>
                         <tr>
                             <td>
-                                <a href="<?= generate_url('backend_role_edit', array('id' => $role->id())); ?>" title="<?= translate('Edit role'); ?>">
-                                    <?= $role->title; ?>
-                                </a>
+                                <?php
+                                if (1 === $role->id()) {
+                                    echo $role->title;
+                                } else {
+
+                                    ?>
+                                    <a href="<?= generate_url('backend_role_edit', array('id' => $role->id())); ?>" title="<?= translate('Edit role'); ?>">
+                                        <?= $role->title; ?>
+                                    </a>
+                                <?php } ?>
                             </td>
                             <td><?= nl2br($role->description); ?></td>
-                            <td><?= $role->permissions()->fetchAll()->implodeValue('title', ', '); ?></td>
+                            <td><?php
+                                echo $role->permissions()->fetchAll()->implode(function($role) {
+                                    return translate($role->title);
+                                }, ', ');
+
+                                ?></td>
                             </td>
                             <td class="text-right nowrap">
-                                <a href="<?= generate_url('backend_role_edit', array('id' => $role->id())); ?>" class="btn btn-outline-light btn-sm btn-icon-left d-none d-xl-inline-block" title="<?= translate('Edit role'); ?>">
+                                <a href="<?= generate_url('backend_role_edit', array('id' => $role->id())); ?>" class="btn btn-outline-light btn-sm btn-icon-left d-none d-xl-inline-block <?= (1 === $role->id() ? 'disabled' : ''); ?>" title="<?= translate('Edit role'); ?>">
                                     <span class="btn-icon">
                                         <i class="fa fa-pencil-alt"></i>
                                     </span>
                                     <?= translate('Edit'); ?>
                                 </a>
-                                <a href="<?= generate_url('backend_role_delete', array('id' => $role->id())); ?>" class="btn btn-primary btn-sm confirm-modal" data-message="<?= translate('Are you sure you want to delete it?'); ?>" title="<?= translate('Delete role'); ?>">
+                                <a href="<?= generate_url('backend_role_delete', array('id' => $role->id())); ?>" class="btn btn-primary btn-sm confirm-modal <?= (1 === $role->id() ? 'disabled' : ''); ?>" data-message="<?= translate('Are you sure you want to delete it?'); ?>" title="<?= translate('Delete role'); ?>">
                                     <i class="fa fa-fw fa-trash-alt"></i>
                                 </a>
                             </td>
                         </tr>
-                    <?php
-} ?>
+                    <?php }
+
+                    ?>
                 </tbody>
             </table>
 
@@ -87,6 +101,7 @@
                             <select required multiple class="form-control select2" name="permission_ids[]" id="selectPermissions" data-placeholder="">
                                 <?php
                                 foreach ($permissions as $permission) {
+
                                     ?>
                                     <option value="<?= $permission->id(); ?>" data-description="<?= translate($permission->description); ?>" ><?= translate($permission->title, [], true); ?></option>
                                     <?php
