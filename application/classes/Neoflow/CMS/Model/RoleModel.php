@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -9,6 +8,7 @@ use Neoflow\Validation\ValidationException;
 
 class RoleModel extends AbstractModel
 {
+
     /**
      * @var string
      */
@@ -79,10 +79,6 @@ class RoleModel extends AbstractModel
         $validator
             ->maxLength(150)
             ->set('description', 'Description');
-
-        $validator
-            ->required()
-            ->set('role_id', 'Role');
 
         return $validator->validate();
     }
