@@ -57,11 +57,9 @@
                         <div class="col-sm-9">
                             <select class="form-control select2" data-tags="true" name="parameters[]" multiple id="inputParameters">
                                 <?php foreach ($snippet->getParameters() as $parameter) {
-
                                     ?>
                                     <option value="<?= $parameter ?>" selected><?= $parameter ?></option>
                                 <?php }
-
                                 ?>
                             </select>
                         </div>
@@ -78,17 +76,14 @@
                             <?= Neoflow\CMS\App::instance()->getService('code')->renderEditor('code', 'textareaCode', $snippet->code); ?>
                             <span class="help-block <?= ($codeStatus ? 'text-success' : 'text-danger'); ?>">
                                 <?php if ($codeStatus) {
-
                                     ?>
                                     <i class="fa fa-fw fa-check"></i>
                                     <?php
                                 } else {
-
                                     ?>
                                     <i class="fa fa-fw fa-times"></i>
                                     <?php
                                 }
-
                                 ?>
                                 <?= htmlentities($codeStatusMessage); ?>
                             </span>
@@ -116,26 +111,24 @@
     <div class="col-xl-5">
         <div class="card">
             <h4 class="card-header">
-                <?= translate('Manual'); ?>
+                <?= translate('Usage'); ?>
             </h4>
             <div class="card-body">
-
                 <p>
-                    Verwende das nachfolgende Platzhalter-Beispiel um das Snippet in deinem Template zu platzieren.
+                    <?= translate('To execute the snippet and display the result, the placeholder must be added to the template.') ?>
                 </p>
 
-                <p><strong>Ohne Parameter</strong></p>
+                <p>
+                    <code>
+                        <?= str_replace(['[', ']'], ['&#91;', '&#93;'], $snippet->getPlaceholder(true)) ?>
+                    </code>
+                </p>
 
-                <code>
-                    <?= htmlspecialchars($snippet->getPlaceholder(false)) ?>
-                </code>
-
-
-                <p><strong>Mit Parameter</strong></p>
-
-                <code>
-                    <?= htmlspecialchars($snippet->getPlaceholder(true)) ?>
-                </code>
+                <?php if ($snippet->parameters) { ?>
+                    <p>
+                        <?= translate('Depending on the snippets, the parameters of the placeholder must also be customized.') ?>
+                    </p>
+                <?php } ?>
             </div>
         </div>
     </div>
