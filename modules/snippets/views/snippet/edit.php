@@ -50,24 +50,20 @@
                     </div>
 
 
-                    <div class="form-group row <?= has_validation_error('vars', 'has-danger'); ?>">
-                        <label for="inputVars" class="col-sm-3 col-form-label">
-                            <?= translate('Variable', [], true); ?>
+                    <div class="form-group row <?= has_validation_error('params', 'has-danger'); ?>">
+                        <label for="inputParameters" class="col-sm-3 col-form-label">
+                            <?= translate('Parameter', [], true); ?>
                         </label>
                         <div class="col-sm-9">
-                            <select class="form-control select2" data-tags="true" name="vars[]" multiple id="inputVars">
-                                <?php foreach ($snippet->getVars() as $var) {
+                            <select class="form-control select2" data-tags="true" name="parameters[]" multiple id="inputParameters">
+                                <?php foreach ($snippet->getParameters() as $parameter) {
 
                                     ?>
-                                    <option value="<?= $var ?>" selected><?= $var; ?></option>
+                                    <option value="<?= $parameter ?>" selected><?= $parameter ?></option>
                                 <?php }
 
                                 ?>
                             </select>
-
-                            <span class="form-text small text-muted">
-                                <?= translate('Argument variables for the snippet code which are added as query parameters to the placeholder (e. g.[[MySnippet? foo=1&bar=2]]).'); ?>
-                            </span>
                         </div>
                     </div>
 
@@ -116,4 +112,32 @@
         </div>
 
     </div>
+
+    <div class="col-xl-5">
+        <div class="card">
+            <h4 class="card-header">
+                <?= translate('Manual'); ?>
+            </h4>
+            <div class="card-body">
+
+                <p>
+                    Verwende das nachfolgende Platzhalter-Beispiel um das Snippet in deinem Template zu platzieren.
+                </p>
+
+                <p><strong>Ohne Parameter</strong></p>
+
+                <code>
+                    <?= htmlspecialchars($snippet->getPlaceholder(false)) ?>
+                </code>
+
+
+                <p><strong>Mit Parameter</strong></p>
+
+                <code>
+                    <?= htmlspecialchars($snippet->getPlaceholder(true)) ?>
+                </code>
+            </div>
+        </div>
+    </div>
+
 </div>

@@ -50,6 +50,7 @@ class BackendController extends AbstractToolModuleController
                     'title' => $postData->get('title'),
                     'description' => $postData->get('description'),
                     'placeholder' => $postData->get('placeholder'),
+                    'parameters' => $postData->get('parameters') ? implode(',', $postData->get('parameters')) : '',
                     'code' => '',
             ));
 
@@ -133,7 +134,7 @@ class BackendController extends AbstractToolModuleController
                     'description' => $postData->get('description'),
                     'placeholder' => $postData->get('placeholder'),
                     'code' => $postData->get('code'),
-                    'vars' => $postData->get('vars') ? implode(',', $postData->get('vars')) : '',
+                    'parameters' => $postData->get('parameters') ? implode(',', $postData->get('parameters')) : '',
                     ), $postData->get('snippet_id'));
 
             // Validate and save snippet

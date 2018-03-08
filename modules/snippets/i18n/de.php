@@ -11,6 +11,5 @@ $this->addTranslation([
     'Snippet code is invalid: "{0}"' => 'Snippet-Code ist ungültig: "{0}"',
     'Code is invalid' => 'Code ist ungültig',
     'Code is valid' => 'Code ist gültig',
-    'Variable' => 'Variable|Variablen',
-    'Argument variables for the snippet code which are added as query parameters to the placeholder (e. g.[[MySnippet? foo=1&bar=2]]).' => 'Variablen der Argumente für den Snippet-Code, die als Query-Parameter dem Platzhalter hinzugefügt werden (zB. [[MySnippet?foo=1&bar=2]]).'
+    'Manual' => 'Anleitung',
 ]);
