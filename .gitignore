@@ -11,8 +11,9 @@ config.php
 !installation/config.php
 robots.txt
 sitemap.xml
+!media/modules/.gitkeep
+!media/modules/wysiwyg/.gitkeep
 media/modules/wysiwyg/section-*
-!media/modules/wysiwyg/section-*/.gitkeep
 media/public/*
 !media/public/.gitkeep
 temp/update/install
