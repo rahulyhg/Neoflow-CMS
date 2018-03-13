@@ -11,6 +11,7 @@ use Neoflow\Framework\App as FrameworkApp;
 use Neoflow\Framework\Handler\Engine;
 use Neoflow\Framework\Handler\Loader;
 use Neoflow\Framework\Handler\Logging\Logger;
+use Neoflow\Framework\HTTP\Exception\HttpException;
 use Neoflow\Framework\HTTP\Request;
 use Neoflow\Framework\ORM\EntityCollection;
 use Neoflow\Framework\Persistence\Database;
@@ -172,8 +173,15 @@ class App extends FrameworkApp
             $this->get('router')
                 ->routeByKey('error_index', ['exception' => $ex])
                 ->send();
-            $this->get('logger')
-                ->logException($ex);
+
+            if ($ex instanceof HttpException) {
+                $context = [
+                    'url' => function_exists('request_url') ? request_url() : 'Unknown',
+                ];
+                $this->get('logger')->warning($ex->getMessage(), $context);
+            } else {
+                $this->get('logger')->logException($ex);
+            }
             exit;
         } catch (Throwable $e) {
             parent::exceptionHandler($ex);

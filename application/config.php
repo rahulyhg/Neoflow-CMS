@@ -11,7 +11,8 @@ return [
     'logger' => [
         'extension' => 'txt', // txt | log | ... | false (no extension)
         'prefix' => 'log_', // log_ | ... | false (no prefix)
-        'level' => 'debug', // error | warning | info | debug | false (disabled)
+        'level' => 'warning', // error | warning | info | debug | false (disabled)
+        'stackTrace' => true, // ture | false
     ],
     'translator' => [
         'notFoundPrefix' => 'NOT_FOUND:',

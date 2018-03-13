@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Controller\Frontend;
 
 use Exception;
@@ -14,6 +13,7 @@ use Throwable;
 
 class ErrorController extends FrontendController
 {
+
     /**
      * @var Throwable
      */
