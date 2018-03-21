@@ -218,7 +218,6 @@ class Logger
                 if (false === fwrite($this->fileHandle, $message)) {
                     throw new RuntimeException('Log file "' . $this->logfilePath . '" is not writeable');
                 } else {
-                    $this->lastLine = trim($message);
                     ++$this->logLineCount;
                 }
             }
@@ -246,16 +245,6 @@ class Logger
     public function getLogfileDirectory()
     {
         return $this->logfileDirectory;
-    }
-
-    /**
-     * Get the last line logged to the log file.
-     *
-     * @return string
-     */
-    public function getLastLogLine()
-    {
-        return $this->lastLine;
     }
 
     /**
@@ -304,18 +293,9 @@ class Logger
     {
         $export = '';
         foreach ($context as $key => $value) {
-            $export .= "{$key}: ";
-            $export .= preg_replace(array(
-                '/=>\s+([a-zA-Z])/im',
-                '/array\(\s+\)/im',
-                '/^  |\G  /m',
-                ), array(
-                '=> $1',
-                '[]',
-                '    ',
-                ), str_replace('array (', 'array(', print_r($value, true)));
-            $export .= PHP_EOL;
+            $export .= $key . ': ' . stripslashes(json_encode($value, JSON_PRETTY_PRINT)) . PHP_EOL;
         }
+
 
         return str_replace(array('\\\\', '\\\''), array('\\', '\''), rtrim($export));
     }
