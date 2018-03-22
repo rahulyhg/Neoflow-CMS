@@ -296,7 +296,6 @@ class Logger
             $export .= $key . ': ' . stripslashes(json_encode($value, JSON_PRETTY_PRINT)) . PHP_EOL;
         }
 
-
         return str_replace(array('\\\\', '\\\''), array('\\', '\''), rtrim($export));
     }
 
