@@ -8,12 +8,12 @@
         <div class="card">
 
             <h4 class="card-header">
-                1) <?= translate('Install database'); ?>
+                1) <?= translate('Create database'); ?>
             </h4>
             <div class="card-body">
 
 
-                <form class="form-horizontal" method="post" action="<?= generate_url('install_database_install'); ?>">
+                <form class="form-horizontal" method="post" action="<?= generate_url('install_database_create'); ?>">
 
                     <input type="hidden" value="<?= $url; ?>" name="url" />
 

@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework;
 
 use ErrorException;
@@ -22,9 +21,11 @@ use Neoflow\Framework\Persistence\Caching\FileCache;
 use Neoflow\Framework\Persistence\Database;
 use OutOfRangeException;
 use Throwable;
+use function get_exception_trace;
 
 class App extends Container
 {
+
     /**
      * @var App
      */
@@ -165,7 +166,7 @@ class App extends Container
      */
     public function registerService(AbstractService $service, string $name = ''): self
     {
-        if (defined($service->getReflection()->getName().'::NAME')) {
+        if (defined($service->getReflection()->getName() . '::NAME')) {
             $name = $service->getReflection()->getName()::NAME;
         } elseif (0 === mb_strlen($name)) {
             $name = str_replace('service', '', strtolower($service->getReflection()->getShortName()));
@@ -190,7 +191,7 @@ class App extends Container
         if ($this->hasService($name)) {
             return $this->get('services')->get($name);
         }
-        throw new OutOfRangeException('Service "'.$name.'" not found');
+        throw new OutOfRangeException('Service "' . $name . '" not found');
     }
 
     /**

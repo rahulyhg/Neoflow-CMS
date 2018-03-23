@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Controller\Install;
 
 use Neoflow\CMS\Controller\InstallController;
@@ -8,9 +7,11 @@ use Neoflow\CMS\Model\SettingModel;
 use Neoflow\Framework\HTTP\Responsing\Response;
 use Neoflow\Validation\ValidationException;
 use Throwable;
+use function translate;
 
 class WebsiteController extends InstallController
 {
+
     /**
      * Index action.
      *
@@ -78,7 +79,7 @@ class WebsiteController extends InstallController
     public function preHook(): Response
     {
         // Redirect to the next installer step
-        if ($this->settings()->website_title) {
+        if ($this->getService('install')->settingStatus()) {
             return $this->redirectToRoute('install_administrator_index');
         }
 

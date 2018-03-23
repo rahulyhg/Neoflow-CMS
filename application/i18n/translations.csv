@@ -240,7 +240,7 @@ Information;Information;Information|Informationen
 Information file ({0}) is invalid;Information file ({0}) is invalid;Informationsdatei ({0}) ist ungültig
 Information file ({0}) not found;Information file ({0}) not found;Informationsdatei ({0}) nicht gefunden
 Install;Install;Installieren
-Install database;Install database;Datenbank installieren
+Create database;Create database;Datenbank erstellen
 Install failed;Install failed;Installation fehlgeschlagen
 Install module;Install module;Modul installieren
 Install module failed;Install module failed;Modul installieren fehlgeschlagen

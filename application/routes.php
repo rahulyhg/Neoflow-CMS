@@ -1,5 +1,4 @@
 <?php
-
 return [
 // Backend routes
     [
@@ -237,11 +236,11 @@ return [
         'routes' => [
             ['index', 'get', '/install', 'Install@index'],
             ['database_index', 'get', '/install/database', 'Install\\Database@index'],
-            ['database_install', 'post', '/install/database/install', 'Install\\Database@install'],
+            ['database_create', 'post', '/install/database/create', 'Install\\Database@create'],
             ['website_index', 'get', '/install/website', 'Install\\Website@index'],
             ['website_create', 'post', '/install/website/create', 'Install\\Website@create'],
             ['administrator_index', 'get', '/install/administrator', 'Install\\Administrator@index'],
-            ['administrator_create', 'post', '/install/administrator/create', 'Install\\Administrator@Create'],
+            ['administrator_create', 'post', '/install/administrator/create', 'Install\\Administrator@create'],
             ['success', 'get', '/install/success', 'Install@success'],
         ],
         'namespace' => '\\Neoflow\\CMS\\Controller\\',

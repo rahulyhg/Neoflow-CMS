@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
@@ -10,6 +9,7 @@ use RuntimeException;
 
 class AuthService extends AbstractService
 {
+
     /**
      * Authenticate and authorize user by email address and password.
      *
@@ -144,10 +144,9 @@ class AuthService extends AbstractService
             } else {
                 throw new AuthException(translate('Too much login attempts than allowed. Your user account is locked.'));
             }
-            //if ($user->id() !== 1) {
+
             $user->failed_logins += 1;
             $user->save(true);
-            //}
 
             throw new AuthException(translate('Login failed. You have {0} login attempts until your user account get locked.', [$this->settings()->login_attempts - $user->failed_logins]));
         }

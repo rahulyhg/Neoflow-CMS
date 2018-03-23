@@ -2,10 +2,10 @@
 namespace Neoflow\CMS\Handler;
 
 use Neoflow\CMS\AppTrait;
+use Neoflow\CMS\Model\UserModel;
 use Neoflow\Framework\Handler\Router as FrameworkRouter;
 use Neoflow\Framework\HTTP\Responsing\RedirectResponse;
 use Neoflow\Framework\HTTP\Responsing\Response;
-use Throwable;
 
 class Router extends FrameworkRouter
 {
@@ -21,10 +21,10 @@ class Router extends FrameworkRouter
     public function __construct()
     {
         if ($this->cache()->exists('routes')) {
-// Fetch routes from cache
+            // Fetch routes from cache
             $this->routes = $this->cache()->fetch('routes');
         } else {
-// Load route file of each module
+            // Load route file of each module
             if ($this->app()->exists('modules')) {
                 $modules = $this->app()->get('modules');
                 foreach ($modules as $module) {
@@ -75,9 +75,19 @@ class Router extends FrameworkRouter
     {
         $urlPath = $this->request()->getUrlPath();
 
-        if (!$this->app()->get('database') && !ends_with($urlPath, '/install')) {
-            $url = $this->generateUrl('install_index');
+        $installUrlPaths = [
+            '/install',
+            '/install/database',
+            '/install/database/create',
+            '/install/website',
+            '/install/website/create',
+            '/install/administrator',
+            '/install/administrator/create',
+            '/install/success',
+        ];
 
+        if (!$this->getService('install')->databaseStatus() && !in_array($urlPath, $installUrlPaths)) {
+            $url = $this->generateUrl('install_index');
             return new RedirectResponse($url);
         }
 

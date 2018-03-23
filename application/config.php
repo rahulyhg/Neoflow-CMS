@@ -1,7 +1,7 @@
 <?php
 return [
     'path' => ROOT_DIR,
-    'cache' => false, // true (auto detection) | apc | apcu | file | false (disabled)
+    'cache' => true, // true (auto detection) | apc | apcu | file | false (disabled)
     'orm' => [
         'caching' => true, // true | false
     ],
@@ -28,6 +28,7 @@ return [
         '\\Neoflow\\CMS\\Service\\UploadService',
         '\\Neoflow\\CMS\\Service\\FilesystemService',
         '\\Neoflow\\CMS\\Service\\ValidationService',
+        '\\Neoflow\\CMS\\Service\\InstallService'
     ],
     'languages' => [// First language is default language
         'en', 'de', 'fr',

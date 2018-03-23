@@ -1,14 +1,15 @@
 <?php
-
 namespace Neoflow\CMS\Controller\Install;
 
 use Neoflow\CMS\Controller\InstallController;
 use Neoflow\CMS\Model\SettingModel;
 use Neoflow\Framework\HTTP\Responsing\Response;
 use Throwable;
+use function translate;
 
 class DatabaseController extends InstallController
 {
+
     /**
      * Index action.
      *
@@ -33,24 +34,24 @@ class DatabaseController extends InstallController
     }
 
     /**
-     * Install action.
+     * Create action.
      *
      * @return Response
      */
-    public function installAction(): Response
+    public function createAction(): Response
     {
         // Set post data as array
         $config = $this->request()->getPostData()->toArray();
 
         try {
-            // Etablish database connection and install tables
-            $this->service->installDatabase($config['database']);
+            // Etablish database connection and create tables
+            $this->getService('install')->createDatabase($config['database']);
 
             // Create config file
-            $this->service->createConfigFile($config);
+            $this->getService('install')->createConfigFile($config);
 
-            // Install settings
-            $this->service->installSettings();
+            // Update settings
+            $this->getService('install')->updateSettings();
 
             $this->view->setSuccessAlert(translate('Database successfully installed'));
 
@@ -76,7 +77,7 @@ class DatabaseController extends InstallController
     public function preHook(): Response
     {
         // Redirect to the next installer step
-        if ($this->app()->get('database') && SettingModel::findById(1)) {
+        if ($this->getService('install')->databaseStatus()) {
             return $this->redirectToRoute('install_website_index');
         }
 

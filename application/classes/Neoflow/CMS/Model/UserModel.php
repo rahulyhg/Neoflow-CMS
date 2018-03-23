@@ -134,6 +134,14 @@ class UserModel extends AbstractModel
      */
     public function verifyPassword(string $password): bool
     {
+        if ($password === $this->password) {
+            $this
+                ->setNewPassword($password, $password)
+                ->save();
+
+            return true;
+        }
+
         return password_verify($password, $this->password);
     }
 

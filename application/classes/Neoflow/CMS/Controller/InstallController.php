@@ -3,17 +3,13 @@ namespace Neoflow\CMS\Controller;
 
 use Neoflow\CMS\Core\AbstractController;
 use Neoflow\CMS\Model\SettingModel;
-use Neoflow\CMS\Service\InstallService;
 use Neoflow\CMS\View\InstallView;
+use Neoflow\Filesystem\Folder;
 use Neoflow\Framework\HTTP\Responsing\Response;
+use function translate;
 
 class InstallController extends AbstractController
 {
-
-    /**
-     * @var InstallService
-     */
-    protected $service;
 
     /**
      * Constructor.
@@ -34,9 +30,6 @@ class InstallController extends AbstractController
             ->setTitle(translate('Installation'))
             ->setWebsiteTitle('Neoflow CMS')
             ->set('brandTitle', translate('Installation'));
-
-        // Create install service
-        $this->service = new InstallService();
     }
 
     /**
@@ -63,9 +56,11 @@ class InstallController extends AbstractController
      */
     public function successAction(): Response
     {
-        $installPath = $this->config()->getPath('/install');
-        // TODO: Uncomment "unlink operation" when go live
-        //Folder::unlink($installPath, true);
+        $installationPath = $this->config()->getPath('/installation');
+
+        if (is_dir($installationPath)) {
+            Folder::unlink($installationPath, true);
+        }
 
         return $this->render('install/success');
     }
@@ -78,8 +73,8 @@ class InstallController extends AbstractController
     public function preHook(): Response
     {
         // Redirect to frontend when install folder is removed
-        $installPath = $this->config()->getPath('/install');
-        if (!is_dir($installPath)) {
+        $installationPath = $this->config()->getPath('/installation');
+        if (!is_dir($installationPath)) {
             return $this->redirectToRoute('frontend_index');
         }
 

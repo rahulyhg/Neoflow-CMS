@@ -18,7 +18,7 @@ class Manager extends AbstractModuleManager
     }
 
     /**
-     * Unintall CodeMirror module.
+     * Uninstall CodeMirror module.
      *
      * @return bool
      */

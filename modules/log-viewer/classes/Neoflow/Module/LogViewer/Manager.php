@@ -18,7 +18,7 @@ class Manager extends AbstractModuleManager
     }
 
     /**
-     * Unintall Log Viewer module.
+     * Uninstall Log Viewer module.
      *
      * @return bool
      */

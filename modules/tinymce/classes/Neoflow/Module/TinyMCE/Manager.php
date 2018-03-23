@@ -17,7 +17,7 @@ class Manager extends AbstractModuleManager
     }
 
     /**
-     * Unintall TinyMCE module.
+     * Uninstall TinyMCE module.
      *
      * @return bool
      */
