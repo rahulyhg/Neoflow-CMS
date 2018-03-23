@@ -41,7 +41,7 @@ Additional backend functions;Additional backend functions;Zusätzliche, administ
 Administration;Administration;Administration
 Administrator successfully created;Administrator successfully created;Administrator erfolgreich erstellt
 Advanced settings;Advanced settings;Erweiterterte Einstellungen
-Advanced settings description;Advanced settings (e.g. database connection or log level) can be configured in the config file, which is only editable with a text-editor.;Erweiterte Einstellungen (z.B. Datenbankverbindung oder der Log-Level) können in der Konfigurationsdatei konfiguriert werden, die aber nur mit einem Texteditor bearbeitet werden kann.
+Advanced settings description;Advanced settings (e.g. database connection or log level) can be configured in config files, which can only be edited with a text editor.;Erweiterte Einstellungen (z.B. Datenbankverbindung oder der Log-Level) können in der Konfigurationsdateien konfiguriert werden, die aber nur mit einem Texteditor bearbeitet werden können.
 All;All;Alle
 All blocks;All blocks;Alle Blöcke
 All cached data;All cached data;Alle zwischengespeicherten Daten
@@ -354,7 +354,7 @@ Password reset email message;<p>Hi {0}!</p><p>Forgot your password? No problem.<
 Password reset email subject;Create new password;Neues Passwort erstellen
 Password successfully updated;Password successfully updated;Passwort erfolgreich aktualisiert
 Path;Path|Paths;Pfad|Pfade
-Path of the config file;Path of the config file;Pfad der Konfigurationsdatei
+Path of the config files;Path of the config files;Pfad der Konfigurationsdateien
 Permission;Permission|Permissions;Berechtigung|Berechtigungen
 PHP error level;PHP error level;PHP Error-Level
 Placeholder;Placeholder|Placeholders;Platzhalter

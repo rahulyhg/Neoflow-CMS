@@ -59,12 +59,10 @@
                         <div class="col-sm-9">
                             <select class="form-control select2" name="default_language_id" id="selectDefaultLanguage">
                                 <?php foreach ($languages as $language) {
-
                                     ?>
                                     <option value="<?= $language->id(); ?>"  <?= ($language->id() == $setting->default_language_id ? 'selected' : ''); ?>><?= translate($language->title); ?></option>
                                     <?php
                                 }
-
                                 ?>
                             </select>
                         </div>
@@ -77,11 +75,9 @@
                         <div class="col-sm-9">
                             <select class="form-control select2" name="language_ids[]" multiple id="selectLanguages">
                                 <?php foreach ($languages as $language) {
-
                                     ?>
                                     <option value="<?= $language->id(); ?>"  <?= (in_array($language->id(), $setting->language_ids) ? 'selected' : ''); ?>><?= translate($language->title); ?></option>
                                 <?php }
-
                                 ?>
                             </select>
                         </div>
@@ -94,19 +90,15 @@
                         <div class="col-sm-9">
                             <select class="form-control select2" name="timezone" id="selectTimezone" data-minimumResultsForSearch="1">
                                 <?php foreach (get_timezones() as $region => $timezones) {
-
                                     ?>
                                     <optgroup label="<?= $region; ?>">
                                         <?php foreach ($timezones as $timezone => $title) {
-
                                             ?>
                                             <option value="<?= $timezone; ?>" <?= ($setting->timezone === $timezone ? 'selected' : ''); ?>><?= $title; ?></option>
                                         <?php }
-
                                         ?>
                                     </optgroup>
                                 <?php }
-
                                 ?>
                             </select>
                         </div>
@@ -122,11 +114,9 @@
                         <div class="col-sm-9">
                             <select class="form-control select2" data-tags="true" name="allowed_file_extensions[]" multiple id="inputAllowedFileExtensions">
                                 <?php foreach ($setting->getAllowedFileExtensions() as $allowedFileExtension) {
-
                                     ?>
                                     <option value="<?= $allowedFileExtension; ?>" selected><?= $allowedFileExtension; ?></option>
                                 <?php }
-
                                 ?>
                             </select>
                         </div>
@@ -226,13 +216,11 @@
                                 <?php
                                 foreach ($themes as $theme) {
                                     if ('frontend' === $theme->type) {
-
                                         ?>
                                         <option value="<?= $theme->id(); ?>"  <?= ($setting->theme_id = $theme->id() ? 'selected' : ''); ?>><?= $theme->name; ?></option>
                                         <?php
                                     }
                                 }
-
                                 ?>
                             </select>
                         </div>
@@ -247,12 +235,10 @@
                             if (Neoflow\CMS\App::instance()->hasService('code')) {
                                 echo Neoflow\CMS\App::instance()->getService('code')->renderEditor('custom_css', 'textareaCustomCss', $setting->custom_css, '150px', ['mode' => 'text/css']);
                             } else {
-
                                 ?>
                                 <textarea name="custom_css" class="form-control vresize" id="textareaFrontendCss" rows="5"><?= $setting->custom_css; ?></textarea>
 
                             <?php }
-
                             ?>
                         </div>
                     </div>
@@ -276,12 +262,10 @@
                             if (Neoflow\CMS\App::instance()->hasService('code')) {
                                 echo Neoflow\CMS\App::instance()->getService('code')->renderEditor('custom_js', 'textareaCustomJs', $setting->custom_js, '150px', ['mode' => 'text/javascript']);
                             } else {
-
                                 ?>
                                 <textarea name="custom_js" class="form-control vresize" id="textareaCustomJs" rows="5"><?= $setting->custom_js; ?></textarea>
 
                             <?php }
-
                             ?>
                         </div>
                     </div>
@@ -307,13 +291,11 @@
                                 <?php
                                 foreach ($themes as $theme) {
                                     if ('backend' === $theme->type) {
-
                                         ?>
                                         <option value="<?= $theme->id(); ?>"  <?= ($setting->theme_id = $theme->id() ? 'selected' : ''); ?>><?= $theme->name; ?></option>
                                         <?php
                                     }
                                 }
-
                                 ?>
                             </select>
                         </div>
@@ -362,9 +344,10 @@
                 <p>
                     <?= translate('Advanced settings description'); ?>
                 </p>
-                <h4><?= translate('Path of the config file'); ?>:</h4>
+                <h4><?= translate('Path of the config files'); ?>:</h4>
                 <ul>
                     <li><i><?= $view->config()->getPath('/config.php'); ?></i></li>
+                    <li><i><?= $view->config()->getApplicationPath('/config.php'); ?></i></li>
                 </ul>
             </div>
         </div>
