@@ -1,4 +1,5 @@
 <?php
+
 return [
     'path' => ROOT_DIR,
     'cache' => true, // true (auto detection) | apc | apcu | file | false (disabled)
@@ -12,7 +13,7 @@ return [
         'extension' => 'txt', // txt | log | ... | false (no extension)
         'prefix' => 'log_', // log_ | ... | false (no prefix)
         'level' => 'debug', // error | warning | info | debug | false (disabled)
-        'stackTrace' => true, // ture | false
+        'stackTrace' => true, // true | false
     ],
     'translator' => [
         'notFoundPrefix' => 'NOT_FOUND:',

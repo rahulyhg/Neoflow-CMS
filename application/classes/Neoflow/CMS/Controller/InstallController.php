@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Controller;
 
 use Neoflow\CMS\Core\AbstractController;
@@ -8,8 +9,7 @@ use Neoflow\Filesystem\Folder;
 use Neoflow\Framework\HTTP\Responsing\Response;
 use function translate;
 
-class InstallController extends AbstractController
-{
+class InstallController extends AbstractController {
 
     /**
      * Constructor.
@@ -27,9 +27,9 @@ class InstallController extends AbstractController
 
         // Set title and website title
         $this->view
-            ->setTitle(translate('Installation'))
-            ->setWebsiteTitle('Neoflow CMS')
-            ->set('brandTitle', translate('Installation'));
+                ->setTitle(translate('Installation'))
+                ->setWebsiteTitle('Neoflow CMS')
+                ->set('brandTitle', translate('Installation'));
     }
 
     /**
@@ -45,7 +45,7 @@ class InstallController extends AbstractController
         }
 
         return $this->render('install/index', [
-                'url' => $this->config()->getUrl(),
+                    'url' => $this->config()->getUrl(),
         ]);
     }
 
@@ -72,6 +72,9 @@ class InstallController extends AbstractController
      */
     public function preHook(): Response
     {
+        // Clear cache to avoid errors from pre-installations
+        $this->cache()->clear();
+
         // Redirect to frontend when install folder is removed
         $installationPath = $this->config()->getPath('/installation');
         if (!is_dir($installationPath)) {
@@ -80,4 +83,5 @@ class InstallController extends AbstractController
 
         return parent::preHook();
     }
+
 }
