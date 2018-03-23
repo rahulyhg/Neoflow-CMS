@@ -17,8 +17,8 @@ function request_url(bool $path = true, bool $queryParams = true): string
 
     $url .= $_SERVER['HTTP_HOST'];
 
-    if ((isset($_SERVER['HTTPS']) && '443' !== $_SERVER['SERVER_PORT']) || '80' !== $_SERVER['SERVER_PORT']) {
-        $url .= ':'.$_SERVER['SERVER_PORT'];
+    if ((isset($_SERVER['HTTPS']) && '443' !== $_SERVER['SERVER_PORT']) || ((!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === 'off') && '80' !== $_SERVER['SERVER_PORT'])) {
+        $url .= ':' . $_SERVER['SERVER_PORT'];
     }
 
     if ($path) {
