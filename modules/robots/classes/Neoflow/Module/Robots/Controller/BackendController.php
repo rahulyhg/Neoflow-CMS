@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Module\Robots\Controller;
 
 use Neoflow\CMS\Controller\Backend\AbstractToolModuleController;
@@ -11,6 +10,7 @@ use RuntimeException;
 
 class BackendController extends AbstractToolModuleController
 {
+
     /**
      * @var File
      */
@@ -30,10 +30,10 @@ class BackendController extends AbstractToolModuleController
 
         // Set robots file
         $robotsPath = $this->config()->getPath('robots.txt');
-        if (is_file($robotsPath)) {
+        if (file_exists($robotsPath)) {
             $this->robotsFile = new File($robotsPath);
         } else {
-            $this->robotsFile = File::create($robotsPath);
+            $this->robotsFile = File::create($robotsPath, '');
         }
     }
 
