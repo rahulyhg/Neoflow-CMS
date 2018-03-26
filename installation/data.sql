@@ -3,7 +3,7 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-INSERT INTO `roles` VALUES(1, 'Administrator', '...');
+INSERT INTO `roles` VALUES(1, 'Administrator', 'Role with all permissions.');
 
 INSERT INTO `permissions` VALUES(1, 'manage_pages', 'Page', 'Manage pages and page content');
 INSERT INTO `permissions` VALUES(2, 'manage_navigations', 'Navigation', 'Manage navigations');
