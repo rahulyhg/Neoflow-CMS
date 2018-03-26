@@ -1,7 +1,6 @@
 <?php
-
 return [
-    'path' => ROOT_DIR,
+    'path' => APP_ROOT,
     'cache' => true, // true (auto detection) | apc | apcu | file | false (disabled)
     'orm' => [
         'caching' => true, // true | false

@@ -8,7 +8,7 @@ use Neoflow\CMS\Core\AbstractService;
 use Neoflow\Framework\Handler\Config;
 use Neoflow\Framework\Handler\Translator;
 use Neoflow\Framework\Persistence\Database;
-use const ROOT_DIR;
+use const APP_ROOT;
 
 class InstallService extends AbstractService
 {
@@ -93,7 +93,7 @@ class InstallService extends AbstractService
         }
 
         // Create config file
-        $configFile = File::create(ROOT_DIR . '/config.php', $configFileContent, true);
+        $configFile = File::create(APP_ROOT . '/config.php', $configFileContent, true);
 
         // Create additional config data
         $additionalConfigData = array_merge($this->config()->toArray(), $config);

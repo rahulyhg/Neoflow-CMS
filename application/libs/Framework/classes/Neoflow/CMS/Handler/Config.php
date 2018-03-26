@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Handler;
 
 use Neoflow\CMS\AppTrait;
@@ -7,6 +6,7 @@ use Neoflow\Framework\Handler\Config as FrameworkConfig;
 
 class Config extends FrameworkConfig
 {
+
     /**
      * App trait.
      */
@@ -23,7 +23,7 @@ class Config extends FrameworkConfig
     {
         $path = $this->get('folders')->get('themes')->get('path');
 
-        return $this->getUrl($path.'/'.$additionalUrlPath);
+        return $this->getUrl($path . '/' . $additionalUrlPath);
     }
 
     /**
@@ -37,7 +37,7 @@ class Config extends FrameworkConfig
     {
         $path = $this->get('folders')->get('modules')->get('path');
 
-        return $this->getUrl($path.'/'.$additionalUrlPath);
+        return $this->getUrl($path . '/' . $additionalUrlPath);
     }
 
     /**
@@ -51,7 +51,7 @@ class Config extends FrameworkConfig
     {
         $path = $this->get('folders')->get('media')->get('path');
 
-        return $this->getUrl($path.'/'.$additionalUrlPath);
+        return $this->getUrl($path . '/' . $additionalUrlPath);
     }
 
     /**
@@ -65,7 +65,7 @@ class Config extends FrameworkConfig
     {
         $path = $this->get('folders')->get('themes')->get('path');
 
-        return $this->getPath($path.'/'.$additionalPath);
+        return $this->getPath($path . '/' . $additionalPath);
     }
 
     /**
@@ -79,7 +79,7 @@ class Config extends FrameworkConfig
     {
         $path = $this->get('folders')->get('modules')->get('path');
 
-        return $this->getPath($path.'/'.$additionalPath);
+        return $this->getPath($path . '/' . $additionalPath);
     }
 
     /**
@@ -93,7 +93,7 @@ class Config extends FrameworkConfig
     {
         $path = $this->get('folders')->get('media')->get('path');
 
-        return $this->getPath($path.'/'.$additionalPath);
+        return $this->getPath($path . '/' . $additionalPath);
     }
 
     /**
@@ -107,7 +107,7 @@ class Config extends FrameworkConfig
     {
         $path = $this->get('folders')->get('logs')->get('path');
 
-        return $this->getPath($path.'/'.$additionalPath);
+        return $this->getPath($path . '/' . $additionalPath);
     }
 
     /**
@@ -123,7 +123,7 @@ class Config extends FrameworkConfig
     public static function createConfigByFile(string $configFilePath, array $additionalConfigData = []): FrameworkConfig
     {
         // Get application config file as additional config data
-        $applicationConfigFilePath = ROOT_DIR.'/application/config.php';
+        $applicationConfigFilePath = APP_ROOT . '/application/config.php';
         if (is_file($applicationConfigFilePath)) {
             $additionalConfigData = array_merge(require $applicationConfigFilePath, $additionalConfigData);
         }
@@ -133,7 +133,7 @@ class Config extends FrameworkConfig
             $configData = require $configFilePath;
         } else {
             $configData = [
-                'url' => normalize_url(request_url(false, false).base_path(ROOT_DIR)),
+                'url' => normalize_url(request_url(false, false) . base_path(APP_ROOT)),
                 'database' => [
                     'host' => '',
                     'dbname' => '',

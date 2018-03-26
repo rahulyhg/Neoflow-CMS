@@ -11,14 +11,14 @@ ini_set('display_errors', true);
 ini_set('display_startup_errors', true);
 error_reporting(E_ALL);
 
-// Define paths
-define('ROOT_DIR', __DIR__);
+// Define constant
+define('APP_ROOT', __DIR__);
 
 // Include autoload
 require_once 'autoload.php';
 
 // Define config file path
-$configFilePath = __DIR__.'/config.php';
+$configFilePath = __DIR__ . '/config.php';
 
 // Create, execute and publish CMS app
 $app = new App([], false, true);
