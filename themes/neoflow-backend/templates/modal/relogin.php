@@ -1,11 +1,8 @@
-<div class="modal fade" id="reloginModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="reloginModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title"><?= translate('Relogin'); ?></h5>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
 
             <form method="post" action="<?= generate_url('api_user_auth'); ?>">
@@ -32,9 +29,6 @@
                             <i class="fa fa-sign-in-alt"></i>
                         </span>
                         <?= translate('Login'); ?>
-                    </button>
-                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">
-                        <?= translate('Cancel'); ?>
                     </button>
                 </div>
             </form>
