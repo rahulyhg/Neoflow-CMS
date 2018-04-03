@@ -51,7 +51,7 @@ class Manager extends AbstractModuleManager
     {
         // Alter tables
         if ('1.0.0' === $this->module->oldVersion) {
-            $this->logger()->info('Dummy update uf Dummy module :)');
+            $this->logger()->info('Dummy update of Dummy module :)');
         }
 
         return true;
