@@ -36,7 +36,7 @@ class ModuleModel extends AbstractExtensionModel
     /**
      * @var array
      */
-    public static $types = ['page', 'library', 'wysiwyg', 'tool'];
+    public static $types = ['page', 'library', 'tool'];
 
     /**
      * @var AbstractModuleManager
