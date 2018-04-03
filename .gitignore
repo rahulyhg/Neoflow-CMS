@@ -18,3 +18,5 @@ media/public/*
 !media/public/.gitkeep
 temp/update/install/*
 !temp/update/install/.gitkeep
+temp/update/modules/*
+!temp/update/modules/.gitkeep
