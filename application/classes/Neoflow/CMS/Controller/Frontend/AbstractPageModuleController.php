@@ -27,7 +27,7 @@ abstract class AbstractPageModuleController extends FrontendController
      * @param FrontendView $view
      * @param array        $args
      */
-    public function __construct(FrontendView $view = null, array $args = array())
+    public function __construct(FrontendView $view = null, array $args = [])
     {
         parent::__construct($view, $args);
 

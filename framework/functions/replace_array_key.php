@@ -19,7 +19,7 @@ function replace_array_key($subject, $newKey, $oldKey)
         return $subject;
     }
 
-    $newArray = array(); // empty array to hold copy of subject
+    $newArray = []; // empty array to hold copy of subject
     foreach ($subject as $key => $value) {
         // replace the key with the new key only if it is the old key
         $key = ($key === $oldKey) ? $newKey : $key;

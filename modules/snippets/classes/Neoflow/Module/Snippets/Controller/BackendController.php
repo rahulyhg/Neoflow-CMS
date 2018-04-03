@@ -12,7 +12,7 @@ use RuntimeException;
 
 class BackendController extends AbstractToolModuleController {
 
-    public function __construct(BackendView $view = null, array $args = array())
+    public function __construct(BackendView $view = null, array $args = [])
     {
         parent::__construct($view, $args);
 

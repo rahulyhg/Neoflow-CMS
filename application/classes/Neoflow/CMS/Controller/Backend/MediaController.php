@@ -42,7 +42,7 @@ class MediaController extends BackendController
      * @param BackendView $view
      * @param array       $args
      */
-    public function __construct(BackendView $view = null, array $args = array())
+    public function __construct(BackendView $view = null, array $args = [])
     {
         if (!$view) {
             $view = new MediaView();

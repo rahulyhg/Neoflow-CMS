@@ -19,7 +19,7 @@ function get_timezones(): array
         'Indian' => DateTimeZone::INDIAN,
         'Pacific' => DateTimeZone::PACIFIC,
     ];
-    $result = array();
+    $result = [];
     $defaultTimezone = date_default_timezone_get();
     foreach ($regions as $region => $mask) {
         $timezones = DateTimeZone::listIdentifiers($mask);

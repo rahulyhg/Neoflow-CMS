@@ -39,7 +39,7 @@ class FrontendView extends AbstractView
      *
      * @return string
      */
-    public function renderView(string $viewFile, array $parameters = array(), string $blockKey = 'view'): string
+    public function renderView(string $viewFile, array $parameters = [], string $blockKey = 'view'): string
     {
         if ('page' === $viewFile) {
             if ($this->app()->get('page')) {

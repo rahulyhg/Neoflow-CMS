@@ -43,7 +43,7 @@ class SettingModel extends AbstractModel
      * @param array $data       Data of model entity
      * @param bool  $isReadOnly State whether model entity is read-only or not
      */
-    public function __construct(array $data = array(), $isReadOnly = false)
+    public function __construct(array $data = [], $isReadOnly = false)
     {
         parent::__construct($data, $isReadOnly);
 

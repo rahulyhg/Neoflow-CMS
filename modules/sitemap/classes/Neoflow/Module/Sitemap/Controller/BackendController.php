@@ -19,7 +19,7 @@ class BackendController extends AbstractToolModuleController
      */
     protected $service;
 
-    public function __construct(BackendView $view = null, array $args = array())
+    public function __construct(BackendView $view = null, array $args = [])
     {
         parent::__construct($view, $args);
 
