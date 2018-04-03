@@ -32,8 +32,8 @@ class Service extends AbstractService
         $this->options['format'] = $this->translator()->getDateFormat(' H:i');
 
         $this->engine()
-            ->addStylesheetUrl($this->module->getUrl('static/jquery.datetimepicker.min.css'))
-            ->addJavascriptUrl($this->module->getUrl('static/jquery.datetimepicker.full.min.js'))
+            ->addStylesheetUrl($this->module->getUrl('statics/jquery.datetimepicker.min.css'))
+            ->addJavascriptUrl($this->module->getUrl('statics/jquery.datetimepicker.full.min.js'))
             ->addJavascript('
                 (function() {
                     $.datetimepicker.setLocale("' . $this->translator()->getActiveLanguageCode() . '");

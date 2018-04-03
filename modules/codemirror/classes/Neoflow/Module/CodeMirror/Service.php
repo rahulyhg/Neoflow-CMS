@@ -53,14 +53,14 @@ class Service extends CodeService
         $options = array_merge($this->options, $options);
 
         $this->engine()
-            ->addStylesheetUrl($this->module->getUrl('static/codemirror/lib/codemirror.css'))
-            ->addJavascriptUrl($this->module->getUrl('static/codemirror/lib/codemirror.js'))
-            ->addJavascriptUrl($this->module->getUrl('static/codemirror/mode/meta.js'))
-            ->addJavascriptUrl($this->module->getUrl('static/custom-meta.js'))
-            ->addJavascriptUrl($this->module->getUrl('static/codemirror/addon/mode/loadmode.js'))
+            ->addStylesheetUrl($this->module->getUrl('statics/codemirror/lib/codemirror.css'))
+            ->addJavascriptUrl($this->module->getUrl('statics/codemirror/lib/codemirror.js'))
+            ->addJavascriptUrl($this->module->getUrl('statics/codemirror/mode/meta.js'))
+            ->addJavascriptUrl($this->module->getUrl('statics/custom-meta.js'))
+            ->addJavascriptUrl($this->module->getUrl('statics/codemirror/addon/mode/loadmode.js'))
             ->addJavascript('
                     (function() {
-                        CodeMirror.modeURL = "'.$this->module->getUrl('static/codemirror/mode/%N/%N.js').'";
+                        CodeMirror.modeURL = "'.$this->module->getUrl('statics/codemirror/mode/%N/%N.js').'";
                         var codeMirrorTextarea = CodeMirror.fromTextArea(document.getElementsByName("'.$name.'")[0], {
                             '.convert_php2js($options, false).'
                         });

@@ -94,7 +94,7 @@ class Service extends WysiwygService
      */
     public function renderEditor(string $name, string $id, string $content, string $height = '450px', array $options = []): string
     {
-        $this->engine()->addJavascriptUrl($this->module->getUrl('static/tinymce/tinymce.min.js'));
+        $this->engine()->addJavascriptUrl($this->module->getUrl('statics/tinymce/tinymce.min.js'));
 
         $options = array_merge($this->options, ['height' => $height], $options);
 
