@@ -5,6 +5,8 @@
 {0} is an invalid URL;{0} is an invalid URL;{0} ist eine ungültige URL
 {0} is not a valid date like {1};{0} is not a valid date like {1};{0} ist kein gültiges Datum wie {1}
 {0} is required;{0} is required;{0} wird benötigt
+Yes;Yes;Ja
+No;No;Nein
 {0} must be at least {1} characters or longer;{0} must be at least {1} characters or longer;{0} muss mindestens {1} Zeichen oder länger sein
 {0} must be before {1};{0} must be before {1};{0} muss früher sein als {1}
 {0} must be between {1} and {2};{0} must be between {1} and {2};{0} muss zwischen {1} und {2} sein
@@ -17,6 +19,8 @@
 {0} must be one of {1};{0} must be one of {1};{0} muss {1} lauten
 {0} must consist of integer value;{0} must consist of integer value;{0} darf nur aus ganzen Zahlen bestehen
 {0} must consist of numbers only;{0} must consist of numbers only;{0} darf nur aus Nummern bestehen
+Core module;Core module|Core modules;Kernmodul|Kernmodule
+{0} is a core module and cannot be deleted;{0} is a core module and cannot be deleted;{0} ist ein Kernmodul und kann nicht gelöscht werden.
 {0} must consist only of digits;{0} must consist only of digits;{0} darf nur aus Ziffern bestehen
 {0} must end with "{1}";{0} must end with "{1}";{0} muss mit "{1}" enden
 {0} must have at least one letter;{0} must have at least one letter;{0} muss mindestens einen Buchstaben haben
@@ -466,8 +470,8 @@ The extension ({0}) is not compatible;The extension ({0}) is not compatible;Die 
 "The file "{0}" has not an allowed file extension";The file "{0}" has not an allowed file extension";Die Datei "{0}" hat keine erlaubte Dateiendung"
 "The file "{0}" is larger than allowed";The file "{0}" is larger than allowed";Die Datei "{0}" ist grösser als erlaubt"
 The file cannot be previewed;The file cannot be previewed;Die Datei kann nicht als Vorschau angezeigt werden
-The module ({0}) has at least one or more depending modules ({1}) and cannot be deleted;The module ({0}) has at least one or more depending modules ({1}) and cannot be deleted;Das Modul (Name: {0}) hat mindestens ein oder mehrere abhängige Module ({1}) und kann nicht gelöscht werden
-The module ({0}) has at least one or more depending modules ({1}) and cannot be disabled;The module ({0}) has at least one or more depending modules ({1}) and cannot be disabled;Das Modul (Name: {0}) hat mindestens ein oder mehrere abhängige Module ({1}) und kann nicht deaktiviert werden
+{0} has at least one or more depending modules ({1}) and cannot be deleted;{0} has at least one or more depending modules ({1}) and cannot be deleted;{0} hat mindestens ein oder mehrere abhängige Module ({1}) und kann nicht gelöscht werden
+{0} has at least one or more depending modules ({1}) and cannot be disabled;{0} has at least one or more depending modules ({1}) and cannot be disabled;{0} hat mindestens ein oder mehrere abhängige Module ({1}) und kann nicht deaktiviert werden
 The module ({0}) is in use and cannot be deleted;The module ({0}) is in use and cannot be deleted;Das Modul (Name: {0}) wird verwendet und kann nicht gelöscht werden
 The navigation item or child items cannot be the parent item;The navigation item or child items cannot be the parent item;Das Navigationselement oder ein Unterelement kann nicht das Oberelement sein
 The package could not be uploaded;The package could not be uploaded;Das Paket konnte nicht hochgeladen werden

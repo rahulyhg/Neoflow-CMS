@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS `modules` (
   `is_active` tinyint(1) NOT NULL DEFAULT 1,
   `type` enum('page','library','tool') COLLATE utf8_bin NOT NULL,
   `dependencies` varchar(200) COLLATE utf8_bin NOT NULL,
+  `is_core` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`module_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
