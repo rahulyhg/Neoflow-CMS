@@ -84,7 +84,7 @@ gulp.task('release:build', function () {
 
 
 gulp.task('update:fetch', function () {
-    var tag = '9b339fd'; // Commit or tag
+    var tag = 'f0da6af'; // Commit or tag
     var dir = './temp/update';
     return gulp
             .src(dir + '/install', {read: false})
