@@ -671,15 +671,31 @@ abstract class AbstractModel
     /**
      * Find all model entities by column.
      *
-     * @param string $column
-     * @param mixed  $value
+     * @param string $column Calumn name
+     * @param mixed  $value Filter value
      *
      * @return EntityCollection
      */
-    public static function findAllByColumn($column, $value): EntityCollection
+    public static function findAllByColumn(string $column, $value): EntityCollection
     {
         return static::repo()
                 ->where($column, '=', $value)
                 ->fetchAll();
+    }
+
+    /**
+     * Find all model entities by multiple columns.
+     *
+     * @param array $columns Column names with filter values (as array with name => value)
+     *
+     * @return EntityCollection
+     */
+    public static function findAllByColumns(array $columns): EntityCollection
+    {
+        $repo = static::repo();
+        foreach ($columns as $column => $value) {
+            $repo->where($column, '=', $value);
+        }
+        return $repo->fetchAll();
     }
 }
