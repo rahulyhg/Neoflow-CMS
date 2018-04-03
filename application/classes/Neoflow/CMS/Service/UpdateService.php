@@ -147,12 +147,12 @@ class UpdateService extends AbstractService
     {
         if (isset($info['modules'])) {
             foreach ($info['modules'] as $identifier => $packageName) {
-                $file = $updateFolder->findFiles('modules/' . $packageName);
-                if ($file->count()) {
+                $files = $updateFolder->findFiles('modules/' . $packageName);
+                foreach ($files as $file) {
                     try {
                         $module = ModuleModel::findByColumn('identifier', $identifier);
                         if ($module) {
-                            $module->installUpdate($file->first());
+                            $module->installUpdate($file);
                         } else {
                             $module = new ModuleModel();
                             $module->install($file);
