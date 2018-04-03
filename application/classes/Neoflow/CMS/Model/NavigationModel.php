@@ -1,14 +1,17 @@
 <?php
-
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
+use Neoflow\Framework\Core\AbstractModel as FW_AbstractModel;
 use Neoflow\Framework\ORM\EntityCollection;
 use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Framework\ORM\Repository;
+use function slugify;
+use function translate;
 
 class NavigationModel extends AbstractModel
 {
+
     /**
      * @var string
      */
@@ -85,7 +88,7 @@ class NavigationModel extends AbstractModel
      *
      * @return self
      */
-    protected function set($key, $value = null, $silent = false)
+    protected function set($key, $value = null, $silent = false): FW_AbstractModel
     {
         if ('navigation_key' === $key) {
             $value = slugify($value);

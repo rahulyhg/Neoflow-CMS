@@ -229,7 +229,7 @@ abstract class AbstractModel
      *
      * @throws RuntimeException
      */
-    protected function set($key, $value = null, $silent = false)
+    protected function set($key, $value = null, $silent = false): self
     {
         if ($this->isReadOnly()) {
             throw new RuntimeException('Model entity is read only and cannot set value');

@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Model;
 
 use InvalidArgumentException;
@@ -13,6 +12,7 @@ use RuntimeException;
 
 class ModuleModel extends AbstractExtensionModel
 {
+
     /**
      * @var string
      */
@@ -26,9 +26,12 @@ class ModuleModel extends AbstractExtensionModel
     /**
      * @var array
      */
-    public static $properties = ['module_id', 'name', 'folder_name', 'frontend_route',
-        'backend_route', 'manager_class', 'version', 'description', 'author', 'type',
-        'copyright', 'license', 'is_active', 'identifier', 'dependencies', ];
+    public static $properties = [
+        'module_id', 'name', 'folder_name', 'frontend_route',
+        'backend_route', 'manager_class', 'version', 'description', 'author',
+        'type', 'copyright', 'license', 'is_active', 'identifier',
+        'dependencies', 'is_core'
+    ];
 
     /**
      * @var array
@@ -152,7 +155,7 @@ class ModuleModel extends AbstractExtensionModel
             if (!$this->hasDependentModules()) {
                 $this->is_active = false;
             } else {
-                throw new ValidationException(translate('The module ({0}) has at least one or more depending modules ({1}) and cannot be disabled', [$this->name, $this->getDependentModules()->mapValue('name')]));
+                throw new ValidationException(translate('{0} has at least one or more depending modules ({1}) and cannot be disabled', [$this->name, $this->getDependentModules()->mapValue('name')]));
             }
         } else {
             $this->is_active = true;
@@ -173,7 +176,7 @@ class ModuleModel extends AbstractExtensionModel
         if (!$this->manager && class_exists($this->manager_class)) {
             $this->manager = new $this->manager_class($this);
         } elseif (!class_exists($this->manager_class)) {
-            throw new RuntimeException('Manager class '.$this->manager_class.'  not found');
+            throw new RuntimeException('Manager class ' . $this->manager_class . '  not found');
         }
 
         return $this->manager;
@@ -214,7 +217,7 @@ class ModuleModel extends AbstractExtensionModel
      */
     public function hasDependentModules(): bool
     {
-        return self::repo()->where('dependencies', 'LIKE', '%'.$this->identifier.'%')->count() > 0;
+        return self::repo()->where('dependencies', 'LIKE', '%' . $this->identifier . '%')->count() > 0;
     }
 
     /**
@@ -224,7 +227,7 @@ class ModuleModel extends AbstractExtensionModel
      */
     public function getDependentModules(): EntityCollection
     {
-        return self::repo()->where('dependencies', 'LIKE', '%'.$this->identifier.'%')->fetchAll();
+        return self::repo()->where('dependencies', 'LIKE', '%' . $this->identifier . '%')->fetchAll();
     }
 
     /**
@@ -285,17 +288,20 @@ class ModuleModel extends AbstractExtensionModel
      */
     public function delete()
     {
-        if (0 === $this->sections()->count()) {
-            if (!$this->hasDependentModules()) {
-                if ($this->getManager()->uninstall()) {
-                    return parent::delete();
-                }
+        if ($this->is_core === false) {
+            if (0 === $this->sections()->count()) {
+                if (!$this->hasDependentModules()) {
+                    if ($this->getManager()->uninstall()) {
+                        return parent::delete();
+                    }
 
-                return false;
+                    return false;
+                }
+                throw new ValidationException(translate('{0} has at least one or more depending modules ({1}) and cannot be deleted', [$this->name, $this->getDependentModules()->mapValue('name')]));
             }
-            throw new ValidationException(translate('The module ({0}) has at least one or more depending modules ({1}) and cannot be deleted', [$this->name, $this->getDependentModules()->mapValue('name')]));
+            throw new ValidationException(translate('The module ({0}) is in use and cannot be deleted', [$this->name]));
         }
-        throw new ValidationException(translate('The module ({0}) is in use and cannot be deleted', [$this->name]));
+        throw new ValidationException(translate('{0} is a core module and cannot be deleted', [$this->name]));
     }
 
     /**
@@ -309,7 +315,7 @@ class ModuleModel extends AbstractExtensionModel
     {
         return $this
                 ->config()
-                ->getModulesUrl('/'.$this->folder_name.'/'.$uri);
+                ->getModulesUrl('/' . $this->folder_name . '/' . $uri);
     }
 
     /**
@@ -323,6 +329,6 @@ class ModuleModel extends AbstractExtensionModel
     {
         return $this
                 ->config()
-                ->getModulesPath('/'.$this->folder_name.'/'.$additionalPath);
+                ->getModulesPath('/' . $this->folder_name . '/' . $additionalPath);
     }
 }

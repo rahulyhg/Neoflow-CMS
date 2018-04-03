@@ -2,11 +2,13 @@
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
-use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Filesystem\File;
 use Neoflow\Filesystem\Folder;
+use Neoflow\Framework\Core\AbstractModel as FW_AbstractModel;
+use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Validation\ValidationException;
 use ZipArchive;
+use function translate;
 
 abstract class AbstractExtensionModel extends AbstractModel
 {
@@ -273,7 +275,16 @@ abstract class AbstractExtensionModel extends AbstractModel
         return $this;
     }
 
-    protected function set($key, $value = null, $silent = false)
+    /**
+     * Set extension entity value.
+     *
+     * @param string $key    Key of entity value
+     * @param mixed  $value  Entity value
+     * @param bool   $silent State if setting shouldn't be tracked
+     *
+     * @return self
+     */
+    protected function set($key, $value = null, $silent = false): FW_AbstractModel
     {
         if ('version' === $key && $this->version !== $value) {
             $this->oldVersion = $this->version;

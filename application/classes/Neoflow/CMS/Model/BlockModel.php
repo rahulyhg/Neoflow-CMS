@@ -1,13 +1,16 @@
 <?php
-
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
+use Neoflow\Framework\Core\AbstractModel as FW_AbstractModel;
 use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Framework\ORM\Repository;
+use function slugify;
+use function translate;
 
 class BlockModel extends AbstractModel
 {
+
     /**
      * @var string
      */
@@ -42,7 +45,7 @@ class BlockModel extends AbstractModel
      *
      * @return self
      */
-    protected function set($key, $value = null, $silent = false)
+    protected function set($key, $value = null, $silent = false): FW_AbstractModel
     {
         if ('block_key' === $key) {
             $value = slugify($value);
@@ -61,17 +64,17 @@ class BlockModel extends AbstractModel
         $validator = new EntityValidator($this);
 
         $validator
-                ->required()
-                ->set('title', translate('Title'));
+            ->required()
+            ->set('title', translate('Title'));
 
         $validator
-                ->callback(function ($blockKey, $id) {
-                    return 0 === BlockModel::repo()
-                            ->where('block_key', '=', $blockKey)
-                            ->where('block_id', '!=', $id)
-                            ->count();
-                }, '{0} has to be unique', array($this->id()))
-                ->set('block_key', 'Key');
+            ->callback(function ($blockKey, $id) {
+                return 0 === BlockModel::repo()
+                    ->where('block_key', '=', $blockKey)
+                    ->where('block_id', '!=', $id)
+                    ->count();
+            }, '{0} has to be unique', array($this->id()))
+            ->set('block_key', 'Key');
 
         return $validator->validate();
     }
