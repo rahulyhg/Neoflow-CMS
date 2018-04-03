@@ -274,8 +274,8 @@ class App extends FrameworkApp
         // Fetch only when database connection is etablished
         if ($this->get('database')) {
             // Fetch CMS modules
-            $modules = ModuleModel::findAll();
-            $modules->where('is_active', true)->each(function ($module) {
+            $modules = ModuleModel::findAllByColumn('is_active', true);
+            $modules->each(function ($module) {
                 $this->get('loader')
                     ->loadFunctionsFromDirectory($module->getPath('functions'))
                     ->addClassDirectory($module->getPath('classes'));

@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -9,6 +8,7 @@ use Neoflow\Framework\HTTP\Responsing\Response;
 
 class ToolController extends BackendController
 {
+
     /**
      * Constructor.
      *
@@ -31,9 +31,12 @@ class ToolController extends BackendController
      */
     public function indexAction(): Response
     {
-        return $this->render('backend/tool/index', array(
-                'modules' => ModuleModel::findAllByType('tool'),
-        ));
+        return $this->render('backend/tool/index', [
+                'modules' => ModuleModel::findAllByColumns([
+                    'type' => 'tool',
+                    'is_active' => true
+                ])
+        ]);
     }
 
     /**

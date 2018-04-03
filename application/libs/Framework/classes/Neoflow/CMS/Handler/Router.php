@@ -33,14 +33,14 @@ class Router extends FrameworkRouter
                 }
             }
 
-            // Load route of application
+            // Load route of CMS application
             $routeFilePath = $this->config()->getApplicationPath('/routes.php');
             $this->loadRouteFile($routeFilePath);
 
             // Add frontend index route to the end of the array
             $this->addRoute(array('frontend_index', 'any', '/(url:uri)', 'Frontend@index'), '\\Neoflow\\CMS\\Controller\\');
 
-            // Store template and view file directories to cache
+            // Store routes to cache
             $this->cache()->store('routes', $this->routes, 0, ['system-configurations']);
         }
 
