@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -8,6 +7,7 @@ use RuntimeException;
 
 abstract class AbstractToolModuleController extends BackendController
 {
+
     /**
      * Constructor.
      *
@@ -21,8 +21,7 @@ abstract class AbstractToolModuleController extends BackendController
         parent::__construct($view, $args);
 
         // Set title and breadcrumb for view
-        $this->view
-                ->addBreadcrumb(translate('Tool', [], true));
+        $this->view->addBreadcrumb(translate('Tool', [], true));
 
         // Set back url
         $this->view->setBackRoute('backend_tool_index');

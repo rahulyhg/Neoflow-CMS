@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\Core;
 
 use Neoflow\Framework\AppTrait;
@@ -10,6 +9,7 @@ use RuntimeException;
 
 abstract class AbstractController
 {
+
     /**
      * @var AbstractView
      */

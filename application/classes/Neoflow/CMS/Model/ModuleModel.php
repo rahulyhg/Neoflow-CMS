@@ -288,7 +288,7 @@ class ModuleModel extends AbstractExtensionModel
      */
     public function delete()
     {
-        if ($this->is_core === false) {
+        if ($this->is_core == false) {
             if (0 === $this->sections()->count()) {
                 if (!$this->hasDependentModules()) {
                     if ($this->getManager()->uninstall()) {

@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Module\LogViewer\Controller;
 
 use Neoflow\CMS\Controller\Backend\AbstractToolModuleController;
@@ -12,9 +11,14 @@ use Neoflow\Filesystem\Folder;
 
 class BackendController extends AbstractToolModuleController
 {
+
     public function __construct(BackendView $view = null, array $args = [])
     {
         parent::__construct($view, $args);
+
+        $module = \Neoflow\CMS\Model\ModuleModel::findByColumn('identifier', 'log-viewer');
+
+        $this->engine()->addJavascriptUrl($module->getUrl('/statics/log-viewer.js'));
 
         $this->view->setTitle(translate('Log Viewer'));
     }
@@ -27,7 +31,7 @@ class BackendController extends AbstractToolModuleController
     public function indexAction(): Response
     {
         $logfileFolder = new Folder($this->logger()->getLogfileDirectory());
-        $logfiles = $logfileFolder->find('*.'.$this->config()->get('logger')->get('extension'));
+        $logfiles = $logfileFolder->find('*.' . $this->config()->get('logger')->get('extension'));
 
         return $this->render('module/log-viewer/index', array(
                 'logfiles' => $logfiles,
@@ -41,7 +45,7 @@ class BackendController extends AbstractToolModuleController
      */
     public function showAction(): Response
     {
-        $logfile = $this->logger()->getLogfileDirectory().basename($this->args['logfile']);
+        $logfile = $this->logger()->getLogfileDirectory() . basename($this->args['logfile']);
 
         if (is_file($logfile)) {
             // Set back url
@@ -69,7 +73,7 @@ class BackendController extends AbstractToolModuleController
      */
     public function getAction(): Response
     {
-        $logfilePath = $this->logger()->getLogfileDirectory().basename($this->args['logfile']);
+        $logfilePath = $this->logger()->getLogfileDirectory() . basename($this->args['logfile']);
 
         if (is_file($logfilePath)) {
             $logfile = new File($logfilePath);

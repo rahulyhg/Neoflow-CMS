@@ -1,9 +1,9 @@
 <?php
-
 namespace Neoflow\Framework\Persistence\Caching;
 
 class ApcuCache extends AbstractCache
 {
+
     /**
      * Fetch cache value.
      *

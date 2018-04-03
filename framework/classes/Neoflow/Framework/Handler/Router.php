@@ -195,7 +195,7 @@ class Router
                         ];
 
                         // Set to cache
-                        $this->cache()->store($cacheKey, $routing, 0, array('system-configurations'));
+                        $this->cache()->store($cacheKey, $routing, 0, ['system-configurations']);
 
                         return $routing;
                     }

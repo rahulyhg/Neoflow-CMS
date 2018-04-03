@@ -36,6 +36,9 @@ abstract class AbstractExtensionModel extends AbstractModel
                 $folder->delete();
             }
 
+            // Delete system config cache
+            $this->cache()->deleteByTag('system-configurations');
+
             return true;
         }
 
@@ -254,7 +257,7 @@ abstract class AbstractExtensionModel extends AbstractModel
     public function save(bool $preventCacheClearing = false): bool
     {
         // Delete cms cache first
-        $this->app()->get('cache')->deleteByTag('system-configurations');
+        $this->cache()->deleteByTag('system-configurations');
 
         return parent::save($preventCacheClearing);
     }
