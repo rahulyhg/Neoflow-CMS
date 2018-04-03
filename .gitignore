@@ -16,5 +16,5 @@ sitemap.xml
 media/modules/wysiwyg/section-*
 media/public/*
 !media/public/.gitkeep
-temp/update/install
+temp/update/install/*
 !temp/update/install/.gitkeep

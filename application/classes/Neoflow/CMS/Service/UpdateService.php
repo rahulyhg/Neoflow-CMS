@@ -8,7 +8,9 @@ use Neoflow\CMS\UpdateManager;
 use Neoflow\Filesystem\File;
 use Neoflow\Filesystem\Folder;
 use Neoflow\Validation\ValidationException;
+use Throwable;
 use ZipArchive;
+use function translate;
 
 class UpdateService extends AbstractService
 {
@@ -145,13 +147,20 @@ class UpdateService extends AbstractService
     {
         if (isset($info['modules'])) {
             foreach ($info['modules'] as $identifier => $packageName) {
-                $module = ModuleModel::findByColumn('identifier', $identifier);
                 $file = $updateFolder->findFiles('modules/' . $packageName);
-                if ($module && $file->count()) {
+                if ($file->count()) {
                     try {
-                        $module->installUpdate($file->first());
-                    } catch (ValidationException $ex) {
-                        // Nothing todo
+                        $module = ModuleModel::findByColumn('identifier', $identifier);
+                        if ($module) {
+                            $module->installUpdate($file->first());
+                        } else {
+                            $module = new ModuleModel();
+                            $module->install($file);
+                        }
+                    } catch (Throwable $ex) {
+                        $this->logger()->warning('Update installation for ' . $module->name . ' failed.', [
+                            'Error message' => $ex->getMessage()
+                        ]);
                     }
                 }
             }

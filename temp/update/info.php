@@ -1,14 +1,13 @@
 <?php
 return [
-    'version' => '1.0.2-dev',
+    'version' => '1.0.0-alpha2',
     'for' => [
-        '1.0.1-dev',
-        '1.0.0-dev',
+        '1.0.0-alpha1',
     ],
     'sql' => 'install.sql',
     'files' => 'install',
     'modules' => [
-    // 'robots' => 'robots.zip',
+        'dummy' => 'dummy.zip',
     ],
     'themes' => [],
 ];
