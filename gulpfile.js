@@ -2,7 +2,9 @@ var gulp = require('gulp'),
         zip = require('gulp-zip'),
         run = require('gulp-run'),
         runSequence = require('run-sequence'),
-        prompt = require('gulp-prompt');
+        prompt = require('gulp-prompt'),
+        fs = require('fs'),
+        path = require('path');
 
 // Get package info
 var pjson = require('./package.json');
@@ -48,7 +50,7 @@ gulp.task('install:pullFromGit', function () {
 
 // Build update package
 gulp.task('update:release', function (callback) {
-    return runSequence('update:checkoutFromGit', 'update:createZip', callback);
+    return runSequence('update:checkoutFromGit', 'update:createZipModules', 'update:createZip', callback);
 });
 
 // Create zip file for update
@@ -63,6 +65,7 @@ gulp.task('update:createZip', function () {
                 '!./temp/update/install/install{,/**}',
                 '!./temp/update/install/nbproject{,/**}',
                 '!./temp/update/install/src{,/**}',
+                '!./temp/update/install/modules{,/**}',
                 '!./temp/update/install/robots.txt',
                 '!./temp/update/install/sitemap.xml',
                 '!./temp/update/install/temp/update{,/**}',
@@ -92,4 +95,29 @@ gulp.task('update:checkoutFromGit', function () {
                 usePowerShell: true,
                 verbosity: 0
             }));
+});
+
+// Create zip file of each core module (incl. Dummy module)
+gulp.task('update:createZipModules', function () {
+
+    var coreModules = [
+        'code', 'datetimepicker', 'dummy', 'sitemap', 'snippets', 'wysiwyg'
+    ];
+
+    var moduleFolders = fs
+            .readdirSync('./modules')
+            .filter(function (file) {
+                return fs.statSync(path.join('./modules', file)).isDirectory();
+            });
+
+    return moduleFolders.map(function (moduleFolder) {
+        if (coreModules.indexOf(moduleFolder) > -1) {
+            return gulp
+                    .src(path.join('./modules', moduleFolder) + '/**')
+                    .pipe(zip(moduleFolder + '.zip'))
+                    .pipe(gulp.dest('./temp/update/modules'));
+        }
+        return false;
+    });
+
 });
