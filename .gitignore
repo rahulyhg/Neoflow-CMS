@@ -2,8 +2,7 @@
 .php_cs.cache
 nbproject/
 node_modules/
-package-lock.json
-themes/neoflow-backend/package-lock.json
+*package-lock.json
 
 # Application files and folders
 temp/cache/cache_*

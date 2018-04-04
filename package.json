@@ -1,6 +1,6 @@
 {
   "name": "neoflow-cms",
-  "version": "1.0.0-alpha1",
+  "version": "1.0.0-a1",
   "description": "Module-based content management system with a user friendly interface, based on a perfect optimized MVC framework.",
   "main": "index.js",
   "scripts": {
@@ -10,8 +10,10 @@
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-prompt": "^1.0.1",
     "gulp-run": "^1.7.1",
     "gulp-zip": "^4.1.0",
+    "run-sequence": "^2.2.1",
     "shelljs": "^0.8.1"
   },
   "dependencies": {}

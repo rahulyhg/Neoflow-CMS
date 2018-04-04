@@ -1,116 +1,95 @@
 var gulp = require('gulp'),
-        shell = require('shelljs'),
         zip = require('gulp-zip'),
-        run = require('gulp-run');
+        run = require('gulp-run'),
+        runSequence = require('run-sequence'),
+        prompt = require('gulp-prompt');
 
+// Get package info
 var pjson = require('./package.json');
-// git archive -o update.zip HEAD $(git diff --name-only 9b339fd)
-// git checkout-index -f --prefix="C:/aaa/" $(git diff --name-only 9b339fd)
 
-var config = {
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'neoflow-cms',
-    commands: {
-        mysql: 'mysql',
-        mysqldump: 'mysqldump',
-    },
-    dumpFilePath: './/installation//neoflow-cms.sql'
-};
-
-gulp.task('mysql:exportSqlDump', function () {
-    var command = config.commands.mysqldump + ' -u ' + config.user + ' ' + config.database + ' > ' + config.dumpFilePath;
-    console.log(command);
-    var result = shell.exec(command);
-    if (result.code !== 0) {
-        console.error('MySQL dump export failed');
-    } else {
-        console.log('MySQL dump successful exported');
-    }
-    shell.exit(1);
+// Build install package
+gulp.task('install:release', function (callback) {
+    runSequence('install:pullFromGit', 'install:createZip', callback);
 });
 
-gulp.task('mysql:importSqlDump', function () {
-    var command = config.commands.mysql + ' -u ' + config.user + ' ' + config.database + ' < ' + config.dumpFilePath;
-    console.log(command);
-    var result = shell.exec(command);
-    if (result.code !== 0) {
-        console.error('MySQL dump import failed');
-    } else {
-        console.log('MySQL dump successful imported');
-    }
-    shell.exit(1);
-});
-
-gulp.task('mysql:cleanDatabase', function () {
-    var command = config.commands.mysql + ' -u ' + config.user + ' -Bse "' +
-            'DROP DATABASE `' + config.database + '`;' +
-            'CREATE DATABASE `' + config.database + '` CHARACTER SET utf8 COLLATE utf8_bin;"';
-    console.log(command);
-    var result = shell.exec(command);
-    if (result.code !== 0) {
-        console.error('MySQL clean database failed');
-    } else {
-        console.log('MySQL database successful cleaned');
-    }
-    shell.exit(1);
-});
-
-
-gulp.task('release:build', function () {
-    var dir = '.';
-    return gulp.src([
-        dir + '/**',
-        '!' + dir + '/config.php',
-        '!' + dir + '/package*',
-        '!' + dir + '/gulpfile.js',
-        '!' + dir + '/node_modules{,/**}',
-        '!' + dir + '/nbproject{,/**}',
-        '!' + dir + '/src{,/**}',
-        '!' + dir + '/robots.txt',
-        '!' + dir + '/sitemap.xml',
-        '!' + dir + '/temp/update{,/**}',
-        '!' + dir + '/temp/media/modules/{,/**}',
-        '!' + dir + '/themes/*/package*',
-        '!' + dir + '/themes/*/node_modules{,/**}',
-        '!' + dir + '/themes/*/src{,/**}',
-        '!' + dir + '/*.zip'
-    ])
-            .pipe(zip(pjson.name + '-' + pjson.version + '.zip'))
-            .pipe(gulp.dest(dir + '/'));
-});
-
-
-gulp.task('update:fetch', function () {
-    var tag = '4e03739'; // Commit or tag
-    var dir = './temp/update';
+// Create zip file for installation
+gulp.task('install:createZip', function () {
     return gulp
-            .src(dir + '/install', {read: false})
+            .src([
+                './**',
+                '!./config.php',
+                '!./package*',
+                '!./gulpfile.js',
+                '!./node_modules{,/**}',
+                '!./nbproject{,/**}',
+                '!./src{,/**}',
+                '!./robots.txt',
+                '!./sitemap.xml',
+                '!./temp/update{,/**}',
+                '!./media/modules/wysiwyg/{,/**}',
+                '!./themes/*/package*',
+                '!./themes/*/node_modules{,/**}',
+                '!./themes/*/src{,/**}',
+                '!./*.zip'
+            ])
+            .pipe(zip(pjson.name + '-' + pjson.version + '.zip'))
+            .pipe(gulp.dest('./'));
+});
+
+// Pull latest files and folders from Git
+gulp.task('install:pullFromGit', function () {
+    return gulp
+            .src('.')
+            .pipe(run('git pull', {
+                usePowerShell: true,
+                verbosity: 0
+            }));
+});
+
+// Build update package
+gulp.task('update:release', function (callback) {
+    return runSequence('update:checkoutFromGit', 'update:createZip', callback);
+});
+
+// Create zip file for update
+gulp.task('update:createZip', function () {
+    return gulp
+            .src([
+                './temp/update/**',
+                '!./temp/update/install/config.php',
+                '!./temp/update/install/package*',
+                '!./temp/update/install/gulpfile.js',
+                '!./temp/update/install/node_modules{,/**}',
+                '!./temp/update/install/install{,/**}',
+                '!./temp/update/install/nbproject{,/**}',
+                '!./temp/update/install/src{,/**}',
+                '!./temp/update/install/robots.txt',
+                '!./temp/update/install/sitemap.xml',
+                '!./temp/update/install/temp/update{,/**}',
+                '!./temp/update/install/media/modules/wysiwyg/{,/**}',
+                '!./temp/update/install/themes/*/package*',
+                '!./temp/update/install/themes/*/node_modules{,/**}',
+                '!./temp/update/install/themes/*/src{,/**}',
+                '!./temp/update/*.zip'
+            ])
+            .pipe(zip(pjson.name + '-' + pjson.version + '-update.zip'))
+            .pipe(gulp.dest('./temp/update/'));
+});
+
+// Checkout files and folders from Git based on last commit or tag
+gulp.task('update:checkoutFromGit', function () {
+    var tag = '';
+    return gulp
+            .src('./temp/update/install')
+            .pipe(prompt.prompt({
+                type: 'input',
+                name: 'tag',
+                message: 'From which last commit or tag would you like to checkout?'
+            }, function (res) {
+                tag = res.tag;
+            }))
             .pipe(run('git checkout-index -f --prefix="<%= file.path %>/" $(git diff --name-only ' + tag + ')', {
                 usePowerShell: true,
                 verbosity: 0
-            }))
-            .on('end', function () {
-                return gulp.src([
-                    dir + '/**',
-                    '!' + dir + '/install/config.php',
-                    '!' + dir + '/install/package*',
-                    '!' + dir + '/install/gulpfile.js',
-                    '!' + dir + '/install/node_modules{,/**}',
-                    '!' + dir + '/install/install{,/**}',
-                    '!' + dir + '/install/nbproject{,/**}',
-                    '!' + dir + '/install/src{,/**}',
-                    '!' + dir + '/install/robots.txt',
-                    '!' + dir + '/install/sitemap.xml',
-                    '!' + dir + '/install/temp/update{,/**}',
-                    '!' + dir + '/install/themes/*/package*',
-                    '!' + dir + '/install/themes/*/node_modules{,/**}',
-                    '!' + dir + '/install/themes/*/src{,/**}',
-                    '!' + dir + '/*.zip'
-                ])
-                        .pipe(zip(pjson.name + '-' + pjson.version + '-update.zip'))
-                        .pipe(gulp.dest(dir + '/'));
-            });
-
+            }));
 });
