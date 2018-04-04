@@ -40,6 +40,7 @@ INSERT INTO `modules` VALUES(6, 'CodeMirror', 'codemirror', 'codemirror', NULL, 
 INSERT INTO `modules` VALUES(7, 'Sitemap', 'sitemap', 'sitemap', 'tmod_sitemap_backend_index', NULL, '\\Neoflow\\Module\\Sitemap\\Manager', 'Jonathan Nessier <jonathan.nessier@neoflow.ch>', 'Automated creation of sitemap (sitemap. xml) for search engines.', 'Copyright (c) 2017 Jonathan Nessier, Neoflow', 'MIT', '1.0', 1, 'tool', '', 1);
 INSERT INTO `modules` VALUES(8, 'Robots', 'robots', 'robots', 'tmod_robots_backend_index', NULL, '\\Neoflow\\Module\\Robots\\Manager', 'Jonathan Nessier <jonathan.nessier@neoflow.ch>', 'Editor to edit the content of robots.txt.', 'Copyright (c) 2017 Jonathan Nessier, Neoflow', 'MIT', '1.0', 1, 'tool', '', 0);
 INSERT INTO `modules` VALUES(9, 'DateTimePicker', 'datetimepicker', 'datetimepicker', NULL, NULL, '\\Neoflow\\Module\\DateTimePicker\\Manager', 'Jonathan Nessier <jonathan.nessier@neoflow.ch>', 'Datetimepicker, datepicker or timepicker dropdown to your forms.', 'Copyright (c) 2017 Jonathan Nessier, Neoflow', 'MIT', '5.27.4', 1, 'library', '', 1);
+INSERT INTO `modules` VALUES(10, 'Dummy', 'dummy', 'dummy', 'tmod_dummy_backend_index', NULL, '\\Neoflow\\Module\\Dummy\\Manager', 'Jonathan Nessier <jonathan.nessier@neoflow.ch>', 'Dummy module as demo example for interested developers.', 'Copyright (c) 2017 Jonathan Nessier, Neoflow.ch', 'MIT', '2.0.0', 1, 'tool', '', 0);
 
 INSERT INTO `navigations` VALUES(1, 'Page tree', 'Navigation of complete page tree. DO NOT CHANGE IT.', 'page-tree');
 
