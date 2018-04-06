@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS;
 
 use Neoflow\CMS\Handler\Config;
@@ -20,8 +21,7 @@ use RuntimeException;
 use Throwable;
 use function request_url;
 
-class App extends FrameworkApp
-{
+class App extends FrameworkApp {
 
     /**
      * Publish application.
@@ -79,21 +79,24 @@ class App extends FrameworkApp
 
         // Set CMS-specific meta properties
         $this->get('engine')
-            ->addMetaTagProperties([
-                'name' => 'description',
-                'content' => $this->get('settings')->website_description,
-                ], 'description')
-            ->addMetaTagProperties([
-                'name' => 'keywords',
-                'content' => $this->get('settings')->website_keywords,
-                ], 'keywords')
-            ->addMetaTagProperties([
-                'name' => 'author',
-                'content' => $this->get('settings')->author,
-                ], 'author');
+                ->addMetaTagProperties([
+                    'name' => 'description',
+                    'content' => $this->get('settings')->website_description,
+                        ], 'description')
+                ->addMetaTagProperties([
+                    'name' => 'keywords',
+                    'content' => $this->get('settings')->website_keywords,
+                        ], 'keywords')
+                ->addMetaTagProperties([
+                    'name' => 'author',
+                    'content' => $this->get('settings')->author,
+                        ], 'author');
 
         // Fetch and set CMS modules
         $this->setModules();
+
+        // Set CMS themes from settings
+        $this->setThemes();
 
         // Create and set router
         $this->set('router', new Router());
@@ -138,11 +141,11 @@ class App extends FrameworkApp
                 $sessionLifetime = (int) self::instance()->get('settings')->session_lifetime;
 
                 $visitor = Model\VisitorModel::repo()
-                    ->caching(false)
-                    ->where('ip_address', '=', $ipAddress)
-                    ->where('user_agent', '=', $userAgent)
-                    ->where('last_activity', '>', microtime(true) - $sessionLifetime)
-                    ->fetch();
+                        ->caching(false)
+                        ->where('ip_address', '=', $ipAddress)
+                        ->where('user_agent', '=', $userAgent)
+                        ->where('last_activity', '>', microtime(true) - $sessionLifetime)
+                        ->fetch();
 
                 if (!$visitor) {
                     $visitor = new VisitorModel();
@@ -175,8 +178,8 @@ class App extends FrameworkApp
             $response = $this->get('router')->routeByKey('error_index', ['exception' => $ex]);
 
             $this
-                ->execute($response)
-                ->publish();
+                    ->execute($response)
+                    ->publish();
 
             if ($ex instanceof HttpException) {
                 $context = [
@@ -251,9 +254,9 @@ class App extends FrameworkApp
         } else {
             // Create CMS settings based und PHP defaults
             $settings = SettingModel::create([
-                    'timezone' => date_default_timezone_get(),
-                    'session_name' => 'CMS_SID',
-                    'session_lifetime' => (int) ini_get('session.gc_maxlifetime'),
+                        'timezone' => date_default_timezone_get(),
+                        'session_name' => 'CMS_SID',
+                        'session_lifetime' => (int) ini_get('session.gc_maxlifetime'),
             ]);
         }
 
@@ -283,16 +286,33 @@ class App extends FrameworkApp
             $modules = ModuleModel::findAllByColumn('is_active', true);
             $modules->each(function ($module) {
                 $this->get('loader')
-                    ->loadFunctionsFromDirectory($module->getPath('functions'))
-                    ->addClassDirectory($module->getPath('classes'));
+                        ->loadFunctionsFromDirectory($module->getPath('functions'))
+                        ->addClassDirectory($module->getPath('classes'));
             });
         } else {
             // Create empty CMS modules collection
             $modules = new EntityCollection();
         }
 
-        $this->get('logger')->info('CMS modules fetched');
+        $this->get('logger')->info('CMS modules fetched and set');
 
         return $this->set('modules', $modules);
     }
+
+    /**
+     * Set active themes from settings
+     * @return self
+     */
+    protected function setThemes(): self
+    {
+        $themes = new EntityCollection();
+
+        $themes->add($this->get('settings')->getFrontendTheme());
+        $themes->add($this->get('settings')->getBackendTheme());
+
+        $this->get('logger')->info('CMS themes set from settings');
+
+        return $this->set('themes', $themes);
+    }
+
 }

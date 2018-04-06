@@ -1,12 +1,12 @@
 <?php
+
 namespace Neoflow\Framework\Handler;
 
 use DateTime;
 use Neoflow\Framework\AppTrait;
 use RuntimeException;
 
-class Translator
-{
+class Translator {
 
     /**
      * App trait.
@@ -158,8 +158,8 @@ class Translator
     /**
      * Set date format.
      *
-     * @param string $format
-     * @param bool   $isFallback
+     * @param string $format Date format
+     * @param bool   $isFallback Set TRUE if date format is the fallback format
      *
      * @return self
      */
@@ -177,8 +177,8 @@ class Translator
     /**
      * Set date time format.
      *
-     * @param string $format
-     * @param bool   $isFallback
+     * @param string $format Date time format
+     * @param bool   $isFallback Set TRUE if date time format is the fallback format
      *
      * @return self
      */
@@ -196,7 +196,7 @@ class Translator
     /**
      * Set timezone.
      *
-     * @param string $timezone
+     * @param string $timezone Timezone
      *
      * return self
      */
@@ -210,8 +210,8 @@ class Translator
     /**
      * Add translation.
      *
-     * @param array $translation
-     * @param bool  $isFallback
+     * @param array $translation Translation list
+     * @param bool  $isFallback Set TRUE if translations are the fallback translations
      *
      * @return self
      */
@@ -229,9 +229,9 @@ class Translator
     /**
      * Load translation file.
      *
-     * @param string $translationFilePath
-     * @param bool   $isFallback
-     * @param bool   $silent              Disable runtime exception when route file path won't exists
+     * @param string $translationFilePath Translation file path
+     * @param bool   $isFallback Set TRUE if the file contains fallback translations
+     * @param bool   $silent              Set TRUE to disable runtime exception when translation file won't exists
      *
      * @return self
      *
@@ -360,4 +360,5 @@ class Translator
 
         return date($this->dateFormat, $timestamp);
     }
+
 }

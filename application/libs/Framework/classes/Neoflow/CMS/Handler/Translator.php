@@ -1,14 +1,12 @@
 <?php
+
 namespace Neoflow\CMS\Handler;
 
 use Neoflow\CMS\AppTrait;
 use Neoflow\CMS\Model\LanguageModel;
-use Neoflow\CMS\Model\ModuleModel;
-use Neoflow\CMS\Model\ThemeModel;
 use Neoflow\Framework\Handler\Translator as FrameworkTranslator;
 
-class Translator extends FrameworkTranslator
-{
+class Translator extends FrameworkTranslator {
 
     /**
      * App trait.
@@ -35,11 +33,15 @@ class Translator extends FrameworkTranslator
             $translations = $this->cache()->fetch($cacheKey);
             $this->translation = $translations['translation'];
             $this->fallbackTranslation = $translations['fallbackTranslation'];
+            $this->dateFormat = $translations['dateFormat'];
+            $this->dateTimeFormat = $translations['dateTimeFormat'];
+            $this->fallbackDateFormat = $translations['fallbackDateFormat'];
+            $this->fallbackDateTimeForm = $translations['fallbackDateTimeFormat'];
         } else {
             // Load translation file of each theme and module, but only when database connection is etablished
             if ($this->app()->get('database')) {
 
-                foreach (ModuleModel::findAll() as $module) {
+                foreach ($this->app()->get('modules') as $module) {
                     // Load translation file
                     $translationFile = $module->getPath('/i18n/' . $this->languageCode . '.php');
                     $this->loadTranslationFile($translationFile, false, true);
@@ -49,8 +51,7 @@ class Translator extends FrameworkTranslator
                     $this->loadTranslationFile($fallbackTranslationFile, true, true);
                 }
 
-
-                foreach (ThemeModel::findAll() as $theme) {
+                foreach ($this->app()->get('themes') as $theme) {
                     // Load translation file
                     $translationFile = $theme->getPath('/i18n/' . $this->languageCode . '.php');
                     $this->loadTranslationFile($translationFile, false, true);
@@ -60,8 +61,6 @@ class Translator extends FrameworkTranslator
                     $this->loadTranslationFile($fallbackTranslationFile, true, true);
                 }
             }
-
-
 
             // Load translation file
             $translationFile = $this->config()->getApplicationPath('/i18n/' . $this->languageCode . '.php');
@@ -75,7 +74,11 @@ class Translator extends FrameworkTranslator
             $this->cache()->store($cacheKey, [
                 'translation' => $this->translation,
                 'fallbackTranslation' => $this->fallbackTranslation,
-                ], 0, ['system-configurations']);
+                'dateFormat' => $this->dateFormat,
+                'dateTimeFormat' => $this->dateTimeFormat,
+                'fallbackDateFormat' => $this->fallbackDateFormat,
+                'fallbackDateTimeFormat' => $this->fallbackDateTimeFormat
+                    ], 0, ['system-configurations']);
         }
 
         $this->logger()->debug('Translator created', [
@@ -143,4 +146,5 @@ class Translator extends FrameworkTranslator
 
         return $this->config()->get('languages')[0];
     }
+
 }
