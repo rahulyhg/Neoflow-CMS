@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Controller;
 
 use Neoflow\CMS\Core\AbstractController;
@@ -8,6 +7,7 @@ use Neoflow\Framework\HTTP\Responsing\Response;
 
 class BackendController extends AbstractController
 {
+
     /**
      * @var array
      */
@@ -75,7 +75,11 @@ class BackendController extends AbstractController
             }
         } else {
             if (!in_array($currentRoute[0], $anonymousRoutes)) {
-                return $this->redirectToRoute('backend_auth_login', ['url' => $this->request()->getUrlPath(true, true)]);
+                $args = [];
+                if ($this->request()->isHttpMethod('GET')) {
+                    $args['url'] = $this->request()->getUrlPath(true, true);
+                }
+                return $this->redirectToRoute('backend_auth_login', $args);
             }
         }
 
