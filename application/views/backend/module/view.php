@@ -71,7 +71,7 @@
                                         <?php if ($requiredModule) {
 
                                             ?>
-                                            <a href="<?= generate_url('backend_module_view', array('id' => $requiredModule->id())); ?>"><?= $requiredModule->name; ?></a><span class="text-success"><i class="fa fa-fw fa-check"></i></span>
+                                            <a href="<?= generate_url('backend_module_view', ['id' => $requiredModule->id()]); ?>"><?= $requiredModule->name; ?></a><span class="text-success"><i class="fa fa-fw fa-check"></i></span>
                                             <?php
                                         } else {
 

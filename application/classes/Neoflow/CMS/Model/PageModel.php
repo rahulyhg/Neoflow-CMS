@@ -276,12 +276,12 @@ class PageModel extends AbstractModel
 
         if ($result) {
             if ($this->isNew) {
-                $navitem = NavitemModel::create(array(
+                $navitem = NavitemModel::create([
                         'navigation_id' => 1,
                         'page_id' => $this->id(),
                         'title' => $this->title,
                         'language_id' => $this->language_id,
-                ));
+                ]);
             } else {
                 $navitem = NavitemModel::repo()
                     ->where('page_id', '=', $this->id())
@@ -310,10 +310,11 @@ class PageModel extends AbstractModel
 
                 // Create new page roles
                 foreach ($this->role_ids as $role_id) {
-                    PageRoleModel::create(array(
-                        'page_id' => $this->id(),
-                        'role_id' => $role_id,
-                    ))->save($preventCacheClearing);
+                    PageRoleModel::create([
+                            'page_id' => $this->id(),
+                            'role_id' => $role_id,
+                        ])
+                        ->save($preventCacheClearing);
                 }
             }
         }

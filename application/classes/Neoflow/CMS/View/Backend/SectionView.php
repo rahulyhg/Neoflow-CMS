@@ -30,7 +30,7 @@ class SectionView extends NavitemView
                                     <td>
                                         <ul class="list-inline">
                                             <li class="list-inline-item">
-                                                <a href="'.generate_url($module->backend_route, array('section_id' => $section->id())).'" title="'.translate('Section content').'">
+                                                <a href="'.generate_url($module->backend_route, ['section_id' => $section->id()]).'" title="'.translate('Section content').'">
                                                     '.$module->name.'
                                                 </a>
                                             </li>
@@ -48,27 +48,27 @@ class SectionView extends NavitemView
                 $output .= '</ul>
                         </td>
                             <td class="text-right">
-                                    <a href="'.generate_url($module->backend_route, array('section_id' => $section->id())).'" class="btn btn-outline-light btn-sm d-none d-xl-inline-block btn-icon-left" title="'.translate('Section content').'">
+                                    <a href="'.generate_url($module->backend_route, ['section_id' => $section->id()]).'" class="btn btn-outline-light btn-sm d-none d-xl-inline-block btn-icon-left" title="'.translate('Section content').'">
                                         <span class="btn-icon">
                                             <i class="fa fa-columns"></i>
                                         </span>
                                         '.translate('Content').'
                                     </a>
-                                    <a href="'.generate_url('backend_section_edit', array('id' => $section->id())).'" class="btn btn-outline-light btn-sm" title="'.translate('Edit section').'">
+                                    <a href="'.generate_url('backend_section_edit', ['id' => $section->id()]).'" class="btn btn-outline-light btn-sm" title="'.translate('Edit section').'">
                                           <i class="fa fa-fw fa-pencil-alt"></i>
                                     </a>';
 
                 if ($section->is_active) {
-                    $output .= ' <a href="'.generate_url('backend_section_toggle_activation', array('id' => $section->id())).'" class="btn btn-outline-light btn-sm confirm-modal" data-message="'.translate('Are you sure you want to disable it?').'" title="'.translate('Disable section').'">
+                    $output .= ' <a href="'.generate_url('backend_section_toggle_activation', ['id' => $section->id()]).'" class="btn btn-outline-light btn-sm confirm-modal" data-message="'.translate('Are you sure you want to disable it?').'" title="'.translate('Disable section').'">
                                     <i class="fa fa-fw fa-toggle-on"></i>
                                 </a>';
                 } else {
-                    $output .= ' <a href="'.generate_url('backend_section_toggle_activation', array('id' => $section->id())).'" class="btn btn-outline-light btn-sm confirm-modal" data-message="'.translate('Are you sure you want to enable it?').'" title="'.translate('Enable section').'">
+                    $output .= ' <a href="'.generate_url('backend_section_toggle_activation', ['id' => $section->id()]).'" class="btn btn-outline-light btn-sm confirm-modal" data-message="'.translate('Are you sure you want to enable it?').'" title="'.translate('Enable section').'">
                                     <i class="fa fa-fw fa-toggle-off"></i>
                                 </a>';
                 }
 
-                $output .= ' <a href="'.generate_url('backend_section_delete', array('id' => $section->id())).'" class="btn btn-primary btn-sm confirm-modal" data-message="'.translate('Are you sure you want to delete this section and all of its content?').'" title="'.translate('Delete section').'">
+                $output .= ' <a href="'.generate_url('backend_section_delete', ['id' => $section->id()]).'" class="btn btn-primary btn-sm confirm-modal" data-message="'.translate('Are you sure you want to delete this section and all of its content?').'" title="'.translate('Delete section').'">
                                         <i class="fa fa-fw fa-trash-alt"></i>
                                     </a>
                             </td>

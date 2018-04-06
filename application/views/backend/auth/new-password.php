@@ -11,7 +11,7 @@
                 <?= $view->renderAlertTemplate(); ?>
 
                 <p>
-                    <?= translate('Please enter the new password for your user account, registered under the email address {0}.', array($user->email)); ?>
+                    <?= translate('Please enter the new password for your user account, registered under the email address {0}.', [$user->email]); ?>
                 </p>
 
                 <form method="post" action="<?= generate_url('backend_update_password'); ?>">

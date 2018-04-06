@@ -56,14 +56,14 @@ class UserController extends BackendController
             $postData = $this->request()->getPostData();
 
             // Create user
-            $user = UserModel::create(array(
+            $user = UserModel::create([
                     'email' => $postData->get('email'),
                     'firstname' => $postData->get('firstname'),
                     'lastname' => $postData->get('lastname'),
                     'role_id' => $postData->get('role_id'),
                     'password' => $postData->get('password'),
                     'confirmPassword' => $postData->get('confirmPassword'),
-            ));
+            ]);
 
             // Validate and save user
             if ($user && $user->validate() && $user->save()) {
@@ -127,12 +127,12 @@ class UserController extends BackendController
             $postData = $this->request()->getPostData();
 
             // Update user
-            $user = UserModel::updateById(array(
+            $user = UserModel::updateById([
                     'email' => $postData->get('email'),
                     'firstname' => $postData->get('firstname'),
                     'lastname' => $postData->get('lastname'),
                     'role_id' => $postData->get('role_id'),
-                    ), $postData->get('user_id'));
+                    ], $postData->get('user_id'));
 
             // Validate and save user
             if ($user && $user->validate() && $user->save()) {

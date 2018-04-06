@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\View;
 
 use Neoflow\CMS\Core\AbstractView;
@@ -7,6 +6,7 @@ use Neoflow\Alert\AbstractAlert;
 
 class BackendView extends AbstractView
 {
+
     /**
      * @var string
      */
@@ -186,9 +186,9 @@ class BackendView extends AbstractView
     public function renderAlertTemplate(): string
     {
         if ($this->hasAlerts()) {
-            return $this->renderTemplate('backend/alert', array(
+            return $this->renderTemplate('backend/alert', [
                     'alerts' => $this->getAlerts(),
-            ));
+            ]);
         }
 
         return '';

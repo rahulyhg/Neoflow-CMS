@@ -1,4 +1,4 @@
-<?= $view->renderTemplate('backend/page/navbar', array('page' => $page)); ?>
+<?= $view->renderTemplate('backend/page/navbar', ['page' => $page]); ?>
 <div class="row">
     <div class="col-xl-7">
 
@@ -31,7 +31,7 @@
                                         <?php
                                         $parentPage = $page->getParentPage();
                                         if ($parentPage) {
-                                            echo $parentPage->getRelativeUrl(false, false, true).'/';
+                                            echo $parentPage->getRelativeUrl(false, false, true) . '/';
                                         } else {
                                             echo '/';
                                         }
@@ -43,10 +43,12 @@
                             </div>
 
                             <?php if ($urlMessage) {
-                                            ?>
+
+                                ?>
                                 <small class="form-text text-danger"><?= $urlMessage; ?></small>
-                            <?php
-                                        } ?>
+                            <?php }
+
+                            ?>
                         </div>
                     </div>
 
@@ -77,6 +79,7 @@
                                 <option value="0"><?= $view->settings()->author; ?></option>
                                 <?php
                                 foreach ($users as $user) {
+
                                     ?>
                                     <option value="<?= $user->id(); ?>" <?= ($user->id() == $page->author_user_id ? 'selected' : ''); ?>><?= $user->getFullname(); ?></option>
                                     <?php
@@ -115,7 +118,7 @@
                         <div class="col-sm-9">
                             <select data-placeholder="<?= translate('None'); ?>" class="form-control select2" name="parent_navitem_id" id="selectPage">
                                 <option value="0"><?= translate('None'); ?></option>
-                                <?= $view->renderNavitemOptions($navitems, 0, array($pageNavitem->parent_navitem_id), array($pageNavitem->id())); ?>
+                                <?= $view->renderNavitemOptions($navitems, 0, [$pageNavitem->parent_navitem_id], [$pageNavitem->id()]); ?>
                             </select>
                         </div>
                     </div>
@@ -140,6 +143,7 @@
                             <select data-placeholder="<?= translate('All roles'); ?>" class="form-control select2" name="role_ids[]" multiple id="selectRoles">
                                 <?php
                                 foreach ($roles as $role) {
+
                                     ?>
                                     <option value="<?= $role->id(); ?>" <?= (in_array($role->id(), $page->getRoles()->mapValue('role_id')) ? 'selected' : ''); ?>><?= $role->title; ?></option>
                                     <?php

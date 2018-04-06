@@ -214,10 +214,11 @@ class SettingModel extends AbstractModel
 
                 // Create new setting languages
                 foreach ($this->language_ids as $language_id) {
-                    SettingLanguageModel::create(array(
-                        'setting_id' => $this->id(),
-                        'language_id' => $language_id,
-                    ))->save($preventCacheClearing);
+                    SettingLanguageModel::create([
+                            'setting_id' => $this->id(),
+                            'language_id' => $language_id,
+                        ])
+                        ->save($preventCacheClearing);
                 }
             }
 

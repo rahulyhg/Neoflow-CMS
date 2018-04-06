@@ -38,7 +38,7 @@ class Router extends FrameworkRouter
             $this->loadRouteFile($routeFilePath);
 
             // Add frontend index route to the end of the array
-            $this->addRoute(array('frontend_index', 'any', '/(url:uri)', 'Frontend@index'), '\\Neoflow\\CMS\\Controller\\');
+            $this->addRoute(['frontend_index', 'any', '/(url:uri)', 'Frontend@index'], '\\Neoflow\\CMS\\Controller\\');
 
             // Store routes to cache
             $this->cache()->store('routes', $this->routes, 0, ['system-configurations']);

@@ -33,7 +33,7 @@
                                 } else {
 
                                     ?>
-                                    <a href="<?= generate_url('backend_role_edit', array('id' => $role->id())); ?>" title="<?= translate('Edit role'); ?>">
+                                    <a href="<?= generate_url('backend_role_edit', ['id' => $role->id()]); ?>" title="<?= translate('Edit role'); ?>">
                                         <?= $role->title; ?>
                                     </a>
                                 <?php } ?>
@@ -47,13 +47,13 @@
                                 ?></td>
                             </td>
                             <td class="text-right nowrap">
-                                <a href="<?= generate_url('backend_role_edit', array('id' => $role->id())); ?>" class="btn btn-outline-light btn-sm btn-icon-left d-none d-xl-inline-block <?= (1 === $role->id() ? 'disabled' : ''); ?>" title="<?= translate('Edit role'); ?>">
+                                <a href="<?= generate_url('backend_role_edit', ['id' => $role->id()]); ?>" class="btn btn-outline-light btn-sm btn-icon-left d-none d-xl-inline-block <?= (1 === $role->id() ? 'disabled' : ''); ?>" title="<?= translate('Edit role'); ?>">
                                     <span class="btn-icon">
                                         <i class="fa fa-pencil-alt"></i>
                                     </span>
                                     <?= translate('Edit'); ?>
                                 </a>
-                                <a href="<?= generate_url('backend_role_delete', array('id' => $role->id())); ?>" class="btn btn-primary btn-sm confirm-modal <?= (1 === $role->id() ? 'disabled' : ''); ?>" data-message="<?= translate('Are you sure you want to delete it?'); ?>" title="<?= translate('Delete role'); ?>">
+                                <a href="<?= generate_url('backend_role_delete', ['id' => $role->id()]); ?>" class="btn btn-primary btn-sm confirm-modal <?= (1 === $role->id() ? 'disabled' : ''); ?>" data-message="<?= translate('Are you sure you want to delete it?'); ?>" title="<?= translate('Delete role'); ?>">
                                     <i class="fa fa-fw fa-trash-alt"></i>
                                 </a>
                             </td>

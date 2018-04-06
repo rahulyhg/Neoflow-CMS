@@ -152,11 +152,11 @@ class UserModel extends AbstractModel
      */
     public function validateNewPassword(): array
     {
-        $validator = new Validator(array(
+        $validator = new Validator([
             'newPassword' => $this->newPassword,
             'confirmPassword' => $this->confirmPassword,
             self::$primaryKey => $this->id(),
-        ));
+        ]);
 
         $validator
             ->required()

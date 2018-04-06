@@ -25,11 +25,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($themes as $theme) {
-    ?>
+                    <?php foreach ($themes as $theme) { ?>
                         <tr>
                             <td>
-                                <a href="<?= generate_url('backend_theme_view', array('id' => $theme->id())); ?>">
+                                <a href="<?= generate_url('backend_theme_view', ['id' => $theme->id()]); ?>">
                                     <?= translate($theme->name, [], false, false, false); ?>
                                 </a>
                             </td>
@@ -44,25 +43,28 @@
                                         break;
                                     case 'frontend':
                                         echo translate('Frontend');
-                                } ?>
+                                }
+
+                                ?>
                             </td>
                             <td>
                                 <?= translate($theme->description, [], false, false, false); ?>
                             </td>
                             <td class="text-right nowrap">
-                                <a href="<?= generate_url('backend_theme_view', array('id' => $theme->id())); ?>" class="btn btn-outline-light btn-sm btn-icon-left d-none d-xl-inline-block" title="<?= translate('Show theme'); ?>">
+                                <a href="<?= generate_url('backend_theme_view', ['id' => $theme->id()]); ?>" class="btn btn-outline-light btn-sm btn-icon-left d-none d-xl-inline-block" title="<?= translate('Show theme'); ?>">
                                     <span class="btn-icon">
                                         <i class="fa fa-info"></i>
                                     </span>
                                     <?= translate('Show'); ?>
                                 </a>
-                                <a href="<?= generate_url('backend_theme_delete', array('id' => $theme->id())); ?>" class="btn btn-primary btn-sm confirm-modal" data-message="<?= translate('Are you sure you want to uninstall it?'); ?>" title="<?= translate('Uninstall theme'); ?>">
+                                <a href="<?= generate_url('backend_theme_delete', ['id' => $theme->id()]); ?>" class="btn btn-primary btn-sm confirm-modal" data-message="<?= translate('Are you sure you want to uninstall it?'); ?>" title="<?= translate('Uninstall theme'); ?>">
                                     <i class="fa fa-fw fa-trash-alt"></i>
                                 </a>
                             </td>
                         </tr>
-                    <?php
-} ?>
+                    <?php }
+
+                    ?>
                 </tbody>
             </table>
         </div>

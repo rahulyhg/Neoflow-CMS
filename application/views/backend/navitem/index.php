@@ -1,6 +1,6 @@
 <?php
 if (1 !== $navigation->id()) {
-    echo $view->renderTemplate('backend/navigation/navbar', array('navigation' => $navigation));
+    echo $view->renderTemplate('backend/navigation/navbar', ['navigation' => $navigation]);
 }
 
 ?>
@@ -20,25 +20,25 @@ if (1 !== $navigation->id()) {
 
                         ?>
                         <li class="nav-item">
-                            <a class="nav-link<?= ($language->id() === $navigationLanguage->id() ? ' active' : ''); ?>" href="<?= generate_url('backend_navitem_index', array('id' => $navigation->id(), 'language_id' => $language->id())); ?>">
-                        <?= $language->renderFlagIcon(); ?> <span class="d-none d-sm-inline-block"><?= translate($language->title); ?></span>
+                            <a class="nav-link<?= ($language->id() === $navigationLanguage->id() ? ' active' : ''); ?>" href="<?= generate_url('backend_navitem_index', ['id' => $navigation->id(), 'language_id' => $language->id()]); ?>">
+                                <?= $language->renderFlagIcon(); ?> <span class="d-none d-sm-inline-block"><?= translate($language->title); ?></span>
                             </a>
                         </li>
                     <?php }
 
-                ?>
+                    ?>
                 </ul>
-    <?php }
+            <?php }
 
-?>
+            ?>
 
             <div class="card-body">
 
-<?php if ($navitems->count()) {
+                <?php if ($navitems->count()) {
 
-    ?>
+                    ?>
                     <div class="nestable" data-save-url="<?= generate_url('backend_navitem_reorder'); ?>">
-                    <?= $view->renderNavitemNestable($navitems); ?>
+                        <?= $view->renderNavitemNestable($navitems); ?>
                     </div>
                     <ul class="list-inline small">
                         <li><i class="fa fa-lock"></i> = <?= translate('Accessible only for authorized users'); ?></li>
@@ -48,9 +48,9 @@ if (1 !== $navigation->id()) {
 
                     ?>
                     <p class="text-center text-muted"><?= translate('No results found'); ?></p>
-    <?php }
+                <?php }
 
-?>
+                ?>
 
             </div>
         </div>
@@ -58,12 +58,12 @@ if (1 !== $navigation->id()) {
     <div class="col-xl-5">
 
 
-<?php if (1 !== $navigation->id()) {
+        <?php if (1 !== $navigation->id()) {
 
-    ?>
+            ?>
             <div class="card">
                 <h4 class="card-header">
-                                <?= translate('Create item'); ?>
+                    <?= translate('Create item'); ?>
                 </h4>
                 <div class="card-body">
                     <form method="post" action="<?= generate_url('backend_navitem_create'); ?>">
@@ -80,23 +80,23 @@ if (1 !== $navigation->id()) {
 
                         <div class="form-group row <?= has_validation_error('parent_navitem_id', 'has-danger'); ?>">
                             <label for="selectPage" class="col-sm-3 col-form-label">
-    <?= translate('Page'); ?>
+                                <?= translate('Page'); ?>
                             </label>
                             <div class="col-sm-9">
                                 <select class="form-control select2" name="page_id" id="selectPage">
-    <?= $view->renderNavitemOptions($pageNavitems, 0, [], [], 'page_id'); ?>
+                                    <?= $view->renderNavitemOptions($pageNavitems, 0, [], [], 'page_id'); ?>
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-group row <?= has_validation_error('parent_navitem_id', 'has-danger'); ?>">
                             <label for="selectParentNavitem" class="col-sm-3 col-form-label">
-    <?= translate('Top item'); ?>
+                                <?= translate('Top item'); ?>
                             </label>
                             <div class="col-sm-9">
                                 <select class="form-control select2" name="parent_navitem_id" id="selectParentNavitem">
                                     <option value=""><?= translate('None'); ?></option>
-    <?= $view->renderNavitemOptions($navitems); ?>
+                                    <?= $view->renderNavitemOptions($navitems); ?>
                                 </select>
                             </div>
                         </div>
@@ -116,15 +116,15 @@ if (1 !== $navigation->id()) {
                                     <span class="btn-icon">
                                         <i class="fa fa-save"></i>
                                     </span>
-            <?= translate('Save'); ?>
+                                    <?= translate('Save'); ?>
                                 </button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-    <?php }
+        <?php }
 
-?>
+        ?>
     </div>
 </div>

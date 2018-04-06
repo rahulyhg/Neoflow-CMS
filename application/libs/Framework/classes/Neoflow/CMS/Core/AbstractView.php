@@ -65,10 +65,10 @@ abstract class AbstractView extends FrameworkAbstractView
                 ->addTemplateDirectory($this->config()->getApplicationPath('/templates/'));
 
             // Store template and view file directories to cache
-            $viewDirectories = array(
+            $viewDirectories = [
                 'view' => $this->viewDirectories,
                 'template' => $this->templateDirectories,
-            );
+            ];
             $this->cache()->store($cacheKey, $viewDirectories, 0, ['system-configurations']);
         }
 

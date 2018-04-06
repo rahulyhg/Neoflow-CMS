@@ -95,7 +95,7 @@
             <div class="card-body">
 
                 <p><?= translate('Reload themes information'); ?></p>
-                <a href="<?= generate_url('backend_theme_reload', array('id' => $theme->id())); ?>" class="btn btn-primary btn-icon-left d-none d-xl-inline-block confirm-modal" data-message="<?= translate('Are you sure you want to reload it?'); ?>" title="<?= translate('Reload theme'); ?>">
+                <a href="<?= generate_url('backend_theme_reload', ['id' => $theme->id()]); ?>" class="btn btn-primary btn-icon-left d-none d-xl-inline-block confirm-modal" data-message="<?= translate('Are you sure you want to reload it?'); ?>" title="<?= translate('Reload theme'); ?>">
                     <span class="btn-icon">
                         <i class="fa fa-sync"></i>
                     </span>

@@ -7,36 +7,43 @@
             </h4>
 
             <?php if (count($languages) > 1) {
-    ?>
+
+                ?>
                 <ul class="nav nav-tabs nav-fill">
                     <?php foreach ($languages as $language) {
-        ?>
+
+                        ?>
                         <li class="nav-item">
-                            <a class="nav-link<?= ($language->id() === $activeLanguage->id() ? ' active' : ''); ?>" href="<?= generate_url('backend_page_index', array('language_id' => $language->id())); ?>">
-                                <?= $language->renderFlagIcon(); ?>  <span class="d-none d-sm-inline-block"><?= translate($language->title); ?></span>
+                            <a class="nav-link<?= ($language->id() === $activeLanguage->id() ? ' active' : ''); ?>" href="<?= generate_url('backend_page_index', ['language_id' => $language->id()]); ?>">
+                        <?= $language->renderFlagIcon(); ?>  <span class="d-none d-sm-inline-block"><?= translate($language->title); ?></span>
                             </a>
                         </li>
-                    <?php
-    } ?>
+                    <?php }
+
+                ?>
                 </ul>
-            <?php
-} ?>
+                    <?php }
+
+                ?>
 
             <div class="card-body">
-                <?php if ($navitems->count()) {
-        ?>
+<?php if ($navitems->count()) {
+
+    ?>
                     <div class="nestable" data-save-url="<?= generate_url('backend_page_reorder'); ?>">
-                        <?= $view->renderNavitemNestable($navitems); ?>
+                    <?= $view->renderNavitemNestable($navitems); ?>
                     </div>
                     <ul class="list-inline small">
                         <li><i class="fa fa-lock"></i> = <?= translate('Accessible only for authorized users'); ?></li>
                     </ul>
-                <?php
-    } else {
-        ?>
+                    <?php
+                } else {
+
+                    ?>
                     <p class="text-center text-muted"><?= translate('No results found'); ?></p>
-                <?php
-    } ?>
+    <?php }
+
+?>
             </div>
         </div>
 
@@ -45,14 +52,14 @@
 
         <div class="card">
             <h4 class="card-header">
-                <?= translate('Create page'); ?>
+                            <?= translate('Create page'); ?>
             </h4>
             <div class="card-body">
                 <form method="post" action="<?= generate_url('backend_page_create'); ?>">
                     <input type="hidden" value="<?= $activeLanguage->id(); ?>" name="language_id" />
                     <div class="form-group row <?= has_validation_error('title', 'has-danger'); ?>">
                         <label for="inputTitle" class="col-sm-3 col-form-label">
-                            <?= translate('Title'); ?>
+<?= translate('Title'); ?>
                         </label>
                         <div class="col-sm-9">
                             <input id="inputTitle" type="text" required class="form-control" name="title" maxlength="50" minlength="3" />
@@ -61,12 +68,12 @@
 
                     <div class="form-group row <?= has_validation_error('parent_navitem_id', 'has-danger'); ?>">
                         <label for="selectPage" class="col-sm-3 col-form-label">
-                            <?= translate('Top page'); ?>
+<?= translate('Top page'); ?>
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control select2" name="parent_navitem_id" id="selectPage">
                                 <option value=""><?= translate('None'); ?></option>
-                                <?= $view->renderNavitemOptions($navitems); ?>
+<?= $view->renderNavitemOptions($navitems); ?>
                             </select>
                         </div>
                     </div>
@@ -86,7 +93,7 @@
                                 <span class="btn-icon">
                                     <i class="fa fa-save"></i>
                                 </span>
-                                <?= translate('Save'); ?>
+<?= translate('Save'); ?>
                             </button>
                         </div>
                     </div>

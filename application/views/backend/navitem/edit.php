@@ -1,6 +1,6 @@
 <?php
 if (1 !== $navigation->id()) {
-    echo $view->renderTemplate('backend/navigation/navbar', array('navigation' => $navigation));
+    echo $view->renderTemplate('backend/navigation/navbar', ['navigation' => $navigation]);
 }
 
 ?>
@@ -31,7 +31,7 @@ if (1 !== $navigation->id()) {
                         </label>
                         <div class="col-sm-9">
                             <select <?= (1 == $navitem->navigation_id ? 'disabled' : ''); ?> class="form-control select2" name="page_id" id="selectPage">
-                                <?= $view->renderNavitemOptions($pageNavitems, 0, array($navitem->page_id), [], 'page_id'); ?>
+                                <?= $view->renderNavitemOptions($pageNavitems, 0, [$navitem->page_id], [], 'page_id'); ?>
                             </select>
                         </div>
                     </div>
@@ -43,7 +43,7 @@ if (1 !== $navigation->id()) {
                         <div class="col-sm-9">
                             <select class="form-control select2" name="parent_navitem_id" id="selectParentNavitem">
                                 <option value=""><?= translate('None'); ?></option>
-                                <?= $view->renderNavitemOptions($navitems, 0, array($navitem->parent_navitem_id), array($navitem->id())); ?>
+                                <?= $view->renderNavitemOptions($navitems, 0, [$navitem->parent_navitem_id], [$navitem->id()]); ?>
                             </select>
                         </div>
                     </div>

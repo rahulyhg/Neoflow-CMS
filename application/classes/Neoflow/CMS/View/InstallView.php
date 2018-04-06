@@ -36,9 +36,9 @@ class InstallView extends AbstractView
     public function renderAlertTemplate(): string
     {
         if ($this->hasAlerts()) {
-            return $this->renderTemplate('backend/alert', array(
+            return $this->renderTemplate('backend/alert', [
                     'alerts' => $this->getAlerts(),
-            ));
+            ]);
         }
 
         return '';

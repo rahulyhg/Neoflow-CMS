@@ -99,10 +99,11 @@ class RoleModel extends AbstractModel
 
                 // Create new role permissions
                 foreach ($this->permission_ids as $permission_id) {
-                    RolePermissionModel::create(array(
-                        'role_id' => $this->id(),
-                        'permission_id' => $permission_id,
-                    ))->save($preventCacheClearing);
+                    RolePermissionModel::create([
+                            'role_id' => $this->id(),
+                            'permission_id' => $permission_id,
+                        ])
+                        ->save($preventCacheClearing);
                 }
             }
 

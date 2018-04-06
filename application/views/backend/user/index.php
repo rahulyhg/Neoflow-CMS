@@ -25,11 +25,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($users as $user) {
-    ?>
+                    <?php foreach ($users as $user) { ?>
                         <tr>
                             <td>
-                                <a href="<?= generate_url('backend_user_edit', array('id' => $user->id())); ?>" title="<?= translate('Edit user'); ?>">
+                                <a href="<?= generate_url('backend_user_edit', ['id' => $user->id()]); ?>" title="<?= translate('Edit user'); ?>">
                                     <?= $user->email; ?>
                                 </a>
                             </td>
@@ -38,19 +37,20 @@
                             <td><?= $user->role()->fetch()->title; ?></td>
                             </td>
                             <td class="text-right nowrap">
-                                <a href="<?= generate_url('backend_user_edit', array('id' => $user->id())); ?>" class="btn btn-outline-light btn-sm btn-icon-left d-none d-xl-inline-block" title="<?= translate('Edit user'); ?>">
+                                <a href="<?= generate_url('backend_user_edit', ['id' => $user->id()]); ?>" class="btn btn-outline-light btn-sm btn-icon-left d-none d-xl-inline-block" title="<?= translate('Edit user'); ?>">
                                     <span class="btn-icon">
                                         <i class="fa fa-pencil-alt"></i>
                                     </span>
                                     <?= translate('Edit'); ?>
                                 </a>
-                                <a href="<?= generate_url('backend_user_delete', array('id' => $user->id())); ?>" class="btn btn-primary btn-sm confirm-modal <?= (1 === $user->id() ? 'disabled' : ''); ?>" data-message="<?= translate('Are you sure you want to delete it?'); ?>" title="<?= translate('Delete user'); ?>">
+                                <a href="<?= generate_url('backend_user_delete', ['id' => $user->id()]); ?>" class="btn btn-primary btn-sm confirm-modal <?= (1 === $user->id() ? 'disabled' : ''); ?>" data-message="<?= translate('Are you sure you want to delete it?'); ?>" title="<?= translate('Delete user'); ?>">
                                     <i class="fa fa-fw fa-trash-alt"></i>
                                 </a>
                             </td>
                         </tr>
-                    <?php
-} ?>
+                    <?php }
+
+                    ?>
                 </tbody>
             </table>
 
@@ -117,6 +117,7 @@
                             <select required class="form-control select2" name="role_id" id="selectRole">
                                 <?php
                                 foreach ($roles as $role) {
+
                                     ?>
                                     <option value="<?= $role->id(); ?>"><?= $role->title; ?></option>
                                     <?php

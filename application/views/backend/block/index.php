@@ -8,7 +8,8 @@
 
 
             <?php if ($blocks->count()) {
-    ?>
+
+                ?>
 
                 <table class="datatable table display responsive no-wrap" width="100%" cellspacing="0">
                     <thead>
@@ -24,10 +25,11 @@
                     </thead>
                     <tbody>
                         <?php foreach ($blocks as $block) {
-        ?>
+
+                            ?>
                             <tr>
                                 <td class="nowrap">
-                                    <a href="<?= generate_url('backend_block_edit', array('id' => $block->id())); ?>" title="<?= translate('Edit block'); ?>">
+                                    <a href="<?= generate_url('backend_block_edit', ['id' => $navigation->id()]); ?>" title="<?= translate('Edit block'); ?>">
                                         <?= $block->title; ?>
                                     </a>
                                 </td>
@@ -35,30 +37,33 @@
                                     <?= $block->block_key; ?>
                                 </td>
                                 <td class="text-right nowrap">
-                                    <a href="<?= generate_url('backend_block_edit', array('id' => $block->id())); ?>" class="btn btn-outline-light d-none d-xl-inline-block btn-sm btn-icon-left" title="<?= translate('Edit block'); ?>">
+                                    <a href="<?= generate_url('backend_block_edit', ['id' => $navigation->id()]); ?>" class="btn btn-outline-light d-none d-xl-inline-block btn-sm btn-icon-left" title="<?= translate('Edit block'); ?>">
                                         <span class="btn-icon">
                                             <i class="fa fa-pencil-alt"></i>
                                         </span>
                                         <?= translate('Edit'); ?>
                                     </a>
-                                    <a href="<?= generate_url('backend_block_delete', array('id' => $block->id())); ?>" class="btn btn-primary btn-sm confirm-modal" data-message="<?= translate('Are you sure you want to delete it?'); ?>" title="<?= translate('Delete block'); ?>">
+                                    <a href="<?= generate_url('backend_block_delete', ['id' => $navigation->id()]); ?>" class="btn btn-primary btn-sm confirm-modal" data-message="<?= translate('Are you sure you want to delete it?'); ?>" title="<?= translate('Delete block'); ?>">
                                         <i class="fa fa-fw fa-trash-alt"></i>
                                     </a>
                                 </td>
                             </tr>
-                        <?php
-    } ?>
+                        <?php }
+
+                        ?>
                     </tbody>
                 </table>
 
-            <?php
-} else {
-        ?>
+                <?php
+            } else {
+
+                ?>
                 <div class="card-body">
                     <p class="text-center text-muted"><?= translate('No results found'); ?></p>
                 </div>
-            <?php
-    } ?>
+            <?php }
+
+            ?>
 
         </div>
 
