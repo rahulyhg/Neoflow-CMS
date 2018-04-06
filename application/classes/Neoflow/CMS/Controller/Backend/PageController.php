@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -18,6 +17,7 @@ use RuntimeException;
 
 class PageController extends BackendController
 {
+
     /**
      * Constructor.
      *
@@ -50,7 +50,7 @@ class PageController extends BackendController
         $defaultLanguageId = $this->settings()->getDefaultLanguage()->id();
         $languages = $this->settings()
             ->languages()
-            ->orderByRaw('(languages.language_id = '.$defaultLanguageId.') DESC')
+            ->orderByRaw('(languages.language_id = ' . $defaultLanguageId . ') DESC')
             ->orderByAsc('title')
             ->fetchAll();
 
@@ -63,7 +63,9 @@ class PageController extends BackendController
                 $language_id = $this->settings()->getDefaultLanguage()->id();
                 $this->session()->reflash();
 
-                return $this->redirectToRoute('backend_page_index', array('language_id' => $language_id));
+                return $this->redirectToRoute('backend_page_index', [
+                        'language_id' => $language_id
+                ]);
             }
         }
         $activeLanguage = LanguageModel::findById($language_id);
@@ -77,11 +79,11 @@ class PageController extends BackendController
             ->orderByAsc('position')
             ->fetchAll();
 
-        return $this->render('backend/page/index', array(
+        return $this->render('backend/page/index', [
                 'languages' => $languages,
                 'activeLanguage' => $activeLanguage,
                 'navitems' => $navitems,
-        ));
+        ]);
     }
 
     /**
@@ -98,13 +100,13 @@ class PageController extends BackendController
             $postData = $this->request()->getPostData();
 
             // Create page
-            $page = PageModel::create(array(
+            $page = PageModel::create([
                     'title' => $postData->get('title'),
                     'language_id' => $postData->get('language_id'),
                     'is_active' => $postData->get('is_active'),
                     'parent_navitem_id' => $postData->get('parent_navitem_id'),
                     'custom_slug' => '',
-            ));
+            ]);
 
             // Validate and save page
             if ($page && $page->validate() && $page->save() && $page->saveUrl()) {
@@ -139,12 +141,16 @@ class PageController extends BackendController
             // Set title and breadcrumb
             $this->view
                 ->setTitle($page->title)
-                ->setSubtitle('ID: '.$page->id())
-                ->addBreadcrumb(translate('Page', [], true), generate_url('backend_page_index', array('language_id' => $page->language_id)));
+                ->setSubtitle('ID: ' . $page->id())
+                ->addBreadcrumb(translate('Page', [], true), generate_url('backend_page_index', [
+                    'language_id' => $page->language_id
+            ]));
 
             // Set back and preview url
             $this->view
-                ->setBackRoute('backend_page_index', array('language_id' => $page->language_id))
+                ->setBackRoute('backend_page_index', [
+                    'language_id' => $page->language_id
+                ])
                 ->setPreviewUrl($page->getUrl());
 
             // Get navitems
@@ -181,17 +187,17 @@ class PageController extends BackendController
                 $urlMessage = $ex->getMessage();
             }
 
-            return $this->render('backend/page/edit', array(
+            return $this->render('backend/page/edit', [
                     'page' => $page,
                     'users' => $users,
                     'pageNavitem' => $pageNavitem,
                     'navitems' => $navitems,
                     'roles' => $roles,
                     'urlMessage' => $urlMessage,
-            ));
+            ]);
         }
 
-        throw new RuntimeException('Page not found (ID: '.$this->args['id'].')');
+        throw new RuntimeException('Page not found (ID: ' . $this->args['id'] . ')');
     }
 
     /**
@@ -212,7 +218,9 @@ class PageController extends BackendController
                 ->updateOrder(json_decode($json, true));
         }
 
-        return new JsonResponse(array('success' => $result));
+        return new JsonResponse([
+            'success' => $result
+        ]);
     }
 
     /**
@@ -231,7 +239,7 @@ class PageController extends BackendController
 
             return $this->redirectToRoute('backend_page_index');
         }
-        throw new RuntimeException('Deleting page failed (ID: '.$this->args['id'].')');
+        throw new RuntimeException('Deleting page failed (ID: ' . $this->args['id'] . ')');
     }
 
     /**
@@ -248,7 +256,7 @@ class PageController extends BackendController
             $postData = $this->request()->getPostData();
 
             // Get page by id
-            $page = PageModel::updateById(array(
+            $page = PageModel::updateById([
                     'title' => $postData->get('title'),
                     'is_active' => $postData->get('is_active'),
                     'parent_navitem_id' => $postData->get('parent_navitem_id'),
@@ -260,19 +268,21 @@ class PageController extends BackendController
                     'author_user_id' => $postData->get('author_user_id') ?: null,
                     'role_ids' => $postData->get('role_ids') ?: [],
                     'only_logged_in_users' => $postData->get('only_logged_in_users'),
-                    ), $postData->get('page_id'));
+                    ], $postData->get('page_id'));
 
             // Validate and save page
             if ($page && $page->validate() && $page->save() && $page->saveUrl()) {
                 $this->view->setSuccessAlert(translate('Successfully updated'));
             } else {
-                throw new RuntimeException('Updating page failed (ID: '.$postData->get('page_id').')');
+                throw new RuntimeException('Updating page failed (ID: ' . $postData->get('page_id') . ')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
         }
 
-        return $this->redirectToRoute('backend_page_edit', array('id' => $page->id()));
+        return $this->redirectToRoute('backend_page_edit', [
+                'id' => $page->id()
+        ]);
     }
 
     /**
@@ -295,7 +305,7 @@ class PageController extends BackendController
 
             return $this->redirectToRoute('backend_page_index');
         }
-        throw new RuntimeException('Toggling activation for page failed (ID: '.$this->args['id'].')');
+        throw new RuntimeException('Toggling activation for page failed (ID: ' . $this->args['id'] . ')');
     }
 
     /**

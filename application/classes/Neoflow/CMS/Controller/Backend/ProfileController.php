@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -12,6 +11,7 @@ use RuntimeException;
 
 class ProfileController extends BackendController
 {
+
     /**
      * @var UserModel
      */
@@ -65,11 +65,11 @@ class ProfileController extends BackendController
             $postData = $this->request()->getPostData();
 
             // Update user
-            $user = UserModel::updateById(array(
+            $user = UserModel::updateById([
                     'email' => $postData->get('email'),
                     'firstname' => $postData->get('firstname'),
                     'lastname' => $postData->get('lastname'),
-                    ), $this->profileUser->id());
+                    ], $this->profileUser->id());
 
             // Validate and save user
             if ($user && $user->validate() && $user->save()) {
@@ -78,7 +78,7 @@ class ProfileController extends BackendController
 
                 $this->view->setSuccessAlert(translate('Successfully updated'));
             } else {
-                throw new RuntimeException('Updating profile user failed (ID: '.$this->profileUser->id().')');
+                throw new RuntimeException('Updating profile user failed (ID: ' . $this->profileUser->id() . ')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
@@ -107,7 +107,7 @@ class ProfileController extends BackendController
             if ($user->validateNewPassword() && $user->save()) {
                 $this->view->setSuccessAlert(translate('Password successfully updated'));
             } else {
-                throw new RuntimeException('Updating password of profile user failed (ID: '.$this->profileUser->id().')');
+                throw new RuntimeException('Updating password of profile user failed (ID: ' . $this->profileUser->id() . ')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert($ex->getErrors());
@@ -132,7 +132,7 @@ class ProfileController extends BackendController
 
             return $this->redirectToRoute('backend_user_index');
         }
-        throw new RuntimeException('Deleting user failed (ID: '.$this->args['id'].')');
+        throw new RuntimeException('Deleting user failed (ID: ' . $this->args['id'] . ')');
     }
 
     /**

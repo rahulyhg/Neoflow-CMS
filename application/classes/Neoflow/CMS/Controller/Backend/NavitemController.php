@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -15,6 +14,7 @@ use RuntimeException;
 
 class NavitemController extends BackendController
 {
+
     /**
      * Constructor.
      *
@@ -60,7 +60,10 @@ class NavitemController extends BackendController
                     $language_id = $this->settings()->getDefaultLanguage()->id();
                     $this->session()->reflash();
 
-                    return $this->redirectToRoute('backend_navitem_index', array('id' => $navigation->id(), 'language_id' => $language_id));
+                    return $this->redirectToRoute('backend_navitem_index', [
+                            'id' => $navigation->id(),
+                            'language_id' => $language_id
+                    ]);
                 }
             }
             $this->session()->set('language_id', $language_id);
@@ -87,21 +90,21 @@ class NavitemController extends BackendController
             // Set title and breadcrumb
             $this->view
                 ->setTitle(translate($navigation->title, [], false, false, false))
-                ->setSubtitle('ID: '.$navigation->id())
+                ->setSubtitle('ID: ' . $navigation->id())
                 ->addBreadcrumb(translate('Navigation', [], true), generate_url('backend_navigation_index'));
 
             // Set back url
             $this->view->setBackRoute('backend_navigation_index');
 
-            return $this->render('backend/navitem/index', array(
+            return $this->render('backend/navitem/index', [
                     'navigation' => $navigation,
                     'navitems' => $navitems,
                     'pageNavitems' => $pageNavitems,
                     'languages' => $languages,
                     'navigationLanguage' => $navigationLanguage,
-            ));
+            ]);
         }
-        throw new RuntimeException('Navigation item not found or navigation is not editable (ID: '.$this->args['id'].')');
+        throw new RuntimeException('Navigation item not found or navigation is not editable (ID: ' . $this->args['id'] . ')');
     }
 
     /**
@@ -123,14 +126,14 @@ class NavitemController extends BackendController
             $postData = $this->request()->getPostData();
 
             // Create navigation item
-            $navitem = NavitemModel::create(array(
+            $navitem = NavitemModel::create([
                     'title' => $postData->get('title'),
                     'parent_navitem_id' => $postData->get('parent_navitem_id') ?: null,
                     'navigation_id' => $postData->get('navigation_id'),
                     'language_id' => $postData->get('language_id'),
                     'page_id' => $postData->get('page_id'),
                     'is_visible' => $postData->get('is_visible'),
-            ));
+            ]);
 
             // Validate and save navigation item
             if ($navitem && 1 != $navitem->navigation_id && $navitem->validate() && $navitem->save()) {
@@ -142,7 +145,9 @@ class NavitemController extends BackendController
             $this->view->setWarningAlert([translate('Create failed'), $ex->getErrors()]);
         }
 
-        return $this->redirectToRoute('backend_navitem_index', array('id' => $navitem->navigation_id));
+        return $this->redirectToRoute('backend_navitem_index', [
+                'id' => $navitem->navigation_id
+        ]);
     }
 
     /**
@@ -164,9 +169,11 @@ class NavitemController extends BackendController
         if ($navitem && 1 != $navitem->navigation_id && $navitem->delete()) {
             $this->view->setSuccessAlert(translate('Successfully deleted'));
 
-            return $this->redirectToRoute('backend_navitem_index', array('id' => $navitem->navigation_id));
+            return $this->redirectToRoute('backend_navitem_index', [
+                    'id' => $navitem->navigation_id
+            ]);
         }
-        throw new RuntimeException('Deleting navigation item failed or not deletable (ID: '.$this->args['id'].')');
+        throw new RuntimeException('Deleting navigation item failed or not deletable (ID: ' . $this->args['id'] . ')');
     }
 
     /**
@@ -193,12 +200,14 @@ class NavitemController extends BackendController
                 // Set title and breadcrumb
                 $this->view
                     ->setTitle($navitem->title)
-                    ->setSubtitle('ID: '.$navitem->id().' '.translate('Page').': '.$navitem->page()->fetch()->title)
+                    ->setSubtitle('ID: ' . $navitem->id() . ' ' . translate('Page') . ': ' . $navitem->page()->fetch()->title)
                     ->addBreadcrumb(translate('Navigation', [], true), generate_url('backend_navigation_index'))
                     ->addBreadcrumb($navigation->title, generate_url('backend_navitem_index', ['id' => $navigation->id()]));
 
                 // Set back url
-                $this->view->setBackRoute('backend_navitem_index', array('id' => $navitem->navigation_id));
+                $this->view->setBackRoute('backend_navitem_index', [
+                    'id' => $navitem->navigation_id
+                ]);
 
                 // Get navigation items for selectable pages
                 $pageNavitems = NavitemModel::repo()
@@ -216,16 +225,16 @@ class NavitemController extends BackendController
                     ->orderByAsc('position')
                     ->fetchAll();
 
-                return $this->render('backend/navitem/edit', array(
+                return $this->render('backend/navitem/edit', [
                         'navitem' => $navitem,
                         'navigation' => $navigation,
                         'pageNavitems' => $pageNavitems,
                         'navitems' => $navitems,
-                ));
+                ]);
             }
-            throw new RuntimeException('Navigation item not found (ID: '.$this->args['id'].')');
+            throw new RuntimeException('Navigation item not found (ID: ' . $this->args['id'] . ')');
         }
-        throw new RuntimeException('Navigation item not found (ID: '.$this->args['id'].')');
+        throw new RuntimeException('Navigation item not found (ID: ' . $this->args['id'] . ')');
     }
 
     /**
@@ -242,11 +251,11 @@ class NavitemController extends BackendController
             $postData = $this->request()->getPostData();
 
             // Update navitem
-            $navitem = NavitemModel::updateById(array(
+            $navitem = NavitemModel::updateById([
                     'title' => $postData->get('title'),
                     'is_active' => $postData->get('is_active'),
                     'parent_navitem_id' => $postData->get('parent_navitem_id') ?: null,
-                    ), $postData->get('navitem_id'));
+                    ], $postData->get('navitem_id'));
 
             if (1 != $navitem->navigation_id) {
                 $navitem->page_id = $postData->get('page_id');
@@ -256,13 +265,15 @@ class NavitemController extends BackendController
             if ($navitem && $navitem->validate() && $navitem->save()) {
                 $this->view->setSuccessAlert(translate('Successfully updated'));
             } else {
-                throw new RuntimeException('Updating navigation item failed (ID: '.$postData->get('navitem_id').')');
+                throw new RuntimeException('Updating navigation item failed (ID: ' . $postData->get('navitem_id') . ')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
         }
 
-        return $this->redirectToRoute('backend_navitem_edit', array('id' => $navitem->id()));
+        return $this->redirectToRoute('backend_navitem_edit', [
+                'id' => $navitem->id()
+        ]);
     }
 
     /**
@@ -283,9 +294,11 @@ class NavitemController extends BackendController
                 $this->view->setSuccessAlert(translate('Successfully disabled'));
             }
 
-            return $this->redirectToRoute('backend_navitem_index', array('id' => $navitem->navigation_id));
+            return $this->redirectToRoute('backend_navitem_index', [
+                    'id' => $navitem->navigation_id
+            ]);
         }
-        throw new RuntimeException('Toggling activation for navigation item failed (ID: '.$this->args['id'].')');
+        throw new RuntimeException('Toggling activation for navigation item failed (ID: ' . $this->args['id'] . ')');
     }
 
     /**
@@ -306,7 +319,9 @@ class NavitemController extends BackendController
                 ->updateOrder(json_decode($json, true));
         }
 
-        return new JsonResponse(array('success' => $result));
+        return new JsonResponse([
+            'success' => $result
+        ]);
     }
 
     /**

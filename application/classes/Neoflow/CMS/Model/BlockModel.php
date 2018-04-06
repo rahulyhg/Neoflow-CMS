@@ -73,7 +73,7 @@ class BlockModel extends AbstractModel
                     ->where('block_key', '=', $blockKey)
                     ->where('block_id', '!=', $id)
                     ->count();
-            }, '{0} has to be unique', array($this->id()))
+            }, '{0} has to be unique', [$this->id()])
             ->set('block_key', 'Key');
 
         return $validator->validate();

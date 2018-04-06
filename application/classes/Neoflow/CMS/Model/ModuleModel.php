@@ -90,7 +90,7 @@ class ModuleModel extends AbstractExtensionModel
                     ->where('name', '=', $name)
                     ->where('module_id', '!=', $id)
                     ->count();
-            }, '{0} has to be unique', array($this->id()))
+            }, '{0} has to be unique', [$this->id()])
             ->set('name', 'Name');
 
         $validator
@@ -102,7 +102,7 @@ class ModuleModel extends AbstractExtensionModel
                     ->where('folder_name', '=', $folder)
                     ->where('module_id', '!=', $id)
                     ->count();
-            }, '{0} has to be unique', array($this->id()))
+            }, '{0} has to be unique', [$this->id()])
             ->set('folder_name', 'Folder');
 
         if ('page' === $this->type) {
@@ -132,7 +132,7 @@ class ModuleModel extends AbstractExtensionModel
                     ->where('manager_class', '=', $namespace)
                     ->where('module_id', '!=', $id)
                     ->count();
-            }, '{0} has to be unique', array($this->id()))
+            }, '{0} has to be unique', [$this->id()])
             ->set('manager_class', 'Manager Class');
 
         $validator

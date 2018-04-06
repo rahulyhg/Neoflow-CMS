@@ -1,7 +1,10 @@
 <?php
 if (1 !== $navigation->id()) {
-    echo $view->renderTemplate('backend/navigation/navbar', array('navigation' => $navigation));
+    echo $view->renderTemplate('backend/navigation/navbar', [
+        'navigation' => $navigation
+    ]);
 }
+
 ?>
 <div class="row">
     <div class="col-xl-7">

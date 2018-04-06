@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\HTTP;
 
 use Neoflow\Framework\AppTrait;
@@ -7,6 +6,7 @@ use RuntimeException;
 
 class Session
 {
+
     /**
      * App trait.
      */
@@ -153,7 +153,7 @@ class Session
     /**
      * Get session value.
      *
-     * @param string $key
+     * @param string $key Session key
      *
      * @return mixed
      */
@@ -169,7 +169,7 @@ class Session
     /**
      * Check whether session value exist.
      *
-     * @param string $key
+     * @param string $key Session key
      *
      * @return bool
      */
@@ -181,7 +181,7 @@ class Session
     /**
      * Delete session value.
      *
-     * @param string $key
+     * @param string $key Session key
      *
      * @return bool
      */
@@ -199,11 +199,11 @@ class Session
     /**
      * Check whether session value exists.
      *
-     * @param string $key
+     * @param string $key Session key
      *
      * @return bool
      */
-    public function has($key)
+    public function has(string $key)
     {
         return isset($_SESSION[$this->sessionKey][$key]);
     }
@@ -211,12 +211,12 @@ class Session
     /**
      * Set session value.
      *
-     * @param string $key
-     * @param mixed  $value
+     * @param string $key Session key
+     * @param mixed  $value Session value
      *
      * @return Session
      */
-    public function set($key, $value)
+    public function set(string $key, $value)
     {
         $_SESSION[$this->sessionKey][$key] = $value;
 
@@ -226,11 +226,11 @@ class Session
     /**
      * Get session flash value.
      *
-     * @param string $key
+     * @param string $key Flash key
      *
      * @return mixed
      */
-    public function getFlash($key)
+    public function getFlash(string $key)
     {
         if ($this->hasFlash($key)) {
             return $_SESSION[$this->flashKey][$key];
@@ -242,11 +242,11 @@ class Session
     /**
      * Check whether flash value exists.
      *
-     * @param string $key
+     * @param string $key Flash key
      *
      * @return bool
      */
-    public function hasFlash($key)
+    public function hasFlash(string $key)
     {
         return isset($_SESSION[$this->flashKey][$key]);
     }
@@ -254,11 +254,11 @@ class Session
     /**
      * Get new session flash value.
      *
-     * @param string $key
+     * @param string $key Flash key
      *
      * @return mixed
      */
-    public function getNewFlash($key)
+    public function getNewFlash(striung $key)
     {
         if ($this->hasNewFlash($key)) {
             return $this->flashDataNew[$key];
@@ -270,11 +270,11 @@ class Session
     /**
      * Check whether new flash value exists.
      *
-     * @param string $key
+     * @param string $key Flash key
      *
      * @return bool
      */
-    public function hasNewFlash($key)
+    public function hasNewFlash(string $key)
     {
         return isset($this->flashDataNew[$key]);
     }
@@ -282,11 +282,11 @@ class Session
     /**
      * Delete new session flash value.
      *
-     * @param string $key
+     * @param string $key Flash key
      *
      * @return bool
      */
-    public function deleteNewFlash($key)
+    public function deleteNewFlash(string $key)
     {
         if (isset($this->flashDataNew[$key])) {
             unset($this->flashDataNew[$key]);
@@ -300,12 +300,12 @@ class Session
     /**
      * Set new session flash value.
      *
-     * @param string $key
-     * @param mixed  $value
+     * @param string $key Flash key
+     * @param mixed  $value Flash value
      *
      * @return Session
      */
-    public function setNewFlash($key, $value)
+    public function setNewFlash(string $key, $value)
     {
         $this->flashDataNew[$key] = $value;
 

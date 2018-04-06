@@ -78,8 +78,10 @@ class AuthService extends AbstractService
         if ($user) {
             if (!$user->reset_key || 1 === 1 || $user->reseted_when < microtime(true) - 60 * 60) {
                 if ($user->generateResetKey() && $user->save()) {
-                    $link = generate_url('backend_new_password', array('reset_key' => $user->reset_key));
-                    $message = translate('Password reset email message', array($user->getFullName(), $link));
+                    $link = generate_url('backend_new_password', [
+                        'reset_key' => $user->reset_key
+                    ]);
+                    $message = translate('Password reset email message', [$user->getFullName(), $link]);
                     $subject = translate('Password reset email subject');
 
                     if ($sendMail) {
@@ -109,7 +111,7 @@ class AuthService extends AbstractService
     public function hasPermission($permissionKeys)
     {
         if (is_string($permissionKeys)) {
-            $permissionKeys = array($permissionKeys);
+            $permissionKeys = [$permissionKeys];
         }
 
         return array_in_array($permissionKeys, $this->getPermissionKeys());

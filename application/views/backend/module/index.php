@@ -31,7 +31,7 @@
                         ?>
                         <tr class="<?= ($module->is_active ?: 'table-muted'); ?>">
                             <td class="nowrap">
-                                <a href="<?= generate_url('backend_module_view', array('id' => $module->id())); ?>">
+                                <a href="<?= generate_url('backend_module_view', ['id' => $module->id()]); ?>">
                                     <?= translate($module->name, [], false, false, false); ?>
                                 </a>
                                 <span class="<?= ($requiredModuleStatus ? 'text-success' : 'text-danger'); ?>">
@@ -59,7 +59,7 @@
                                 <?= translate($module->description, [], false, false, false); ?>
                             </td>
                             <td class="text-left-xs text-right nowrap">
-                                <a href="<?= generate_url('backend_module_view', array('id' => $module->id())); ?>" class="btn btn-outline-light btn-sm btn-icon-left d-none d-xl-inline-block" title="<?= translate('Show module'); ?>">
+                                <a href="<?= generate_url('backend_module_view', ['id' => $module->id()]); ?>" class="btn btn-outline-light btn-sm btn-icon-left d-none d-xl-inline-block" title="<?= translate('Show module'); ?>">
                                     <span class="btn-icon">
                                         <i class="fa fa-info"></i>
                                     </span>
@@ -68,21 +68,21 @@
                                 <?php if ($module->is_active) {
 
                                     ?>
-                                    <a href="<?= generate_url('backend_module_toggle_activation', array('id' => $module->id())); ?>" class="btn btn-outline-light btn-sm confirm-modal <?= ($module->is_core ? 'disabled' : ''); ?>" data-message="<?= translate('Are you sure you want to disable it?'); ?>" title="<?= translate('Disable module'); ?>">
+                                    <a href="<?= generate_url('backend_module_toggle_activation', ['id' => $module->id()]); ?>" class="btn btn-outline-light btn-sm confirm-modal <?= ($module->is_core ? 'disabled' : ''); ?>" data-message="<?= translate('Are you sure you want to disable it?'); ?>" title="<?= translate('Disable module'); ?>">
                                         <i class="fa fa-fw fa-toggle-on"></i>
                                     </a>
                                     <?php
                                 } else {
 
                                     ?>
-                                    <a href="<?= generate_url('backend_module_toggle_activation', array('id' => $module->id())); ?>" class="btn btn-outline-light btn-sm confirm-modal <?= ($module->is_core ? 'disabled' : ''); ?>" data-message="<?= translate('Are you sure you want to enable it?'); ?>" title="<?= translate('Enable module'); ?>">
+                                    <a href="<?= generate_url('backend_module_toggle_activation', ['id' => $module->id()]); ?>" class="btn btn-outline-light btn-sm confirm-modal <?= ($module->is_core ? 'disabled' : ''); ?>" data-message="<?= translate('Are you sure you want to enable it?'); ?>" title="<?= translate('Enable module'); ?>">
                                         <i class="fa fa-fw fa-toggle-off"></i>
                                     </a>
                                 <?php }
 
                                 ?>
 
-                                <a href="<?= generate_url('backend_module_delete', array('id' => $module->id())); ?>" class="btn btn-primary btn-sm confirm-modal <?= ($module->is_core ? 'disabled' : ''); ?>" data-message="<?= translate('Are you sure you want to delete it?'); ?>" title="<?= translate('Uninstall module'); ?>">
+                                <a href="<?= generate_url('backend_module_delete', ['id' => $module->id()]); ?>" class="btn btn-primary btn-sm confirm-modal <?= ($module->is_core ? 'disabled' : ''); ?>" data-message="<?= translate('Are you sure you want to delete it?'); ?>" title="<?= translate('Uninstall module'); ?>">
                                     <i class="fa fa-fw fa-trash-alt"></i>
                                 </a>
                             </td>

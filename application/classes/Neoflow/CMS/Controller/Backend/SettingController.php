@@ -45,11 +45,11 @@ class SettingController extends BackendController
         }
 
         if ($settings) {
-            return $this->render('backend/setting/index', array(
+            return $this->render('backend/setting/index', [
                     'setting' => $settings,
                     'languages' => LanguageModel::findAll(),
                     'themes' => ThemeModel::findAll(),
-            ));
+            ]);
         }
         throw new RuntimeException('Settings not found (ID: ' . $this->args['id'] . ')');
     }

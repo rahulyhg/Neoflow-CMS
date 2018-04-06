@@ -148,7 +148,7 @@
             <div class="card-body">
 
                 <p><?= translate('Reload modules information'); ?></p>
-                <a href="<?= generate_url('backend_module_reload', array('id' => $module->id())); ?>" class="btn btn-primary btn-icon-left d-none d-xl-inline-block confirm-modal" data-message="<?= translate('Are you sure you want to reload it?'); ?>" title="<?= translate('Reload module'); ?>">
+                <a href="<?= generate_url('backend_module_reload', ['id' => $module->id()]); ?>" class="btn btn-primary btn-icon-left d-none d-xl-inline-block confirm-modal" data-message="<?= translate('Are you sure you want to reload it?'); ?>" title="<?= translate('Reload module'); ?>">
                     <span class="btn-icon">
                         <i class="fa fa-sync"></i>
                     </span>

@@ -103,7 +103,7 @@ class UserModel extends AbstractModel
                     ->where('email', '=', $email)
                     ->where('user_id', '!=', $id)
                     ->count();
-            }, '{0} has to be unique', array($this->id()))
+            }, '{0} has to be unique', [$this->id()])
             ->set('email', 'Email address');
 
         $validator
@@ -171,7 +171,7 @@ class UserModel extends AbstractModel
             ->pregMatch('/[\!\"\§\$\%\&\/\(\)\=\?\\\,\.\-\_\:\;\]\+\*\~\<\>\|]+/', 'Password must contain at least one special character')
             ->callback(function ($password, $confirmPassword) {
                 return $password === $confirmPassword;
-            }, 'Password is not matching confirm password', array($this->confirmPassword))
+            }, 'Password is not matching confirm password', [$this->confirmPassword])
             ->set('newPassword', 'Password');
 
         return $validator->validate();

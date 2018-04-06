@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -15,6 +14,7 @@ use RuntimeException;
 
 class PageModel extends AbstractModel
 {
+
     /**
      * @var string
      */
@@ -31,7 +31,7 @@ class PageModel extends AbstractModel
     public static $properties = ['page_id', 'title', 'slug',
         'description', 'keywords', 'is_active', 'is_restricted', 'author_user_id',
         'only_logged_in_users', 'language_id', 'url', 'has_custom_slug', 'is_startpage',
-        'created_when', 'modified_when', ];
+        'created_when', 'modified_when',];
 
     /**
      * Get repository to fetch sections.
@@ -138,7 +138,7 @@ class PageModel extends AbstractModel
 
         $numberOfLanguages = count($this->config()->get('languages'));
         if ($withLanguageCode && $numberOfLanguages > 1) {
-            $relativeUrl .= '/'.$this->language()->fetch()->code.'/';
+            $relativeUrl .= '/' . $this->language()->fetch()->code . '/';
         }
 
         if ($forStartpage || !$this->is_startpage) {
@@ -334,8 +334,8 @@ class PageModel extends AbstractModel
         $this->url = '/';
         if ($parentPages->count() > 0) {
             $this->url .= $parentPages->implode(function ($page) {
-                return $page->slug;
-            }, '/').'/';
+                    return $page->slug;
+                }, '/') . '/';
         }
         $this->url .= $this->slug;
 
@@ -362,7 +362,7 @@ class PageModel extends AbstractModel
                     ->count();
 
                 return (bool) $result;
-            }, '{0} has to be unique', array($this))
+            }, '{0} has to be unique', [$this])
             ->set('title', 'Title');
 
         return $validator->validate();
@@ -453,13 +453,13 @@ class PageModel extends AbstractModel
         if ($this->description) {
             $this->engine()->addMetaTagProperties([
                 'name' => 'description',
-                'content' => $this->description, ], 'description');
+                'content' => $this->description,], 'description');
         }
 
         if ($this->keywords) {
             $this->engine()->addMetaTagProperties([
                 'name' => 'keywords',
-                'content' => $this->keywords, ], 'keywords');
+                'content' => $this->keywords,], 'keywords');
         }
 
         $view->setTitle($this->title);
@@ -478,7 +478,7 @@ class PageModel extends AbstractModel
                     'section' => $section->setReadOnly(),
                     'page' => $this->setReadOnly(),
                     'block' => $block->setReadOnly(),
-                ]).PHP_EOL;
+                ]) . PHP_EOL;
 
             // Add content to output
             $output .= $content;
@@ -486,7 +486,7 @@ class PageModel extends AbstractModel
             // Add content to the block
             if ($block) {
                 $view->engine()->addContentToBlock('sections', $content);
-                $view->engine()->addContentToBlock('section_'.$block->block_key, $content);
+                $view->engine()->addContentToBlock('section_' . $block->block_key, $content);
             }
         }
 

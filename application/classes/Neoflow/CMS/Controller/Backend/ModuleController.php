@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -12,6 +11,7 @@ use RuntimeException;
 
 class ModuleController extends BackendController
 {
+
     /**
      * Constructor.
      *
@@ -35,9 +35,9 @@ class ModuleController extends BackendController
      */
     public function indexAction(): Response
     {
-        return $this->render('backend/module/index', array(
+        return $this->render('backend/module/index', [
                 'modules' => ModuleModel::findAll(),
-        ));
+        ]);
     }
 
     /**
@@ -60,7 +60,7 @@ class ModuleController extends BackendController
                     $this->view->setSuccessAlert(translate('Successfully disabled'));
                 }
             } else {
-                throw new RuntimeException('Toggling activation for module failed (ID: '.$this->args['id'].')');
+                throw new RuntimeException('Toggling activation for module failed (ID: ' . $this->args['id'] . ')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert($ex->getErrors());
@@ -86,7 +86,7 @@ class ModuleController extends BackendController
             if ($module && $module->delete()) {
                 $this->view->setSuccessAlert(translate('Successfully deleted'));
             } else {
-                throw new RuntimeException('Deleting module failed (ID: '.$this->args['id'].')');
+                throw new RuntimeException('Deleting module failed (ID: ' . $this->args['id'] . ')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert($ex->getErrors());
@@ -145,7 +145,7 @@ class ModuleController extends BackendController
             if ($module && $module->installUpdate($file)) {
                 $this->view->setSuccessAlert(translate('Module successfully updated'));
             } else {
-                throw new RuntimeException('Updating module failed (ID: '.$module_id.')');
+                throw new RuntimeException('Updating module failed (ID: ' . $module_id . ')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Update module failed'), [$ex->getMessage()]]);
@@ -172,7 +172,7 @@ class ModuleController extends BackendController
             // Set title and breadcrumb
             $this->view
                 ->setTitle($module->name)
-                ->setSubtitle('ID: '.$module->id())
+                ->setSubtitle('ID: ' . $module->id())
                 ->addBreadcrumb(translate('Module', [], true), generate_url('backend_module_index'));
 
             // Set back url
@@ -184,13 +184,13 @@ class ModuleController extends BackendController
                 $requiredModules[$requiredModuleIdentifier] = ModuleModel::findByColumn('identifier', $requiredModuleIdentifier);
             }
 
-            return $this->render('backend/module/view', array(
+            return $this->render('backend/module/view', [
                     'module' => $module,
                     'requiredModules' => $requiredModules,
-            ));
+            ]);
         }
 
-        throw new RuntimeException('Module not found (ID: '.$this->args['id'].')');
+        throw new RuntimeException('Module not found (ID: ' . $this->args['id'] . ')');
     }
 
     /**
@@ -207,7 +207,7 @@ class ModuleController extends BackendController
         if (isset($this->args['id'])) {
             $modules = $modules->where('module_id', $this->args['id']);
             if (0 === $modules->count()) {
-                throw new RuntimeException('Reloading module failed (ID: '.$this->args['id'].')');
+                throw new RuntimeException('Reloading module failed (ID: ' . $this->args['id'] . ')');
             }
         }
 

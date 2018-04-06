@@ -39,10 +39,10 @@ class RoleController extends BackendController
         // Get roles
         $roles = RoleModel::repo()->fetchAll();
 
-        return $this->render('backend/role/index', array(
+        return $this->render('backend/role/index', [
                 'permissions' => PermissionModel::findAll(),
                 'roles' => $roles,
-        ));
+        ]);
     }
 
     /**
@@ -59,11 +59,11 @@ class RoleController extends BackendController
             $postData = $this->request()->getPostData();
 
             // Create role
-            $role = RoleModel::create(array(
+            $role = RoleModel::create([
                     'title' => $postData->get('title'),
                     'description' => $postData->get('description'),
                     'permission_ids' => $postData->get('permission_ids') ?: [],
-            ));
+            ]);
 
             // Validate and save role
             if ($role && $role->validate() && $role->save()) {
@@ -104,10 +104,10 @@ class RoleController extends BackendController
             // Set back url
             $this->view->setBackRoute('backend_role_index');
 
-            return $this->render('backend/role/edit', array(
+            return $this->render('backend/role/edit', [
                     'role' => $role,
                     'permissions' => PermissionModel::findAll(),
-            ));
+            ]);
         }
         throw new RuntimeException('Role not found or not editable (ID: ' . $this->args['id'] . ')');
     }
@@ -126,11 +126,11 @@ class RoleController extends BackendController
             $postData = $this->request()->getPostData();
 
             // Update role
-            $role = RoleModel::updateById(array(
+            $role = RoleModel::updateById([
                     'title' => $postData->get('title'),
                     'description' => $postData->get('description'),
                     'permission_ids' => $postData->get('permission_ids') ?: [],
-                    ), $postData->get('role_id'));
+                    ], $postData->get('role_id'));
 
             // Validate and save role
             if ($role && $role->id() !== 1 && $role->validate() && $role->save()) {
@@ -142,7 +142,9 @@ class RoleController extends BackendController
             $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
         }
 
-        return $this->redirectToRoute('backend_role_edit', array('id' => $postData->get('role_id')));
+        return $this->redirectToRoute('backend_role_edit', [
+                'id' => $postData->get('role_id')
+        ]);
     }
 
     /**

@@ -73,7 +73,7 @@ class NavigationModel extends AbstractModel
                     ->where('navigation_key', '=', $navigationKey)
                     ->where('navigation_id', '!=', $id)
                     ->count();
-            }, '{0} has to be unique', array($this->id()))
+            }, '{0} has to be unique', [$this->id()])
             ->set('navigation_key', 'Key');
 
         return $validator->validate();

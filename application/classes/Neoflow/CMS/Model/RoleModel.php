@@ -73,7 +73,7 @@ class RoleModel extends AbstractModel
                     ->fetchAll();
 
                 return 0 === $roles->count();
-            }, '{0} has to be unique', array($this))
+            }, '{0} has to be unique', [$this])
             ->set('title', 'Title');
 
         $validator

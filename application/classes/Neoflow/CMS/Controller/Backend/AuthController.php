@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -12,6 +11,7 @@ use RuntimeException;
 
 class AuthController extends BackendController
 {
+
     /**
      * Logout action.
      *
@@ -100,7 +100,7 @@ class AuthController extends BackendController
         $user = UserModel::findByColumn('reset_key', $this->args['reset_key']);
 
         if ($user) {
-            $this->view->setInfoAlert(translate('Please enter the new password for your user account, registered under the email address {0}.', array($user->email)));
+            $this->view->setInfoAlert(translate('Please enter the new password for your user account, registered under the email address {0}.', [$user->email]));
 
             return $this->render('backend/auth/new-password', ['user' => $user]);
         }
@@ -135,7 +135,9 @@ class AuthController extends BackendController
             $this->view->setWarningAlert($ex->getErrors());
         }
 
-        return $this->redirectToRoute('backend_auth_new_password', array('reset_key' => $resetKey));
+        return $this->redirectToRoute('backend_auth_new_password', [
+                'reset_key' => $resetKey
+        ]);
     }
 
     /**

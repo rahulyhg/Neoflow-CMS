@@ -38,9 +38,9 @@ class NavigationController extends BackendController
         $navigations = NavigationModel::repo()
             ->fetchAll();
 
-        return $this->render('backend/navigation/index', array(
+        return $this->render('backend/navigation/index', [
                 'navigations' => $navigations,
-        ));
+        ]);
     }
 
     /**
@@ -57,10 +57,10 @@ class NavigationController extends BackendController
             $postData = $this->request()->getPostData();
 
             // Create navigation
-            $navigation = NavigationModel::create(array(
+            $navigation = NavigationModel::create([
                     'title' => $postData->get('title'),
                     'navigation_key' => $postData->get('navigation_key'),
-            ));
+            ]);
 
             // Validate and save navigation
             if ($navigation && $navigation->validate() && $navigation->save()) {
@@ -127,9 +127,9 @@ class NavigationController extends BackendController
             // Set back url
             $this->view->setBackRoute('backend_navigation_index');
 
-            return $this->render('backend/navigation/edit', array(
+            return $this->render('backend/navigation/edit', [
                     'navigation' => $navigation,
-            ));
+            ]);
         }
         throw new RuntimeException('Navigation not found or not editable (ID: ' . $this->args['id'] . ')');
     }
@@ -148,10 +148,10 @@ class NavigationController extends BackendController
             $postData = $this->request()->getPostData();
 
             // Update navigation
-            $navigation = NavigationModel::updateById(array(
+            $navigation = NavigationModel::updateById([
                     'title' => $postData->get('title'),
                     'navigation_key' => $postData->get('navigation_key'),
-                    ), $postData->get('navigation_id'));
+                    ], $postData->get('navigation_id'));
 
             // Validate and save navigation
             if ($navigation && 1 !== $navigation->id() && $navigation->validate() && $navigation->save()) {
@@ -163,7 +163,9 @@ class NavigationController extends BackendController
             $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
         }
 
-        return $this->redirectToRoute('backend_navigation_edit', array('id' => $navigation->id()));
+        return $this->redirectToRoute('backend_navigation_edit', [
+                'id' => $navigation->id()
+        ]);
     }
 
     /**

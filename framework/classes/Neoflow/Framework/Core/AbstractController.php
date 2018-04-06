@@ -75,25 +75,24 @@ abstract class AbstractController
     }
 
     /**
-     * Route to route.
+     * Route to controller and action by route key
      *
-     * @param string $routeKey
-     * @param array  $args
+     * @param string $routeKey Route key
+     * @param array  $args Controller arguments
      *
      * @return Response
      */
     protected function route(string $routeKey, array $args = []): Response
     {
-        return $this->router()
-                ->routeByKey($routeKey, $args);
+        return $this->router()->routeByKey($routeKey, $args);
     }
 
     /**
      * Redirect to route.
      *
-     * @param string $routeKey
-     * @param array  $args
-     * @param int    $statusCode
+     * @param string $routeKey Route key
+     * @param array  $args HTPP query data
+     * @param int    $statusCode HTTP status code
      *
      * @return RedirectResponse
      */
@@ -105,8 +104,8 @@ abstract class AbstractController
     /**
      * Redirect to url.
      *
-     * @param string $url
-     * @param int    $statusCode
+     * @param string $url URL
+     * @param int    $statusCode HTTP status code
      *
      * @return RedirectResponse
      */
@@ -128,7 +127,7 @@ abstract class AbstractController
     /**
      * Post hook method.
      *
-     * @param Response $response
+     * @param Response $response Response
      *
      * @return Response
      */
@@ -140,12 +139,12 @@ abstract class AbstractController
     /**
      * Set new session flash value.
      *
-     * @param string $key
-     * @param mixed  $value
+     * @param string $key Flash key
+     * @param mixed  $value Flash value
      *
      * @return Session
      */
-    protected function setNewFlash($key, $value)
+    protected function setNewFlash(string $key, $value)
     {
         return $this->session()->setNewFlash($key, $value);
     }

@@ -193,7 +193,7 @@ class NavitemModel extends AbstractModel
                 }
 
                 return !in_array($parent_navitem_id, $forbiddenNavitemIds);
-            }, 'The navigation item or child items cannot be the parent item', array($this))
+            }, 'The navigation item or child items cannot be the parent item', [$this])
             ->set('parent_navitem_id', 'Top navitem');
 
         $validator

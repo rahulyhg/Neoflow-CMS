@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Module\WYSIWYG\Controller;
 
 use Neoflow\CMS\Controller\Frontend\AbstractPageModuleController;
@@ -8,6 +7,7 @@ use Neoflow\Module\WYSIWYG\Model;
 
 class FrontendController extends AbstractPageModuleController
 {
+
     /**
      * Index action.
      *
@@ -17,9 +17,9 @@ class FrontendController extends AbstractPageModuleController
     {
         $wysiwyg = Model::findByColumn('section_id', $this->section->id());
 
-        return $this->render('wysiwyg/frontend', array(
+        return $this->render('wysiwyg/frontend', [
                 'wysiwyg' => $wysiwyg,
-        ));
+        ]);
     }
 
     /**
@@ -31,9 +31,9 @@ class FrontendController extends AbstractPageModuleController
     {
         //$wysiwyg = Model::findByColumn('section_id', $this->section->id());
 
-        return $this->render('wysiwyg/fisch', array(
+        return $this->render('wysiwyg/fisch', [
                 'wysiwyg' => 'lol',
                 'args' => $this->args,
-        ));
+        ]);
     }
 }
