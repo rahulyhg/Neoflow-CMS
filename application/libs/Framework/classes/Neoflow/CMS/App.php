@@ -13,10 +13,12 @@ use Neoflow\Framework\Handler\Loader;
 use Neoflow\Framework\Handler\Logging\Logger;
 use Neoflow\Framework\HTTP\Exception\HttpException;
 use Neoflow\Framework\HTTP\Request;
+use Neoflow\Framework\HTTP\Responsing\Response;
 use Neoflow\Framework\ORM\EntityCollection;
 use Neoflow\Framework\Persistence\Database;
 use RuntimeException;
 use Throwable;
+use function request_url;
 
 class App extends FrameworkApp
 {
@@ -103,7 +105,7 @@ class App extends FrameworkApp
         $this->registerServices();
 
         // Initialize CMS modules
-        $this->get('modules')->where('is_active', true)->each(function ($module) {
+        $this->get('modules')->each(function ($module) {
             $module->getManager()->initialize();
         });
         $this->get('logger')->info('CMS modules initialized');
@@ -170,9 +172,11 @@ class App extends FrameworkApp
         }
 
         try {
-            $this->get('router')
-                ->routeByKey('error_index', ['exception' => $ex])
-                ->send();
+            $response = $this->get('router')->routeByKey('error_index', ['exception' => $ex]);
+
+            $this
+                ->execute($response)
+                ->publish();
 
             if ($ex instanceof HttpException) {
                 $context = [
@@ -193,13 +197,15 @@ class App extends FrameworkApp
      *
      * @return self
      */
-    public function execute(): FrameworkApp
+    public function execute(Response $response = null): FrameworkApp
     {
-        $response = $this->get('router')->execute();
+        if (!$response) {
+            $response = $this->get('router')->execute();
+        }
         $this->set('response', $response);
 
         // Execute CMS modules
-        $this->get('modules')->where('is_active', true)->each(function ($module) {
+        $this->get('modules')->each(function ($module) {
             $module->getManager()->execute();
         });
 

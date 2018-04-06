@@ -1,10 +1,10 @@
 <?php
-
 namespace Neoflow\Module\Snippets;
 
 use Neoflow\CMS\Manager\AbstractModuleManager;
 
-class Manager extends AbstractModuleManager {
+class Manager extends AbstractModuleManager
+{
 
     /**
      * Install Snippets module.
@@ -15,15 +15,15 @@ class Manager extends AbstractModuleManager {
     {
         if (!$this->database()->hasTable('mod_snippets')) {
             return $this
-                            ->database()
-                            ->prepare('CREATE TABLE `mod_snippets` (
+                    ->database()
+                    ->prepare('CREATE TABLE `mod_snippets` (
                                     `code_id` INT NOT NULL AUTO_INCREMENT,
                                     `title` VARCHAR(100) NOT NULL,
                                     `code` TEXT NOT NULL,
                                     `placeholder` VARCHAR(100) NOT NULL,
                                     `description` TEXT NOT NULL,
                                 PRIMARY KEY (`code_id`));')
-                            ->execute();
+                    ->execute();
         }
 
         return false;
@@ -38,9 +38,9 @@ class Manager extends AbstractModuleManager {
     {
         if ($this->database()->hasTable('mod_snippets')) {
             return $this
-                            ->database()
-                            ->prepare('DROP TABLE `mod_snippets`')
-                            ->execute();
+                    ->database()
+                    ->prepare('DROP TABLE `mod_snippets`')
+                    ->execute();
         }
 
         return true;
@@ -55,22 +55,23 @@ class Manager extends AbstractModuleManager {
     {
         $response = $this->app()->get('response');
 
-        $content = preg_replace_callback('/\[\[([\w\d]+)\??(.*)\]\]/i', function ($matches) {
+        $content = $response->getContent();
 
-            $snippet = Model::findByColumn('placeholder', $matches[1]);
+        $response->setContent(preg_replace_callback('/\[\[([\w\d]+)\??(.*)\]\]/i', function ($matches) {
 
-            if ($snippet) {
-                $parameters = [];
-                if (isset($matches[2])) {
-                    parse_str($matches[2], $parameters);
+                $snippet = Model::findByColumn('placeholder', $matches[1]);
+
+                if ($snippet) {
+                    $parameters = [];
+                    if (isset($matches[2])) {
+                        parse_str($matches[2], $parameters);
+                    }
+
+                    $code = $snippet->executeCode($parameters);
+                    return $code;
                 }
-
-                return $snippet->executeCode($parameters);
-            }
-            return '';
-        }, $response->getContent());
-
-        $response->setContent($content);
+                return '';
+            }, $content));
 
         return true;
     }
@@ -84,5 +85,4 @@ class Manager extends AbstractModuleManager {
     {
         return true;
     }
-
 }
