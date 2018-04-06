@@ -132,7 +132,7 @@ class NavitemController extends BackendController
                     'navigation_id' => $postData->get('navigation_id'),
                     'language_id' => $postData->get('language_id'),
                     'page_id' => $postData->get('page_id'),
-                    'is_visible' => $postData->get('is_visible'),
+                    'is_active' => $postData->get('is_active'),
             ]);
 
             // Validate and save navigation item
