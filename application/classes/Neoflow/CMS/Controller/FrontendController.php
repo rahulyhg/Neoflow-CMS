@@ -85,4 +85,14 @@ class FrontendController extends AbstractController
         }
         throw new NotFoundException();
     }
+
+    /**
+     * Index action.
+     *
+     * @return Response
+     */
+    public function adminRedirectAction(): Response
+    {
+        return $this->redirectToRoute('backend_index');
+    }
 }
