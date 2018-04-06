@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Validation;
 
 use InvalidArgumentException;
@@ -8,12 +7,13 @@ use ReflectionMethod;
 
 class Validator
 {
+
     /**
      * App trait.
      */
     use \Neoflow\Framework\AppTrait;
 
-    /**
+/**
      * Rule trait.
      */
     use RuleTrait;
@@ -107,7 +107,7 @@ class Validator
     {
         if (is_callable($callback)) {
             // Generate generic and unique rule name
-            $name = 'callback_'.sha1(uniqid('', true));
+            $name = 'callback_' . sha1(uniqid('', true));
 
             // Set callback rule
             $this->setRule($name, function ($value) use ($callback, $callbackArgs) {
@@ -217,8 +217,8 @@ class Validator
         // check for errors
         if ($this->hasErrors()) {
             $this->session()
-                    ->setNewFlash('validationErrors', $this->getAllErrors())
-                    ->setNewFlash('validationData', $this->data);
+                ->setNewFlash('validationErrors', $this->getAllErrors())
+                ->setNewFlash('validationData', $this->data);
 
             $this->logger()->info('Validation failed', [
                 'Errors' => $this->getAllErrors(),
@@ -272,7 +272,7 @@ class Validator
     protected function registerError($rule, $key, $message = '')
     {
         // Initialize translation values
-        $values = array($this->labels[$key]);
+        $values = [$this->labels[$key]];
 
         // Define default message when empty
         if (empty($message)) {
@@ -305,12 +305,12 @@ class Validator
             if (is_callable($function)) {
                 $this->functions[$rule] = $function;
                 $this->arguments[$rule] = $args;
-                $this->messages[$rule] = array(
+                $this->messages[$rule] = [
                     'message' => empty($message) ? $this->getDefaultMessage($rule) : $message,
                     'args' => $args,
-                );
+                ];
             } else {
-                throw new InvalidArgumentException('Rule function is invalid (Name: '.$name.')');
+                throw new InvalidArgumentException('Rule function is invalid (Name: ' . $name . ')');
             }
         }
     }

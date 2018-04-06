@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\Persistence\Querying;
 
 use DateTime;
@@ -9,6 +8,7 @@ use Neoflow\Framework\Persistence\Statement;
 
 abstract class AbstractQuery
 {
+
     /**
      * App trait.
      */
@@ -180,9 +180,9 @@ abstract class AbstractQuery
             $clauseStatements = $this->statements[$clause];
             if (count($clauseStatements) > 0) {
                 if (is_callable($separator)) {
-                    $query .= call_user_func_array($separator, array($clauseStatements));
+                    $query .= call_user_func_array($separator, [$clauseStatements]);
                 } else {
-                    $query .= ' '.$clause.' '.implode($separator, $clauseStatements);
+                    $query .= ' ' . $clause . ' ' . implode($separator, $clauseStatements);
                 }
             }
         }
@@ -202,7 +202,7 @@ abstract class AbstractQuery
      */
     protected function quoteIdentifier(string $identifier): string
     {
-        return '`'.str_replace(['`', '.'], ['``', '`.`'], $identifier).'`';
+        return '`' . str_replace(['`', '.'], ['``', '`.`'], $identifier) . '`';
     }
 
     /**
@@ -251,7 +251,7 @@ abstract class AbstractQuery
             return 'NULL';
         }
         if (is_array($value)) { // (a, b) IN ((1, 2), (3, 4))
-            return '('.implode(', ', array_map(array($this, 'quote'), $value)).')';
+            return '(' . implode(', ', array_map([$this, 'quote'], $value)) . ')';
         }
         if ($value instanceof DateTime) {
             return $value->format('Y-m-d H:i:s'); //! may be driver specific

@@ -44,7 +44,7 @@
                                 ?>
                             </td>
                             <td>
-                                <a href="<?= generate_url('tmod_snippets_backend_edit', array('id' => $snippet->id())); ?>" title="<?= translate('Edit snippet'); ?>">
+                                <a href="<?= generate_url('tmod_snippets_backend_edit', ['id' => $snippet->id()]); ?>" title="<?= translate('Edit snippet'); ?>">
                                     <?= $snippet->title ?>
                                 </a>
                             </td>
@@ -52,13 +52,13 @@
                             <td><?= $snippet->description ?></td>
                             </td>
                             <td class="text-right nowrap">
-                                <a href="<?= generate_url('tmod_snippets_backend_edit', array('id' => $snippet->id())); ?>" class="btn btn-outline-light btn-sm btn-icon-left" title="<?= translate('Edit snippet'); ?>">
+                                <a href="<?= generate_url('tmod_snippets_backend_edit', ['id' => $snippet->id()]); ?>" class="btn btn-outline-light btn-sm btn-icon-left" title="<?= translate('Edit snippet'); ?>">
                                     <span class="btn-icon">
                                         <i class="fa fa-pencil-alt"></i>
                                     </span>
                                     <?= translate('Edit'); ?>
                                 </a>
-                                <a href="<?= generate_url('tmod_snippets_backend_delete', array('id' => $snippet->id())); ?>" class="btn btn-primary btn-sm confirm-modal" data-message="<?= translate('Are you sure you want to delete it?'); ?>" title="<?= translate('Delete snippet'); ?>">
+                                <a href="<?= generate_url('tmod_snippets_backend_delete', ['id' => $snippet->id()]); ?>" class="btn btn-primary btn-sm confirm-modal" data-message="<?= translate('Are you sure you want to delete it?'); ?>" title="<?= translate('Delete snippet'); ?>">
                                     <i class="fa fa-fw fa-trash-alt"></i>
                                 </a>
                             </td>

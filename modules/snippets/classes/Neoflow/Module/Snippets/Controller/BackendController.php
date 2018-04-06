@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Module\Snippets\Controller;
 
 use Neoflow\CMS\Controller\Backend\AbstractToolModuleController;
@@ -10,14 +9,15 @@ use Neoflow\Validation\ValidationException;
 use Neoflow\Module\Snippets\Model;
 use RuntimeException;
 
-class BackendController extends AbstractToolModuleController {
+class BackendController extends AbstractToolModuleController
+{
 
     public function __construct(BackendView $view = null, array $args = [])
     {
         parent::__construct($view, $args);
 
         $this->view
-                ->setTitle(translate('Snippet', [], true));
+            ->setTitle(translate('Snippet', [], true));
     }
 
     /**
@@ -27,9 +27,9 @@ class BackendController extends AbstractToolModuleController {
      */
     public function indexAction(): Response
     {
-        return $this->render('/snippet/index', array(
-                    'snippets' => Model::findAll(),
-        ));
+        return $this->render('/snippet/index', [
+                'snippets' => Model::findAll()
+        ]);
     }
 
     /**
@@ -46,13 +46,13 @@ class BackendController extends AbstractToolModuleController {
             $postData = $this->request()->getPostData();
 
             // Create snippet
-            $snippet = Model::create(array(
-                        'title' => $postData->get('title'),
-                        'description' => $postData->get('description'),
-                        'placeholder' => $postData->get('placeholder'),
-                        'parameters' => $postData->get('parameters') ? implode(',', $postData->get('parameters')) : '',
-                        'code' => '',
-            ));
+            $snippet = Model::create([
+                    'title' => $postData->get('title'),
+                    'description' => $postData->get('description'),
+                    'placeholder' => $postData->get('placeholder'),
+                    'parameters' => $postData->get('parameters') ? implode(',', $postData->get('parameters')) : '',
+                    'code' => '',
+            ]);
 
             // Validate and save snippet
             if ($snippet && $snippet->validate() && $snippet->save()) {
@@ -89,8 +89,8 @@ class BackendController extends AbstractToolModuleController {
 
             // Set title and breadcrumb
             $this->view
-                    ->setTitle(basename($snippet->title))
-                    ->addBreadcrumb('Snippets', generate_url('tmod_snippets_backend_index'));
+                ->setTitle(basename($snippet->title))
+                ->addBreadcrumb('Snippets', generate_url('tmod_snippets_backend_index'));
 
             // Set back url
             $this->view->setBackRoute('tmod_snippets_backend_index');
@@ -106,9 +106,9 @@ class BackendController extends AbstractToolModuleController {
             }
 
             return $this->render('snippet/edit', [
-                        'snippet' => $snippet,
-                        'codeStatus' => $codeStatus,
-                        'codeStatusMessage' => $codeStatusMessage,
+                    'snippet' => $snippet,
+                    'codeStatus' => $codeStatus,
+                    'codeStatusMessage' => $codeStatusMessage,
             ]);
         }
 
@@ -129,13 +129,13 @@ class BackendController extends AbstractToolModuleController {
             $postData = $this->request()->getPostData();
 
             // Update snippet
-            $snippet = Model::updateById(array(
-                        'title' => $postData->get('title'),
-                        'description' => $postData->get('description'),
-                        'placeholder' => $postData->get('placeholder'),
-                        'code' => $postData->get('code'),
-                        'parameters' => $postData->get('parameters') ? implode(',', $postData->get('parameters')) : '',
-                            ), $postData->get('snippet_id'));
+            $snippet = Model::updateById([
+                    'title' => $postData->get('title'),
+                    'description' => $postData->get('description'),
+                    'placeholder' => $postData->get('placeholder'),
+                    'code' => $postData->get('code'),
+                    'parameters' => $postData->get('parameters') ? implode(',', $postData->get('parameters')) : '',
+                    ], $postData->get('snippet_id'));
 
             // Validate and save snippet
             if ($snippet && $snippet->validate() && $snippet->save()) {
@@ -147,7 +147,7 @@ class BackendController extends AbstractToolModuleController {
             $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
         }
 
-        return $this->redirectToRoute('tmod_snippets_backend_edit', array('id' => $postData->get('snippet_id')));
+        return $this->redirectToRoute('tmod_snippets_backend_edit', ['id' => $postData->get('snippet_id')]);
     }
 
     /**
@@ -168,5 +168,4 @@ class BackendController extends AbstractToolModuleController {
         }
         throw new RuntimeException('Deleting snippet failed (ID: ' . $this->args['id'] . ')');
     }
-
 }

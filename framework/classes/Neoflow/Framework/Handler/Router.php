@@ -158,7 +158,7 @@ class Router
                     $routeUrlRegex = preg_replace('/\(([a-zA-Z0-9\-\_]+)\:[string|any]+\)/ ', '([a-zA-Z0-9\-\.\_\~\:\?\#\[\]\@\!\$\&\'\(\)\*\<\+\,\;\=]+)', $routeUrl);
                     $routeUrlRegex = preg_replace('/\(([a-zA-Z0-9\-\_]+)\:[num]+\)/', '([0-9\.\,]+)', $routeUrlRegex);
                     $routeUrlRegex = preg_replace('/\(([a-zA-Z0-9\-\_]+)\:[uri]+\)/', '(.*)', $routeUrlRegex);
-                    $routeUrlRegex = str_replace(array('/'), array('\/'), $routeUrlRegex);
+                    $routeUrlRegex = str_replace(['/'], ['\/'], $routeUrlRegex);
                     $routeUrlRegex = '/^' . $routeUrlRegex . '$/';
 
                     // Remove args of routeUrl
@@ -292,7 +292,10 @@ class Router
      */
     public function route(array $route, array $args = [], AbstractView $view = null): Response
     {
-        $this->currentRouting = array('route' => $route, 'args' => $args);
+        $this->currentRouting = [
+            'route' => $route,
+            'args' => $args
+        ];
 
         $routePathParts = $this->getRoutePathParts($route[3]);
 
@@ -355,7 +358,7 @@ class Router
             $currentRouteKey = $currentRoute[0];
 
             if (is_string($routeKeys)) {
-                $routeKeys = array($routeKeys);
+                $routeKeys = [$routeKeys];
             }
 
             foreach ($routeKeys as $routeKey) {
@@ -379,10 +382,10 @@ class Router
     public function getRoutePathParts($routePath, $defaultActionMethod = 'indexAction')
     {
         $routePathParts = explode('@', $routePath);
-        $result = array(
+        $result = [
             'controllerClass' => $routePathParts[0] . 'Controller',
             'actionMethod' => $defaultActionMethod,
-        );
+        ];
         if (isset($routePathParts[1])) {
             $result['actionMethod'] = $routePathParts[1] . 'Action';
         }

@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Module\Sitemap\Controller;
 
 use Neoflow\CMS\Controller\Backend\AbstractToolModuleController;
@@ -14,6 +13,7 @@ use RuntimeException;
 
 class BackendController extends AbstractToolModuleController
 {
+
     /**
      * @var Service
      */
@@ -94,24 +94,26 @@ class BackendController extends AbstractToolModuleController
             $postData = $this->request()->getPostData();
 
             // Update snippet
-            $snippet = Model::updateById(array(
+            $snippet = Model::updateById([
                     'title' => $postData->get('title'),
                     'description' => $postData->get('description'),
                     'placeholder' => $postData->get('placeholder'),
                     'code' => $postData->get('code'),
-                    ), $postData->get('snippet_id'));
+                    ], $postData->get('snippet_id'));
 
             // Validate and save snippet
             if ($snippet && $snippet->validate() && $snippet->save()) {
                 $this->view->setSuccessAlert(translate('Successfully updated'));
             } else {
-                throw new RuntimeException('Updating snippet failed (ID: '.$postData->get('snippet_id').')');
+                throw new RuntimeException('Updating snippet failed (ID: ' . $postData->get('snippet_id') . ')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
         }
 
-        return $this->redirectToRoute('tmod_snippets_backend_edit', array('id' => $postData->get('snippet_id')));
+        return $this->redirectToRoute('tmod_snippets_backend_edit', [
+                'id' => $postData->get('snippet_id')
+        ]);
     }
 
     /**

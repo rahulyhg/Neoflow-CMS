@@ -30,8 +30,8 @@
             <?php if (has_permission('manage_pages') || has_permission('manage_navigations') || has_permission('manage_blocks')) {
 
                 ?>
-                <li class="nav-item<?= is_current_route(array('backend_navigation*', 'backend_page*', 'backend_section*', 'pmod_*', 'backend_navitem*', 'backend_block*'), ' active'); ?>">
-                    <a href="#content-menu" class="nav-link nav-link-collapse<?= is_current_route(array('backend_navigation*', 'backend_page*', 'backend_section*', 'pmod_*', 'backend_navitem*', 'backend_block*'), '', ' collapsed'); ?>" data-toggle="collapse">
+                <li class="nav-item<?= is_current_route(['backend_navigation*', 'backend_page*', 'backend_section*', 'pmod_*', 'backend_navitem*', 'backend_block*'], ' active'); ?>">
+                    <a href="#content-menu" class="nav-link nav-link-collapse<?= is_current_route(['backend_navigation*', 'backend_page*', 'backend_section*', 'pmod_*', 'backend_navitem*', 'backend_block*'], '', ' collapsed'); ?>" data-toggle="collapse">
                         <span class="nav-link-icon">
                             <i class="fa fa-fw fa-copy"></i>
                         </span>
@@ -39,11 +39,11 @@
                             <?= translate('Content'); ?>
                         </span>
                     </a>
-                    <ul id="content-menu" class="sidenav-second-level collapse<?= is_current_route(array('backend_navigation*', 'backend_page*', 'backend_section*', 'pmod_*', 'backend_navitem*', 'backend_block*'), ' show'); ?>">
+                    <ul id="content-menu" class="sidenav-second-level collapse<?= is_current_route(['backend_navigation*', 'backend_page*', 'backend_section*', 'pmod_*', 'backend_navitem*', 'backend_block*'], ' show'); ?>">
                         <?php if (has_permission('manage_pages')) {
 
                             ?>
-                            <li class="nav-item<?= is_current_route(array('backend_page*', 'backend_section*', 'pmod*'), ' active'); ?>">
+                            <li class="nav-item<?= is_current_route(['backend_page*', 'backend_section*', 'pmod*'], ' active'); ?>">
                                 <a class="nav-link" href="<?= generate_url('backend_page_index'); ?>">
                                     <span class="nav-link-text">
                                         <?= translate('Page', [], true); ?>
@@ -55,7 +55,7 @@
                         if (has_permission('manage_navigations')) {
 
                             ?>
-                            <li class="nav-item<?= is_current_route(array('backend_navigation*', 'backend_navitem*'), ' active'); ?>">
+                            <li class="nav-item<?= is_current_route(['backend_navigation*', 'backend_navitem*'], ' active'); ?>">
                                 <a class="nav-link" href="<?= generate_url('backend_navigation_index'); ?>">
                                     <span class="nav-link-text">
                                         <?= translate('Navigation', [], true); ?>
@@ -67,7 +67,7 @@
                         if (has_permission('manage_blocks')) {
 
                             ?>
-                            <li class="nav-item<?= is_current_route(array('backend_block*'), ' active'); ?>">
+                            <li class="nav-item<?= is_current_route(['backend_block*'], ' active'); ?>">
                                 <a class="nav-link" href="<?= generate_url('backend_block_index'); ?>">
                                     <span class="nav-link-text">
                                         <?= translate('Block', [], true); ?>
@@ -126,7 +126,7 @@
             if (has_permission('manage_media')) {
 
                 ?>
-                <li class="nav-item<?= is_current_route(array('backend_media*'), ' active'); ?>">
+                <li class="nav-item<?= is_current_route(['backend_media*'], ' active'); ?>">
                     <a class="nav-link" href="<?= generate_url('backend_media_index'); ?>">
                         <span class="nav-link-icon">
                             <i class="fa fa-fw fa-images"></i>
@@ -141,7 +141,7 @@
             if (has_permission('settings')) {
 
                 ?>
-                <li class="nav-item<?= is_current_route(array('backend_setting*'), ' active'); ?>">
+                <li class="nav-item<?= is_current_route(['backend_setting*'], ' active'); ?>">
                     <a class="nav-link" href="<?= generate_url('backend_setting_index'); ?>">
                         <span class="nav-link-icon">
                             <i class="fa fa-fw fa-cogs"></i>
@@ -157,8 +157,8 @@
 
                 ?>
 
-                <li class="nav-item<?= is_current_route(array('backend_user*', 'backend_role*'), ' active'); ?>">
-                    <a href="#account-menu" class="nav-link nav-link-collapse<?= is_current_route(array('backend_user*', 'backend_role*'), '', ' collapsed'); ?>" data-toggle="collapse">
+                <li class="nav-item<?= is_current_route(['backend_user*', 'backend_role*'], ' active'); ?>">
+                    <a href="#account-menu" class="nav-link nav-link-collapse<?= is_current_route(['backend_user*', 'backend_role*'], '', ' collapsed'); ?>" data-toggle="collapse">
                         <span class="nav-link-icon">
                             <i class="fa fa-fw fa-users"></i>
                         </span>
@@ -166,7 +166,7 @@
                             <?= translate('Account', [], true); ?>
                         </span>
                     </a>
-                    <ul id="account-menu" class="sidenav-second-level collapse<?= is_current_route(array('backend_user*', 'backend_role*'), ' show'); ?>">
+                    <ul id="account-menu" class="sidenav-second-level collapse<?= is_current_route(['backend_user*', 'backend_role*'], ' show'); ?>">
                         <?php if (has_permission('manage_users')) {
 
                             ?>
@@ -211,7 +211,7 @@
                 </li>
                 <?php
             }
-            if (has_permission(array('maintenance'))) {
+            if (has_permission('maintenance')) {
 
                 ?>
                 <li class="nav-item<?= is_current_route('backend_maintenance*', ' active'); ?>">

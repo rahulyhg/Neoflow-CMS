@@ -1,11 +1,11 @@
 <?php
-
 namespace Neoflow\Validation;
 
 use Exception;
 
 class ValidationException extends Exception
 {
+
     protected $errors = [];
 
     /**
@@ -21,7 +21,7 @@ class ValidationException extends Exception
         if (count($errors)) {
             $this->errors = $errors;
         } else {
-            $this->errors = array($message);
+            $this->errors = [$message];
         }
     }
 

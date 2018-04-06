@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\Common;
 
 use ArrayAccess;
@@ -10,6 +9,7 @@ use RuntimeException;
 
 class Container implements IteratorAggregate, Countable, ArrayAccess
 {
+
     /**
      * @var array container data
      */
@@ -317,11 +317,11 @@ class Container implements IteratorAggregate, Countable, ArrayAccess
             if (!isset($arguments[0])) {
                 $arguments[] = [];
             }
-            $key = strtolower(str_replace(array('set', 'set_'), '', $key));
+            $key = strtolower(str_replace(['set', 'set_'], '', $key));
 
             return $this->set($key, $arguments[0]);
         } elseif (0 === strpos($key, 'get')) {
-            $key = strtolower(str_replace(array('get', 'get_'), '', $key));
+            $key = strtolower(str_replace(['get', 'get_'], '', $key));
 
             return $this->get($key);
         }

@@ -211,9 +211,9 @@ class App extends Container
      */
     public function registerErrorHandler(): void
     {
-        set_error_handler(array($this, 'errorHandler'), E_ALL);
-        register_shutdown_function(array($this, 'shutdownFunction'));
-        set_exception_handler(array($this, 'exceptionHandler'));
+        set_error_handler([$this, 'errorHandler'], E_ALL);
+        register_shutdown_function([$this, 'shutdownFunction']);
+        set_exception_handler([$this, 'exceptionHandler']);
     }
 
     /**
@@ -275,7 +275,7 @@ class App extends Container
 
         $this->get('logger')->logException($ex);
 
-        $content = str_replace(array('[title]', '[message]', '[exception]', '[time]', '[trace]'), ['Fatal server error', $ex->getMessage(), get_class($ex), date('c'), get_exception_trace($ex, true, true)], '<!DOCTYPE html>
+        $content = str_replace(['[title]', '[message]', '[exception]', '[time]', '[trace]'], ['Fatal server error', $ex->getMessage(), get_class($ex), date('c'), get_exception_trace($ex, true, true)], '<!DOCTYPE html>
                         <html>
                             <head>
                                 <meta charset="UTF-8" />

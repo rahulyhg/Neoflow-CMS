@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\Persistence\Querying;
 
 use Neoflow\Framework\Persistence\Statement;
@@ -10,6 +9,7 @@ use Neoflow\Framework\Persistence\Statement;
  */
 class DeleteQuery extends AbstractQuery
 {
+
     /**
      * WHERE query trait.
      */
@@ -18,11 +18,11 @@ class DeleteQuery extends AbstractQuery
     /**
      * @var array
      */
-    protected $clauses = array(
+    protected $clauses = [
         'DELETE FROM' => false,
         'FROM' => null,
         'WHERE' => ' AND ',
-    );
+    ];
 
     /**
      * @var bool

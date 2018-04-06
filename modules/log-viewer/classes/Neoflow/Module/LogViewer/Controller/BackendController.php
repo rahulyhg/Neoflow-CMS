@@ -33,9 +33,9 @@ class BackendController extends AbstractToolModuleController
         $logfileFolder = new Folder($this->logger()->getLogfileDirectory());
         $logfiles = $logfileFolder->find('*.' . $this->config()->get('logger')->get('extension'));
 
-        return $this->render('module/log-viewer/index', array(
+        return $this->render('module/log-viewer/index', [
                 'logfiles' => $logfiles,
-        ));
+        ]);
     }
 
     /**
@@ -56,9 +56,9 @@ class BackendController extends AbstractToolModuleController
                 ->setTitle(basename($logfile))
                 ->addBreadcrumb(translate('Log Viewer'), generate_url('tmod_log_viewer_backend_index'));
 
-            return $this->render('module/log-viewer/show', array(
+            return $this->render('module/log-viewer/show', [
                     'logfile' => $this->args['logfile'],
-            ));
+            ]);
         }
 
         $this->view->setDangerAlert(translate('Log file "{0}" not found', [basename($logfile)]));

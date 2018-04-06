@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Module\Code;
 
 use Neoflow\CMS\Model\SectionModel;
@@ -7,6 +6,7 @@ use Neoflow\CMS\Manager\AbstractPageModuleManager;
 
 class Manager extends AbstractPageModuleManager
 {
+
     /**
      * Add Code module to section.
      *
@@ -16,10 +16,11 @@ class Manager extends AbstractPageModuleManager
      */
     public function add(SectionModel $section): bool
     {
-        return (bool) Model::create(array(
-                'section_id' => $section->id(),
-                'content' => '',
-            ))->save();
+        return (bool) Model::create([
+                    'section_id' => $section->id(),
+                    'content' => '',
+                ])
+                ->save();
     }
 
     /**

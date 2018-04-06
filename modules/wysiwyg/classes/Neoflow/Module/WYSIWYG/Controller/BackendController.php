@@ -21,9 +21,9 @@ class BackendController extends AbstractPageModuleController
         // Get wysiwyg content
         $wysiwyg = Model::findByColumn('section_id', $this->section->id());
 
-        return $this->render('wysiwyg/backend', array(
+        return $this->render('wysiwyg/backend', [
                 'wysiwyg' => $wysiwyg,
-        ));
+        ]);
     }
 
     /**

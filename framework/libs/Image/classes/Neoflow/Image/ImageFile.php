@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Image;
 
 use Neoflow\Filesystem\File;
@@ -7,6 +6,7 @@ use Neoflow\Image\Exception\ImageFileException;
 
 class ImageFile extends File
 {
+
     /**
      * Image resource.
      *
@@ -44,7 +44,7 @@ class ImageFile extends File
 
                     break;
                 default:
-                    throw new ImageFileException('Cannot load image file path, because "'.$this->path.'" is not a valid PNG, GIF, BMP or JPEG-based image.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
+                    throw new ImageFileException('Cannot load image file path, because "' . $this->path . '" is not a valid PNG, GIF, BMP or JPEG-based image.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
             }
             $this->fixOrientation();
         }
@@ -81,7 +81,7 @@ class ImageFile extends File
             if ($memoryUsage + $memoryNeeded > $memoryLimit) {
                 $newMemoryLimit = ($memoryLimit + ceil($memoryUsage + $memoryNeeded - $memoryLimit)) / $MB;
 
-                return (bool) @ini_set('memory_limit', $newMemoryLimit.'M');
+                return (bool) @ini_set('memory_limit', $newMemoryLimit . 'M');
             }
         }
 
@@ -127,7 +127,7 @@ class ImageFile extends File
         }
 
         // Fallback to get image type
-        if (!in_array($imageType, array(IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF, IMAGETYPE_BMP))) {
+        if (!in_array($imageType, [IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_GIF, IMAGETYPE_BMP])) {
             if (is_string($imageType)) {
                 $imageType = $this->fileExtensionToImageType($imageType);
             } else {
@@ -143,7 +143,7 @@ class ImageFile extends File
         if ($this->createImageFile($imageFilePath, $imageType, $quality)) {
             return new static($imageFilePath);
         }
-        throw new ImageFileException('Saving image file to file path "'.$imageFilePath.'" failed');
+        throw new ImageFileException('Saving image file to file path "' . $imageFilePath . '" failed');
     }
 
     /**
@@ -304,12 +304,12 @@ class ImageFile extends File
                     image2wbmp($this->image, $imageFilePath, round(255 / 100 * $compression));
                     break;
                 default:
-                    throw new ImageFileException('Image type "'.$imageType.'" is not supported.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
+                    throw new ImageFileException('Image type "' . $imageType . '" is not supported.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
             }
 
             return true;
         }
-        throw new ImageFileException('Cannot create image file, because the image file path "'.$imageFilePath.'" already exist.', ImageFileException::ALREADY_EXIST);
+        throw new ImageFileException('Cannot create image file, because the image file path "' . $imageFilePath . '" already exist.', ImageFileException::ALREADY_EXIST);
     }
 
     /**
@@ -334,7 +334,7 @@ class ImageFile extends File
             case 'bmp':
                 return IMAGETYPE_BMP;
             default:
-                throw new ImageFileException('File extension "'.$fileExtension.'" is not supported as image type.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
+                throw new ImageFileException('File extension "' . $fileExtension . '" is not supported as image type.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
         }
     }
 
@@ -349,19 +349,19 @@ class ImageFile extends File
     {
         switch ($this->getType()) {
             case IMAGETYPE_GIF:
-                    $transparentIndex = imagecolortransparent($this->image);
-                    $palletsize = imagecolorstotal($this->image);
-                    if ($transparentIndex >= 0 && $transparentIndex < $palletsize) {
-                        $transparentColor = imagecolorsforindex($this->image, $transparentIndex);
-                        $transparentIndex = imagecolorallocate($newImage, $transparentColor['red'], $transparentColor['green '], $transparentColor['blue']);
-                        imagefill($newImage, 0, 0, $transparentIndex);
-                        imagecolortransparent($newImage, $transparentColor);
-                    }
+                $transparentIndex = imagecolortransparent($this->image);
+                $palletsize = imagecolorstotal($this->image);
+                if ($transparentIndex >= 0 && $transparentIndex < $palletsize) {
+                    $transparentColor = imagecolorsforindex($this->image, $transparentIndex);
+                    $transparentIndex = imagecolorallocate($newImage, $transparentColor['red'], $transparentColor['green '], $transparentColor['blue']);
+                    imagefill($newImage, 0, 0, $transparentIndex);
+                    imagecolortransparent($newImage, $transparentColor);
+                }
 
-                    // no break
+            // no break
             case IMAGETYPE_PNG:
-                    imagealphablending($newImage, false);
-                    imagesavealpha($newImage, true);
+                imagealphablending($newImage, false);
+                imagesavealpha($newImage, true);
         }
 
         return $newImage;

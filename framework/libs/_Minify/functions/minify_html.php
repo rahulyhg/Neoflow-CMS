@@ -9,19 +9,19 @@
  */
 function minify_html(string $html): string
 {
-    $search = array(
+    $search = [
         '/\>[^\S ]+/s', // strip whitespaces after tags, except space
         '/[^\S ]+\</s', // strip whitespaces before tags, except space
         '/(\s)+/s', // shorten multiple whitespace sequences
         '/\>[\s]+\</s',
-    );
+    ];
 
-    $replace = array(
+    $replace = [
         '>',
         '<',
         '\\1',
         '><',
-    );
+    ];
 
     return preg_replace($search, $replace, $html);
 }

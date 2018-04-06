@@ -1,9 +1,9 @@
 <?php
-
 namespace Neoflow\Minify;
 
 class JsMinifier extends AbstractMinifier
 {
+
     /**
      * Minify Javascript code.
      *
@@ -17,10 +17,10 @@ class JsMinifier extends AbstractMinifier
         $this->code = preg_replace('/((?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:\/\/.*))/', '', $this->code);
 
         /* remove tabs, spaces, newlines, etc. */
-        $this->code = str_replace(array("\r\n", "\r", "\t", "\n", '  ', '    ', '     '), '', $this->code);
+        $this->code = str_replace(["\r\n", "\r", "\t", "\n", '  ', '    ', '     '], '', $this->code);
 
         /* remove other spaces before/after ) */
-        $this->code = preg_replace(array('(( )+\))', '(\)( )+)'), ')', $this->code);
+        $this->code = preg_replace(['(( )+\))', '(\)( )+)'], ')', $this->code);
 
         // Save to file
         if ($targetFilePath) {

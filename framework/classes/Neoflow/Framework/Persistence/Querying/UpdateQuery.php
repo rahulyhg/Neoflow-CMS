@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\Persistence\Querying;
 
 use Neoflow\Framework\Persistence\Statement;
@@ -11,6 +10,7 @@ use RuntimeException;
  */
 class UpdateQuery extends AbstractQuery
 {
+
     /**
      * Where query trait.
      */
@@ -19,11 +19,11 @@ class UpdateQuery extends AbstractQuery
     /**
      * @var array
      */
-    protected $clauses = array(
+    protected $clauses = [
         'UPDATE' => false,
         'SET' => ', ',
         'WHERE' => ' AND ',
-    );
+    ];
 
     /**
      * @var bool
@@ -66,7 +66,7 @@ class UpdateQuery extends AbstractQuery
     public function set(array $set = []): self
     {
         foreach ($set as $column => $value) {
-            $this->statements['SET'][] = $this->quoteIdentifier($column).' = ?';
+            $this->statements['SET'][] = $this->quoteIdentifier($column) . ' = ?';
             $this->parameters['SET'][] = $value;
         }
 

@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Module\Code\Controller;
 
 use Neoflow\CMS\Controller\Frontend\AbstractPageModuleController;
@@ -8,6 +7,7 @@ use Neoflow\Module\Code\Model;
 
 class FrontendController extends AbstractPageModuleController
 {
+
     /**
      * Index action.
      *
@@ -17,8 +17,8 @@ class FrontendController extends AbstractPageModuleController
     {
         $code = Model::findByColumn('section_id', $this->section->id());
 
-        return $this->render('code/frontend', array(
+        return $this->render('code/frontend', [
                 'code' => $code,
-        ));
+        ]);
     }
 }

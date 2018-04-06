@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Module\Snippets;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -7,7 +6,8 @@ use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Validation\ValidationException;
 use Throwable;
 
-class Model extends AbstractModel {
+class Model extends AbstractModel
+{
 
     /**
      * @var string
@@ -120,37 +120,36 @@ class Model extends AbstractModel {
         $validator = new EntityValidator($this);
 
         $validator
-                ->required()
-                ->betweenLength(3, 100)
-                ->callback(function ($title, $snippet) {
-                    $codes = Model::repo()
-                            ->where('title', '=', $title)
-                            ->where('snippet_id', '!=', $snippet->id())
-                            ->fetchAll();
+            ->required()
+            ->betweenLength(3, 100)
+            ->callback(function ($title, $snippet) {
+                $codes = Model::repo()
+                    ->where('title', '=', $title)
+                    ->where('snippet_id', '!=', $snippet->id())
+                    ->fetchAll();
 
-                    return 0 === $codes->count();
-                }, ' {0} has to be unique', array($this))
-                ->set('title', 'Title');
-
-        $validator
-                ->required()
-                ->betweenLength(3, 100)
-                ->pregMatch('/^([a-zA-Z0-9\-\_]+)$/', 'Placeholder is invalid. Please use only letters, underscores and hyphens.')
-                ->callback(function (string $placeholder, Model $snippet) {
-                    $codes = Model::repo()
-                            ->where('placeholder', '=', $placeholder)
-                            ->where('snippet_id', '!=', $snippet->id())
-                            ->fetchAll();
-
-                    return 0 === $codes->count();
-                }, ' {0} has to be unique', array($this))
-                ->set('placeholder', 'Placeholder');
+                return 0 === $codes->count();
+            }, ' {0} has to be unique', [$this])
+            ->set('title', 'Title');
 
         $validator
-                ->maxLength(250)
-                ->set('description', 'Description');
+            ->required()
+            ->betweenLength(3, 100)
+            ->pregMatch('/^([a-zA-Z0-9\-\_]+)$/', 'Placeholder is invalid. Please use only letters, underscores and hyphens.')
+            ->callback(function (string $placeholder, Model $snippet) {
+                $codes = Model::repo()
+                    ->where('placeholder', '=', $placeholder)
+                    ->where('snippet_id', '!=', $snippet->id())
+                    ->fetchAll();
+
+                return 0 === $codes->count();
+            }, ' {0} has to be unique', [$this])
+            ->set('placeholder', 'Placeholder');
+
+        $validator
+            ->maxLength(250)
+            ->set('description', 'Description');
 
         return $validator->validate();
     }
-
 }

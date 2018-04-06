@@ -1,6 +1,5 @@
 <?php
-
-return array(
+return [
     'url' => '[url]',
     'database' => [
         'host' => '[host]',
@@ -9,4 +8,4 @@ return array(
         'dbname' => '[dbname]',
         'charset' => '[charset]',
     ],
-);
+];

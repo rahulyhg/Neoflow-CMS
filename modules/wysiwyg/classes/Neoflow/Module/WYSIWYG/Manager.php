@@ -22,10 +22,11 @@ class Manager extends AbstractPageModuleManager
             Folder::create($mediaPath);
         }
 
-        return (bool) Model::create(array(
-                'section_id' => $section->id(),
-                'content' => '',
-            ))->save();
+        return (bool) Model::create([
+                    'section_id' => $section->id(),
+                    'content' => '',
+                ])
+                ->save();
     }
 
     /**
