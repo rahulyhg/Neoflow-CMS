@@ -27,8 +27,10 @@ class Translator extends FrameworkTranslator {
         // Set timezone based on settings
         $this->setTimezone($this->settings()->timezone);
 
+        // Check whether translation is already cached
         $cacheKey = 'translations-' . $this->languageCode;
         if ($this->cache()->exists($cacheKey)) {
+
             // Fetch translations from cache
             $translations = $this->cache()->fetch($cacheKey);
             $this->translation = $translations['translation'];
@@ -38,9 +40,9 @@ class Translator extends FrameworkTranslator {
             $this->fallbackDateFormat = $translations['fallbackDateFormat'];
             $this->fallbackDateTimeForm = $translations['fallbackDateTimeFormat'];
         } else {
+
             // Load translation file of each theme and module, but only when database connection is etablished
             if ($this->app()->get('database')) {
-
                 foreach ($this->app()->get('modules') as $module) {
                     // Load translation file
                     $translationFile = $module->getPath('/i18n/' . $this->languageCode . '.php');
@@ -77,8 +79,7 @@ class Translator extends FrameworkTranslator {
                 'dateFormat' => $this->dateFormat,
                 'dateTimeFormat' => $this->dateTimeFormat,
                 'fallbackDateFormat' => $this->fallbackDateFormat,
-                'fallbackDateTimeFormat' => $this->fallbackDateTimeFormat
-                    ], 0, ['system-configurations']);
+                'fallbackDateTimeFormat' => $this->fallbackDateTimeFormat,], 0, ['system-configurations']);
         }
 
         $this->logger()->debug('Translator created', [
