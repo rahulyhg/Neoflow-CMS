@@ -20,7 +20,7 @@
                     </div>
                     <div class="col-md-3">
                         <h4><?= translate('Author'); ?></h4>
-                        <p><?= $module->author; ?></p>
+                        <p><?= str_replace(',', '<br />', $theme->author); ?></p>
                     </div>
                     <div class="col-md-6">
                         <h4><?= translate('Copyright'); ?></h4>
