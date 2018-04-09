@@ -72,7 +72,7 @@
                             <input type="hidden" value="0" name="automated_creation" />
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" value="1" id="checkboxAutomatedCreation" name="automated_creation" <?= ($settings->automated_creation ? 'checked' : ''); ?>>
-                                <label class="custom-control-label" for="checkboxAutomatedCreation"><?= translate('Automated creation'); ?></label>
+                                <label class="custom-control-label" for="checkboxAutomatedCreation"><?= translate('Auto generation'); ?></label>
                             </div>
                         </div>
                     </div>
