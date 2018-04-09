@@ -11,11 +11,11 @@ var pjson = require('./package.json');
 
 // Build install package
 gulp.task('install:release', function (callback) {
-    runSequence('install:pullFromGit', 'install:createZipPackage', callback);
+    runSequence('install:_pullFromGit', 'install:_createZipPackage', callback);
 });
 
 // Create zip file for installation
-gulp.task('install:createZipPackage', function () {
+gulp.task('install:_createZipPackage', function () {
     console.log('Create ' + pjson.name + '-' + pjson.version + '.zip');
     return gulp
             .src([
@@ -40,7 +40,7 @@ gulp.task('install:createZipPackage', function () {
 });
 
 // Pull latest files and folders from Git
-gulp.task('install:pullFromGit', function () {
+gulp.task('install:_pullFromGit', function () {
     return gulp
             .src('.')
             .pipe(run('git pull', {
@@ -51,11 +51,11 @@ gulp.task('install:pullFromGit', function () {
 
 // Build update package
 gulp.task('update:release', function (callback) {
-    return runSequence('update:getTagForGit', 'update:checkoutFromGit', 'update:createModuleZipPackages', 'update:createThemeZipPackages', 'update:createZipPackage', callback);
+    return runSequence('update:_getTagForGit', 'update:_checkoutFromGit', 'update:_createModuleZipPackages', 'update:_createThemeZipPackages', 'update:_createZipPackage', callback);
 });
 
 // Create zip file for update
-gulp.task('update:createZipPackage', function () {
+gulp.task('update:_createZipPackage', function () {
     console.log('Create ' + pjson.name + '-' + pjson.version + '-update.zip');
     return gulp
             .src([
@@ -83,7 +83,7 @@ gulp.task('update:createZipPackage', function () {
 var tag = '';
 
 // Show prompt to get last commit or tag for checkout
-gulp.task('update:getTagForGit', function () {
+gulp.task('update:_getTagForGit', function () {
     return gulp
             .src('./temp/update/install')
             .pipe(prompt.prompt({
@@ -96,7 +96,7 @@ gulp.task('update:getTagForGit', function () {
 });
 
 // Checkout files and folders from Git based on last commit or tag
-gulp.task('update:checkoutFromGit', function () {
+gulp.task('update:_checkoutFromGit', function () {
     return gulp
             .src('./temp/update/install')
             .pipe(run('git checkout-index -f --prefix="<%= file.path %>/" $(git diff --name-only ' + tag + ')', {
@@ -106,7 +106,7 @@ gulp.task('update:checkoutFromGit', function () {
 });
 
 // Create zip file of each core module (incl. Dummy module)
-gulp.task('update:createModuleZipPackages', function () {
+gulp.task('update:_createModuleZipPackages', function () {
 
     // Define folder names of core modules
     var coreModuleFolders = [
@@ -146,7 +146,7 @@ gulp.task('update:createModuleZipPackages', function () {
 });
 
 // Create zip file of each core theme
-gulp.task('update:createThemeZipPackages', function () {
+gulp.task('update:_createThemeZipPackages', function () {
 
     // Define folder names of theme modules
     var coreThemeFolders = [
