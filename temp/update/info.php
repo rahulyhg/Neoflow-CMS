@@ -1,13 +1,15 @@
 <?php
 return [
-    'version' => '1.0.0-alpha2',
+    'version' => '1.0.0-a2',
     'for' => [
-        '1.0.0-alpha1',
+        '1.0.0-a1',
     ],
     'sql' => 'install.sql',
     'files' => 'install',
     'modules' => [
         'dummy' => 'dummy.zip',
     ],
-    'themes' => [],
+    'themes' => [
+        'flatly' => 'flatly.zip'
+    ],
 ];
