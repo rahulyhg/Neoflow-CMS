@@ -11,11 +11,12 @@ var pjson = require('./package.json');
 
 // Build install package
 gulp.task('install:release', function (callback) {
-    runSequence('install:pullFromGit', 'install:createZip', callback);
+    runSequence('install:pullFromGit', 'install:createZipPackage', callback);
 });
 
 // Create zip file for installation
-gulp.task('install:createZip', function () {
+gulp.task('install:createZipPackage', function () {
+    console.log('Create ' + pjson.name + '-' + pjson.version + '.zip');
     return gulp
             .src([
                 './**',
@@ -50,11 +51,12 @@ gulp.task('install:pullFromGit', function () {
 
 // Build update package
 gulp.task('update:release', function (callback) {
-    return runSequence('update:checkoutFromGit', 'update:createZipModules', 'update:createZip', callback);
+    return runSequence('update:checkoutFromGit', 'update:createModuleZipPackages', 'update:createThemeZipPackages', 'update:createZipPackage', callback);
 });
 
 // Create zip file for update
-gulp.task('update:createZip', function () {
+gulp.task('update:createZipPackage', function () {
+    console.log('Create ' + pjson.name + '-' + pjson.version + '-update.zip');
     return gulp
             .src([
                 './temp/update/**',
@@ -75,7 +77,7 @@ gulp.task('update:createZip', function () {
                 '!./temp/update/install/themes/*/src{,/**}',
                 '!./temp/update/*.zip'
             ])
-            .pipe(zip(pjson.name + '-' + pjson.version + '-update.zip'))
+            .pipe(zip(pjson.name + '-update-' + pjson.version + '.zip'))
             .pipe(gulp.dest('./temp/update/'));
 });
 
@@ -98,20 +100,35 @@ gulp.task('update:checkoutFromGit', function () {
 });
 
 // Create zip file of each core module (incl. Dummy module)
-gulp.task('update:createZipModules', function () {
+gulp.task('update:createModuleZipPackages', function () {
 
-    var coreModules = [
+    // Define folder names of core modules
+    var coreModuleFolders = [
         'code', 'datetimepicker', 'dummy', 'sitemap', 'snippets', 'wysiwyg'
     ];
 
+    // Add folder names of changed modules
+    fs.lstat('./temp/update/install/modules', (err, stats) => {
+        if (stats && stats.isDirectory()) {
+            coreModuleFolders.concat(fs
+                    .readdirSync('./temp/update/install/modules')
+                    .filter(function (file) {
+                        return fs.statSync(path.join('./modules', file)).isDirectory();
+                    }));
+        }
+    });
+
+    // Get all installed module folder names
     var moduleFolders = fs
             .readdirSync('./modules')
             .filter(function (file) {
                 return fs.statSync(path.join('./modules', file)).isDirectory();
             });
 
+    // Zip only core and changed modules
     return moduleFolders.map(function (moduleFolder) {
-        if (coreModules.indexOf(moduleFolder) > -1) {
+        if (coreModuleFolders.indexOf(moduleFolder) > -1) {
+            console.log('Create ' + moduleFolder + '.zip');
             return gulp
                     .src(path.join('./modules', moduleFolder) + '/**')
                     .pipe(zip(moduleFolder + '.zip'))
@@ -120,4 +137,48 @@ gulp.task('update:createZipModules', function () {
         return false;
     });
 
+});
+
+// Create zip file of each core theme
+gulp.task('update:createThemeZipPackages', function () {
+
+    // Define folder names of theme modules
+    var coreThemeFolders = [
+        'neoflow-backend'
+    ];
+
+    // Add folder names of changed modules
+    fs.lstat('./temp/update/install/themes', (err, stats) => {
+        if (stats && stats.isDirectory()) {
+            coreThemeFolders.concat(fs
+                    .readdirSync('./temp/update/install/themes')
+                    .filter(function (file) {
+                        return fs.statSync(path.join('./themes', file)).isDirectory();
+                    }));
+        }
+    });
+
+    // Get all installed theme folder names
+    var themeFolders = fs
+            .readdirSync('./themes')
+            .filter(function (file) {
+                return fs.statSync(path.join('./themes', file)).isDirectory();
+            });
+
+    // Zip only core and changed themes
+    return themeFolders.map(function (themeFolder) {
+        if (coreThemeFolders.indexOf(themeFolder) > -1) {
+            console.log('Create ' + themeFolder + '.zip');
+            return gulp
+                    .src([
+                        path.join('./themes', themeFolder) + '/**',
+                        '!./themes/*/package*',
+                        '!./themes/*/node_modules{,/**}',
+                        '!./themes/*/src{,/**}',
+                    ])
+                    .pipe(zip(themeFolder + '.zip'))
+                    .pipe(gulp.dest('./temp/update/themes'));
+        }
+        return false;
+    });
 });

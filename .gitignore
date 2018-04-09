@@ -21,3 +21,5 @@ temp/update/install/*
 !temp/update/install/.gitkeep
 temp/update/modules/*
 !temp/update/modules/.gitkeep
+temp/update/themes/*
+!temp/update/themes/.gitkeep
