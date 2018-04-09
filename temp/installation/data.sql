@@ -29,7 +29,8 @@ INSERT INTO `roles_permissions` VALUES(9, 1, 9);
 INSERT INTO `roles_permissions` VALUES(10, 1, 10);
 INSERT INTO `roles_permissions` VALUES(11, 1, 11);
 
-INSERT INTO `blocks` VALUES(1, 'content', 'Inhalt');
+INSERT INTO `blocks` VALUES(1, 'content', 'Content Default');
+INSERT INTO `blocks` VALUES(2, 'content-primary', 'Content Primary');
 
 INSERT INTO `modules` VALUES(1, 'Log Viewer', 'log-viewer', 'log-viewer', 'tmod_log_viewer_backend_index', NULL, '\\Neoflow\\Module\\LogViewer\\Manager', 'Jonathan Nessier <jonathan.nessier@neoflow.ch>', 'User-friendly and simple viewer for in-depth analysis of log files.', 'Copyright (c) 2017 Jonathan Nessier, Neoflow', 'MIT', '1.0', 1, 'tool', '', 0);
 INSERT INTO `modules` VALUES(2, 'Snippets', 'snippets', 'snippets', 'tmod_snippets_backend_index', NULL, '\\Neoflow\\Module\\Snippets\\Manager', 'Jonathan Nessier <jonathan.nessier@neoflow.ch>', 'Executes PHP code and replaces the placeholders in your website content with the result.', 'Copyright (c) 2017 Jonathan Nessier, Neoflow', 'MIT', '1.0', 1, 'tool', 'code', 1);
@@ -49,7 +50,7 @@ INSERT INTO `languages` VALUES(2, 'de', 'German', 'de');
 INSERT INTO `languages` VALUES(3, 'fr', 'French', 'fr');
 
 INSERT INTO `themes` VALUES(1, 'Neoflow Backend', 'neoflow-backend', 'backend', 'MIT', 'Jonathan Nessier <jonathan.nessier@neoflow.ch>', 'Official backend theme of the Neoflow CMS', 'Copyright (c) 2016-2017 Jonathan Nessier, Neoflow', '1.0', 'sequential', 'neoflow-backend');
-INSERT INTO `themes` VALUES(2, 'Cloudy', 'cloudy', 'frontend', 'MIT', 'Jonathan Nessier <jonathan.nessier@neoflow.ch>', 'Lorem ipsum', 'Copyright (c) 2016-2017 Jonathan Nessier, Neoflow', '1.0', 'grouped', 'cloudy');
+INSERT INTO `themes` VALUES(2, 'Flatly', 'flatly', 'frontend', 'MIT', 'Thomas Park,Jonathan Nessier', 'Bootstrap-based free template of Bootswatch, modified for Neoflow CMS.', '2012-2018 Thomas Park', '1.0', 'sequential', 'flatly');
 
 INSERT INTO `settings` VALUES (1,'','','','',1,1,10,1800,1,'','','jpeg,jpg,doc,docx,xls,xlsx,ppt,pptx,pdf,gif,png,bmp,psd,tiff,zip,tar,rar,txt',1,2,'',0,'',0,'UTC', '1.0.0-a1');
 
