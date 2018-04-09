@@ -51,7 +51,7 @@ gulp.task('install:pullFromGit', function () {
 
 // Build update package
 gulp.task('update:release', function (callback) {
-    return runSequence('update:checkoutFromGit', 'update:createModuleZipPackages', 'update:createThemeZipPackages', 'update:createZipPackage', callback);
+    return runSequence('update:getTagForGit', 'update:checkoutFromGit', 'update:createModuleZipPackages', 'update:createThemeZipPackages', 'update:createZipPackage', callback);
 });
 
 // Create zip file for update
@@ -64,26 +64,26 @@ gulp.task('update:createZipPackage', function () {
                 '!./temp/update/install/package*',
                 '!./temp/update/install/gulpfile.js',
                 '!./temp/update/install/node_modules{,/**}',
-                '!./temp/update/install/install{,/**}',
+                '!./temp/update/install/installation{,/**}',
                 '!./temp/update/install/nbproject{,/**}',
                 '!./temp/update/install/src{,/**}',
                 '!./temp/update/install/modules{,/**}',
                 '!./temp/update/install/robots.txt',
                 '!./temp/update/install/sitemap.xml',
-                '!./temp/update/install/temp/update{,/**}',
-                '!./temp/update/install/media/modules/wysiwyg/{,/**}',
-                '!./temp/update/install/themes/*/package*',
-                '!./temp/update/install/themes/*/node_modules{,/**}',
-                '!./temp/update/install/themes/*/src{,/**}',
+                '!./temp/update/install/temp{,/**}',
+                '!./temp/update/install/media/modules/wysiwyg{,/**}',
+                '!./temp/update/install/themes{,/**}',
                 '!./temp/update/*.zip'
             ])
             .pipe(zip(pjson.name + '-update-' + pjson.version + '.zip'))
             .pipe(gulp.dest('./temp/update/'));
 });
 
-// Checkout files and folders from Git based on last commit or tag
-gulp.task('update:checkoutFromGit', function () {
-    var tag = '';
+// Last commit or tag
+var tag = '';
+
+// Show prompt to get last commit or tag for checkout
+gulp.task('update:getTagForGit', function () {
     return gulp
             .src('./temp/update/install')
             .pipe(prompt.prompt({
@@ -92,7 +92,13 @@ gulp.task('update:checkoutFromGit', function () {
                 message: 'From which last commit or tag would you like to checkout?'
             }, function (res) {
                 tag = res.tag;
-            }))
+            }));
+});
+
+// Checkout files and folders from Git based on last commit or tag
+gulp.task('update:checkoutFromGit', function () {
+    return gulp
+            .src('./temp/update/install')
             .pipe(run('git checkout-index -f --prefix="<%= file.path %>/" $(git diff --name-only ' + tag + ')', {
                 usePowerShell: true,
                 verbosity: 0
