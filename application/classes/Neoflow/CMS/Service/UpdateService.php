@@ -158,8 +158,8 @@ class UpdateService extends AbstractService
                             $module->install($file);
                         }
                     } catch (Throwable $ex) {
-                        $this->logger()->warning('Update installation for ' . $module->name . ' failed.', [
-                            'Error message' => $ex->getMessage()
+                        $this->logger()->warning('Module update installation for ' . $packageName . ' failed.', [
+                            'Exception message' => $ex->getMessage()
                         ]);
                     }
                 }
@@ -184,12 +184,20 @@ class UpdateService extends AbstractService
         if (isset($info['themes'])) {
             foreach ($info['themes'] as $identifier => $packageName) {
                 $theme = ThemeModel::findByColumn('themes', $identifier);
-                $file = $updateFolder->findFiles('themes/' . $packageName);
-                if ($theme && $file->count()) {
+                $files = $updateFolder->findFiles('themes/' . $packageName);
+                foreach ($files as $file) {
                     try {
-                        $theme->installUpdate($file->first());
-                    } catch (ValidationException $ex) {
-                        // Nothing todo
+                        $theme = ThemeModel::findByColumn('identifier', $identifier);
+                        if ($theme) {
+                            $theme->installUpdate($file);
+                        } else {
+                            $theme = new ThemeModel();
+                            $theme->install($file);
+                        }
+                    } catch (Throwable $ex) {
+                        $this->logger()->warning('Theme update installation for ' . $packageName . ' failed.', [
+                            'Exception message' => $ex->getMessage()
+                        ]);
                     }
                 }
             }
