@@ -1,17 +1,15 @@
 <?php
+
 namespace Neoflow\CMS\Handler;
 
 use Neoflow\CMS\AppTrait;
 use Neoflow\Filesystem\File;
 use Neoflow\Framework\Handler\Config as FrameworkConfig;
-use Neoflow\Ini\IniFile;
-use Neoflow\Json\JsonFile;
 use RuntimeException;
 use const APP_PATH;
-use function array_to_code;
+use function array_export;
 
-class Config extends FrameworkConfig
-{
+class Config extends FrameworkConfig {
 
     /**
      * App trait.
@@ -153,9 +151,10 @@ class Config extends FrameworkConfig
         $phpFile = File::create(APP_PATH . '/config.php');
 
         // Create config content
-        $content = '<?php' . PHP_EOL . 'return ' . array_to_code($configData);
+        $content = '<?php' . PHP_EOL . 'return ' . array_export($configData);
 
         // Set config content to file
         return (bool) $phpFile->setContent($content);
     }
+
 }

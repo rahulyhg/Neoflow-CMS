@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\Handler;
 
 use Neoflow\Framework\AppTrait;
@@ -10,8 +11,7 @@ use function normalize_path;
 use function normalize_url;
 use function request_url;
 
-class Config extends Container
-{
+class Config extends Container {
 
     /**
      * App trait.
@@ -102,4 +102,5 @@ class Config extends Container
 
         return $this->getPath($path . '/' . $additionalPath);
     }
+
 }
