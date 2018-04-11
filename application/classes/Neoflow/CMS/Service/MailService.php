@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
@@ -7,6 +6,7 @@ use Neoflow\Mailer\Mail;
 
 class MailService extends AbstractService
 {
+
     /**
      * Create mail.
      *
@@ -18,16 +18,14 @@ class MailService extends AbstractService
      */
     public function create(string $to, string $subject = '', string $message = '')
     {
-        $from = $this->app()
-                ->get('config')
-                ->get('email');
+        $from = $this->config()->get('app')->get('email');
 
         $mail = new Mail();
 
         return $mail
-                        ->setFrom($from)
-                        ->addTo($to)
-                        ->setSubject($subject)
-                        ->setMessage($message);
+                ->setFrom($from)
+                ->addTo($to)
+                ->setSubject($subject)
+                ->setMessage($message);
     }
 }

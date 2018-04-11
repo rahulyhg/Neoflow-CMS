@@ -445,7 +445,7 @@ class Router
 
         if ($languageCode) {
             $routeUri = '/' . $languageCode . $routeUri;
-        } elseif (count($this->config()->get('languages')) > 1) {
+        } elseif (count($this->config()->get('app')->get('languages')) > 1) {
             $routeUri = '/' . $this->translator()->getActiveLanguageCode() . $routeUri;
         }
 

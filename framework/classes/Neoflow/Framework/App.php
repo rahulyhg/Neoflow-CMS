@@ -48,15 +48,13 @@ class App extends Container
      * @param Loader $loader         Loader instance
      * @param string $configFilePath Config file path
      */
-    public function initialize($startTime, Loader $loader, $configFilePath): self
+    public function initialize(int $startTime, Loader $loader, string $configFilePath): self
     {
-        // Set start time in seconds
-        $this->startTime = $startTime;
-
         // Safe current app instance
         self::$instance = $this;
 
-        // Set params
+        // Initialize counter
+        $this->set('startTime', $startTime);
         $this->set('executedQueries', 0);
         $this->set('cachedQueries', 0);
         $this->set('databaseConnections', 0);
@@ -65,7 +63,7 @@ class App extends Container
         $this->set('loader', $loader);
 
         // Create and set config
-        $config = Config::createConfigByFile($configFilePath);
+        $config = Config::createByFile($configFilePath);
         $this->setConfig($config);
 
         // Create logger
@@ -110,7 +108,7 @@ class App extends Container
      */
     public function getExecutionTime()
     {
-        return microtime(true) - $this->startTime;
+        return microtime(true) - $this->get('startTime');
     }
 
     /**
@@ -228,19 +226,23 @@ class App extends Container
         // Get service class names
         $serviceClassNames = $this->get('config')->get('services');
 
-        foreach ($serviceClassNames as $name => $serviceClassName) {
-            if (!is_string($name)) {
-                $name = '';
+        if (count($serviceClassNames)) {
+            foreach ($serviceClassNames as $name => $serviceClassName) {
+                if (!is_string($name)) {
+                    $name = '';
+                }
+
+                // Create service
+                $service = new $serviceClassName();
+
+                // Register service
+                $this->registerService($service, $name);
             }
 
-            // Create service
-            $service = new $serviceClassName();
-
-            // Register service
-            $this->registerService($service, $name);
+            $this->get('logger')->info('Services created');
+        } else {
+            $this->get('logger')->info('No services created');
         }
-
-        $this->get('logger')->info('Services created');
 
         return $this;
     }
@@ -326,18 +328,21 @@ class App extends Container
     protected function setCache(AbstractCache $cache = null): self
     {
         if (!$cache) {
-            // Get cache type
-            $type = $this->get('config')->get('cache');
 
-            // Create cache based on type
-            if ('apcu' === $type || (true === $type && extension_loaded('apcu') && ini_get('apc.enabled'))) {
-                $cache = new ApcuCache($this);
-            } elseif ('apc' === $type || (true === $type && extension_loaded('apc') && ini_get('apc.enabled'))) {
-                $cache = new ApcCache($this);
-            } elseif ('file' === $type || true === $type) {
-                $cache = new FileCache($this);
-            } else {
-                $cache = new DummyCache();
+            // Get cache type
+            $cacheConfig = $this->get('config')->get('cache');
+
+            $cache = new DummyCache();
+
+            $cacheType = $cacheConfig->get('type');
+            if ($cacheType) {
+                if ($cacheType === 'acpu' || ('auto' === $cacheType && extension_loaded('apcu') && ini_get('apc.enabled'))) {
+                    $cache = new ApcuCache($this);
+                } elseif ($cacheType === 'apc' || ('auto' === $cacheType && extension_loaded('apc') && ini_get('apc.enabled'))) {
+                    $cache = new ApcCache($this);
+                } elseif ($cacheType === 'file' || 'auto' === $cacheType) {
+                    $cache = new FileCache($this);
+                }
             }
         }
 

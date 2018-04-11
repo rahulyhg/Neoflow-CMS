@@ -1,14 +1,11 @@
 <?php
 namespace Neoflow\CMS\Service;
 
+use Neoflow\CMS\Core\AbstractService;
+use Neoflow\CMS\Handler\Translator;
 use Neoflow\CMS\Model\SettingModel;
 use Neoflow\CMS\Model\UserModel;
-use Neoflow\Filesystem\File;
-use Neoflow\CMS\Core\AbstractService;
-use Neoflow\Framework\Handler\Config;
-use Neoflow\Framework\Handler\Translator;
 use Neoflow\Framework\Persistence\Database;
-use const APP_ROOT;
 
 class InstallService extends AbstractService
 {
@@ -74,7 +71,7 @@ class InstallService extends AbstractService
     }
 
     /**
-     * Create config file (uses template config file).
+     * Recreate config file.
      *
      * @param array $config
      *
@@ -82,23 +79,11 @@ class InstallService extends AbstractService
      */
     public function createConfigFile(array $config): self
     {
-        // Get config content from installation config file
-        $configFilePath = $this->config()->getPath('/installation/configTemplate.php');
-        $configFileContent = file_get_contents($configFilePath);
+        $this->config()->get('app')->set('url', $config['url']);
 
-        // Replace placeholder with values
-        $configFileContent = str_replace('[url]', $config['url'], $configFileContent);
-        foreach ($config['database'] as $key => $value) {
-            $configFileContent = str_replace('[' . $key . ']', $value, $configFileContent);
-        }
+        $this->config()->get('database')->setData($config['database']);
 
-        // Create config file
-        $configFile = File::create(APP_ROOT . '/config.php', $configFileContent, true);
-
-        // Create additional config data
-        $additionalConfigData = array_merge($this->config()->toArray(), $config);
-
-        $this->app()->set('config', Config::createConfigByFile($configFile->getPath(), $additionalConfigData));
+        $this->config()->saveAsFile();
 
         return $this;
     }
@@ -109,7 +94,7 @@ class InstallService extends AbstractService
      */
     public function databaseStatus(): bool
     {
-        return ($this->app()->get('database') && SettingModel::findById(1));
+        return ($this->config()->get('database')->get('host') && $this->app()->get('database') && SettingModel::findById(1));
     }
 
     /**
@@ -118,7 +103,7 @@ class InstallService extends AbstractService
      */
     public function settingStatus(): bool
     {
-        return ($this->settings()->website_title !== '' && $this->settings()->sender_emailaddress !== '');
+        return ($this->app()->get('database') && $this->settings()->website_title !== '' && $this->settings()->sender_emailaddress !== '');
     }
 
     /**

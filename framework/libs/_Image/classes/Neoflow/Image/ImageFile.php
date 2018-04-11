@@ -1,6 +1,7 @@
 <?php
 namespace Neoflow\Image;
 
+use Neoflow\Filesystem\Exception\FilesystemException;
 use Neoflow\Filesystem\File;
 use Neoflow\Image\Exception\ImageFileException;
 
@@ -111,7 +112,7 @@ class ImageFile extends File
     /**
      * Save image.
      *
-     * @param null|string $imageFilePath File path of image
+     * @param string $newFilePath New file path
      * @param int|string  $imageType     Type or extension of image
      * @param int         $quality       Quality rate from 1 to 100
      *
@@ -119,11 +120,11 @@ class ImageFile extends File
      *
      * @throws ImageFileException
      */
-    public function save($imageFilePath = null, $imageType = null, $quality = 90)
+    public function save(string $newFilePath = '', $imageType = null, int $quality = 90): self
     {
-        // Fallback to get image file path
-        if (!is_string($imageFilePath)) {
-            $imageFilePath = $this->path;
+        // Fallback to get current file path
+        if (!$newFilePath) {
+            $newFilePath = $this->path;
         }
 
         // Fallback to get image type
@@ -131,7 +132,7 @@ class ImageFile extends File
             if (is_string($imageType)) {
                 $imageType = $this->fileExtensionToImageType($imageType);
             } else {
-                $extension = pathinfo($imageFilePath, PATHINFO_EXTENSION);
+                $extension = pathinfo($newFilePath, PATHINFO_EXTENSION);
                 if (!$extension) {
                     $extension = $this->getExtension();
                 }
@@ -140,10 +141,10 @@ class ImageFile extends File
             }
         }
 
-        if ($this->createImageFile($imageFilePath, $imageType, $quality)) {
-            return new static($imageFilePath);
+        if ($this->createImageFile($newFilePath, $imageType, $quality)) {
+            return new static($newFilePath);
         }
-        throw new ImageFileException('Saving image file to file path "' . $imageFilePath . '" failed');
+        throw new ImageFileException('Saving image file to file path "' . $newFilePath . '" failed', ImageFileException::NOT_WRITEABLE);
     }
 
     /**
@@ -153,7 +154,7 @@ class ImageFile extends File
      *
      * @return self
      */
-    public function resizeToHeight($height)
+    public function resizeToHeight(int $height): self
     {
         $ratio = $height / $this->getHeight();
         $width = $this->getWidth() * $ratio;

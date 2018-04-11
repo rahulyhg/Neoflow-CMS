@@ -1,12 +1,12 @@
 <?php
-
 namespace Neoflow\CMS\Handler;
 
 use Neoflow\CMS\AppTrait;
 use Neoflow\CMS\Model\LanguageModel;
 use Neoflow\Framework\Handler\Translator as FrameworkTranslator;
 
-class Translator extends FrameworkTranslator {
+class Translator extends FrameworkTranslator
+{
 
     /**
      * App trait.
@@ -121,7 +121,7 @@ class Translator extends FrameworkTranslator {
                 return $activeLanguage->code;
             }
         }
-        $languages = $this->config()->get('languages');
+        $languages = $this->config()->get('app')->get('languages');
         $index = array_search($this->languageCode, $languages);
         if (false !== $index) {
             return $languages[$index];
@@ -145,7 +145,6 @@ class Translator extends FrameworkTranslator {
             }
         }
 
-        return $this->config()->get('languages')[0];
+        return $this->config()->get('app')->get('languages')[0];
     }
-
 }

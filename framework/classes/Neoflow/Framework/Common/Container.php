@@ -47,7 +47,22 @@ class Container implements IteratorAggregate, Countable, ArrayAccess
     {
         $this->isMultiDimensional = $isMultiDimensional;
 
-        if (is_array($data) && is_assoc($data)) {
+        $this->setData($data);
+        if ($parent) {
+            $this->parents[] = $parent;
+        }
+
+        $this->isReadOnly = $isReadOnly;
+    }
+
+    /**
+     * Set data
+     * @param array $data
+     * @return self
+     */
+    public function setData(array $data): self
+    {
+        if (is_assoc($data)) {
             if ($this->isMultiDimensional) {
                 foreach ($data as $key => $value) {
                     $this->set($key, $value);
@@ -56,11 +71,7 @@ class Container implements IteratorAggregate, Countable, ArrayAccess
                 $this->data = $data;
             }
         }
-        if ($parent) {
-            $this->parents[] = $parent;
-        }
-
-        $this->isReadOnly = $isReadOnly;
+        return $this;
     }
 
     /**

@@ -2,7 +2,13 @@
 namespace Neoflow\CMS\Handler;
 
 use Neoflow\CMS\AppTrait;
+use Neoflow\Filesystem\File;
 use Neoflow\Framework\Handler\Config as FrameworkConfig;
+use Neoflow\Ini\IniFile;
+use Neoflow\Json\JsonFile;
+use RuntimeException;
+use const APP_PATH;
+use function array_to_code;
 
 class Config extends FrameworkConfig
 {
@@ -11,6 +17,25 @@ class Config extends FrameworkConfig
      * App trait.
      */
     use AppTrait;
+
+    /**
+     * Create config by file.
+     *
+     * @param string $configFilePath       File path of config
+     * @param array  $additionalConfigData Additional config data
+     *
+     * @return self
+     *
+     * @throws RuntimeException
+     */
+    public static function createByFile(string $configFilePath, array $additionalConfigData = []): FrameworkConfig
+    {
+        if (!is_file($configFilePath)) {
+            $configFilePath = APP_PATH . '/installation/config.php';
+        }
+
+        return parent::createByFile($configFilePath, $additionalConfigData);
+    }
 
     /**
      * Get themes url.
@@ -111,43 +136,26 @@ class Config extends FrameworkConfig
     }
 
     /**
-     * Create config by file.
-     *
-     * @param string $configFilePath       File path of config
-     * @param array  $additionalConfigData Additional config data
-     *
-     * @return self
-     *
-     * @throws RuntimeException
+     * Save and overwrite current config as file
+     * @return bool
      */
-    public static function createConfigByFile(string $configFilePath, array $additionalConfigData = []): FrameworkConfig
+    public function saveAsFile(): bool
     {
-        // Get application config file as additional config data
-        $applicationConfigFilePath = APP_ROOT . '/application/config.php';
-        if (is_file($applicationConfigFilePath)) {
-            $additionalConfigData = array_merge(require $applicationConfigFilePath, $additionalConfigData);
-        }
+        $configData = $this->toArray();
 
-        // Define config data
-        if (is_file($configFilePath)) {
-            $configData = require $configFilePath;
-        } else {
-            $configData = [
-                'url' => normalize_url(request_url(false, false) . base_path(APP_ROOT)),
-                'database' => [
-                    'host' => '',
-                    'dbname' => '',
-                    'username' => '',
-                    'password' => '',
-                    'charset' => 'UTF8',
-                ],
-            ];
-        }
+        // Clean config from not need params
+        unset($configData['session']);
+        unset($configData['app']['path']);
+        unset($configData['app']['email']);
+        unset($configData['app']['languages']);
 
-        // Merge final config data
-        $configData = array_merge($configData, $additionalConfigData);
+        // Create config file
+        $phpFile = File::create(APP_PATH . '/config.php');
 
-        // Create config
-        return new self($configData, false, true);
+        // Create config content
+        $content = '<?php' . PHP_EOL . 'return ' . array_to_code($configData);
+
+        // Set config content to file
+        return (bool) $phpFile->setContent($content);
     }
 }

@@ -3,21 +3,21 @@
 use Neoflow\Framework\Handler\Loader;
 
 // Include loader class
-require_once APP_ROOT . '/framework/classes/Neoflow/Framework/Handler/Loader.php';
+require_once APP_PATH . '/framework/classes/Neoflow/Framework/Handler/Loader.php';
 
 // Create loader
 $loader = new Loader();
 $loader
     ->loadFunctionsFromDirectories([
-        APP_ROOT . '/framework/functions',
-        APP_ROOT . '/application/functions',
+        APP_PATH . '/framework/functions',
+        APP_PATH . '/application/functions',
     ])
     ->addClassDirectories([
-        APP_ROOT . '/framework/classes',
-        APP_ROOT . '/application/classes',
+        APP_PATH . '/framework/classes',
+        APP_PATH . '/application/classes',
     ])
     ->loadLibraries([
-        APP_ROOT . '/framework/libs',
-        APP_ROOT . '/application/libs',
+        APP_PATH . '/framework/libs',
+        APP_PATH . '/application/libs',
     ])
     ->registerAutoload();

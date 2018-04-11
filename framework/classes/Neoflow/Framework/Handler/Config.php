@@ -1,15 +1,22 @@
 <?php
-
 namespace Neoflow\Framework\Handler;
 
+use Neoflow\Framework\AppTrait;
 use Neoflow\Framework\Common\Container;
+use RuntimeException;
+use const APP_PATH;
+use function base_path;
+use function normalize_path;
+use function normalize_url;
+use function request_url;
 
 class Config extends Container
 {
+
     /**
      * App trait.
      */
-    use \Neoflow\Framework\AppTrait;
+    use AppTrait;
 
     /**
      * Get url.
@@ -20,7 +27,7 @@ class Config extends Container
      */
     public function getUrl(string $additionalUrlPath = ''): string
     {
-        return normalize_url($this->get('url').'/'.$additionalUrlPath);
+        return normalize_url($this->get('app')->get('url') . '/' . $additionalUrlPath);
     }
 
     /**
@@ -33,14 +40,27 @@ class Config extends Container
      *
      * @throws RuntimeException
      */
-    public static function createConfigByFile(string $configFilePath, array $additionalConfigData = []): self
+    public static function createByFile(string $configFilePath, array $additionalConfigData = []): self
     {
         if (is_file($configFilePath)) {
-            $configData = array_merge(include $configFilePath, $additionalConfigData);
 
-            return new self($configData, false, true);
+            $configData = require $configFilePath;
+
+            // Set application url when not already set
+            if (!$configData['app']['url']) {
+                $configData['app']['url'] = normalize_url(request_url(false, false) . base_path(APP_PATH));
+            }
+
+            // Set absolute application path
+            $configData['app']['path'] = APP_PATH;
+
+            // Merge final config data
+            $mergedConfigData = array_merge_recursive($configData, $additionalConfigData);
+
+            // Create config
+            return new static($mergedConfigData, false, true);
         }
-        throw new RuntimeException('Config file not found (path: '.$configFilePath.')');
+        throw new RuntimeException('Config file not found.');
     }
 
     /**
@@ -52,7 +72,7 @@ class Config extends Container
      */
     public function getPath(string $additionalPath = ''): string
     {
-        return normalize_path($this->get('path').DIRECTORY_SEPARATOR.$additionalPath);
+        return normalize_path($this->get('app')->get('path') . DIRECTORY_SEPARATOR . $additionalPath);
     }
 
     /**
@@ -66,7 +86,7 @@ class Config extends Container
     {
         $path = $this->get('folders')->get('temp')->get('path');
 
-        return $this->getPath($path.'/'.$additionalPath);
+        return $this->getPath($path . '/' . $additionalPath);
     }
 
     /**
@@ -80,6 +100,6 @@ class Config extends Container
     {
         $path = $this->get('folders')->get('application')->get('path');
 
-        return $this->getPath($path.'/'.$additionalPath);
+        return $this->getPath($path . '/' . $additionalPath);
     }
 }

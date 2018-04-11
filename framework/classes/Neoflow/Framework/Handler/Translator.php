@@ -1,12 +1,12 @@
 <?php
-
 namespace Neoflow\Framework\Handler;
 
 use DateTime;
 use Neoflow\Framework\AppTrait;
 use RuntimeException;
 
-class Translator {
+class Translator
+{
 
     /**
      * App trait.
@@ -99,7 +99,7 @@ class Translator {
      */
     public function getDefaultLanguageCode(): string
     {
-        $languages = $this->config()->get('languages');
+        $languages = $this->config()->get('app')->get('languages');
 
         return isset($languages[0]) ? $languages[0] : $this->fallbackLanguageCode;
     }
@@ -142,7 +142,7 @@ class Translator {
      */
     public function getLanguageCodes(): array
     {
-        return $this->config()->get('languages');
+        return $this->config()->get('app')->get('languages');
     }
 
     /**
@@ -360,5 +360,4 @@ class Translator {
 
         return date($this->dateFormat, $timestamp);
     }
-
 }

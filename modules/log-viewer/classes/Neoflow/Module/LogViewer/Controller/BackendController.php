@@ -30,7 +30,7 @@ class BackendController extends AbstractToolModuleController
      */
     public function indexAction(): Response
     {
-        $logfileFolder = new Folder($this->logger()->getLogfileDirectory());
+        $logfileFolder = new Folder($this->logger()->getLogfileFolderPath());
         $logfiles = $logfileFolder->find('*.' . $this->config()->get('logger')->get('extension'));
 
         return $this->render('module/log-viewer/index', [
@@ -45,7 +45,7 @@ class BackendController extends AbstractToolModuleController
      */
     public function showAction(): Response
     {
-        $logfile = $this->logger()->getLogfileDirectory() . basename($this->args['logfile']);
+        $logfile = $this->logger()->getLogfileFolderPath() . basename($this->args['logfile']);
 
         if (is_file($logfile)) {
             // Set back url
@@ -73,7 +73,7 @@ class BackendController extends AbstractToolModuleController
      */
     public function getAction(): Response
     {
-        $logfilePath = $this->logger()->getLogfileDirectory() . basename($this->args['logfile']);
+        $logfilePath = $this->logger()->getLogfileFolderPath() . basename($this->args['logfile']);
 
         if (is_file($logfilePath)) {
             $logfile = new File($logfilePath);

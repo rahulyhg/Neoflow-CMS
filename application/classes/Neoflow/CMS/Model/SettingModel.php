@@ -250,7 +250,7 @@ class SettingModel extends AbstractModel
             return $this->getLanguages()->mapValue('code');
         }
 
-        return $this->config()->get('languages');
+        return $this->config()->get('app')->get('languages');
     }
 
     /**

@@ -23,6 +23,11 @@ class Logger
     protected $logfilePath;
 
     /**
+     * @var string
+     */
+    protected $logfileFolderPath;
+
+    /**
      * @var int
      */
     protected $loglevelThreshold = Loglevel::DEBUG;
@@ -47,12 +52,12 @@ class Logger
         $logConfig = $this->config()->get('logger');
         $this->loglevelThreshold = strtoupper($logConfig->get('level'));
 
-        $this->logfileDirectory = $this->config()->getLogsPath();
-        if (!is_dir($this->logfileDirectory)) {
-            mkdir($this->logfileDirectory, 077, true);
+        $this->logfileFolderPath = $this->config()->getLogsPath();
+        if (!is_dir($this->logfileFolderPath)) {
+            mkdir($this->logfileFolderPath, 077, true);
         }
 
-        $this->logfilePath = $this->logfileDirectory . $logConfig->get('prefix') . date('Y-m-d') . '.' . $logConfig->get('extension');
+        $this->logfilePath = $this->logfileFolderPath . $logConfig->get('prefix') . date('Y-m-d') . '.' . $logConfig->get('extension');
         if (file_exists($this->logfilePath) && !is_writable($this->logfilePath)) {
             throw new RuntimeException('Log file "' . $this->logfilePath . '" is not writeable');
         }
@@ -75,7 +80,7 @@ class Logger
      */
     public function getLogfiles($limit = 10)
     {
-        $logfileFolder = new Folder($this->logfileDirectory);
+        $logfileFolder = new Folder($this->logfileFolderPath);
         $logfiles = $logfileFolder->findFiles('*.' . $this->config()->get('logger')->get('extension'));
 
         return $logfiles->slice($limit, 0);
@@ -238,13 +243,13 @@ class Logger
     }
 
     /**
-     * Get the log file directory.
+     * Get the log file folder path.
      *
      * @return string
      */
-    public function getLogfileDirectory()
+    public function getLogfileFolderPath()
     {
-        return $this->logfileDirectory;
+        return $this->logfileFolderPath;
     }
 
     /**

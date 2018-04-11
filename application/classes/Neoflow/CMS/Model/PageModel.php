@@ -136,7 +136,7 @@ class PageModel extends AbstractModel
             $relativeUrl .= parse_url($this->config()->getUrl(), PHP_URL_PATH);
         }
 
-        $numberOfLanguages = count($this->config()->get('languages'));
+        $numberOfLanguages = count($this->config()->get('app')->get('languages'));
         if ($withLanguageCode && $numberOfLanguages > 1) {
             $relativeUrl .= '/' . $this->language()->fetch()->code . '/';
         }
