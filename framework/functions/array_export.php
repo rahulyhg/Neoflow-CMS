@@ -5,35 +5,63 @@
  *
  * @param array  $array       Array to export
  * @param string $indentation Indentation space (e.g. "   " or "\s")
- * @param string $endOfArray  End of array separator
+ * @param string $level Recursive level of array export
  *
  * @return string
  */
-function array_export(array $array, string $indentation = '    ', string $endOfArray = ';', int $level = 1)
+function array_export(array $array, string $indentation = '    ', int $level = 0)
 {
+    // Start of array
     $content = '[' . PHP_EOL;
 
+    $index = 1;
+    $numberOfValues = count($array);
     foreach ($array as $key => $value) {
-        $content .= $indentation;
-        if (is_string($key)) {
-            $content .= '\'' . $key . '\'' . ' => ';
+
+        if (is_object($value) && method_exists($value, '__toString')) {
+            $value = (string) $value;
         }
-        if (is_array($value)) {
-            $content .= array_export($value, str_repeat($indentation, $level + 1), ',', $level + 1);
-        } elseif (is_bool($value)) {
-            $content .= ($value ? 'true' : 'false') . ',' . PHP_EOL;
-        } elseif (is_string($value)) {
-            $content .= '\'' . $value . '\'' . ',' . PHP_EOL;
-        } else {
-            $content .= $value . ',' . PHP_EOL;
+
+        if (is_scalar($value) || is_array($value)) {
+
+            // Indentation space
+            $content .= str_repeat($indentation, $level) . $indentation;
+
+            // Set string key
+            if (is_string($key)) {
+                $content .= '\'' . $key . '\'' . ' => ';
+            }
+
+            if (is_object($value)) {
+                $content .= (string) $value;
+            }
+
+            if (is_array($value)) {
+                $content .= array_export($value, $indentation, $level + 1);
+            } elseif (is_bool($value)) {
+                $content .= ($value ? 'true' : 'false');
+            } elseif (is_string($value)) {
+                $content .= '\'' . $value . '\'';
+            } else {
+                $content .= $value;
+            }
+
+            if ($index++ < $numberOfValues) {
+                $content .= ',';
+            }
+            $content .= PHP_EOL;
         }
     }
 
-    if ($level > 0) {
-        $content .= $indentation;
-    }
+    // Indentation space
+    $content .= str_repeat($indentation, $level);
 
-    $content .= ']' . $endOfArray . PHP_EOL;
+    // End of array
+    $content .= ']';
+
+    if ($level === 0) {
+        $content .= ';';
+    }
 
     return $content;
 }

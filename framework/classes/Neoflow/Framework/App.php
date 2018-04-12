@@ -32,23 +32,13 @@ class App extends Container
     protected static $instance;
 
     /**
-     * @var float
-     */
-    protected $startTime;
-
-    /**
-     * @var bool
-     */
-    protected $isPublished = false;
-
-    /**
      * Publish application.
      *
-     * @param int    $startTime      Application start time in milliseconds
+     * @param float    $startTime      Application start time in milliseconds
      * @param Loader $loader         Loader instance
      * @param string $configFilePath Config file path
      */
-    public function initialize(int $startTime, Loader $loader, string $configFilePath): self
+    public function initialize(float $startTime, Loader $loader, string $configFilePath): self
     {
         // Safe current app instance
         self::$instance = $this;
@@ -134,7 +124,7 @@ class App extends Container
             $this->get('response')->send();
         }
 
-        $this->isPublished = true;
+        $this->get('isPublished', true);
         $this->get('logger')->info('Application published');
         exit;
     }

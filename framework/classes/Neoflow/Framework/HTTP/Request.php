@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\HTTP;
 
 use Neoflow\Framework\AppTrait;
@@ -8,6 +7,7 @@ use OutOfRangeException;
 
 class Request
 {
+
     /**
      * App trait.
      */
@@ -187,7 +187,7 @@ class Request
         if (isset($this->data[$key])) {
             return $this->data[$key];
         }
-        throw new OutOfRangeException('Request data not found (Key: '.$key.')');
+        throw new OutOfRangeException('Request data not found (Key: ' . $key . ')');
     }
 
     /**
