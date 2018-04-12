@@ -77,6 +77,11 @@ class AdministratorController extends InstallController
             return $this->redirectToRoute('install_success');
         }
 
+        // Redirect to previous installer step
+        if (!$this->getService('install')->settingStatus()) {
+            return $this->redirectToRoute('install_website_index');
+        }
+
         return parent::preHook();
     }
 }

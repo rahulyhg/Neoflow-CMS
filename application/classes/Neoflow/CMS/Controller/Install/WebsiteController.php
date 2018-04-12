@@ -83,6 +83,11 @@ class WebsiteController extends InstallController
             return $this->redirectToRoute('install_administrator_index');
         }
 
+        // Redirect to the previous installer step
+        if (!$this->getService('install')->databaseStatus()) {
+            return $this->redirectToRoute('install_index');
+        }
+
         return parent::preHook();
     }
 }

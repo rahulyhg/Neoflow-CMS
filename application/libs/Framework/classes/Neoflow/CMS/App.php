@@ -127,7 +127,6 @@ class App extends FrameworkApp
 
         $this->get('logger')->info('Application created');
 
-        $this->get('config')->saveAsFile();
         return $this;
     }
 

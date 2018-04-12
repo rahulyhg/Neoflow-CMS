@@ -7,8 +7,7 @@ node_modules/
 # Application files and folders
 temp/cache/cache_*
 logs/log_*
-config.php
-!application/config.php
+*config.php
 !installation/config.php
 robots.txt
 sitemap.xml
