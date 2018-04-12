@@ -74,9 +74,8 @@ class InstallController extends AbstractController
     public function preHook(): Response
     {
         // Clear cache to avoid errors from pre-installations
-        $this->cache()->clear();
-
-// Redirect to frontend when install folder is removed
+        //$this->cache()->clearTags();
+        // Redirect to frontend when install folder is removed
         $installationPath = $this->config()->getPath('/installation');
         if (!is_dir($installationPath)) {
             if ($this->getService('install')->databaseStatus()) {
