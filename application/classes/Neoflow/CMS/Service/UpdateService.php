@@ -90,7 +90,7 @@ class UpdateService extends AbstractService
             }
         }
 
-        throw new ValidationException(translate('The version ({0}) of the CMS is not supported', [$this->config()->get('app')->get('verion')]));
+        throw new ValidationException(translate('The version ({0}) of the CMS is not supported', [$this->config()->get('app')->get('version')]));
     }
 
     /**
