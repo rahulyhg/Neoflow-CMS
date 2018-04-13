@@ -70,15 +70,14 @@ abstract class AbstractUpdateManager
         File::load($configFilePath)->rename('config-backup-' . date('d-m-Y') . '.php');
 
         // Set new config
-        $this->config()->get('app')->set('version', $this->newVersion);
+        $config = $this->config();
+
+        $config->get('app')->set('version', $this->newVersion);
 
         // Save config file
-        $this->config()->saveAsFile();
+        $config->saveAsFile();
 
-        // Reload config
-        $this->app()->set('config', \Neoflow\CMS\Handler\Config::createByFile($configFilePath));
-
-        $bla = $this->config()->get('app')->get('version');
+        $bla = $config->get('app')->get('version');
         return true;
     }
 
