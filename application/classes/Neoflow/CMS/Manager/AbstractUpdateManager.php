@@ -69,15 +69,18 @@ abstract class AbstractUpdateManager
         $configFilePath = $this->config()->getPath('/config.php');
         File::load($configFilePath)->rename('config-backup-' . date('d-m-Y') . '.php');
 
-        // Set new config
+        // Get config
         $config = $this->config();
 
+        // Update config params
         $config->get('app')->set('version', $this->newVersion);
 
         // Save config file
         $config->saveAsFile();
 
-        $bla = $config->get('app')->get('version');
+        // Set config to app
+        $this->app()->set('config', $config);
+
         return true;
     }
 
