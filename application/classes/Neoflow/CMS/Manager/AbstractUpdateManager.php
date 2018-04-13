@@ -107,7 +107,7 @@ abstract class AbstractUpdateManager
         $filesDirectoryPath = $this->folder->getPath($this->info['files']);
         $this->updateFiles($filesDirectoryPath);
 
-        $this->updateVersion();
+        $this->updateConfig();
 
         return true;
     }
