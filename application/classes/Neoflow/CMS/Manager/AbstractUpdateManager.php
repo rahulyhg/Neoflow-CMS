@@ -67,6 +67,10 @@ abstract class AbstractUpdateManager
     {
         $this->config()->get('app')->set('version', $this->newVersion);
 
+        // Backup application config
+        $configFile = $this->config()->getPath('/config.php');
+        File::load($configFile)->rename('config-backup-' . date('d-m-Y') . '.php');
+
         return $this->config()->saveAsFile();
     }
 
@@ -79,10 +83,6 @@ abstract class AbstractUpdateManager
      */
     protected function updateFiles(string $filesDirectoryPath): bool
     {
-        // Backup application config
-        $applicationConfig = $this->config()->getApplicationPath('/config.php');
-        File::load($applicationConfig)->rename('config-backup-' . date('d-m-Y') . '.php');
-
         // Copy/update files
         return (bool) Folder::load($filesDirectoryPath)->copyContent($this->config()->getPath());
     }
