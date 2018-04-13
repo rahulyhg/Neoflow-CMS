@@ -73,6 +73,7 @@ gulp.task('update:_createZipPackage', function () {
                 '!./temp/update/install/temp{,/**}',
                 '!./temp/update/install/media/modules/wysiwyg{,/**}',
                 '!./temp/update/install/themes{,/**}',
+                '!./temp/update/intall/installation{,/**}',
                 '!./temp/update/*.zip'
             ])
             .pipe(zip(pjson.name + '-update-' + pjson.version + '.zip'))
