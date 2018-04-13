@@ -170,7 +170,7 @@ class MaintenanceController extends BackendController
         }
 
 
-        echo $this->config()->get('app')->get('verison');
+        echo $this->config()->get('app')->get('version');
         exit;
 
         return $this->redirectToRoute('backend_maintenance_index')
