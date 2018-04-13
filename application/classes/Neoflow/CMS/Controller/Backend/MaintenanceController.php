@@ -169,6 +169,10 @@ class MaintenanceController extends BackendController
             $this->view->setDangerAlert([translate('Update CMS failed, see error message'), [$ex->getMessage()]]);
         }
 
+
+        echo $this->config()->get('app')->get('verison');
+        exit;
+
         return $this->redirectToRoute('backend_maintenance_index')
                 ->setHeader('Cache-Control: no-cache')
                 ->setHeader('Pragma: no-cache');
