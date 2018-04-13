@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
@@ -10,11 +11,9 @@ use Neoflow\Filesystem\Folder;
 use Neoflow\Validation\ValidationException;
 use Throwable;
 use ZipArchive;
-use function translate;
 
 class UpdateService extends AbstractService
 {
-
     /**
      * Unpack update package.
      *
@@ -28,7 +27,7 @@ class UpdateService extends AbstractService
     protected function unpack(File $updatePackageFile, bool $delete = true): Folder
     {
         // Create temporary update folder
-        $updateFolderPath = $this->config()->getTempPath('/update_' . uniqid());
+        $updateFolderPath = $this->config()->getTempPath('/update_'.uniqid());
         $updateFolder = Folder::create($updateFolderPath);
 
         // Extract package
@@ -147,7 +146,7 @@ class UpdateService extends AbstractService
     {
         if (isset($info['modules'])) {
             foreach ($info['modules'] as $identifier => $packageName) {
-                $files = $updateFolder->findFiles('modules/' . $packageName);
+                $files = $updateFolder->findFiles('modules/'.$packageName);
                 foreach ($files as $file) {
                     try {
                         $module = ModuleModel::findByColumn('identifier', $identifier);
@@ -158,8 +157,8 @@ class UpdateService extends AbstractService
                             $module->install($file);
                         }
                     } catch (Throwable $ex) {
-                        $this->logger()->warning('Module update installation for ' . $packageName . ' failed.', [
-                            'Exception message' => $ex->getMessage()
+                        $this->logger()->warning('Module update installation for '.$packageName.' failed.', [
+                            'Exception message' => $ex->getMessage(),
                         ]);
                     }
                 }
@@ -184,7 +183,7 @@ class UpdateService extends AbstractService
         if (isset($info['themes'])) {
             foreach ($info['themes'] as $identifier => $packageName) {
                 $theme = ThemeModel::findByColumn('themes', $identifier);
-                $files = $updateFolder->findFiles('themes/' . $packageName);
+                $files = $updateFolder->findFiles('themes/'.$packageName);
                 foreach ($files as $file) {
                     try {
                         $theme = ThemeModel::findByColumn('identifier', $identifier);
@@ -195,8 +194,8 @@ class UpdateService extends AbstractService
                             $theme->install($file);
                         }
                     } catch (Throwable $ex) {
-                        $this->logger()->warning('Theme update installation for ' . $packageName . ' failed.', [
-                            'Exception message' => $ex->getMessage()
+                        $this->logger()->warning('Theme update installation for '.$packageName.' failed.', [
+                            'Exception message' => $ex->getMessage(),
                         ]);
                     }
                 }

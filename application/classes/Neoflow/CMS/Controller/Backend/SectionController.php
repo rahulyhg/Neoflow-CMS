@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -15,7 +16,6 @@ use RuntimeException;
 
 class SectionController extends BackendController
 {
-
     /**
      * @var SectionModel
      */
@@ -59,13 +59,13 @@ class SectionController extends BackendController
             // Set title and breadcrumb
             $this->view
                 ->setTitle($page->title)
-                ->setSubtitle('ID: ' . $page->id())
+                ->setSubtitle('ID: '.$page->id())
                 ->addBreadcrumb(translate('Page', [], true), generate_url('backend_page_index', ['language_id' => $page->language_id]));
 
             // Set back and preview url
             $this->view
                 ->setBackRoute('backend_page_index', [
-                    'language_id' => $page->language_id
+                    'language_id' => $page->language_id,
                 ])
                 ->setPreviewUrl($page->getUrl());
 
@@ -90,7 +90,7 @@ class SectionController extends BackendController
             ]);
         }
 
-        throw new RuntimeException('Page of sections not found (ID: ' . $this->args['id'] . ')');
+        throw new RuntimeException('Page of sections not found (ID: '.$this->args['id'].')');
     }
 
     /**
@@ -112,7 +112,7 @@ class SectionController extends BackendController
         }
 
         return new JsonResponse([
-            'success' => $result
+            'success' => $result,
         ]);
     }
 
@@ -139,14 +139,14 @@ class SectionController extends BackendController
             if ($section && $section->validate() && $section->save()) {
                 $this->view->setSuccessAlert(translate('Successfully updated'));
             } else {
-                throw new RuntimeException('Updating section failed (ID: ' . $postData->get('section_id') . ')');
+                throw new RuntimeException('Updating section failed (ID: '.$postData->get('section_id').')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_section_edit', [
-                'id' => $section->id()
+                'id' => $section->id(),
         ]);
     }
 
@@ -182,7 +182,7 @@ class SectionController extends BackendController
         }
 
         return $this->redirectToRoute('backend_section_index', [
-                'page_id' => $section->page_id
+                'page_id' => $section->page_id,
         ]);
     }
 
@@ -201,10 +201,10 @@ class SectionController extends BackendController
             $this->view->setSuccessAlert(translate('Successfully deleted'));
 
             return $this->redirectToRoute('backend_section_index', [
-                    'page_id' => $section->page_id
+                    'page_id' => $section->page_id,
             ]);
         }
-        throw new RuntimeException('Deleting section failed (ID: ' . $this->args['id'] . ')');
+        throw new RuntimeException('Deleting section failed (ID: '.$this->args['id'].')');
     }
 
     /**
@@ -226,10 +226,10 @@ class SectionController extends BackendController
             }
 
             return $this->redirectToRoute('backend_section_index', [
-                    'page_id' => $section->page_id
+                    'page_id' => $section->page_id,
             ]);
         }
-        throw new RuntimeException('Toggling activation for section failed (ID: ' . $this->args['id'] . ')');
+        throw new RuntimeException('Toggling activation for section failed (ID: '.$this->args['id'].')');
     }
 
     /**
@@ -256,16 +256,16 @@ class SectionController extends BackendController
             // Set title and breadcrumb
             $this->view
                 ->setTitle($module->name)
-                ->setSubtitle('ID: ' . $section->id() . ' ' . translate('Block') . ': ' . ($block ? $block->title : translate('Not specified')))
+                ->setSubtitle('ID: '.$section->id().' '.translate('Block').': '.($block ? $block->title : translate('Not specified')))
                 ->addBreadcrumb(translate('Page', [], true), generate_url('backend_page_index', ['language_id' => $page->language_id]))
                 ->addBreadcrumb($page->title, generate_url('backend_section_index', ['page_id' => $page->id()]));
 
             // Set back and preview url
             $this->view
                 ->setBackRoute('backend_section_index', [
-                    'page_id' => $page->id()
+                    'page_id' => $page->id(),
                 ])
-                ->setPreviewUrl($page->getUrl() . '#section-' . $section->id());
+                ->setPreviewUrl($page->getUrl().'#section-'.$section->id());
 
             return $this->render('backend/section/edit', [
                     'section' => $section,
@@ -275,7 +275,7 @@ class SectionController extends BackendController
             ]);
         }
 
-        throw new RuntimeException('Section not found (ID: ' . $this->args['id'] . ')');
+        throw new RuntimeException('Section not found (ID: '.$this->args['id'].')');
     }
 
     /**

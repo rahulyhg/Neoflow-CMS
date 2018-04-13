@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS;
 
 use Neoflow\CMS\Handler\Config;
@@ -18,19 +19,18 @@ use Neoflow\Framework\ORM\EntityCollection;
 use Neoflow\Framework\Persistence\Database;
 use RuntimeException;
 use Throwable;
-use function request_url;
 
 class App extends FrameworkApp
 {
-
     /**
      * Publish application.
      *
-     * @param float $startTime Application start time in milliseconds
-     * @param Loader $loader Loader instance
+     * @param float  $startTime      Application start time in milliseconds
+     * @param Loader $loader         Loader instance
      * @param string $configFilePath Config file path
      *
      * @return self
+     *
      * @throws RuntimeException
      */
     public function initialize(float $startTime, Loader $loader, string $configFilePath): FrameworkApp
@@ -51,14 +51,14 @@ class App extends FrameworkApp
         $config = Config::createByFile($configFilePath, [
                 'app' => [
                     'languages' => [
-                        'en', 'de', 'fr'
+                        'en', 'de', 'fr',
                     ],
-                    'email' => 'undefined@domain.tld'
+                    'email' => 'undefined@domain.tld',
                 ],
                 'session' => [
                     'name' => 'CMS_SID',
-                    'lifetime' => (int) ini_get('session.gc_maxlifetime')
-                ]
+                    'lifetime' => (int) ini_get('session.gc_maxlifetime'),
+                ],
         ]);
         $this->setConfig($config);
 
@@ -279,8 +279,6 @@ class App extends FrameworkApp
             ]);
         }
 
-
-
         return $this->set('settings', $settings);
     }
 
@@ -312,7 +310,8 @@ class App extends FrameworkApp
     }
 
     /**
-     * Set active themes from settings
+     * Set active themes from settings.
+     *
      * @return self
      */
     protected function setThemes(): self

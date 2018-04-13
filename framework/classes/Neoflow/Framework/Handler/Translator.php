@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\Handler;
 
 use DateTime;
@@ -7,7 +8,6 @@ use RuntimeException;
 
 class Translator
 {
-
     /**
      * App trait.
      */
@@ -65,11 +65,11 @@ class Translator
         $this->session()->set('_LANGUAGE_CODE', $this->languageCode);
 
         // Load translation file
-        $translationFile = $this->config()->getApplicationPath('/i18n/' . $this->languageCode . '.php');
+        $translationFile = $this->config()->getApplicationPath('/i18n/'.$this->languageCode.'.php');
         $this->loadTranslationFile($translationFile);
 
         // Load fallback translation file
-        $fallbackTranslationFile = $this->config()->getApplicationPath('/i18n/' . $this->fallbackLanguageCode . '.php');
+        $fallbackTranslationFile = $this->config()->getApplicationPath('/i18n/'.$this->fallbackLanguageCode.'.php');
         $this->loadTranslationFile($fallbackTranslationFile, true);
 
         $this->logger()->debug('Translator created', [
@@ -158,7 +158,7 @@ class Translator
     /**
      * Set date format.
      *
-     * @param string $format Date format
+     * @param string $format     Date format
      * @param bool   $isFallback Set TRUE if date format is the fallback format
      *
      * @return self
@@ -177,7 +177,7 @@ class Translator
     /**
      * Set date time format.
      *
-     * @param string $format Date time format
+     * @param string $format     Date time format
      * @param bool   $isFallback Set TRUE if date time format is the fallback format
      *
      * @return self
@@ -211,7 +211,7 @@ class Translator
      * Add translation.
      *
      * @param array $translation Translation list
-     * @param bool  $isFallback Set TRUE if translations are the fallback translations
+     * @param bool  $isFallback  Set TRUE if translations are the fallback translations
      *
      * @return self
      */
@@ -230,7 +230,7 @@ class Translator
      * Load translation file.
      *
      * @param string $translationFilePath Translation file path
-     * @param bool   $isFallback Set TRUE if the file contains fallback translations
+     * @param bool   $isFallback          Set TRUE if the file contains fallback translations
      * @param bool   $silent              Set TRUE to disable runtime exception when translation file won't exists
      *
      * @return self
@@ -254,7 +254,7 @@ class Translator
                 'File' => $translationFilePath,
             ]);
         } elseif (!$silent) {
-            throw new RuntimeException('Translation file "' . $translationFilePath . '" not found');
+            throw new RuntimeException('Translation file "'.$translationFilePath.'" not found');
         }
 
         return $this;
@@ -280,14 +280,14 @@ class Translator
         } elseif (isset($this->fallbackTranslation[$key])) {
             $translation = $this->fallbackTranslation[$key];
             if ($errorPrefix) {
-                $translation = $translatorConfig->get('fallbackPrefix') . $translation;
-                $this->logger()->warning('Translated "' . $key . '" with fallback translation to "' . $translation . '"');
+                $translation = $translatorConfig->get('fallbackPrefix').$translation;
+                $this->logger()->warning('Translated "'.$key.'" with fallback translation to "'.$translation.'"');
             }
         } else {
             $translation = $key;
             if ($errorPrefix) {
-                $translation = $translatorConfig->get('notFoundPrefix') . $translation;
-                $this->logger()->warning('Translation "' . $key . '" not found');
+                $translation = $translatorConfig->get('notFoundPrefix').$translation;
+                $this->logger()->warning('Translation "'.$key.'" not found');
             }
         }
 
@@ -309,7 +309,7 @@ class Translator
                 $value = $this->translate($value, [], '', false);
             }
             $value = $this->translate($value, [], '', false);
-            $translation = str_replace('{' . $placeholder . '}', $value, $translation);
+            $translation = str_replace('{'.$placeholder.'}', $value, $translation);
         }
 
         return $translation;
@@ -324,7 +324,7 @@ class Translator
      */
     public function getDateFormat(string $timeFormat = ''): string
     {
-        return $this->dateFormat . $timeFormat;
+        return $this->dateFormat.$timeFormat;
     }
 
     /**

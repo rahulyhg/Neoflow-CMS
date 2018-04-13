@@ -1,14 +1,13 @@
 <?php
+
 namespace Neoflow\Module\Dummy\Controller;
 
 use Neoflow\CMS\Controller\Backend\AbstractToolModuleController;
 use Neoflow\CMS\View\BackendView;
 use Neoflow\Framework\HTTP\Responsing\Response;
-use function translate;
 
 class BackendController extends AbstractToolModuleController
 {
-
     /**
      * Constructor.
      *

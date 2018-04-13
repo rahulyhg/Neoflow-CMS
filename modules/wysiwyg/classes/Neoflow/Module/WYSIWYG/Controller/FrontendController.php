@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Module\WYSIWYG\Controller;
 
 use Neoflow\CMS\Controller\Frontend\AbstractPageModuleController;
@@ -7,7 +8,6 @@ use Neoflow\Module\WYSIWYG\Model;
 
 class FrontendController extends AbstractPageModuleController
 {
-
     /**
      * Index action.
      *

@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -7,7 +8,6 @@ use RuntimeException;
 
 abstract class AbstractToolModuleController extends BackendController
 {
-
     /**
      * Constructor.
      *

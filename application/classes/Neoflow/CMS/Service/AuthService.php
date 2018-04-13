@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
@@ -9,7 +10,6 @@ use RuntimeException;
 
 class AuthService extends AbstractService
 {
-
     /**
      * Authenticate and authorize user by email address and password.
      *
@@ -79,7 +79,7 @@ class AuthService extends AbstractService
             if (!$user->reset_key || 1 === 1 || $user->reseted_when < microtime(true) - 60 * 60) {
                 if ($user->generateResetKey() && $user->save()) {
                     $link = generate_url('backend_new_password', [
-                        'reset_key' => $user->reset_key
+                        'reset_key' => $user->reset_key,
                     ]);
                     $message = translate('Password reset email message', [$user->getFullName(), $link]);
                     $subject = translate('Password reset email subject');

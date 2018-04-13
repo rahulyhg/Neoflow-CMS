@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Module\Code\Controller;
 
 use Neoflow\CMS\Controller\Backend\AbstractPageModuleController;
@@ -10,7 +11,6 @@ use RuntimeException;
 
 class BackendController extends AbstractPageModuleController
 {
-
     /**
      * Index action.
      *
@@ -57,21 +57,21 @@ class BackendController extends AbstractPageModuleController
 
             // Update code content by id
             $code = Model::updateById([
-                    'content' => $postData->get('content')->get('section-' . $section_id),
+                    'content' => $postData->get('content')->get('section-'.$section_id),
                     ], $postData->get('code_id'));
 
             // Validate and save code content
             if ($code && $code->save() && $this->updateModifiedWhen()) {
                 $this->view->setSuccessAlert(translate('Successfully updated'));
             } else {
-                throw new RuntimeException('Update code failed (ID: ' . $postData->get('code_id') . ')');
+                throw new RuntimeException('Update code failed (ID: '.$postData->get('code_id').')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert($ex->getErrors());
         }
 
         return $this->redirectToRoute('pmod_code_backend_index', [
-                'section_id' => $code->section_id
+                'section_id' => $code->section_id,
         ]);
     }
 }

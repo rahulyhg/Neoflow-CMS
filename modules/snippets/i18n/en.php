@@ -15,5 +15,5 @@ $this->addTranslation([
     'Parameter' => 'Parameter|Parameters',
     'Usage' => 'Usage',
     'To execute the snippet and display the result, the placeholder must be added to the template.' => 'To execute the snippet and display the result, the placeholder must be added to the template.',
-    'Depending on the snippets, the parameters of the placeholder must also be customized.' => 'Depending on the snippets, the parameters of the placeholder must also be customized.'
+    'Depending on the snippets, the parameters of the placeholder must also be customized.' => 'Depending on the snippets, the parameters of the placeholder must also be customized.',
 ]);

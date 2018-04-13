@@ -1,4 +1,5 @@
 <?php
+
 $this->addTranslation([
 'Page module for PHP code editing of website content.' => 'Page module for PHP code editing of website content.',
  'Code editor' => 'Code editor',

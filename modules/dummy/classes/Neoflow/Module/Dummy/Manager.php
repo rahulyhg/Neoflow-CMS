@@ -1,11 +1,11 @@
 <?php
+
 namespace Neoflow\Module\Dummy;
 
 use Neoflow\CMS\Manager\AbstractModuleManager;
 
 class Manager extends AbstractModuleManager
 {
-
     /**
      * Install Dummy module.
      *

@@ -18,16 +18,15 @@
                         <div class="col-sm-9">
                             <select required class="form-control select2" name="block_id" id="selectBlock" data-placeholder="">
                                 <?php if (null === $section->block_id) {
-
-                                    ?>
+    ?>
                                     <option value="0"><?= translate('Not specified'); ?></option>
                                     <?php
-                                }
+}
                                 foreach ($blocks as $block) {
-
                                     ?>
                                     <option value="<?= $block->id(); ?>" <?= ($section->block_id == $block->id() ? 'selected' : ''); ?> ><?= $block->title; ?></option>
-    <?php }
+    <?php
+                                }
 
 ?>
                             </select>

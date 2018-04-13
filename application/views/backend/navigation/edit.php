@@ -1,7 +1,7 @@
 <?php
 if (1 !== $navigation->id()) {
     echo $view->renderTemplate('backend/navigation/navbar', [
-        'navigation' => $navigation
+        'navigation' => $navigation,
     ]);
 }
 

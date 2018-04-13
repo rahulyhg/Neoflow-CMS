@@ -1,16 +1,14 @@
 <?php
+
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
 use Neoflow\Framework\Core\AbstractModel as FW_AbstractModel;
 use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Framework\ORM\Repository;
-use function slugify;
-use function translate;
 
 class BlockModel extends AbstractModel
 {
-
     /**
      * @var string
      */

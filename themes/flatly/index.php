@@ -12,7 +12,7 @@
         <!-- Additional meta tags -->
         <?= $view->engine()->renderMetaTagProperties(); ?>
 
-        <link href="<?= $view->getThemeUrl('css/bootstrap.min.css') ?>" rel="stylesheet" />
+        <link href="<?= $view->getThemeUrl('css/bootstrap.min.css'); ?>" rel="stylesheet" />
 
         <style type="text/css">
             header {
@@ -50,7 +50,7 @@
 
             <div class="container">
 
-                <a class="navbar-brand" href="<?= $view->getWebsiteUrl() ?>"><?= $view->getWebsiteTitle() ?></a>
+                <a class="navbar-brand" href="<?= $view->getWebsiteUrl(); ?>"><?= $view->getWebsiteTitle(); ?></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -89,7 +89,7 @@
         [[GoogleAnalytics?id=123]]
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
-        <script src="<?= $view->getThemeUrl('js/bootstrap.min.js') ?>"></script>
+        <script src="<?= $view->getThemeUrl('js/bootstrap.min.js'); ?>"></script>
 
         <!-- Additional Javascript urls -->
         <?= $view->engine()->renderJavascriptUrls(); ?>

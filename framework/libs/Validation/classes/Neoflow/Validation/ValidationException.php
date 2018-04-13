@@ -1,11 +1,11 @@
 <?php
+
 namespace Neoflow\Validation;
 
 use Exception;
 
 class ValidationException extends Exception
 {
-
     protected $errors = [];
 
     /**

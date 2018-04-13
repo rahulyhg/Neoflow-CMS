@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -7,7 +8,6 @@ use Neoflow\Framework\ORM\Repository;
 
 class NavitemModel extends AbstractModel
 {
-
     /**
      * @var string
      */
@@ -23,7 +23,7 @@ class NavitemModel extends AbstractModel
      */
     public static $properties = ['navitem_id', 'title', 'page_id',
         'parent_navitem_id', 'navigation_id', 'language_id',
-        'position', 'is_active',];
+        'position', 'is_active', ];
 
     /**
      * Get repository to fetch child navitems.
@@ -185,8 +185,8 @@ class NavitemModel extends AbstractModel
                     ->orderByAsc('position')
                     ->fetchAll()
                     ->map(function ($navitem) {
-                    return $navitem->id();
-                });
+                        return $navitem->id();
+                    });
 
                 if ($navitem->id()) {
                     $forbiddenNavitemIds[] = $navitem->id();

@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Module\Snippets;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -8,7 +9,6 @@ use Throwable;
 
 class Model extends AbstractModel
 {
-
     /**
      * @var string
      */
@@ -24,7 +24,7 @@ class Model extends AbstractModel
      */
     public static $properties = [
         'snippet_id', 'title', 'code',
-        'placeholder', 'description', 'parameters'
+        'placeholder', 'description', 'parameters',
     ];
 
     /**
@@ -43,9 +43,10 @@ class Model extends AbstractModel
             if (is_string($result)) {
                 return $result;
             }
+
             return '';
         } catch (Throwable $e) {
-            throw new ValidationException(translate('Snippet code is invalid: "{0}"', [$e->getMessage() . ' on line ' . $e->getLine()]));
+            throw new ValidationException(translate('Snippet code is invalid: "{0}"', [$e->getMessage().' on line '.$e->getLine()]));
         }
         throw new ValidationException(translate('Snippet code is valid, but has return a string'));
     }
@@ -65,7 +66,7 @@ class Model extends AbstractModel
     }
 
     /**
-     * Get parameters as Array
+     * Get parameters as Array.
      *
      * @return array
      */
@@ -95,19 +96,21 @@ class Model extends AbstractModel
     }
 
     /**
-     * Get placeholder with brackts
+     * Get placeholder with brackts.
+     *
      * @param bool $withParameters Set TRUE to get with parameters
+     *
      * @return string
      */
     public function getPlaceholder(bool $withParameters = false)
     {
-
-        $placeholder = '[[' . $this->placeholder;
+        $placeholder = '[['.$this->placeholder;
 
         if ($withParameters && $this->parameters) {
-            $placeholder .= '?' . http_build_query(array_flip($this->getParameters()));
+            $placeholder .= '?'.http_build_query(array_flip($this->getParameters()));
         }
-        return $placeholder . ']]';
+
+        return $placeholder.']]';
     }
 
     /**

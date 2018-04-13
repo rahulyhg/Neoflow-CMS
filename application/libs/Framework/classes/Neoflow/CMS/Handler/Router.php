@@ -1,15 +1,14 @@
 <?php
+
 namespace Neoflow\CMS\Handler;
 
 use Neoflow\CMS\AppTrait;
-use Neoflow\CMS\Model\UserModel;
 use Neoflow\Framework\Handler\Router as FrameworkRouter;
 use Neoflow\Framework\HTTP\Responsing\RedirectResponse;
 use Neoflow\Framework\HTTP\Responsing\Response;
 
 class Router extends FrameworkRouter
 {
-
     /**
      * App trait.
      */
@@ -88,6 +87,7 @@ class Router extends FrameworkRouter
 
         if (!$this->getService('install')->databaseStatus() && !in_array($urlPath, $installUrlPaths)) {
             $url = $this->generateUrl('install_index');
+
             return new RedirectResponse($url);
         }
 

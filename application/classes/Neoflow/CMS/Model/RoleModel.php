@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -8,7 +9,6 @@ use Neoflow\Validation\ValidationException;
 
 class RoleModel extends AbstractModel
 {
-
     /**
      * @var string
      */

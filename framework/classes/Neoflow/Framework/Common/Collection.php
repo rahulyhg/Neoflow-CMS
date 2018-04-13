@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\Common;
 
 use ArrayAccess;
@@ -11,7 +12,6 @@ use Neoflow\Framework\Core\AbstractModel;
 
 class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSerializable
 {
-
     /**
      * The items contained in the collection.
      *
@@ -104,8 +104,8 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     public function where($property, $value)
     {
         return $this->filter(function ($item) use ($property, $value) {
-                return $item->{$property} == $value;
-            });
+            return $item->{$property} == $value;
+        });
     }
 
     /**
@@ -175,8 +175,8 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     public function whereNot($property, $value)
     {
         return $this->filter(function ($item) use ($property, $value) {
-                return $item->{$property} != $value;
-            });
+            return $item->{$property} != $value;
+        });
     }
 
     /**

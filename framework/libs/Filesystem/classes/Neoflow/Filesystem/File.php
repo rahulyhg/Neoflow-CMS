@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Filesystem;
 
 use Neoflow\Filesystem\Exception\FileException;
@@ -6,7 +7,6 @@ use Neoflow\Filesystem\Exception\FolderException;
 
 class File extends AbstractObject
 {
-
     /**
      * Constructor.
      *
@@ -20,10 +20,10 @@ class File extends AbstractObject
             if (is_readable($path)) {
                 $this->path = normalize_path($path);
             } else {
-                throw new FileException('Cannot load file path, because (' . $path . ') isn\'t readable', FileException::NOT_READABLE);
+                throw new FileException('Cannot load file path, because ('.$path.') isn\'t readable', FileException::NOT_READABLE);
             }
         } else {
-            throw new FileException('Cannot load the file path, because (' . $path . ') don\'t exist', FileException::DONT_EXIST);
+            throw new FileException('Cannot load the file path, because ('.$path.') don\'t exist', FileException::DONT_EXIST);
         }
     }
 
@@ -81,16 +81,17 @@ class File extends AbstractObject
         }
         if (!is_file($path)) {
             if (is_writeable(dirname($path))) {
-                if ($handle = fopen($path, "w")) {
+                if ($handle = fopen($path, 'w')) {
                     fwrite($handle, $data);
                     fclose($handle);
+
                     return new static($path);
                 }
-                throw new FileException('Creating file (' . $path . ') failed');
+                throw new FileException('Creating file ('.$path.') failed');
             }
-            throw new FileException('Cannot create file, because the directory (' . dirname($path) . ') is not accessible', FileException::NOT_WRITEABLE);
+            throw new FileException('Cannot create file, because the directory ('.dirname($path).') is not accessible', FileException::NOT_WRITEABLE);
         }
-        throw new FileException('Cannot create file, because the file path (' . $path . ') already exist', FileException::ALREADY_EXIST);
+        throw new FileException('Cannot create file, because the file path ('.$path.') already exist', FileException::ALREADY_EXIST);
     }
 
     /**
@@ -120,12 +121,14 @@ class File extends AbstractObject
     }
 
     /**
-     * Clear PHP file cache
+     * Clear PHP file cache.
+     *
      * @return self
      */
     public function clearFileCache(): self
     {
         clearstatcache(true, $this->path);
+
         return $this;
     }
 
@@ -148,14 +151,14 @@ class File extends AbstractObject
     {
         $kiloBytes = $this->getSize() / 1024;
         if ($kiloBytes < 1024) {
-            return round($kiloBytes, 2) . ' KB';
+            return round($kiloBytes, 2).' KB';
         }
         $megaBytes = $kiloBytes / 1024;
         if ($megaBytes < 1024) {
-            return round($megaBytes, 1) . ' MB';
+            return round($megaBytes, 1).' MB';
         }
 
-        return round($megaBytes / 1024, 1) . ' GB';
+        return round($megaBytes / 1024, 1).' GB';
     }
 
     /**
@@ -201,7 +204,7 @@ class File extends AbstractObject
             if (is_writable($this->path)) {
                 return unlink($this->path);
             }
-            throw new FileException('Cannot delete file, because (' . $this->path . ') is not writeable', FileException::NOT_WRITEABLE);
+            throw new FileException('Cannot delete file, because ('.$this->path.') is not writeable', FileException::NOT_WRITEABLE);
         }
 
         return true;
@@ -223,9 +226,9 @@ class File extends AbstractObject
             if (rename($this->path, $newFilePath)) {
                 return new static($newFilePath);
             }
-            throw new FileException('Cannot move file to the new folder path (' . $newFilePath . ') for unknown reasons');
+            throw new FileException('Cannot move file to the new folder path ('.$newFilePath.') for unknown reasons');
         }
-        throw new FileException('Cannot move file, because the new file path (' . $newFilePath . ') already exist', FileException::ALREADY_EXIST);
+        throw new FileException('Cannot move file, because the new file path ('.$newFilePath.') already exist', FileException::ALREADY_EXIST);
     }
 
     /**
@@ -240,11 +243,11 @@ class File extends AbstractObject
      */
     public function rename(string $newFileName, bool $overwrite = true): self
     {
-        $newFilePath = normalize_path($this->getDirectory() . DIRECTORY_SEPARATOR . basename($newFileName));
+        $newFilePath = normalize_path($this->getDirectory().DIRECTORY_SEPARATOR.basename($newFileName));
         if ($newFilePath === $this->getPath() || (($overwrite || !is_file($newFilePath)) && $this->move($newFilePath))) {
             return static::load($newFilePath);
         }
-        throw new FileException('Cannot rename the file, because the new file name (' . $newFileName . ') already exist', FileException::ALREADY_EXIST);
+        throw new FileException('Cannot rename the file, because the new file name ('.$newFileName.') already exist', FileException::ALREADY_EXIST);
     }
 
     /**
@@ -261,18 +264,18 @@ class File extends AbstractObject
     {
         if (is_dir($newDirectoryPath)) {
             if (is_writable($newDirectoryPath)) {
-                $newFilePath = normalize_path($newDirectoryPath . DIRECTORY_SEPARATOR . $this->getName());
+                $newFilePath = normalize_path($newDirectoryPath.DIRECTORY_SEPARATOR.$this->getName());
                 if ($overwrite || !is_file($newFilePath)) {
                     if ((is_file($newFilePath) && is_writeable($newFilePath)) || !is_file($newFilePath)) {
                         return $this->move($newFilePath, $overwrite);
                     }
-                    throw new FileException('Cannot move the file, because the existing file (' . $newFilePath . ') is not writable and cannot be overwritten', FileException::NOT_WRITEABLE);
+                    throw new FileException('Cannot move the file, because the existing file ('.$newFilePath.') is not writable and cannot be overwritten', FileException::NOT_WRITEABLE);
                 }
-                throw new FileException('Cannot move the file, because a file with the same name (' . $newFilePath . ') already exist', FileException::ALREADY_EXIST);
+                throw new FileException('Cannot move the file, because a file with the same name ('.$newFilePath.') already exist', FileException::ALREADY_EXIST);
             }
-            throw new FolderException('Cannot move the file, because the new directory path (' . $newDirectoryPath . ') is not writeable', FolderException::NOT_WRITEABLE);
+            throw new FolderException('Cannot move the file, because the new directory path ('.$newDirectoryPath.') is not writeable', FolderException::NOT_WRITEABLE);
         }
-        throw new FolderException('Cannot move the file, because the new directory path (' . $newDirectoryPath . ') don\'t exist', FolderException::DONT_EXIST);
+        throw new FolderException('Cannot move the file, because the new directory path ('.$newDirectoryPath.') don\'t exist', FolderException::DONT_EXIST);
     }
 
     /**
@@ -291,9 +294,9 @@ class File extends AbstractObject
             if (copy($this->path, $newFilePath)) {
                 return new static($newFilePath);
             }
-            throw new FileException('Cannot copy file to the new file path (' . $newFilePath . ') for unknown reasons');
+            throw new FileException('Cannot copy file to the new file path ('.$newFilePath.') for unknown reasons');
         }
-        throw new FileException('Cannot copy file, because the new file path (' . $newFilePath . ') already exist', FileException::ALREADY_EXIST);
+        throw new FileException('Cannot copy file, because the new file path ('.$newFilePath.') already exist', FileException::ALREADY_EXIST);
     }
 
     /**
@@ -310,18 +313,18 @@ class File extends AbstractObject
     {
         if (is_dir($newDirectoryPath)) {
             if (is_writable($newDirectoryPath)) {
-                $newFilePath = normalize_path($newDirectoryPath . DIRECTORY_SEPARATOR . $this->getName());
+                $newFilePath = normalize_path($newDirectoryPath.DIRECTORY_SEPARATOR.$this->getName());
                 if ($overwrite || !is_file($newFilePath)) {
                     if ((is_file($newFilePath) && is_writeable($newFilePath)) || !is_file($newFilePath)) {
                         return $this->copy($newFilePath, $overwrite);
                     }
-                    throw new FileException('Cannot copy the file, because the existing file (' . $newFilePath . ') is not writable and cannot be overwritten', FileException::NOT_WRITEABLE);
+                    throw new FileException('Cannot copy the file, because the existing file ('.$newFilePath.') is not writable and cannot be overwritten', FileException::NOT_WRITEABLE);
                 }
-                throw new FileException('Cannot copy the file, because a file with the same name (' . $newFilePath . ') already exist', FileException::ALREADY_EXIST);
+                throw new FileException('Cannot copy the file, because a file with the same name ('.$newFilePath.') already exist', FileException::ALREADY_EXIST);
             }
-            throw new FolderException('Cannot copy the file, because the new directory path (' . $newDirectoryPath . ') is not writeable', FolderException::NOT_WRITEABLE);
+            throw new FolderException('Cannot copy the file, because the new directory path ('.$newDirectoryPath.') is not writeable', FolderException::NOT_WRITEABLE);
         }
-        throw new FolderException('Cannot copy the file, because the new directory path (' . $newDirectoryPath . ') don\'t exist', FolderException::DONT_EXIST);
+        throw new FolderException('Cannot copy the file, because the new directory path ('.$newDirectoryPath.') don\'t exist', FolderException::DONT_EXIST);
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -11,7 +12,6 @@ use RuntimeException;
 
 class AuthController extends BackendController
 {
-
     /**
      * Logout action.
      *
@@ -136,7 +136,7 @@ class AuthController extends BackendController
         }
 
         return $this->redirectToRoute('backend_auth_new_password', [
-                'reset_key' => $resetKey
+                'reset_key' => $resetKey,
         ]);
     }
 

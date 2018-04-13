@@ -25,31 +25,26 @@
                 <tbody>
                     <?php
                     foreach ($snippets as $snippet) {
-                        $codeStatus = $snippet->getCodeStatus();
-
-                        ?>
+                        $codeStatus = $snippet->getCodeStatus(); ?>
                         <tr class="<?= (!$codeStatus ? 'disabled' : ''); ?>">
                             <td class="<?= (!$codeStatus ? 'text-danger' : 'text-success'); ?> nowrap">
                                 <?php if ($codeStatus) {
-
-                                    ?>
+                            ?>
                                     <i class="fa fa-fw fa-check"></i>
                                     <?php
-                                } else {
-
-                                    ?>
+                        } else {
+                            ?>
                                     <i class="fa fa-fw fa-times"></i>
-                                <?php }
-
-                                ?>
+                                <?php
+                        } ?>
                             </td>
                             <td>
                                 <a href="<?= generate_url('tmod_snippets_backend_edit', ['id' => $snippet->id()]); ?>" title="<?= translate('Edit snippet'); ?>">
-                                    <?= $snippet->title ?>
+                                    <?= $snippet->title; ?>
                                 </a>
                             </td>
-                            <td><span>[[</span><?= $snippet->placeholder ?><span>]]</span></td>
-                            <td><?= $snippet->description ?></td>
+                            <td><span>[[</span><?= $snippet->placeholder; ?><span>]]</span></td>
+                            <td><?= $snippet->description; ?></td>
                             </td>
                             <td class="text-right nowrap">
                                 <a href="<?= generate_url('tmod_snippets_backend_edit', ['id' => $snippet->id()]); ?>" class="btn btn-outline-light btn-sm btn-icon-left" title="<?= translate('Edit snippet'); ?>">

@@ -31,7 +31,7 @@
                                         <?php
                                         $parentPage = $page->getParentPage();
                                         if ($parentPage) {
-                                            echo $parentPage->getRelativeUrl(false, false, true) . '/';
+                                            echo $parentPage->getRelativeUrl(false, false, true).'/';
                                         } else {
                                             echo '/';
                                         }
@@ -43,10 +43,10 @@
                             </div>
 
                             <?php if ($urlMessage) {
-
-                                ?>
+                                            ?>
                                 <small class="form-text text-danger"><?= $urlMessage; ?></small>
-                            <?php }
+                            <?php
+                                        }
 
                             ?>
                         </div>
@@ -79,7 +79,6 @@
                                 <option value="0"><?= $view->settings()->author; ?></option>
                                 <?php
                                 foreach ($users as $user) {
-
                                     ?>
                                     <option value="<?= $user->id(); ?>" <?= ($user->id() == $page->author_user_id ? 'selected' : ''); ?>><?= $user->getFullname(); ?></option>
                                     <?php
@@ -143,7 +142,6 @@
                             <select data-placeholder="<?= translate('All roles'); ?>" class="form-control select2" name="role_ids[]" multiple id="selectRoles">
                                 <?php
                                 foreach ($roles as $role) {
-
                                     ?>
                                     <option value="<?= $role->id(); ?>" <?= (in_array($role->id(), $page->getRoles()->mapValue('role_id')) ? 'selected' : ''); ?>><?= $role->title; ?></option>
                                     <?php

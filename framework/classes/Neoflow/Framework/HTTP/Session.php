@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\HTTP;
 
 use Neoflow\Framework\AppTrait;
@@ -6,7 +7,6 @@ use RuntimeException;
 
 class Session
 {
-
     /**
      * App trait.
      */
@@ -211,7 +211,7 @@ class Session
     /**
      * Set session value.
      *
-     * @param string $key Session key
+     * @param string $key   Session key
      * @param mixed  $value Session value
      *
      * @return Session
@@ -300,7 +300,7 @@ class Session
     /**
      * Set new session flash value.
      *
-     * @param string $key Flash key
+     * @param string $key   Flash key
      * @param mixed  $value Flash value
      *
      * @return Session

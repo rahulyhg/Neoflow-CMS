@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\Core;
 
 use InvalidArgumentException;
@@ -12,7 +13,6 @@ use RuntimeException;
 
 abstract class AbstractModel
 {
-
     /**
      * App trait.
      */
@@ -408,7 +408,7 @@ abstract class AbstractModel
 
             return $entity;
         }
-        throw new InvalidArgumentException('Model entity not found (ID: ' . $id . ')');
+        throw new InvalidArgumentException('Model entity not found (ID: '.$id.')');
     }
 
     /**
@@ -672,7 +672,7 @@ abstract class AbstractModel
      * Find all model entities by column.
      *
      * @param string $column Calumn name
-     * @param mixed  $value Filter value
+     * @param mixed  $value  Filter value
      *
      * @return EntityCollection
      */
@@ -696,6 +696,7 @@ abstract class AbstractModel
         foreach ($columns as $column => $value) {
             $repo->where($column, '=', $value);
         }
+
         return $repo->fetchAll();
     }
 }

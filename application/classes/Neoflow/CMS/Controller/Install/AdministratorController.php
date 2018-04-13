@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Controller\Install;
 
 use Neoflow\CMS\Controller\InstallController;
@@ -6,11 +7,9 @@ use Neoflow\CMS\Model\UserModel;
 use Neoflow\Framework\HTTP\Responsing\Response;
 use Neoflow\Validation\ValidationException;
 use Throwable;
-use function translate;
 
 class AdministratorController extends InstallController
 {
-
     /**
      * Index action.
      *

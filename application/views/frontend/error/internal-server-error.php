@@ -1,5 +1,4 @@
 <?php if ($exception) {
-
     ?>
     <h2>
     <?= get_class($exception); ?>: <?= $exception->getMessage(); ?> on line <?= $exception->getLine(); ?>
@@ -14,9 +13,9 @@
     </p>
     <?php
 } else {
-
-    ?>
+        ?>
     <h2>500</h2>
-    <?php }
+    <?php
+    }
 
 ?>

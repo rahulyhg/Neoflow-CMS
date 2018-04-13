@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Module\Snippets\Controller;
 
 use Neoflow\CMS\Controller\Backend\AbstractToolModuleController;
@@ -11,7 +12,6 @@ use RuntimeException;
 
 class BackendController extends AbstractToolModuleController
 {
-
     public function __construct(BackendView $view = null, array $args = [])
     {
         parent::__construct($view, $args);
@@ -28,7 +28,7 @@ class BackendController extends AbstractToolModuleController
     public function indexAction(): Response
     {
         return $this->render('/snippet/index', [
-                'snippets' => Model::findAll()
+                'snippets' => Model::findAll(),
         ]);
     }
 
@@ -112,7 +112,7 @@ class BackendController extends AbstractToolModuleController
             ]);
         }
 
-        throw new RuntimeException('Code snippet not found (ID: ' . $this->args['id'] . ')');
+        throw new RuntimeException('Code snippet not found (ID: '.$this->args['id'].')');
     }
 
     /**
@@ -141,7 +141,7 @@ class BackendController extends AbstractToolModuleController
             if ($snippet && $snippet->validate() && $snippet->save()) {
                 $this->view->setSuccessAlert(translate('Successfully updated'));
             } else {
-                throw new RuntimeException('Updating snippet failed (ID: ' . $postData->get('snippet_id') . ')');
+                throw new RuntimeException('Updating snippet failed (ID: '.$postData->get('snippet_id').')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
@@ -166,6 +166,6 @@ class BackendController extends AbstractToolModuleController
 
             return $this->redirectToRoute('tmod_snippets_backend_index');
         }
-        throw new RuntimeException('Deleting snippet failed (ID: ' . $this->args['id'] . ')');
+        throw new RuntimeException('Deleting snippet failed (ID: '.$this->args['id'].')');
     }
 }

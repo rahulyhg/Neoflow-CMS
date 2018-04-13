@@ -1,11 +1,11 @@
 <?php
+
 namespace Neoflow\CMS\Service;
 
 use Neoflow\Framework\Core\AbstractService;
 
 class ValidationService extends AbstractService
 {
-
     /**
      * Check whether validation error exists.
      *

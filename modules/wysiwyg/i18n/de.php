@@ -1,4 +1,5 @@
 <?php
+
 $this->addTranslation([
 'Page module for the presentation and editing of website content.' => 'Seitenmodul für die Darstellung und Bearbeitung von Webseiteninhalten.',
  'WYSIWYG editor' => 'WYSIWYG Editor',

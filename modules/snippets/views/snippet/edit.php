@@ -57,9 +57,10 @@
                         <div class="col-sm-9">
                             <select class="form-control select2" data-tags="true" name="parameters[]" multiple id="inputParameters">
                                 <?php foreach ($snippet->getParameters() as $parameter) {
-                                    ?>
-                                    <option value="<?= $parameter ?>" selected><?= $parameter ?></option>
-                                <?php }
+    ?>
+                                    <option value="<?= $parameter; ?>" selected><?= $parameter; ?></option>
+                                <?php
+}
                                 ?>
                             </select>
                         </div>
@@ -115,20 +116,22 @@
             </h4>
             <div class="card-body">
                 <p>
-                    <?= translate('To execute the snippet and display the result, the placeholder must be added to the template.') ?>
+                    <?= translate('To execute the snippet and display the result, the placeholder must be added to the template.'); ?>
                 </p>
 
                 <p>
                     <code>
-                        <?= str_replace(['[', ']'], ['&#91;', '&#93;'], $snippet->getPlaceholder(true)) ?>
+                        <?= str_replace(['[', ']'], ['&#91;', '&#93;'], $snippet->getPlaceholder(true)); ?>
                     </code>
                 </p>
 
-                <?php if ($snippet->parameters) { ?>
+                <?php if ($snippet->parameters) {
+                                    ?>
                     <p>
-                        <?= translate('Depending on the snippets, the parameters of the placeholder must also be customized.') ?>
+                        <?= translate('Depending on the snippets, the parameters of the placeholder must also be customized.'); ?>
                     </p>
-                <?php } ?>
+                <?php
+                                } ?>
             </div>
         </div>
     </div>

@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -11,7 +12,6 @@ use RuntimeException;
 
 class ThemeController extends BackendController
 {
-
     /**
      * Constructor.
      *
@@ -57,7 +57,7 @@ class ThemeController extends BackendController
             if ($theme && $theme->delete()) {
                 $this->view->setSuccessAlert(translate('Successfully deleted'));
             } else {
-                throw new RuntimeException('Deleting theme failed (ID: ' . $this->args['id'] . ')');
+                throw new RuntimeException('Deleting theme failed (ID: '.$this->args['id'].')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert($ex->getErrors());
@@ -116,7 +116,7 @@ class ThemeController extends BackendController
             if ($theme && $theme->installUpdate($file)) {
                 $this->view->setSuccessAlert(translate('Theme successfully updated'));
             } else {
-                throw new RuntimeException('Updating theme failed (ID: ' . $theme_id . ')');
+                throw new RuntimeException('Updating theme failed (ID: '.$theme_id.')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Update theme failed'), [$ex->getMessage()]]);
@@ -143,7 +143,7 @@ class ThemeController extends BackendController
             // Set title and breadcrumb
             $this->view
                 ->setTitle($theme->name)
-                ->setSubtitle('ID: ' . $theme->id())
+                ->setSubtitle('ID: '.$theme->id())
                 ->addBreadcrumb(translate('Theme', [], true), generate_url('backend_theme_index'));
 
             // Set back url
@@ -154,7 +154,7 @@ class ThemeController extends BackendController
             ]);
         }
 
-        throw new RuntimeException('Theme not found (ID: ' . $this->args['id'] . ')');
+        throw new RuntimeException('Theme not found (ID: '.$this->args['id'].')');
     }
 
     /**
@@ -171,7 +171,7 @@ class ThemeController extends BackendController
         if (isset($this->args['id'])) {
             $themes = $themes->where('theme_id', $this->args['id']);
             if (0 === $themes->count()) {
-                throw new RuntimeException('Reloading theme failed (ID: ' . $this->args['id'] . ')');
+                throw new RuntimeException('Reloading theme failed (ID: '.$this->args['id'].')');
             }
         }
         // Reload all themes

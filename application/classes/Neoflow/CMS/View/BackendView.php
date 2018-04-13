@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\View;
 
 use Neoflow\CMS\Core\AbstractView;
@@ -6,7 +7,6 @@ use Neoflow\Alert\AbstractAlert;
 
 class BackendView extends AbstractView
 {
-
     /**
      * @var string
      */

@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\Persistence;
 
 use Exception;
@@ -7,7 +8,6 @@ use PDO;
 
 class Database extends PDO
 {
-
     /**
      * Traits.
      */
@@ -52,7 +52,7 @@ class Database extends PDO
 
         $this->logger()->debug('Database query executed', [
             'Query' => $query,
-            'Result' => $result . ' rows affected',
+            'Result' => $result.' rows affected',
         ]);
 
         $this->countUpExecutedQueries();
@@ -89,7 +89,7 @@ class Database extends PDO
     public function hasTable(string $table)
     {
         try {
-            $result = $this->query('SELECT 1 FROM `' . $this->quote($table) . '` LIMIT 1');
+            $result = $this->query('SELECT 1 FROM `'.$this->quote($table).'` LIMIT 1');
         } catch (Exception $e) {
             return false;
         }
@@ -113,7 +113,7 @@ class Database extends PDO
     public static function connect(string $host, string $dbname, string $username = '', string $password = '', string $charset = 'UTF8', array $options = []): self
     {
         // Define DSN string
-        $dsn = 'mysql:host=' . $host . ';dbname=' . $dbname . ';charset=' . $charset;
+        $dsn = 'mysql:host='.$host.';dbname='.$dbname.';charset='.$charset;
 
         // Create database connection
         return new self($dsn, $username, $password, $options + [

@@ -1,4 +1,5 @@
 <?php
+
 // Module info
 return [
     'name' => 'Dummy',
@@ -7,7 +8,7 @@ return [
     'description' => 'Dummy module as demo example for interested developers.',
     'version' => '2.0.0',
     'for' => [
-        '1.0.0'
+        '1.0.0',
     ], // list of older versions (for updates)
     'author' => 'Jonathan Nessier <jonathan.nessier@neoflow.ch>',
     'copyright' => 'Copyright (c) 2017 Jonathan Nessier, Neoflow.ch',

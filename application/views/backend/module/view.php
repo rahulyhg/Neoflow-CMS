@@ -61,35 +61,29 @@
 
                         <h4><?= translate('Required module', [], true); ?></h4>
                         <?php if (count($requiredModules)) {
-
-                            ?>
+    ?>
                             <ul>
                                 <?php foreach ($requiredModules as $requiredModuleIdentifier => $requiredModule) {
-
-                                    ?>
+        ?>
                                     <li>
                                         <?php if ($requiredModule) {
-
-                                            ?>
+            ?>
                                             <a href="<?= generate_url('backend_module_view', ['id' => $requiredModule->id()]); ?>"><?= $requiredModule->name; ?></a><span class="text-success"><i class="fa fa-fw fa-check"></i></span>
                                             <?php
-                                        } else {
-
-                                            ?>
+        } else {
+            ?>
                                                 <?= $requiredModuleIdentifier; ?><span class="text-danger"><i class="fa fa-fw fa-times"></i></span>
-                                            <?php }
-
-                                            ?>
+                                            <?php
+        } ?>
                                     </li>
-                                <?php }
-
-                                ?>
+                                <?php
+    } ?>
                             </ul>
 
                             <?php
-                        } else {
-                            echo translate('None');
-                        }
+} else {
+        echo translate('None');
+    }
 
                         ?>
                     </div>

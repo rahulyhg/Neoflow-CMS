@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -17,7 +18,6 @@ use RuntimeException;
 
 class PageController extends BackendController
 {
-
     /**
      * Constructor.
      *
@@ -50,7 +50,7 @@ class PageController extends BackendController
         $defaultLanguageId = $this->settings()->getDefaultLanguage()->id();
         $languages = $this->settings()
             ->languages()
-            ->orderByRaw('(languages.language_id = ' . $defaultLanguageId . ') DESC')
+            ->orderByRaw('(languages.language_id = '.$defaultLanguageId.') DESC')
             ->orderByAsc('title')
             ->fetchAll();
 
@@ -64,7 +64,7 @@ class PageController extends BackendController
                 $this->session()->reflash();
 
                 return $this->redirectToRoute('backend_page_index', [
-                        'language_id' => $language_id
+                        'language_id' => $language_id,
                 ]);
             }
         }
@@ -141,15 +141,15 @@ class PageController extends BackendController
             // Set title and breadcrumb
             $this->view
                 ->setTitle($page->title)
-                ->setSubtitle('ID: ' . $page->id())
+                ->setSubtitle('ID: '.$page->id())
                 ->addBreadcrumb(translate('Page', [], true), generate_url('backend_page_index', [
-                    'language_id' => $page->language_id
+                    'language_id' => $page->language_id,
             ]));
 
             // Set back and preview url
             $this->view
                 ->setBackRoute('backend_page_index', [
-                    'language_id' => $page->language_id
+                    'language_id' => $page->language_id,
                 ])
                 ->setPreviewUrl($page->getUrl());
 
@@ -197,7 +197,7 @@ class PageController extends BackendController
             ]);
         }
 
-        throw new RuntimeException('Page not found (ID: ' . $this->args['id'] . ')');
+        throw new RuntimeException('Page not found (ID: '.$this->args['id'].')');
     }
 
     /**
@@ -219,7 +219,7 @@ class PageController extends BackendController
         }
 
         return new JsonResponse([
-            'success' => $result
+            'success' => $result,
         ]);
     }
 
@@ -239,7 +239,7 @@ class PageController extends BackendController
 
             return $this->redirectToRoute('backend_page_index');
         }
-        throw new RuntimeException('Deleting page failed (ID: ' . $this->args['id'] . ')');
+        throw new RuntimeException('Deleting page failed (ID: '.$this->args['id'].')');
     }
 
     /**
@@ -274,14 +274,14 @@ class PageController extends BackendController
             if ($page && $page->validate() && $page->save() && $page->saveUrl()) {
                 $this->view->setSuccessAlert(translate('Successfully updated'));
             } else {
-                throw new RuntimeException('Updating page failed (ID: ' . $postData->get('page_id') . ')');
+                throw new RuntimeException('Updating page failed (ID: '.$postData->get('page_id').')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_page_edit', [
-                'id' => $page->id()
+                'id' => $page->id(),
         ]);
     }
 
@@ -305,7 +305,7 @@ class PageController extends BackendController
 
             return $this->redirectToRoute('backend_page_index');
         }
-        throw new RuntimeException('Toggling activation for page failed (ID: ' . $this->args['id'] . ')');
+        throw new RuntimeException('Toggling activation for page failed (ID: '.$this->args['id'].')');
     }
 
     /**

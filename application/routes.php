@@ -1,9 +1,10 @@
 <?php
+
 return [
 // Frontend routes
     [
         'routes' => [
-            ['admin_redirect', 'any', '/admin', 'Frontend@adminRedirect']
+            ['admin_redirect', 'any', '/admin', 'Frontend@adminRedirect'],
         ],
         'namespace' => '\\Neoflow\\CMS\\Controller\\',
         'prefix' => 'frontend_',

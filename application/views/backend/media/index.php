@@ -6,8 +6,7 @@
                 <?= translate('Directory'); ?>
             </h4>
             <?php if ($folders->count() || $files->count()) {
-
-                ?>
+    ?>
                 <table class="datatable table display responsive no-wrap" data-ordering="false" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -22,19 +21,18 @@
                     </thead>
                     <tbody>
                         <?php foreach ($folders as $folder) {
-
-                            ?>
+        ?>
                             <tr>
                                 <td>
                                     <i class="fa fa-fw fa-folder" aria-hidden="true"></i>
-                                    <a class="hyphens" href="<?= generate_url('backend_media_index', ['dir' => normalize_path($relativeFolderPath . '/' . $folder->getName(), true)]); ?>" title="<?= translate('Open folder'); ?>">
+                                    <a class="hyphens" href="<?= generate_url('backend_media_index', ['dir' => normalize_path($relativeFolderPath.'/'.$folder->getName(), true)]); ?>" title="<?= translate('Open folder'); ?>">
                                         <?= $folder->getName(); ?>
                                     </a>
                                 </td>
                                 <td></td>
                                 <td class="text-left-xs text-right nowrap">
                                     <span class="d-none d-sm-inline">
-                                        <a href="<?= generate_url('backend_media_rename_folder', ['dir' => normalize_path($relativeFolderPath . '/' . $folder->getName(), true)]); ?>" class="btn btn-outline-light btn-icon-left btn-sm" title="<?= translate('Rename folder'); ?>">
+                                        <a href="<?= generate_url('backend_media_rename_folder', ['dir' => normalize_path($relativeFolderPath.'/'.$folder->getName(), true)]); ?>" class="btn btn-outline-light btn-icon-left btn-sm" title="<?= translate('Rename folder'); ?>">
                                             <span class="btn-icon">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </span>
@@ -42,25 +40,23 @@
                                         </a>
                                     </span>
                                     <span class="d-inline d-sm-none">
-                                        <a href="<?= generate_url('backend_media_rename_folder', ['dir' => normalize_path($relativeFolderPath . '/' . $folder->getName(), true)]); ?>" class="btn btn-outline-light btn-sm" title="<?= translate('Rename folder'); ?>">
+                                        <a href="<?= generate_url('backend_media_rename_folder', ['dir' => normalize_path($relativeFolderPath.'/'.$folder->getName(), true)]); ?>" class="btn btn-outline-light btn-sm" title="<?= translate('Rename folder'); ?>">
                                             <i class="fa fa-fw fa-pencil-alt"></i>
                                         </a>
                                     </span>
-                                    <a href="<?= generate_url('backend_media_delete_folder', ['dir' => normalize_path($relativeFolderPath . '/' . $folder->getName(), true)]); ?>" class="btn btn-primary btn-sm confirm-modal" data-message="<?= translate('Are you sure you want to delete it?'); ?>" title="<?= translate('Delete folder'); ?>">
+                                    <a href="<?= generate_url('backend_media_delete_folder', ['dir' => normalize_path($relativeFolderPath.'/'.$folder->getName(), true)]); ?>" class="btn btn-primary btn-sm confirm-modal" data-message="<?= translate('Are you sure you want to delete it?'); ?>" title="<?= translate('Delete folder'); ?>">
                                         <i class="fa fa-fw fa-trash-alt"></i>
                                     </a>
                                 </td>
                             </tr>
-                        <?php }
-
-                        ?>
+                        <?php
+    } ?>
                         <?php foreach ($files as $file) {
-
-                            ?>
+        ?>
                             <tr>
                                 <td>
                                     <i class="fa d-none d-sm-inline-block fa-fw" aria-hidden="true"></i>
-                                    <a class="preview hyphens" href="<?= generate_url('backend_media_download', ['file' => normalize_url($relativeFolderPath . '/' . $file->getName(), true)]); ?>" data-preview="<?= normalize_url($view->config()->getUrl($path . '/' . $file->getName())); ?>" title="<?= translate('Preview'); ?>">
+                                    <a class="preview hyphens" href="<?= generate_url('backend_media_download', ['file' => normalize_url($relativeFolderPath.'/'.$file->getName(), true)]); ?>" data-preview="<?= normalize_url($view->config()->getUrl($path.'/'.$file->getName())); ?>" title="<?= translate('Preview'); ?>">
                                         <?= $file->getName(); ?>
                                     </a>
                                 </td>
@@ -68,40 +64,39 @@
                                     <?= $file->getFormattedSize(); ?>
                                 </td>
                                 <td class="text-left-xs text-right nowrap">
-                                    <a href="<?= generate_url('backend_media_rename_file', ['file' => normalize_path($relativeFolderPath . '/' . $file->getName(), true)]); ?>" class="btn btn-outline-light btn-icon-left btn-sm d-none d-sm-inline-block" title="<?= translate('Rename file'); ?>">
+                                    <a href="<?= generate_url('backend_media_rename_file', ['file' => normalize_path($relativeFolderPath.'/'.$file->getName(), true)]); ?>" class="btn btn-outline-light btn-icon-left btn-sm d-none d-sm-inline-block" title="<?= translate('Rename file'); ?>">
                                         <span class="btn-icon">
                                             <i class="fa fa-pencil-alt"></i>
                                         </span>
                                         <?= translate('Rename'); ?>
                                     </a>
-                                    <a href="<?= generate_url('backend_media_rename_file', ['file' => normalize_path($relativeFolderPath . '/' . $file->getName(), true)]); ?>" class="btn btn-outline-light btn-sm d-inline-block d-sm-none" title="<?= translate('Rename file'); ?>">
+                                    <a href="<?= generate_url('backend_media_rename_file', ['file' => normalize_path($relativeFolderPath.'/'.$file->getName(), true)]); ?>" class="btn btn-outline-light btn-sm d-inline-block d-sm-none" title="<?= translate('Rename file'); ?>">
                                         <i class="fa fa-fw fa-pencil-alt"></i>
                                     </a>
-                                    <a href="<?= generate_url('backend_media_download', ['file' => normalize_path($relativeFolderPath . '/' . $file->getName(), true)]); ?>" class="btn btn-outline-light btn-sm d-none d-sm-inline-block" title="<?= translate('Download file'); ?>">
+                                    <a href="<?= generate_url('backend_media_download', ['file' => normalize_path($relativeFolderPath.'/'.$file->getName(), true)]); ?>" class="btn btn-outline-light btn-sm d-none d-sm-inline-block" title="<?= translate('Download file'); ?>">
                                         <i class="fa fa-fw fa-download"></i>
                                     </a>
-                                    <a href="<?= generate_url('backend_media_delete_file', ['file' => normalize_path($relativeFolderPath . '/' . $file->getName(), true)]); ?>" class="btn btn-primary btn-sm confirm-modal" data-message="<?= translate('Are you sure you want to delete it?'); ?>" title="<?= translate('Delete file'); ?>">
+                                    <a href="<?= generate_url('backend_media_delete_file', ['file' => normalize_path($relativeFolderPath.'/'.$file->getName(), true)]); ?>" class="btn btn-primary btn-sm confirm-modal" data-message="<?= translate('Are you sure you want to delete it?'); ?>" title="<?= translate('Delete file'); ?>">
                                         <i class="fa fa-fw fa-trash-alt"></i>
                                     </a>
                                 </td>
                             </tr>
-                        <?php }
-
-                        ?>
+                        <?php
+    } ?>
                     </tbody>
                 </table>
                 <div class="card-body">
                     <small class="text-muted"><?= translate('Path'); ?>: <?= $path; ?></small>
                 </div>
                 <?php
-            } else {
-
-                ?>
+} else {
+        ?>
                 <div class="card-body">
                     <p class="text-center text-muted"><?= translate('No folders and files found'); ?></p>
                     <small class="text-muted"><?= translate('Path'); ?>: <?= $path; ?></small>
                 </div>
-            <?php }
+            <?php
+    }
 
             ?>
         </div>

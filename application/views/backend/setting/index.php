@@ -59,10 +59,10 @@
                         <div class="col-sm-9">
                             <select class="form-control select2" name="default_language_id" id="selectDefaultLanguage">
                                 <?php foreach ($languages as $language) {
-                                    ?>
+    ?>
                                     <option value="<?= $language->id(); ?>"  <?= ($language->id() == $setting->default_language_id ? 'selected' : ''); ?>><?= translate($language->title); ?></option>
                                     <?php
-                                }
+}
                                 ?>
                             </select>
                         </div>
@@ -77,7 +77,8 @@
                                 <?php foreach ($languages as $language) {
                                     ?>
                                     <option value="<?= $language->id(); ?>"  <?= (in_array($language->id(), $setting->language_ids) ? 'selected' : ''); ?>><?= translate($language->title); ?></option>
-                                <?php }
+                                <?php
+                                }
                                 ?>
                             </select>
                         </div>
@@ -93,12 +94,13 @@
                                     ?>
                                     <optgroup label="<?= $region; ?>">
                                         <?php foreach ($timezones as $timezone => $title) {
-                                            ?>
-                                            <option value="<?= $timezone; ?>" <?= ($setting->timezone === $timezone ? 'selected' : ''); ?>><?= $title; ?></option>
-                                        <?php }
                                         ?>
+                                            <option value="<?= $timezone; ?>" <?= ($setting->timezone === $timezone ? 'selected' : ''); ?>><?= $title; ?></option>
+                                        <?php
+                                    } ?>
                                     </optgroup>
-                                <?php }
+                                <?php
+                                }
                                 ?>
                             </select>
                         </div>
@@ -116,7 +118,8 @@
                                 <?php foreach ($setting->getAllowedFileExtensions() as $allowedFileExtension) {
                                     ?>
                                     <option value="<?= $allowedFileExtension; ?>" selected><?= $allowedFileExtension; ?></option>
-                                <?php }
+                                <?php
+                                }
                                 ?>
                             </select>
                         </div>
@@ -238,7 +241,8 @@
                                 ?>
                                 <textarea name="custom_css" class="form-control vresize" id="textareaFrontendCss" rows="5"><?= $setting->custom_css; ?></textarea>
 
-                            <?php }
+                            <?php
+                            }
                             ?>
                         </div>
                     </div>
@@ -265,7 +269,8 @@
                                 ?>
                                 <textarea name="custom_js" class="form-control vresize" id="textareaCustomJs" rows="5"><?= $setting->custom_js; ?></textarea>
 
-                            <?php }
+                            <?php
+                            }
                             ?>
                         </div>
                     </div>

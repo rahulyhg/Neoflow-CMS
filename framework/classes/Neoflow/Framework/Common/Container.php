@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\Common;
 
 use ArrayAccess;
@@ -9,7 +10,6 @@ use RuntimeException;
 
 class Container implements IteratorAggregate, Countable, ArrayAccess
 {
-
     /**
      * @var array container data
      */
@@ -56,8 +56,10 @@ class Container implements IteratorAggregate, Countable, ArrayAccess
     }
 
     /**
-     * Set data
+     * Set data.
+     *
      * @param array $data
+     *
      * @return self
      */
     public function setData(array $data): self
@@ -71,6 +73,7 @@ class Container implements IteratorAggregate, Countable, ArrayAccess
                 $this->data = $data;
             }
         }
+
         return $this;
     }
 

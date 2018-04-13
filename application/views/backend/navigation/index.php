@@ -7,8 +7,7 @@
             </h4>
 
             <?php if ($navigations->count()) {
-
-                ?>
+    ?>
 
                 <table class="datatable table display responsive no-wrap" width="100%" cellspacing="0">
                     <thead>
@@ -24,8 +23,7 @@
                     </thead>
                     <tbody>
                         <?php foreach ($navigations as $navigation) {
-
-                            ?>
+        ?>
                             <tr>
                                 <td class="nowrap">
                                     <a href="<?= generate_url('backend_navitem_index', ['id' => $navigation->id()]); ?>" <?= (1 === $navigation->id() ? 'class="disabled"' : ''); ?>  title="<?= translate('Manage items'); ?>">
@@ -51,20 +49,19 @@
                                     </a>
                                 </td>
                             </tr>
-        <?php }
-
-    ?>
+        <?php
+    } ?>
                     </tbody>
                 </table>
 
     <?php
 } else {
-
-    ?>
+        ?>
                 <div class="card-body">
                     <p class="text-center text-muted"><?= translate('No results found'); ?></p>
                 </div>
-    <?php }
+    <?php
+    }
 
 ?>
 

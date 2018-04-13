@@ -8,8 +8,7 @@
 
 
             <?php if ($blocks->count()) {
-
-                ?>
+    ?>
 
                 <table class="datatable table display responsive no-wrap" width="100%" cellspacing="0">
                     <thead>
@@ -25,8 +24,7 @@
                     </thead>
                     <tbody>
                         <?php foreach ($blocks as $block) {
-
-                            ?>
+        ?>
                             <tr>
                                 <td class="nowrap">
                                     <a href="<?= generate_url('backend_block_edit', ['id' => $block->id()]); ?>" title="<?= translate('Edit block'); ?>">
@@ -48,20 +46,19 @@
                                     </a>
                                 </td>
                             </tr>
-                        <?php }
-
-                        ?>
+                        <?php
+    } ?>
                     </tbody>
                 </table>
 
                 <?php
-            } else {
-
-                ?>
+} else {
+        ?>
                 <div class="card-body">
                     <p class="text-center text-muted"><?= translate('No results found'); ?></p>
                 </div>
-            <?php }
+            <?php
+    }
 
             ?>
 

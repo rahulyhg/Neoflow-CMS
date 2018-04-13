@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -11,7 +12,6 @@ use RuntimeException;
 
 class BlockController extends BackendController
 {
-
     /**
      * Constructor.
      *
@@ -118,7 +118,7 @@ class BlockController extends BackendController
             // Set title and breadcrumb
             $this->view
                 ->setTitle($block->title)
-                ->setSubtitle('ID: ' . $block->id())
+                ->setSubtitle('ID: '.$block->id())
                 ->addBreadcrumb(translate('Block', [], true), generate_url('backend_block_index'));
 
             // Set back url
@@ -128,7 +128,7 @@ class BlockController extends BackendController
                     'block' => $block,
             ]);
         }
-        throw new RuntimeException('Block not found (ID: ' . $this->args['id'] . ')');
+        throw new RuntimeException('Block not found (ID: '.$this->args['id'].')');
     }
 
     /**
@@ -154,14 +154,14 @@ class BlockController extends BackendController
             if ($block && $block->validate() && $block->save()) {
                 $this->view->setSuccessAlert(translate('Successfully updated'));
             } else {
-                throw new RuntimeException('Updating block failed (ID: ' . $postData->get('block_id') . ')');
+                throw new RuntimeException('Updating block failed (ID: '.$postData->get('block_id').')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_block_edit', [
-                'id' => $block->id()
+                'id' => $block->id(),
         ]);
     }
 
@@ -181,7 +181,7 @@ class BlockController extends BackendController
 
             return $this->redirectToRoute('backend_block_index');
         }
-        throw new RuntimeException('Deleting block failed (ID: ' . $this->args['id'] . ')');
+        throw new RuntimeException('Deleting block failed (ID: '.$this->args['id'].')');
     }
 
     /**

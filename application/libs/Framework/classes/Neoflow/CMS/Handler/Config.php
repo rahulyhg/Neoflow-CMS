@@ -6,11 +6,9 @@ use Neoflow\CMS\AppTrait;
 use Neoflow\Filesystem\File;
 use Neoflow\Framework\Handler\Config as FrameworkConfig;
 use RuntimeException;
-use const APP_PATH;
-use function array_export;
 
-class Config extends FrameworkConfig {
-
+class Config extends FrameworkConfig
+{
     /**
      * App trait.
      */
@@ -29,7 +27,7 @@ class Config extends FrameworkConfig {
     public static function createByFile(string $configFilePath, array $additionalConfigData = []): FrameworkConfig
     {
         if (!is_file($configFilePath)) {
-            $configFilePath = APP_PATH . '/installation/config.php';
+            $configFilePath = APP_PATH.'/installation/config.php';
         }
 
         return parent::createByFile($configFilePath, $additionalConfigData);
@@ -46,7 +44,7 @@ class Config extends FrameworkConfig {
     {
         $path = $this->get('folders')->get('themes')->get('path');
 
-        return $this->getUrl($path . '/' . $additionalUrlPath);
+        return $this->getUrl($path.'/'.$additionalUrlPath);
     }
 
     /**
@@ -60,7 +58,7 @@ class Config extends FrameworkConfig {
     {
         $path = $this->get('folders')->get('modules')->get('path');
 
-        return $this->getUrl($path . '/' . $additionalUrlPath);
+        return $this->getUrl($path.'/'.$additionalUrlPath);
     }
 
     /**
@@ -74,7 +72,7 @@ class Config extends FrameworkConfig {
     {
         $path = $this->get('folders')->get('media')->get('path');
 
-        return $this->getUrl($path . '/' . $additionalUrlPath);
+        return $this->getUrl($path.'/'.$additionalUrlPath);
     }
 
     /**
@@ -88,7 +86,7 @@ class Config extends FrameworkConfig {
     {
         $path = $this->get('folders')->get('themes')->get('path');
 
-        return $this->getPath($path . '/' . $additionalPath);
+        return $this->getPath($path.'/'.$additionalPath);
     }
 
     /**
@@ -102,7 +100,7 @@ class Config extends FrameworkConfig {
     {
         $path = $this->get('folders')->get('modules')->get('path');
 
-        return $this->getPath($path . '/' . $additionalPath);
+        return $this->getPath($path.'/'.$additionalPath);
     }
 
     /**
@@ -116,7 +114,7 @@ class Config extends FrameworkConfig {
     {
         $path = $this->get('folders')->get('media')->get('path');
 
-        return $this->getPath($path . '/' . $additionalPath);
+        return $this->getPath($path.'/'.$additionalPath);
     }
 
     /**
@@ -130,11 +128,12 @@ class Config extends FrameworkConfig {
     {
         $path = $this->get('folders')->get('logs')->get('path');
 
-        return $this->getPath($path . '/' . $additionalPath);
+        return $this->getPath($path.'/'.$additionalPath);
     }
 
     /**
-     * Save and overwrite current config as file
+     * Save and overwrite current config as file.
+     *
      * @return bool
      */
     public function saveAsFile(): bool
@@ -148,13 +147,12 @@ class Config extends FrameworkConfig {
         unset($configData['app']['languages']);
 
         // Create config file
-        $phpFile = File::create(APP_PATH . '/config.php');
+        $phpFile = File::create(APP_PATH.'/config.php');
 
         // Create config content
-        $content = '<?php' . PHP_EOL . 'return ' . array_export($configData);
+        $content = '<?php'.PHP_EOL.'return '.array_export($configData);
 
         // Set config content to file
         return (bool) $phpFile->setContent($content);
     }
-
 }

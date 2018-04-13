@@ -39,37 +39,32 @@
 
     </head>
 
-    <body class="fixed-nav <?= ($engine->hasBlock('prepage') ? 'prepage' : '') . ($engine->hasBlock('plain') ? 'plain' : ''); ?>">
+    <body class="fixed-nav <?= ($engine->hasBlock('prepage') ? 'prepage' : '').($engine->hasBlock('plain') ? 'plain' : ''); ?>">
 
         <?php if ($engine->hasBlock('plain')) {
-
-            ?>
+    ?>
             <div class="container-fluid">
                 <?= $engine->renderBlock('plain'); ?>
             </div>
             <?php
-        } else {
-
-            ?>
+} else {
+        ?>
 
             <?= $view->renderTemplate('navigation/top'); ?>
             <?php if (!$engine->hasBlock('prepage')) {
-
-                ?>
+            ?>
                 <script>
                     if (localStorage.getItem('side-navigation') === 'minimized') {
                         document.body.classList.add('side-navigation-minimized');
                     }
                 </script>
                 <?= $view->renderTemplate('navigation/side'); ?>
-            <?php }
-
-            ?>
+            <?php
+        } ?>
 
             <div id="content">
                 <?php if ($engine->hasBlock('prepage')) {
-
-                    ?>
+            ?>
                     <div class="container-fluid">
                         <div id="prepage">
                             <?= $view->renderTemplate('prepage/header'); ?>
@@ -78,9 +73,8 @@
                         </div>
                     </div>
                     <?php
-                } else {
-
-                    ?>
+        } else {
+            ?>
                     <?= $view->renderTemplate('header'); ?>
                     <div class="container-fluid">
                         <div class="content-body">
@@ -88,20 +82,18 @@
                             <?= $engine->renderBlock('view'); ?>
                         </div>
                     </div>
-                <?php }
-
-                ?>
+                <?php
+        } ?>
             </div>
 
             <?php if ($view->settings()->show_debugbar) {
-
-                ?>
-                <?= $view->renderTemplate('debugbar'); ?>
-            <?php }
-
             ?>
+                <?= $view->renderTemplate('debugbar'); ?>
+            <?php
+        } ?>
 
-        <?php }
+        <?php
+    }
 
         ?>
 

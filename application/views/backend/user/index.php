@@ -25,7 +25,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($users as $user) { ?>
+                    <?php foreach ($users as $user) {
+    ?>
                         <tr>
                             <td>
                                 <a href="<?= generate_url('backend_user_edit', ['id' => $user->id()]); ?>" title="<?= translate('Edit user'); ?>">
@@ -48,7 +49,8 @@
                                 </a>
                             </td>
                         </tr>
-                    <?php }
+                    <?php
+}
 
                     ?>
                 </tbody>
@@ -117,7 +119,6 @@
                             <select required class="form-control select2" name="role_id" id="selectRole">
                                 <?php
                                 foreach ($roles as $role) {
-
                                     ?>
                                     <option value="<?= $role->id(); ?>"><?= $role->title; ?></option>
                                     <?php

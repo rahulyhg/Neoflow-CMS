@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Controller;
 
 use Neoflow\CMS\Core\AbstractController;
@@ -7,11 +8,9 @@ use Neoflow\CMS\View\InstallView;
 use Neoflow\Filesystem\Folder;
 use Neoflow\Framework\HTTP\Responsing\Response;
 use RuntimeException;
-use function translate;
 
 class InstallController extends AbstractController
 {
-
     /**
      * Constructor.
      *

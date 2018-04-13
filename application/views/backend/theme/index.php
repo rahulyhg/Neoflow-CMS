@@ -25,7 +25,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($themes as $theme) { ?>
+                    <?php foreach ($themes as $theme) {
+    ?>
                         <tr>
                             <td>
                                 <a href="<?= generate_url('backend_theme_view', ['id' => $theme->id()]); ?>">
@@ -43,9 +44,7 @@
                                         break;
                                     case 'frontend':
                                         echo translate('Frontend');
-                                }
-
-                                ?>
+                                } ?>
                             </td>
                             <td>
                                 <?= translate($theme->description, [], false, false, false); ?>
@@ -62,7 +61,8 @@
                                 </a>
                             </td>
                         </tr>
-                    <?php }
+                    <?php
+}
 
                     ?>
                 </tbody>

@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Module\WYSIWYG\Controller;
 
 use Neoflow\CMS\Controller\Backend\AbstractPageModuleController;
@@ -10,7 +11,6 @@ use RuntimeException;
 
 class BackendController extends AbstractPageModuleController
 {
-
     /**
      * Index action.
      *
@@ -44,21 +44,21 @@ class BackendController extends AbstractPageModuleController
 
             // Update wysiwyg content by id
             $wysiwyg = Model::updateById([
-                    'content' => $postData->get('content')->get('section-' . $section_id),
+                    'content' => $postData->get('content')->get('section-'.$section_id),
                     ], $postData->get('wysiwyg_id'));
 
             // Validate and save wysiwyg content
             if ($wysiwyg && $wysiwyg->save() && $this->updateModifiedWhen()) {
                 $this->view->setSuccessAlert(translate('Successfully updated'));
             } else {
-                throw new RuntimeException('Update wysiwyg content failed (ID: ' . $postData->get('editor_id') . ')');
+                throw new RuntimeException('Update wysiwyg content failed (ID: '.$postData->get('editor_id').')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert($ex->getErrors());
         }
 
         return $this->redirectToRoute('pmod_wysiwyg_backend_index', [
-                'section_id' => $wysiwyg->section_id
+                'section_id' => $wysiwyg->section_id,
         ]);
     }
 }

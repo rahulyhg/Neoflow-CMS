@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -14,7 +15,6 @@ use Neoflow\Validation\ValidationException;
 
 class MediaController extends BackendController
 {
-
     /**
      * @var string
      */
@@ -73,7 +73,7 @@ class MediaController extends BackendController
         }
 
         if ('' !== $relativeFilePath) {
-            $filePath = normalize_path($basePath . DIRECTORY_SEPARATOR . $relativeFilePath);
+            $filePath = normalize_path($basePath.DIRECTORY_SEPARATOR.$relativeFilePath);
             if (is_valid_path($filePath, $basePath) && is_file($filePath)) {
                 $this->relativeFilePath = normalize_path($relativeFilePath, true);
                 $this->currentFile = new File($filePath);
@@ -85,7 +85,7 @@ class MediaController extends BackendController
             }
         }
 
-        $directoryPath = normalize_path($basePath . DIRECTORY_SEPARATOR . $relativeFolderPath);
+        $directoryPath = normalize_path($basePath.DIRECTORY_SEPARATOR.$relativeFolderPath);
         if ('' === $relativeFolderPath || (is_valid_path($directoryPath, $basePath) && is_dir($directoryPath))) {
             $this->relativeFolderPath = normalize_path($relativeFolderPath, true);
             $this->currentFolder = new Folder($directoryPath);
@@ -105,7 +105,7 @@ class MediaController extends BackendController
             $numberOfFolders = count($folders);
             foreach ($folders as $index => $folder) {
                 if ($folder) {
-                    $directories[$folder] = end($directories) . DIRECTORY_SEPARATOR . $folder;
+                    $directories[$folder] = end($directories).DIRECTORY_SEPARATOR.$folder;
                     if ($this->currentFile || $numberOfFolders > ++$index) {
                         $this->view->addBreadcrumb($folder, generate_url('backend_media_index', ['dir' => end($directories)]));
                         $this->view->setBackUrl(generate_url('backend_media_index', ['dir' => end($directories)]));
@@ -245,7 +245,7 @@ class MediaController extends BackendController
 
         // Add file extension
         if ($extension) {
-            $name .= '.' . $extension;
+            $name .= '.'.$extension;
         }
 
         try {

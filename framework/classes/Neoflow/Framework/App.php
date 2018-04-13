@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework;
 
 use ErrorException;
@@ -21,11 +22,9 @@ use Neoflow\Framework\Persistence\Caching\FileCache;
 use Neoflow\Framework\Persistence\Database;
 use OutOfRangeException;
 use Throwable;
-use function get_exception_trace;
 
 class App extends Container
 {
-
     /**
      * @var App
      */
@@ -34,7 +33,7 @@ class App extends Container
     /**
      * Publish application.
      *
-     * @param float    $startTime      Application start time in milliseconds
+     * @param float  $startTime      Application start time in milliseconds
      * @param Loader $loader         Loader instance
      * @param string $configFilePath Config file path
      */
@@ -154,7 +153,7 @@ class App extends Container
      */
     public function registerService(AbstractService $service, string $name = ''): self
     {
-        if (defined($service->getReflection()->getName() . '::NAME')) {
+        if (defined($service->getReflection()->getName().'::NAME')) {
             $name = $service->getReflection()->getName()::NAME;
         } elseif (0 === mb_strlen($name)) {
             $name = str_replace('service', '', strtolower($service->getReflection()->getShortName()));
@@ -179,7 +178,7 @@ class App extends Container
         if ($this->hasService($name)) {
             return $this->get('services')->get($name);
         }
-        throw new OutOfRangeException('Service "' . $name . '" not found');
+        throw new OutOfRangeException('Service "'.$name.'" not found');
     }
 
     /**
@@ -318,7 +317,6 @@ class App extends Container
     protected function setCache(AbstractCache $cache = null): self
     {
         if (!$cache) {
-
             // Get cache type
             $cacheConfig = $this->get('config')->get('cache');
 
@@ -326,11 +324,11 @@ class App extends Container
 
             $cacheType = $cacheConfig->get('type');
             if ($cacheType) {
-                if ($cacheType === 'acpu' || ('auto' === $cacheType && extension_loaded('apcu') && ini_get('apc.enabled'))) {
+                if ('acpu' === $cacheType || ('auto' === $cacheType && extension_loaded('apcu') && ini_get('apc.enabled'))) {
                     $cache = new ApcuCache($this);
-                } elseif ($cacheType === 'apc' || ('auto' === $cacheType && extension_loaded('apc') && ini_get('apc.enabled'))) {
+                } elseif ('apc' === $cacheType || ('auto' === $cacheType && extension_loaded('apc') && ini_get('apc.enabled'))) {
                     $cache = new ApcCache($this);
-                } elseif ($cacheType === 'file' || 'auto' === $cacheType) {
+                } elseif ('file' === $cacheType || 'auto' === $cacheType) {
                     $cache = new FileCache($this);
                 }
             }

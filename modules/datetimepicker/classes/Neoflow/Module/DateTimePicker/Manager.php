@@ -1,11 +1,11 @@
 <?php
+
 namespace Neoflow\Module\DateTimePicker;
 
 use Neoflow\CMS\Manager\AbstractModuleManager;
 
 class Manager extends AbstractModuleManager
 {
-
     /**
      * Install CodeMirror module.
      *

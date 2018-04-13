@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -8,11 +9,9 @@ use Neoflow\Framework\Core\AbstractModel as FW_AbstractModel;
 use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Validation\ValidationException;
 use ZipArchive;
-use function translate;
 
 abstract class AbstractExtensionModel extends AbstractModel
 {
-
     /**
      * @var string
      */
@@ -129,7 +128,7 @@ abstract class AbstractExtensionModel extends AbstractModel
     protected function unpack(File $extensionPackageFile, bool $delete = true): Folder
     {
         // Create temporary update folder
-        $extensionFolderPath = $this->config()->getTempPath('/extension_' . uniqid());
+        $extensionFolderPath = $this->config()->getTempPath('/extension_'.uniqid());
         $extensionFolder = Folder::create($extensionFolderPath);
 
         // Extract package
@@ -210,7 +209,6 @@ abstract class AbstractExtensionModel extends AbstractModel
 
             // Check if same identifier
             if (isset($info['identifier']) && $this->identifier === $info['identifier']) {
-
                 // Check if extension is up to date
                 if (isset($info['version']) && $this->version === $info['version']) {
                     throw new ValidationException(translate('The extension ({0}) is already up to date', [$this->name]));
@@ -218,7 +216,6 @@ abstract class AbstractExtensionModel extends AbstractModel
 
                 // Check if supported version for update
                 if (isset($info['for']) && is_array($info['for']) && in_array($this->version, $info['for'])) {
-
                     // Delete current installed folder
                     Folder::unlink($this->getPath(), true);
 

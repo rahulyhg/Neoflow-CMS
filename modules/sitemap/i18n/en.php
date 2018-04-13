@@ -1,4 +1,5 @@
 <?php
+
 $this->addTranslation([
     'Automated creation of sitemap (sitemap. xml) for search engines.' => 'Automated creation of sitemap (sitemap. xml) for search engines.',
     'Sitemap' => 'Sitemap|Sitemap',

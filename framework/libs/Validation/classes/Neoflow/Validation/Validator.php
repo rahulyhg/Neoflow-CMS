@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Validation;
 
 use InvalidArgumentException;
@@ -7,13 +8,12 @@ use ReflectionMethod;
 
 class Validator
 {
-
     /**
      * App trait.
      */
     use \Neoflow\Framework\AppTrait;
 
-/**
+    /**
      * Rule trait.
      */
     use RuleTrait;
@@ -107,7 +107,7 @@ class Validator
     {
         if (is_callable($callback)) {
             // Generate generic and unique rule name
-            $name = 'callback_' . sha1(uniqid('', true));
+            $name = 'callback_'.sha1(uniqid('', true));
 
             // Set callback rule
             $this->setRule($name, function ($value) use ($callback, $callbackArgs) {
@@ -310,7 +310,7 @@ class Validator
                     'args' => $args,
                 ];
             } else {
-                throw new InvalidArgumentException('Rule function is invalid (Name: ' . $name . ')');
+                throw new InvalidArgumentException('Rule function is invalid (Name: '.$name.')');
             }
         }
     }

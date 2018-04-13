@@ -1,4 +1,5 @@
 <?php
+
 // Module routes
 return [
     'routes' => [

@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -12,7 +13,6 @@ use RuntimeException;
 
 class RoleController extends BackendController
 {
-
     /**
      * Constructor.
      *
@@ -94,11 +94,11 @@ class RoleController extends BackendController
             $role = new RoleModel($data);
         }
 
-        if ($role && $role->id() !== 1) {
+        if ($role && 1 !== $role->id()) {
             // Set title and breadcrumb
             $this->view
                 ->setTitle($role->title)
-                ->setSubtitle('ID: ' . $role->id())
+                ->setSubtitle('ID: '.$role->id())
                 ->addBreadcrumb(translate('Role', [], true), generate_url('backend_role_index'));
 
             // Set back url
@@ -109,7 +109,7 @@ class RoleController extends BackendController
                     'permissions' => PermissionModel::findAll(),
             ]);
         }
-        throw new RuntimeException('Role not found or not editable (ID: ' . $this->args['id'] . ')');
+        throw new RuntimeException('Role not found or not editable (ID: '.$this->args['id'].')');
     }
 
     /**
@@ -133,17 +133,17 @@ class RoleController extends BackendController
                     ], $postData->get('role_id'));
 
             // Validate and save role
-            if ($role && $role->id() !== 1 && $role->validate() && $role->save()) {
+            if ($role && 1 !== $role->id() && $role->validate() && $role->save()) {
                 $this->view->setSuccessAlert(translate('Successfully updated'));
             } else {
-                throw new RuntimeException('Updating role failed (ID: ' . $postData->get('page_id') . ')');
+                throw new RuntimeException('Updating role failed (ID: '.$postData->get('page_id').')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_role_edit', [
-                'id' => $postData->get('role_id')
+                'id' => $postData->get('role_id'),
         ]);
     }
 
@@ -159,10 +159,10 @@ class RoleController extends BackendController
         try {
             // Get and delete role
             $role = RoleModel::findById($this->args['id']);
-            if ($role && $role->id() !== 1 && $role->delete()) {
+            if ($role && 1 !== $role->id() && $role->delete()) {
                 $this->view->setSuccessAlert(translate('Successfully deleted'));
             } else {
-                throw new RuntimeException('Deleting role failed (ID: ' . $this->args['id'] . ')');
+                throw new RuntimeException('Deleting role failed (ID: '.$this->args['id'].')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert($ex->getErrors());

@@ -13,30 +13,27 @@ if (1 !== $navigation->id()) {
             </h4>
 
             <?php if (count($languages) > 1) {
-
-                ?>
+    ?>
                 <ul class="nav nav-tabs nav-fill">
                     <?php foreach ($languages as $language) {
-
-                        ?>
+        ?>
                         <li class="nav-item">
                             <a class="nav-link<?= ($language->id() === $navigationLanguage->id() ? ' active' : ''); ?>" href="<?= generate_url('backend_navitem_index', ['id' => $navigation->id(), 'language_id' => $language->id()]); ?>">
                                 <?= $language->renderFlagIcon(); ?> <span class="d-none d-sm-inline-block"><?= translate($language->title); ?></span>
                             </a>
                         </li>
-                    <?php }
-
-                    ?>
+                    <?php
+    } ?>
                 </ul>
-            <?php }
+            <?php
+}
 
             ?>
 
             <div class="card-body">
 
                 <?php if ($navitems->count()) {
-
-                    ?>
+                ?>
                     <div class="nestable" data-save-url="<?= generate_url('backend_navitem_reorder'); ?>">
                         <?= $view->renderNavitemNestable($navitems); ?>
                     </div>
@@ -44,11 +41,11 @@ if (1 !== $navigation->id()) {
                         <li><i class="fa fa-lock"></i> = <?= translate('Accessible only for authorized users'); ?></li>
                     </ul>
                     <?php
-                } else {
-
-                    ?>
+            } else {
+                ?>
                     <p class="text-center text-muted"><?= translate('No results found'); ?></p>
-                <?php }
+                <?php
+            }
 
                 ?>
 
@@ -59,8 +56,7 @@ if (1 !== $navigation->id()) {
 
 
         <?php if (1 !== $navigation->id()) {
-
-            ?>
+                    ?>
             <div class="card">
                 <h4 class="card-header">
                     <?= translate('Create item'); ?>
@@ -123,7 +119,8 @@ if (1 !== $navigation->id()) {
                     </form>
                 </div>
             </div>
-        <?php }
+        <?php
+                }
 
         ?>
     </div>

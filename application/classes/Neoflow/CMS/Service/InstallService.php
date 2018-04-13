@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
@@ -9,7 +10,6 @@ use Neoflow\Framework\Persistence\Database;
 
 class InstallService extends AbstractService
 {
-
     /**
      * Etablish database connection, create tables and insert data.
      *
@@ -83,31 +83,38 @@ class InstallService extends AbstractService
 
         $this->config()->get('database')->setData($config['database']);
 
+        if (APP_MODE === 'DEV') {
+            $this->config()->get('logger')->set('level', 'DEBUG');
+        }
+
         $this->config()->saveAsFile();
 
         return $this;
     }
 
     /**
-     * Check whether database is created
+     * Check whether database is created.
+     *
      * @return bool
      */
     public function databaseStatus(): bool
     {
-        return ($this->config()->get('database')->get('host') && $this->app()->get('database') && SettingModel::findById(1));
+        return $this->config()->get('database')->get('host') && $this->app()->get('database') && SettingModel::findById(1);
     }
 
     /**
-     * Check whether settings are created
+     * Check whether settings are created.
+     *
      * @return bool
      */
     public function settingStatus(): bool
     {
-        return ($this->app()->get('database') && $this->settings()->website_title !== '' && $this->settings()->sender_emailaddress !== '');
+        return $this->app()->get('database') && '' !== $this->settings()->website_title && '' !== $this->settings()->sender_emailaddress;
     }
 
     /**
-     * Check whether administrator user is created
+     * Check whether administrator user is created.
+     *
      * @return bool
      */
     public function administratorStatus(): bool
@@ -115,6 +122,7 @@ class InstallService extends AbstractService
         if ($this->databaseStatus()) {
             return (bool) UserModel::findById(1);
         }
+
         return false;
     }
 }

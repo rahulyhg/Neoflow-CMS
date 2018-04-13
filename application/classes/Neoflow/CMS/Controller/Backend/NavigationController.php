@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -11,7 +12,6 @@ use RuntimeException;
 
 class NavigationController extends BackendController
 {
-
     /**
      * Constructor.
      *
@@ -117,11 +117,11 @@ class NavigationController extends BackendController
             $navigation = NavigationModel::updateById($data, $data['navigation_id']);
         }
 
-        if ($navigation && $navigation->id() !== 1) {
+        if ($navigation && 1 !== $navigation->id()) {
             // Set title and breadcrumb
             $this->view
                 ->setTitle(translate($navigation->title, [], false, false, false))
-                ->setSubtitle('ID: ' . $navigation->id())
+                ->setSubtitle('ID: '.$navigation->id())
                 ->addBreadcrumb(translate('Navigation', [], true), generate_url('backend_navigation_index'));
 
             // Set back url
@@ -131,7 +131,7 @@ class NavigationController extends BackendController
                     'navigation' => $navigation,
             ]);
         }
-        throw new RuntimeException('Navigation not found or not editable (ID: ' . $this->args['id'] . ')');
+        throw new RuntimeException('Navigation not found or not editable (ID: '.$this->args['id'].')');
     }
 
     /**
@@ -157,14 +157,14 @@ class NavigationController extends BackendController
             if ($navigation && 1 !== $navigation->id() && $navigation->validate() && $navigation->save()) {
                 $this->view->setSuccessAlert(translate('Successfully updated'));
             } else {
-                throw new RuntimeException('Updating navigation failed or navigation is not updatable (ID: ' . $postData->get('navigation_id') . ')');
+                throw new RuntimeException('Updating navigation failed or navigation is not updatable (ID: '.$postData->get('navigation_id').')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_navigation_edit', [
-                'id' => $navigation->id()
+                'id' => $navigation->id(),
         ]);
     }
 
@@ -179,12 +179,12 @@ class NavigationController extends BackendController
     {
         // Get and delete navigation
         $navigation = NavigationModel::findById($this->args['id']);
-        if ($navigation && $navigation->id() !== 1 && $navigation->delete()) {
+        if ($navigation && 1 !== $navigation->id() && $navigation->delete()) {
             $this->view->setSuccessAlert(translate('Successfully deleted'));
 
             return $this->redirectToRoute('backend_navigation_index');
         }
-        throw new RuntimeException('Deleting navigation failed (ID: ' . $this->args['id'] . ')');
+        throw new RuntimeException('Deleting navigation failed (ID: '.$this->args['id'].')');
     }
 
     /**

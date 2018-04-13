@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\Handler;
 
 use Neoflow\CMS\Core\AbstractView;
@@ -10,7 +11,6 @@ use RuntimeException;
 
 class Router
 {
-
     /**
      * App trait.
      */
@@ -55,8 +55,8 @@ class Router
     {
         if (4 === count($route)) {
             $route = array_values($route);
-            $route[0] = $prefix . $route[0];
-            $route[3] = $namespace . $route[3];
+            $route[0] = $prefix.$route[0];
+            $route[3] = $namespace.$route[3];
             $this->routes[] = $route;
         }
 
@@ -120,7 +120,7 @@ class Router
                 'File' => $routeFilePath,
             ]);
         } elseif (!$silent) {
-            throw new RuntimeException('Route file "' . $routeFilePath . '" not found');
+            throw new RuntimeException('Route file "'.$routeFilePath.'" not found');
         }
 
         return $this;
@@ -139,7 +139,7 @@ class Router
     public function getRoutingByUrl($url, $httpMethod = 'any'): array
     {
         // Generate cache key
-        $cacheKey = sha1($httpMethod . $url);
+        $cacheKey = sha1($httpMethod.$url);
 
         // Get from cachen when cache key exists
         if ($this->cache()->exists($cacheKey)) {
@@ -159,7 +159,7 @@ class Router
                     $routeUrlRegex = preg_replace('/\(([a-zA-Z0-9\-\_]+)\:[num]+\)/', '([0-9\.\,]+)', $routeUrlRegex);
                     $routeUrlRegex = preg_replace('/\(([a-zA-Z0-9\-\_]+)\:[uri]+\)/', '(.*)', $routeUrlRegex);
                     $routeUrlRegex = str_replace(['/'], ['\/'], $routeUrlRegex);
-                    $routeUrlRegex = '/^' . $routeUrlRegex . '$/';
+                    $routeUrlRegex = '/^'.$routeUrlRegex.'$/';
 
                     // Remove args of routeUrl
                     $routeUrl = str_replace('//', '/', preg_replace($this->routeUrlRegexPattern, '', $routeUrl));
@@ -202,7 +202,7 @@ class Router
                 }
             }
         }
-        throw new OutOfRangeException('Route not found (URL: ' . $url . ')');
+        throw new OutOfRangeException('Route not found (URL: '.$url.')');
     }
 
     /**
@@ -260,7 +260,7 @@ class Router
             }
         }
 
-        throw new OutOfRangeException('Route not found (Key: ' . $key . ')');
+        throw new OutOfRangeException('Route not found (Key: '.$key.')');
     }
 
     /**
@@ -294,7 +294,7 @@ class Router
     {
         $this->currentRouting = [
             'route' => $route,
-            'args' => $args
+            'args' => $args,
         ];
 
         $routePathParts = $this->getRoutePathParts($route[3]);
@@ -323,10 +323,10 @@ class Router
 
                 return $response;
             }
-            throw new RuntimeException('Action method "' . $routePathParts['controllerClass'] . '@' . $routePathParts['actionMethod'] . '" for route "' . $route[0] . '" not found');
+            throw new RuntimeException('Action method "'.$routePathParts['controllerClass'].'@'.$routePathParts['actionMethod'].'" for route "'.$route[0].'" not found');
         }
 
-        throw new RuntimeException('Controller class "' . $routePathParts['controllerClass'] . '" for route "' . $route[0] . '" not found');
+        throw new RuntimeException('Controller class "'.$routePathParts['controllerClass'].'" for route "'.$route[0].'" not found');
     }
 
     /**
@@ -383,11 +383,11 @@ class Router
     {
         $routePathParts = explode('@', $routePath);
         $result = [
-            'controllerClass' => $routePathParts[0] . 'Controller',
+            'controllerClass' => $routePathParts[0].'Controller',
             'actionMethod' => $defaultActionMethod,
         ];
         if (isset($routePathParts[1])) {
-            $result['actionMethod'] = $routePathParts[1] . 'Action';
+            $result['actionMethod'] = $routePathParts[1].'Action';
         }
 
         return $result;
@@ -421,7 +421,7 @@ class Router
                 if (isset($routeUriArgs[1])) {
                     for ($i = 0; $i < count($routeUriArgs[1]); ++$i) {
                         if (isset($args[$routeUriArgs[1][$i]])) {
-                            $pattern = '/\([' . preg_quote($routeUriArgs[1][$i]) . ']+\:[any|num|string|uri]+\)/';
+                            $pattern = '/\(['.preg_quote($routeUriArgs[1][$i]).']+\:[any|num|string|uri]+\)/';
                             $routeUri = preg_replace($pattern, $args[$routeUriArgs[1][$i]], $routeUri);
                             unset($args[$routeUriArgs[1][$i]]);
                         }
@@ -435,7 +435,7 @@ class Router
 
                 $args = array_filter($args);
                 if (count($args)) {
-                    $routeUri .= '?' . http_build_query($args);
+                    $routeUri .= '?'.http_build_query($args);
                 }
             }
 
@@ -444,14 +444,14 @@ class Router
         }
 
         if ($languageCode) {
-            $routeUri = '/' . $languageCode . $routeUri;
+            $routeUri = '/'.$languageCode.$routeUri;
         } elseif (count($this->config()->get('app')->get('languages')) > 1) {
-            $routeUri = '/' . $this->translator()->getActiveLanguageCode() . $routeUri;
+            $routeUri = '/'.$this->translator()->getActiveLanguageCode().$routeUri;
         }
 
         $params = array_filter($params);
         if (is_array($params) && count($params)) {
-            $routeUri .= '?' . http_build_query($params);
+            $routeUri .= '?'.http_build_query($params);
         }
 
         return $this->config()->getUrl($routeUri);

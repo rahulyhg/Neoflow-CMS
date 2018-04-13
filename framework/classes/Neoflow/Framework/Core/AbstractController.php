@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\Core;
 
 use Neoflow\Framework\AppTrait;
@@ -9,7 +10,6 @@ use RuntimeException;
 
 abstract class AbstractController
 {
-
     /**
      * @var AbstractView
      */
@@ -75,10 +75,10 @@ abstract class AbstractController
     }
 
     /**
-     * Route to controller and action by route key
+     * Route to controller and action by route key.
      *
      * @param string $routeKey Route key
-     * @param array  $args Controller arguments
+     * @param array  $args     Controller arguments
      *
      * @return Response
      */
@@ -90,8 +90,8 @@ abstract class AbstractController
     /**
      * Redirect to route.
      *
-     * @param string $routeKey Route key
-     * @param array  $args HTPP query data
+     * @param string $routeKey   Route key
+     * @param array  $args       HTPP query data
      * @param int    $statusCode HTTP status code
      *
      * @return RedirectResponse
@@ -104,7 +104,7 @@ abstract class AbstractController
     /**
      * Redirect to url.
      *
-     * @param string $url URL
+     * @param string $url        URL
      * @param int    $statusCode HTTP status code
      *
      * @return RedirectResponse
@@ -139,7 +139,7 @@ abstract class AbstractController
     /**
      * Set new session flash value.
      *
-     * @param string $key Flash key
+     * @param string $key   Flash key
      * @param mixed  $value Flash value
      *
      * @return Session

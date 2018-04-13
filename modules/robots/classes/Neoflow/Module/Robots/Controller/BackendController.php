@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Module\Robots\Controller;
 
 use Neoflow\CMS\Controller\Backend\AbstractToolModuleController;
@@ -10,7 +11,6 @@ use RuntimeException;
 
 class BackendController extends AbstractToolModuleController
 {
-
     /**
      * @var File
      */
