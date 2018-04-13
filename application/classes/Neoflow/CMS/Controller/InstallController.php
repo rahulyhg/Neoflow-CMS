@@ -40,6 +40,9 @@ class InstallController extends AbstractController
      */
     public function indexAction(): Response
     {
+        // Clear cache to avoid errors from pre-installations
+        $this->cache()->clear();
+
         // Redirect to the next installer step
         if ($this->app()->get('database') && SettingModel::findById(1)) {
             return $this->redirectToRoute('install_website_index');
@@ -59,7 +62,7 @@ class InstallController extends AbstractController
     {
         $installationPath = $this->config()->getPath('/installation');
 
-        if (is_dir($installationPath)) {
+        if (APP_MODE !== 'dev' && is_dir($installationPath)) {
             Folder::unlink($installationPath, true);
         }
 
@@ -73,8 +76,6 @@ class InstallController extends AbstractController
      */
     public function preHook(): Response
     {
-        // Clear cache to avoid errors from pre-installations
-        //$this->cache()->clearTags();
         // Redirect to frontend when install folder is removed
         $installationPath = $this->config()->getPath('/installation');
         if (!is_dir($installationPath)) {
