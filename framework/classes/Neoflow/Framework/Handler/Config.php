@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\Handler;
 
 use Neoflow\Framework\AppTrait;
@@ -8,6 +7,7 @@ use RuntimeException;
 
 class Config extends Container
 {
+
     /**
      * App trait.
      */
@@ -22,7 +22,7 @@ class Config extends Container
      */
     public function getUrl(string $additionalUrlPath = ''): string
     {
-        return normalize_url($this->get('app')->get('url').'/'.$additionalUrlPath);
+        return normalize_url($this->get('app')->get('url') . '/' . $additionalUrlPath);
     }
 
     /**
@@ -42,7 +42,7 @@ class Config extends Container
 
             // Set application url when not already set
             if (!$configData['app']['url']) {
-                $configData['app']['url'] = normalize_url(request_url(false, false).base_path(APP_PATH));
+                $configData['app']['url'] = normalize_url(request_url(false, false) . base_path(APP_PATH));
             }
 
             // Set absolute application path
@@ -66,7 +66,7 @@ class Config extends Container
      */
     public function getPath(string $additionalPath = ''): string
     {
-        return normalize_path($this->get('app')->get('path').DIRECTORY_SEPARATOR.$additionalPath);
+        return normalize_path($this->get('app')->get('path') . DIRECTORY_SEPARATOR . $additionalPath);
     }
 
     /**
@@ -80,7 +80,7 @@ class Config extends Container
     {
         $path = $this->get('folders')->get('temp')->get('path');
 
-        return $this->getPath($path.'/'.$additionalPath);
+        return $this->getPath($path . '/' . $additionalPath);
     }
 
     /**
@@ -94,6 +94,6 @@ class Config extends Container
     {
         $path = $this->get('folders')->get('application')->get('path');
 
-        return $this->getPath($path.'/'.$additionalPath);
+        return $this->getPath($path . '/' . $additionalPath);
     }
 }

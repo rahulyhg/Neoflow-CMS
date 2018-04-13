@@ -59,19 +59,26 @@ abstract class AbstractUpdateManager
     }
 
     /**
-     * Update CMS version.
+     * Update CMS config.
      *
      * @return bool
      */
-    protected function updateVersion(): bool
+    protected function updateConfig(): bool
     {
+        // Backup config
+        $configFilePath = $this->config()->getPath('/config.php');
+        File::load($configFilePath)->rename('config-backup-' . date('d-m-Y') . '.php');
+
+        // Set new config
         $this->config()->get('app')->set('version', $this->newVersion);
 
-        // Backup application config
-        $configFile = $this->config()->getPath('/config.php');
-        File::load($configFile)->rename('config-backup-' . date('d-m-Y') . '.php');
+        // Save config file
+        $this->config()->saveAsFile();
 
-        return $this->config()->saveAsFile();
+        // Reload config
+        $this->app()->set('config', \Neoflow\CMS\Handler\Config::createByFile($configFilePath));
+
+        return true;
     }
 
     /**
