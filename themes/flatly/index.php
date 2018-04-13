@@ -80,7 +80,7 @@
                 <hr />
                 <ul class="list-inline">
                     <li class="list-inline-item">
-                        Execution time: <?= round(\Neoflow\CMS\App::instance()->getExecutionTime(), 3); ?>
+                        Execution time: <?= round($view->getExecutionTime(), 3); ?>
                     </li>
                 </ul>
             </div>

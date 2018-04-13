@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Manager;
 
 use Neoflow\CMS\AppTrait;
@@ -8,6 +7,7 @@ use Neoflow\Filesystem\Folder;
 
 abstract class AbstractUpdateManager
 {
+
     /**
      * App trait.
      */
@@ -40,7 +40,7 @@ abstract class AbstractUpdateManager
         $this->folder = $folder;
         $this->info = $info;
 
-        $this->version = $this->settings()->version;
+        $this->version = $this->config()->get('app')->get('verion');
         $this->newVersion = $this->info['version'];
     }
 
@@ -65,13 +65,9 @@ abstract class AbstractUpdateManager
      */
     protected function updateVersion(): bool
     {
-        return (bool) $this
-                ->settings()
-                ->setReadOnly(false)
-                ->update([
-                    'version' => $this->newVersion,
-                ])
-                ->setReadOnly(true);
+        $this->config()->get('app')->set('version', $this->newVersion);
+
+        return $this->config()->saveAsFile();
     }
 
     /**
@@ -85,7 +81,7 @@ abstract class AbstractUpdateManager
     {
         // Backup application config
         $applicationConfig = $this->config()->getApplicationPath('/config.php');
-        File::load($applicationConfig)->rename('config-backup-'.date('d-m-Y').'.php');
+        File::load($applicationConfig)->rename('config-backup-' . date('d-m-Y') . '.php');
 
         // Copy/update files
         return (bool) Folder::load($filesDirectoryPath)->copyContent($this->config()->getPath());

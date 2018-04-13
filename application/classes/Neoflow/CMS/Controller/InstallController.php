@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Controller;
 
 use Neoflow\CMS\Core\AbstractController;
@@ -11,6 +10,7 @@ use RuntimeException;
 
 class InstallController extends AbstractController
 {
+
     /**
      * Constructor.
      *
@@ -61,7 +61,7 @@ class InstallController extends AbstractController
     {
         $installationPath = $this->config()->getPath('/installation');
 
-        if (APP_MODE !== 'dev' && is_dir($installationPath)) {
+        if (APP_MODE !== 'DEV' && is_dir($installationPath)) {
             Folder::unlink($installationPath, true);
         }
 

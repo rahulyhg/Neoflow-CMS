@@ -1,8 +1,8 @@
 <?php
-
 return [
     'app' => [
         'url' => '',
+        'version' => '1.0.0-a1'
     ],
     'database' => [
         'host' => '',
