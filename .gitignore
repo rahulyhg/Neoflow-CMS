@@ -8,6 +8,7 @@ node_modules/
 temp/cache/cache_*
 logs/log_*
 *config.php
+*config-backup-*.php
 !installation/config.php
 robots.txt
 sitemap.xml

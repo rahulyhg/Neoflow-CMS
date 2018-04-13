@@ -184,7 +184,7 @@ class UpdateService extends AbstractService
         if (isset($info['themes'])) {
             foreach ($info['themes'] as $identifier => $packageName) {
                 try {
-                    $theme = ThemeModel::findByColumn('themes', $identifier);
+                    $theme = ThemeModel::findByColumn('identifier', $identifier);
                     $files = $updateFolder->findFiles('themes/' . $packageName);
                     foreach ($files as $file) {
                         $theme = ThemeModel::findByColumn('identifier', $identifier);
