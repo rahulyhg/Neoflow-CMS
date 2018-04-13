@@ -40,7 +40,7 @@ abstract class AbstractUpdateManager
         $this->folder = $folder;
         $this->info = $info;
 
-        $this->version = $this->config()->get('app')->get('verion');
+        $this->version = $this->config()->get('app')->get('version');
         $this->newVersion = $this->info['version'];
     }
 
