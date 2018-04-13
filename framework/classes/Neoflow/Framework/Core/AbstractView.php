@@ -124,7 +124,7 @@ abstract class AbstractView extends Container
             $output = $this->engine()->renderFile($templateFilePath, $parameters);
 
             $this->logger()->debug('Template rendered', [
-                'File' => $templateFilePath,
+                'File' => normalize_path($templateFilePath),
             ]);
 
             return $output;
