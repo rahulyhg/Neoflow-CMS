@@ -78,6 +78,7 @@ abstract class AbstractUpdateManager
         // Reload config
         $this->app()->set('config', \Neoflow\CMS\Handler\Config::createByFile($configFilePath));
 
+        $bla = $this->config()->get('app')->get('version');
         return true;
     }
 
