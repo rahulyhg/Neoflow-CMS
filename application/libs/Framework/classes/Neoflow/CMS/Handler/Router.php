@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Handler;
 
 use Neoflow\CMS\AppTrait;
@@ -9,6 +8,7 @@ use Neoflow\Framework\HTTP\Responsing\Response;
 
 class Router extends FrameworkRouter
 {
+
     /**
      * App trait.
      */
@@ -72,20 +72,9 @@ class Router extends FrameworkRouter
      */
     public function execute(): Response
     {
-        $urlPath = $this->request()->getUrlPath();
+        $installService = $this->getService('install');
 
-        $installUrlPaths = [
-            '/install',
-            '/install/database',
-            '/install/database/create',
-            '/install/website',
-            '/install/website/create',
-            '/install/administrator',
-            '/install/administrator/create',
-            '/install/success',
-        ];
-
-        if (!$this->getService('install')->databaseStatus() && !in_array($urlPath, $installUrlPaths)) {
+        if (!$installService->databaseStatus() && !$installService->isRunning()) {
             $url = $this->generateUrl('install_index');
 
             return new RedirectResponse($url);

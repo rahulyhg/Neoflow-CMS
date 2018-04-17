@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
@@ -10,6 +9,16 @@ use Neoflow\Framework\Persistence\Database;
 
 class InstallService extends AbstractService
 {
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        // Clear complete cache
+        $this->cache()->clear();
+    }
+
     /**
      * Etablish database connection, create tables and insert data.
      *
@@ -93,7 +102,28 @@ class InstallService extends AbstractService
     }
 
     /**
-     * Check whether database is created.
+     * Check whether installation is running (based on URL path).
+     *
+     * @return bool
+     */
+    public function isRunning(): bool
+    {
+        $urlPath = $this->request()->getUrlPath();
+
+        return in_array($urlPath, [
+            '/install',
+            '/install/database',
+            '/install/database/create',
+            '/install/website',
+            '/install/website/create',
+            '/install/administrator',
+            '/install/administrator/create',
+            '/install/success',
+        ]);
+    }
+
+    /**
+     * Check whether database is already created.
      *
      * @return bool
      */
@@ -103,7 +133,7 @@ class InstallService extends AbstractService
     }
 
     /**
-     * Check whether settings are created.
+     * Check whether settings are already created.
      *
      * @return bool
      */
@@ -113,7 +143,7 @@ class InstallService extends AbstractService
     }
 
     /**
-     * Check whether administrator user is created.
+     * Check whether administrator user is already created.
      *
      * @return bool
      */

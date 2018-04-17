@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -14,6 +13,7 @@ use RuntimeException;
 
 class SettingController extends BackendController
 {
+
     /**
      * Constructor.
      *
@@ -51,7 +51,7 @@ class SettingController extends BackendController
                     'themes' => ThemeModel::findAll(),
             ]);
         }
-        throw new RuntimeException('Settings not found (ID: '.$this->args['id'].')');
+        throw new RuntimeException('Settings not found (ID: ' . $this->args['id'] . ')');
     }
 
     /**

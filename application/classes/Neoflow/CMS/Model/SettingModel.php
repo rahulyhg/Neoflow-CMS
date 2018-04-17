@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -10,6 +9,7 @@ use RuntimeException;
 
 class SettingModel extends AbstractModel
 {
+
     /**
      * @var string
      */
@@ -34,7 +34,6 @@ class SettingModel extends AbstractModel
         'sender_emailaddress', 'session_name', 'allowed_file_extensions',
         'show_error_details', 'custom_css', 'custom_js',
         'show_custom_js', 'show_custom_css', 'timezone',
-        'version',
     ];
 
     /**
@@ -188,6 +187,26 @@ class SettingModel extends AbstractModel
     }
 
     /**
+     * Save properties  to config
+     * @return bool
+     */
+    public function saveToConfig(): bool
+    {
+        $this->config()->get('session')->setData([
+            'name' => $this->session_name,
+            'lifetime' => $this->session_lifetime
+        ]);
+
+        $this->config()->get('app')->setData([
+            'timezone' => $this->timezone,
+            'email' => $this->sender_emailaddress,
+            'languages' => $this->getLanguageCodes(),
+        ]);
+
+        return $this->config()->saveAsFile();
+    }
+
+    /**
      * Save settings.
      *
      * @param bool $preventCacheClearing Prevent that the cached database results will get deleted
@@ -222,7 +241,7 @@ class SettingModel extends AbstractModel
                 }
             }
 
-            return true;
+            return $this->saveToConfig();
         }
 
         return false;

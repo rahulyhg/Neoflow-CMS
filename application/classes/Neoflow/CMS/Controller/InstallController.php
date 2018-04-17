@@ -75,6 +75,7 @@ class InstallController extends AbstractController
      */
     public function preHook(): Response
     {
+
         // Redirect to frontend when install folder is removed
         $installationPath = $this->config()->getPath('/installation');
         if (!is_dir($installationPath)) {

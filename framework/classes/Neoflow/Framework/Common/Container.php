@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\Common;
 
 use ArrayAccess;
@@ -10,6 +9,7 @@ use RuntimeException;
 
 class Container implements IteratorAggregate, Countable, ArrayAccess
 {
+
     /**
      * @var array container data
      */
