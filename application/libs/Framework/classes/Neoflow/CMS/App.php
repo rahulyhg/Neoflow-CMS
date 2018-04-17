@@ -242,30 +242,19 @@ class App extends FrameworkApp {
     {
         // Fetch only when database connection is etablished
         if ($this->get('database')) {
+
             // Fetch CMS settings
             $settings = SettingModel::findById(1);
             if ($settings) {
                 $settings->setReadOnly();
-
-                // Overwrite config with CMS settings
-                $this->get('config')->get('app')->set('email', $settings->sender_emailaddress);
-                $this->get('config')->get('app')->set('languages', $settings->getLanguageCodes());
-                $this->get('config')->set('session', [
-                    'lifetime' => (int) $settings->session_lifetime,
-                    'name' => $settings->session_name,
-                ]);
 
                 $this->get('logger')->info('CMS settings fetched');
             } else {
                 throw new RuntimeException('Settings not found (ID: 1)');
             }
         } else {
-            // Create CMS settings based und PHP defaults
-            $settings = SettingModel::create([
-                        'timezone' => date_default_timezone_get(),
-                        'session_name' => $this->get('config')->get('session')->get('name'),
-                        'session_lifetime' => $this->get('config')->get('session')->get('lifetime'),
-            ]);
+            // Create empty CMS settings
+            $settings = SettingModel::create();
         }
 
         return $this->set('settings', $settings);
