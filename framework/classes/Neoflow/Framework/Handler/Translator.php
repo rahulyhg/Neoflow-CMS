@@ -6,8 +6,8 @@ use DateTime;
 use Neoflow\Framework\AppTrait;
 use RuntimeException;
 
-class Translator
-{
+class Translator {
+
     /**
      * App trait.
      */
@@ -64,13 +64,10 @@ class Translator
         // Set language code to session
         $this->session()->set('_LANGUAGE_CODE', $this->languageCode);
 
-        // Load translation file
-        $translationFile = $this->config()->getApplicationPath('/i18n/'.$this->languageCode.'.php');
-        $this->loadTranslationFile($translationFile);
+        // Set timezone based on settings
+        $this->setTimezone($this->config()->get('app')->get('timezone'));
 
-        // Load fallback translation file
-        $fallbackTranslationFile = $this->config()->getApplicationPath('/i18n/'.$this->fallbackLanguageCode.'.php');
-        $this->loadTranslationFile($fallbackTranslationFile, true);
+        $this->loadTranslations();
 
         $this->logger()->debug('Translator created', [
             'Language' => $this->languageCode,
@@ -80,6 +77,23 @@ class Translator
             'Fallback date format' => $this->fallbackDateFormat,
             'Fallback date time format' => $this->fallbackDateTimeFormat,
         ]);
+    }
+
+    /**
+     * Load translations
+     * @return self
+     */
+    protected function loadTranslations(): self
+    {
+        // Load translation file
+        $translationFile = $this->config()->getApplicationPath('/i18n/' . $this->languageCode . '.php');
+        $this->loadTranslationFile($translationFile);
+
+        // Load fallback translation file
+        $fallbackTranslationFile = $this->config()->getApplicationPath('/i18n/' . $this->fallbackLanguageCode . '.php');
+        $this->loadTranslationFile($fallbackTranslationFile, true);
+
+        return $this;
     }
 
     /**
@@ -254,7 +268,7 @@ class Translator
                 'File' => $translationFilePath,
             ]);
         } elseif (!$silent) {
-            throw new RuntimeException('Translation file "'.$translationFilePath.'" not found');
+            throw new RuntimeException('Translation file "' . $translationFilePath . '" not found');
         }
 
         return $this;
@@ -280,14 +294,14 @@ class Translator
         } elseif (isset($this->fallbackTranslation[$key])) {
             $translation = $this->fallbackTranslation[$key];
             if ($errorPrefix) {
-                $translation = $translatorConfig->get('fallbackPrefix').$translation;
-                $this->logger()->warning('Translated "'.$key.'" with fallback translation to "'.$translation.'"');
+                $translation = $translatorConfig->get('fallbackPrefix') . $translation;
+                $this->logger()->warning('Translated "' . $key . '" with fallback translation to "' . $translation . '"');
             }
         } else {
             $translation = $key;
             if ($errorPrefix) {
-                $translation = $translatorConfig->get('notFoundPrefix').$translation;
-                $this->logger()->warning('Translation "'.$key.'" not found');
+                $translation = $translatorConfig->get('notFoundPrefix') . $translation;
+                $this->logger()->warning('Translation "' . $key . '" not found');
             }
         }
 
@@ -309,7 +323,7 @@ class Translator
                 $value = $this->translate($value, [], '', false);
             }
             $value = $this->translate($value, [], '', false);
-            $translation = str_replace('{'.$placeholder.'}', $value, $translation);
+            $translation = str_replace('{' . $placeholder . '}', $value, $translation);
         }
 
         return $translation;
@@ -324,7 +338,7 @@ class Translator
      */
     public function getDateFormat(string $timeFormat = ''): string
     {
-        return $this->dateFormat.$timeFormat;
+        return $this->dateFormat . $timeFormat;
     }
 
     /**
@@ -360,4 +374,5 @@ class Translator
 
         return date($this->dateFormat, $timestamp);
     }
+
 }
