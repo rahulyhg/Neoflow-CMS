@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS;
 
 use Neoflow\CMS\Handler\Config;
@@ -19,8 +20,7 @@ use Neoflow\Framework\Persistence\Database;
 use RuntimeException;
 use Throwable;
 
-class App extends FrameworkApp
-{
+class App extends FrameworkApp {
 
     /**
      * Publish application.
@@ -48,18 +48,7 @@ class App extends FrameworkApp
         $this->set('loader', $loader);
 
         // Create and set config
-        $config = Config::createByFile($configFilePath, [
-                'app' => [
-                    'languages' => [
-                        'en', 'de', 'fr',
-                    ],
-                    'email' => 'undefined@domain.tld',
-                ],
-                'session' => [
-                    'name' => 'CMS_SID',
-                    'lifetime' => (int) ini_get('session.gc_maxlifetime'),
-                ],
-        ]);
+        $config = Config::createByFile($configFilePath);
         $this->setConfig($config);
 
         // Create logger
@@ -88,18 +77,18 @@ class App extends FrameworkApp
 
         // Set CMS-specific meta properties
         $this->get('engine')
-            ->addMetaTagProperties([
-                'name' => 'description',
-                'content' => $this->get('settings')->website_description,
-                ], 'description')
-            ->addMetaTagProperties([
-                'name' => 'keywords',
-                'content' => $this->get('settings')->website_keywords,
-                ], 'keywords')
-            ->addMetaTagProperties([
-                'name' => 'author',
-                'content' => $this->get('settings')->author,
-                ], 'author');
+                ->addMetaTagProperties([
+                    'name' => 'description',
+                    'content' => $this->get('settings')->website_description,
+                        ], 'description')
+                ->addMetaTagProperties([
+                    'name' => 'keywords',
+                    'content' => $this->get('settings')->website_keywords,
+                        ], 'keywords')
+                ->addMetaTagProperties([
+                    'name' => 'author',
+                    'content' => $this->get('settings')->author,
+                        ], 'author');
 
         // Fetch and set CMS modules
         $this->setModules();
@@ -150,11 +139,11 @@ class App extends FrameworkApp
                 $sessionLifetime = (int) self::instance()->get('settings')->session_lifetime;
 
                 $visitor = Model\VisitorModel::repo()
-                    ->caching(false)
-                    ->where('ip_address', '=', $ipAddress)
-                    ->where('user_agent', '=', $userAgent)
-                    ->where('last_activity', '>', microtime(true) - $sessionLifetime)
-                    ->fetch();
+                        ->caching(false)
+                        ->where('ip_address', '=', $ipAddress)
+                        ->where('user_agent', '=', $userAgent)
+                        ->where('last_activity', '>', microtime(true) - $sessionLifetime)
+                        ->fetch();
 
                 if (!$visitor) {
                     $visitor = new VisitorModel();
@@ -187,8 +176,8 @@ class App extends FrameworkApp
             $response = $this->get('router')->routeByKey('error_index', ['exception' => $ex]);
 
             $this
-                ->execute($response)
-                ->publish();
+                    ->execute($response)
+                    ->publish();
 
             if ($ex instanceof HttpException) {
                 $context = [
@@ -273,9 +262,9 @@ class App extends FrameworkApp
         } else {
             // Create CMS settings based und PHP defaults
             $settings = SettingModel::create([
-                    'timezone' => date_default_timezone_get(),
-                    'session_name' => $this->get('config')->get('session')->get('name'),
-                    'session_lifetime' => $this->get('config')->get('session')->get('lifetime'),
+                        'timezone' => date_default_timezone_get(),
+                        'session_name' => $this->get('config')->get('session')->get('name'),
+                        'session_lifetime' => $this->get('config')->get('session')->get('lifetime'),
             ]);
         }
 
@@ -296,8 +285,8 @@ class App extends FrameworkApp
             $modules->each(function ($module) {
                 $bla = $module->getPath('functions');
                 $this->get('loader')
-                    ->loadFunctionsFromDirectory($module->getPath('functions'))
-                    ->addClassDirectory($module->getPath('classes'));
+                        ->loadFunctionsFromDirectory($module->getPath('functions'))
+                        ->addClassDirectory($module->getPath('classes'));
             });
         } else {
             // Create empty CMS modules collection
@@ -328,4 +317,5 @@ class App extends FrameworkApp
 
         return $this->set('themes', $themes);
     }
+
 }

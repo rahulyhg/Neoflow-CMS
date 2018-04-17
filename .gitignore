@@ -8,8 +8,9 @@ node_modules/
 temp/cache/cache_*
 logs/log_*
 *config.php
-*config-backup-*.php
+!temp/installation/config.php
 !installation/config.php
+*config-backup-*.php
 robots.txt
 sitemap.xml
 !media/modules/.gitkeep
