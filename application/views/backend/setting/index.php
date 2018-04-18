@@ -25,11 +25,20 @@
                         </div>
                     </div>
                     <div class="form-group row <?= has_validation_error('keywords', 'has-danger'); ?>">
-                        <label for="inputKeywords" class="col-sm-3 col-form-label">
+                        <label for="selectKeywords" class="col-sm-3 col-form-label">
                             <?= translate('Keyword', [], true); ?>
                         </label>
                         <div class="col-sm-9">
-                            <input id="inputKeywords" type="text" value="<?= $setting->keywords; ?>" class="form-control" name="keywords" maxlength="255" />
+                            <select class="form-control select2" data-tags="true" name="keywords[]" multiple id="selectKeywords">
+                                <?php foreach ($setting->getKeywords() as $keyword) {
+
+                                    ?>
+                                    <option value="<?= $keyword ?>" selected><?= $keyword; ?></option>
+                                    <?php
+                                }
+
+                                ?>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row <?= has_validation_error('author', 'has-danger'); ?>">

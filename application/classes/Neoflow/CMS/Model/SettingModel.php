@@ -97,6 +97,20 @@ class SettingModel extends AbstractModel
     }
 
     /**
+     * Get keywords
+     *
+     * @return array
+     */
+    public function getKeywords(): array
+    {
+        if ($this->keywords) {
+            return explode(',', $this->keywords);
+        }
+
+        return [];
+    }
+
+    /**
      * Get frontend theme.
      *
      * @return ThemeModel

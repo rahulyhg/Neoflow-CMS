@@ -83,7 +83,7 @@ class App extends FrameworkApp
                 ], 'description')
             ->addMetaTagProperties([
                 'name' => 'keywords',
-                'content' => $this->get('settings')->website_keywords,
+                'content' => $this->get('settings')->keywords,
                 ], 'keywords')
             ->addMetaTagProperties([
                 'name' => 'author',
