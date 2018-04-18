@@ -241,7 +241,7 @@
                 <?= translate('Session timeout in {0}', ['<span class="timer" id="sessionTimer" data-timeout-callback="showReloginModal()" data-time="' . $view->config()->get('session')->get('lifetime') . '">' . gmdate('H:i:s', $view->config()->get('session')->get('lifetime')) . '</span>'], true, false); ?>
             </li>
             <li>
-                <?= translate('Page loaded in {0} seconds', [round($view->getExecutionTime())]); ?>
+                <?= translate('Page loaded in {0} seconds', [round($view->getExecutionTime(), 3)]); ?>
             </li>
         </ul>
     </div>
