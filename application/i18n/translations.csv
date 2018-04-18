@@ -45,7 +45,7 @@ Additional backend functions;Additional backend functions;Zusätzliche, administ
 Administration;Administration;Administration
 Administrator successfully created;Administrator successfully created;Administrator erfolgreich erstellt
 Advanced settings;Advanced settings;Erweiterterte Einstellungen
-Advanced settings description;Advanced settings (e.g. database connection or log level) can be configured in config files, which can only be edited with a text editor.;Erweiterte Einstellungen (z.B. Datenbankverbindung oder der Log-Level) können in der Konfigurationsdateien konfiguriert werden, die aber nur mit einem Texteditor bearbeitet werden können.
+Advanced settings description;Advanced settings (e.g. database connection or log level) can be configured in a config file, which can only be edited with a text editor.;Erweiterte Einstellungen (z.B. Datenbankverbindung oder der Log-Level) können in der Konfigurationsdatei konfiguriert werden, die aber nur mit einem Texteditor bearbeitet werden kann.
 All;All;Alle
 All blocks;All blocks;Alle Blöcke
 All cached data;All cached data;Alle zwischengespeicherten Daten
