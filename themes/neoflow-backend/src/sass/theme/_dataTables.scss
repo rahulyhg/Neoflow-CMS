@@ -1,3 +1,7 @@
+table.datatable {
+    visibility: hidden;
+}
+
 table.dataTable > tbody > tr.child span.dtr-title {
     min-width: 100px;
 }

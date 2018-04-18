@@ -59,7 +59,6 @@ gulp.task('js:build', function () {
         './src/js/vendor/bootstrap-fileselect.min.js',
         './src/js/vendor/jquery.easing.min.js',
         './src/js/vendor/jquery.nicescroll.min.js',
-        //'./src/js/vendor/footable.js',
         './src/js/vendor/select2.full.min.js',
         './src/js/vendor/nestable.js',
         './src/js/vendor/DataTables/jquery.dataTables.min.js',
@@ -75,14 +74,13 @@ gulp.task('js:build', function () {
 
         './src/js/theme/init/select2.js',
         './src/js/theme/init/fileselect.js',
-        //'./src/js/theme/init/footable.js',
         './src/js/theme/init/nestable.js',
         './src/js/theme/init/dataTables.js',
 
         './src/js/theme/modal/relogin.js',
         './src/js/theme/modal/alert.js',
         './src/js/theme/modal/confirm.js',
-        './src/js/theme/modal/custom.js',
+        './src/js/theme/modal/custom.js'
     ])
             .pipe(stripComments())
             .pipe(concat('script.js'))

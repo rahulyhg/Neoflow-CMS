@@ -1038,6 +1038,8 @@ $('.datatable').each(function () {
                 if ($currentDtPaginate.find('.pagination li').length < 2) {
                     $currentDtPaginate.remove();
                 }
+
+                $dataTable.css('visibility', 'visible');
             })
             .on('responsive-resize', function (e, datatable, columns) {
 

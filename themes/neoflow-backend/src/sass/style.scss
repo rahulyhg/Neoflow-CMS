@@ -13,7 +13,6 @@
 // Vendor styles
 @import 'vendor/bootstrap';
 @import 'vendor/select2';
-//@import 'vendor/footable.bootstrap';
 @import 'vendor/dataTables';
 
 // Theme components
@@ -25,7 +24,6 @@
 @import 'theme/content';
 @import 'theme/nestable';
 @import 'theme/debugbar';
-//@import 'theme/footable';
 @import 'theme/dataTables';
 @import 'theme/navigation/top';
 @import 'theme/navigation/side';
@@ -46,4 +44,4 @@
 // Theme-based module styles
 @import 'theme/modules/codemirror';
 @import 'theme/modules/tinymce';
-@import 'theme/modules/datetimepicker'; 
+@import 'theme/modules/datetimepicker';
