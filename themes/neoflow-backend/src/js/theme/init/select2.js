@@ -59,5 +59,8 @@ $.getScript(THEME_URL + '/js/select2/i18n/' + LANGUAGE_CODE + '.js', function ()
             })
             .focus(function () {
                 $(this).select2('open');
+            })
+            .ready(function () {
+                $(this).css('visibility', 'visible');
             });
 });
