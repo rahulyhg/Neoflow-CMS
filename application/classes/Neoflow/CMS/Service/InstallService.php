@@ -62,6 +62,11 @@ class InstallService extends AbstractService
         $settings->session_name = ini_get('session.name');
         $settings->session_lifetime = (int) ini_get('session.gc_maxlifetime');
 
+        if (APP_MODE === 'DEV') {
+            $settings->show_error_details = true;
+            $settings->show_debugbar = true;
+        }
+
         // Get language
         $language = $this->translator()->getActiveLanguage();
 

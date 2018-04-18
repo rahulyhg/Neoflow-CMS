@@ -1,4 +1,5 @@
 <?php
+
 return [
     'app' => [
         'url' => '',
@@ -10,7 +11,7 @@ return [
         'timezone' => date_default_timezone_get()
     ],
     'session' => [
-        'name' => ini_get('session.name'),
+        'name' => 'CMS_SID',
         'lifetime' => (int) ini_get('session.gc_maxlifetime'),
     ],
     'database' => [

@@ -52,7 +52,7 @@ INSERT INTO `languages` VALUES(3, 'fr', 'French', 'fr');
 INSERT INTO `themes` VALUES(1, 'Neoflow Backend', 'neoflow-backend', 'backend', 'MIT', 'Jonathan Nessier <jonathan.nessier@neoflow.ch>', 'Official backend theme of the Neoflow CMS', 'Copyright (c) 2016-2017 Jonathan Nessier, Neoflow', '1.0', 'sequential', 'neoflow-backend');
 INSERT INTO `themes` VALUES(2, 'Flatly', 'flatly', 'frontend', 'MIT', 'Thomas Park,Jonathan Nessier', 'Bootstrap-based free template of Bootswatch, modified for Neoflow CMS.', '2012-2018 Thomas Park', '1.0', 'sequential', 'flatly');
 
-INSERT INTO `settings` VALUES (1,'','','','',1,1,10,1800,1,'','','jpeg,jpg,doc,docx,xls,xlsx,ppt,pptx,pdf,gif,png,bmp,psd,tiff,zip,tar,rar,txt',1,2,'',0,'',0,'UTC');
+INSERT INTO `settings` VALUES (1,'','','','',1,1,10,1800,0,'','','jpeg,jpg,doc,docx,xls,xlsx,ppt,pptx,pdf,gif,png,bmp,psd,tiff,zip,tar,rar,txt',0,2,'',0,'',0,'UTC');
 
 INSERT INTO `settings_languages` VALUES (1,1,1);
 INSERT INTO `settings_languages` VALUES (2,1,2);
