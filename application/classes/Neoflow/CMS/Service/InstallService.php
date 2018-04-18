@@ -5,7 +5,9 @@ use Neoflow\CMS\Core\AbstractService;
 use Neoflow\CMS\Handler\Translator;
 use Neoflow\CMS\Model\SettingModel;
 use Neoflow\CMS\Model\UserModel;
+use Neoflow\Framework\Handler\Logging\Logger;
 use Neoflow\Framework\Persistence\Database;
+use const APP_MODE;
 
 class InstallService extends AbstractService
 {
@@ -52,6 +54,7 @@ class InstallService extends AbstractService
         $settings->timezone = date_default_timezone_get();
         $settings->session_name = ini_get('session.name');
         $settings->session_lifetime = (int) ini_get('session.gc_maxlifetime');
+        $settings->save();
 
         if (APP_MODE === 'DEV') {
             $settings->show_error_details = true;
@@ -67,10 +70,8 @@ class InstallService extends AbstractService
         $settings->save();
         $settings->setReadOnly();
 
-        // $this->app()->set('settings', $settings);
         // Overwrite config with CMS settings
         $settings->overwriteConfig();
-
 
         return $this;
     }
@@ -88,8 +89,12 @@ class InstallService extends AbstractService
 
         $this->config()->get('database')->setData($config['database']);
 
+
         if (APP_MODE === 'DEV') {
             $this->config()->get('logger')->set('level', 'DEBUG');
+
+            // Reset logger (to get correct log leve)
+            $this->app()->set('logger', new Logger());
         }
 
         $this->config()->saveAsFile();
