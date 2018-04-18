@@ -13,7 +13,7 @@ error_reporting(E_ALL);
 
 // Define constant
 define('APP_PATH', __DIR__);
-define('APP_MODE', 'PROD');
+define('APP_MODE', 'DEV');
 
 // Include autoload
 require_once 'autoload.php';
