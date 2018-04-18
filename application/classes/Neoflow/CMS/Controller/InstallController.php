@@ -19,6 +19,9 @@ class InstallController extends AbstractController
      */
     public function __construct(InstallView $view = null, array $args = [])
     {
+        // Clear cache
+        $this->cache()->clear();
+
         if (!$view) {
             $view = new InstallView();
         }

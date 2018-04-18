@@ -1,12 +1,12 @@
 <?php
-
 namespace Neoflow\CMS\Handler;
 
 use Neoflow\CMS\AppTrait;
 use Neoflow\CMS\Model\LanguageModel;
 use Neoflow\Framework\Handler\Translator as FrameworkTranslator;
 
-class Translator extends FrameworkTranslator {
+class Translator extends FrameworkTranslator
+{
 
     /**
      * App trait.
@@ -29,6 +29,7 @@ class Translator extends FrameworkTranslator {
                 $this->{$key} = $value;
             }
         } else {
+
             // Load translation file of each theme and module, but only when database connection is etablished
             if ($this->app()->get('database')) {
                 foreach ($this->app()->get('modules') as $module) {
@@ -128,5 +129,4 @@ class Translator extends FrameworkTranslator {
 
         return $this->config()->get('app')->get('languages')[0];
     }
-
 }

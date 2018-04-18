@@ -11,15 +11,6 @@ class InstallService extends AbstractService
 {
 
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        // Clear complete cache
-        $this->cache()->clear();
-    }
-
-    /**
      * Etablish database connection, create tables and insert data.
      *
      * @param array $config Database configuration

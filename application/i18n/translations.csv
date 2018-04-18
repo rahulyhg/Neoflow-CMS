@@ -208,7 +208,7 @@ Executed;Executed;Ausgeführt
 Executing SQL failed. Error message: {0};Executing SQL failed. Error message: {0};SQL ausführen fehlgeschlagen. Fehlermeldung: {0}
 Extension;Extension|Extensions;Erweiterung|Erweiterungen
 File;File|Files;Datei|Dateien
-"File "{0}" not found";File "{0}" not found";Datei "{0}" nicht gefunden"
+File "{0}" not found;File "{0}" not found";Datei "{0}" nicht gefunden"
 File extension;File extension|File extensions;Dateierweiterung|Dateierweiterungen
 File not found;File not found;Datei nicht gefunden
 File with the same name already exists;File with the same name already exists;Datei mit gleichem Namen existiert bereits
@@ -358,7 +358,7 @@ Password reset email message;<p>Hi {0}!</p><p>Forgot your password? No problem.<
 Password reset email subject;Create new password;Neues Passwort erstellen
 Password successfully updated;Password successfully updated;Passwort erfolgreich aktualisiert
 Path;Path|Paths;Pfad|Pfade
-Path of the config files;Path of the config files;Pfad der Konfigurationsdateien
+Path to the config file;Path to the configuration file;Pfad zur Konfigurationsdatei
 Permission;Permission|Permissions;Berechtigung|Berechtigungen
 PHP error level;PHP error level;PHP Error-Level
 Placeholder;Placeholder|Placeholders;Platzhalter

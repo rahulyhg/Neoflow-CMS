@@ -32,8 +32,8 @@ abstract class AbstractView extends Container
 
         // Set template and view directories of application
         $this
-            ->addViewDirectory($this->config()->getApplicationPath('/views/'))
-            ->addTemplateDirectory($this->config()->getApplicationPath('/templates/'));
+            ->addViewDirectory($this->config()->getApplicationPath('/views'))
+            ->addTemplateDirectory($this->config()->getApplicationPath('/templates'));
 
         $this
             ->logger()->info('View created', [
