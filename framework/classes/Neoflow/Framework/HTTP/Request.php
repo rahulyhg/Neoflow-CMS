@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\HTTP;
 
 use Neoflow\Framework\AppTrait;
@@ -8,6 +7,7 @@ use OutOfRangeException;
 
 class Request
 {
+
     /**
      * App trait.
      */
@@ -22,21 +22,6 @@ class Request
      * @var array
      */
     protected $data = [];
-
-    /**
-     * @var Session
-     */
-    protected $session;
-
-    /**
-     * @var string
-     */
-    protected $method;
-
-    /**
-     * @var string
-     */
-    protected $url;
 
     /**
      * Constructor.
@@ -187,7 +172,7 @@ class Request
         if (isset($this->data[$key])) {
             return $this->data[$key];
         }
-        throw new OutOfRangeException('Request data not found (Key: '.$key.')');
+        throw new OutOfRangeException('Request data not found (Key: ' . $key . ')');
     }
 
     /**
@@ -307,5 +292,15 @@ class Request
         }
 
         return $urlPath;
+    }
+
+    /**
+     * Parse URL
+     * @param int $component Url component (e.g. PHP_URL_HOST)
+     * @return mixed
+     */
+    public function parseUrl(int $component = null)
+    {
+        return parse_url($this->getUrl(), $component);
     }
 }

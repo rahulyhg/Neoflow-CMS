@@ -57,7 +57,7 @@ class NavigationModel extends AbstractModel
      *
      * @return bool
      */
-    public function validate()
+    public function validate(): bool
     {
         $validator = new EntityValidator($this);
 
@@ -74,7 +74,7 @@ class NavigationModel extends AbstractModel
             }, '{0} has to be unique', [$this->id()])
             ->set('navigation_key', 'Key');
 
-        return $validator->validate();
+        return (bool) $validator->validate();
     }
 
     /**

@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Module\Snippets;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -9,6 +8,7 @@ use Throwable;
 
 class Model extends AbstractModel
 {
+
     /**
      * @var string
      */
@@ -46,7 +46,7 @@ class Model extends AbstractModel
 
             return '';
         } catch (Throwable $e) {
-            throw new ValidationException(translate('Snippet code is invalid: "{0}"', [$e->getMessage().' on line '.$e->getLine()]));
+            throw new ValidationException(translate('Snippet code is invalid: "{0}"', [$e->getMessage() . ' on line ' . $e->getLine()]));
         }
         throw new ValidationException(translate('Snippet code is valid, but has return a string'));
     }
@@ -104,21 +104,21 @@ class Model extends AbstractModel
      */
     public function getPlaceholder(bool $withParameters = false)
     {
-        $placeholder = '[['.$this->placeholder;
+        $placeholder = '[[' . $this->placeholder;
 
         if ($withParameters && $this->parameters) {
-            $placeholder .= '?'.http_build_query(array_flip($this->getParameters()));
+            $placeholder .= '?' . http_build_query(array_flip($this->getParameters()));
         }
 
-        return $placeholder.']]';
+        return $placeholder . ']]';
     }
 
     /**
      * Validate setting entity.
      *
-     * @return array
+     * @return bool
      */
-    public function validate(): array
+    public function validate(): bool
     {
         $validator = new EntityValidator($this);
 
@@ -153,6 +153,6 @@ class Model extends AbstractModel
             ->maxLength(250)
             ->set('description', 'Description');
 
-        return $validator->validate();
+        return (bool) $validator->validate();
     }
 }

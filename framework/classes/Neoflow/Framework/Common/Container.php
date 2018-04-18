@@ -112,13 +112,15 @@ class Container implements IteratorAggregate, Countable, ArrayAccess
     /**
      * Set read-only.
      *
-     * @param bool $isReadOnly TRUE/FALSE whether the container is read-only
+     * @param bool $isReadOnly Set FALSE to disable read-only
      *
      * return self
      */
-    public function setReadOnly(bool $isReadOnly)
+    public function setReadOnly(bool $isReadOnly = true)
     {
         $this->isReadOnly = $isReadOnly;
+
+        return $this;
     }
 
     /**

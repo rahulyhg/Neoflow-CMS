@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework;
 
 use ErrorException;
@@ -25,6 +24,7 @@ use Throwable;
 
 class App extends Container
 {
+
     /**
      * @var App
      */
@@ -67,11 +67,11 @@ class App extends Container
         // Etablish connection and set database
         $this->setDatabase();
 
-        // Create and set session
-        $this->setSession();
-
         // Create and set request
         $this->set('request', new Request());
+
+        // Create and set session
+        $this->setSession();
 
         // Create and set engine
         $this->set('engine', new Engine());
@@ -153,7 +153,7 @@ class App extends Container
      */
     public function registerService(AbstractService $service, string $name = ''): self
     {
-        if (defined($service->getReflection()->getName().'::NAME')) {
+        if (defined($service->getReflection()->getName() . '::NAME')) {
             $name = $service->getReflection()->getName()::NAME;
         } elseif (0 === mb_strlen($name)) {
             $name = str_replace('service', '', strtolower($service->getReflection()->getShortName()));
@@ -178,7 +178,7 @@ class App extends Container
         if ($this->hasService($name)) {
             return $this->get('services')->get($name);
         }
-        throw new OutOfRangeException('Service "'.$name.'" not found');
+        throw new OutOfRangeException('Service "' . $name . '" not found');
     }
 
     /**
@@ -266,22 +266,21 @@ class App extends Container
 
         $this->get('logger')->logException($ex);
 
-        $content = str_replace(['[title]', '[message]', '[exception]', '[time]', '[trace]'], ['Fatal server error', $ex->getMessage(), get_class($ex), date('c'), get_exception_trace($ex, true, true)], '<!DOCTYPE html>
+        die('<!DOCTYPE html>
                         <html>
                             <head>
                                 <meta charset="UTF-8" />
-                                <title>[title]</title>
+                                <title>Fatal server error</title>
                             </head>
                             <body>
-                                <h1>[title]</h1>
-                                <h2>[exception]: [message]</h2>
+                                <h1>Fatal server error</h1>
+                                <h2>' . get_class($ex) . ': ' . $ex->getMessage() . ' on line ' . $ex->getLine() . '</h2>
                                 <hr />
-                                <p><small>[trace]</small></p>
+                                <p><small>' . get_exception_trace($ex, true, true) . '</small></p>
                                 <hr />
-                                <p>[time]</p>
+                                <p>' . date('c') . '</p>
                             </body>
                         </html>');
-        die($content);
     }
 
     /**

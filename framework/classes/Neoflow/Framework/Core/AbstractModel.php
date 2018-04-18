@@ -205,15 +205,15 @@ abstract class AbstractModel
     }
 
     /**
-     * Set model entity read-only.
+     * Set read-only.
      *
-     * @param bool $enable Set FALSE to disable read-only
+     * @param bool $isReadOnly Set FALSE to disable read-only
      *
-     * @return self
+     * return self
      */
-    public function setReadOnly(bool $enable = true): self
+    public function setReadOnly(bool $isReadOnly = true): self
     {
-        $this->isReadOnly = $enable;
+        $this->isReadOnly = $isReadOnly;
 
         return $this;
     }
@@ -223,7 +223,7 @@ abstract class AbstractModel
      *
      * @param string $key    Key of entity value
      * @param mixed  $value  Entity value
-     * @param bool   $silent State if setting shouldn't be tracked
+     * @param bool   $silent State if change shouldn't be tracked
      *
      * @return self
      *
@@ -256,7 +256,7 @@ abstract class AbstractModel
      *
      * @return bool
      */
-    protected function exists($key)
+    protected function exists($key): bool
     {
         return isset($this->data[$key]);
     }
@@ -286,7 +286,7 @@ abstract class AbstractModel
      *
      * @return self
      */
-    protected function remove($key)
+    protected function remove($key): self
     {
         if ($this->exists($key)) {
             unset($this->data[$key]);
@@ -304,7 +304,7 @@ abstract class AbstractModel
      *
      * @return bool
      */
-    public function validate()
+    public function validate(): bool
     {
         return true;
     }

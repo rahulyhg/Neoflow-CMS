@@ -71,7 +71,7 @@ class SettingModel extends AbstractModel
      *
      * @return bool
      */
-    public function validate()
+    public function validate(): bool
     {
         $validator = new EntityValidator($this);
 
@@ -86,7 +86,7 @@ class SettingModel extends AbstractModel
             ->maxLength(5)
             ->set('default_priority', 'Priority');
 
-        return $validator->validate();
+        return (bool) $validator->validate();
     }
 
     /**

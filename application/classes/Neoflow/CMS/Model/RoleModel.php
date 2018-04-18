@@ -59,7 +59,7 @@ class RoleModel extends AbstractModel
      *
      * @return bool
      */
-    public function validate()
+    public function validate(): bool
     {
         $validator = new EntityValidator($this);
 
@@ -80,7 +80,7 @@ class RoleModel extends AbstractModel
             ->maxLength(150)
             ->set('description', 'Description');
 
-        return $validator->validate();
+        return (bool) $validator->validate();
     }
 
     /**

@@ -1,13 +1,15 @@
 <?php
-
 namespace Neoflow\CMS\Controller\Install;
 
 use Neoflow\CMS\Controller\InstallController;
+use Neoflow\Filesystem\File;
 use Neoflow\Framework\HTTP\Responsing\Response;
 use Throwable;
+use function translate;
 
 class DatabaseController extends InstallController
 {
+
     /**
      * Index action.
      *
@@ -55,6 +57,7 @@ class DatabaseController extends InstallController
 
             return $this->redirectToRoute('install_website_index');
         } catch (Throwable $ex) {
+            File::unlink($this->config()->getPath('/config.php'));
             $this->view->setDangerAlert([translate('Install failed'), [$ex->getMessage()]]);
         }
 

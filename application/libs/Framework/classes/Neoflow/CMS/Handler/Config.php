@@ -141,10 +141,12 @@ class Config extends FrameworkConfig
         $configData = $this->toArray();
 
         // Clean config from not need params
-//        unset($configData['session']);
-//        unset($configData['app']['path']);
-//        unset($configData['app']['email']);
-//        unset($configData['app']['languages']);
+        unset($configData['session']);
+        unset($configData['app']['path']);
+        unset($configData['app']['email']);
+        unset($configData['app']['languages']);
+        unset($configData['app']['timezone']);
+
         // Create config file
         $phpFile = File::create(APP_PATH . '/config.php');
 

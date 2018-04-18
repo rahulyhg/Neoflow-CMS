@@ -19,7 +19,7 @@ define('APP_MODE', 'DEV');
 require_once 'autoload.php';
 
 // Define config file path
-$configFilePath = __DIR__.DIRECTORY_SEPARATOR.'config.php';
+$configFilePath = __DIR__ . DIRECTORY_SEPARATOR . 'config.php';
 
 // Create, execute and publish CMS app
 $app = new App([], false, true);

@@ -348,7 +348,7 @@ class PageModel extends AbstractModel
      *
      * @return bool
      */
-    public function validate()
+    public function validate(): bool
     {
         $validator = new EntityValidator($this);
 
@@ -366,7 +366,7 @@ class PageModel extends AbstractModel
             }, '{0} has to be unique', [$this])
             ->set('title', 'Title');
 
-        return $validator->validate();
+        return (bool) $validator->validate();
     }
 
     /**

@@ -55,7 +55,7 @@ class UrlModel extends AbstractModel
      *
      * @return bool
      */
-    public function validate()
+    public function validate(): bool
     {
         $validator = new EntityValidator($this);
 
@@ -78,6 +78,6 @@ class UrlModel extends AbstractModel
             ->maxLength(5)
             ->set('priority');
 
-        return $validator->validate();
+        return (bool) $validator->validate();
     }
 }

@@ -1,12 +1,12 @@
 <?php
-
 namespace Neoflow\Framework\Handler;
 
 use DateTime;
 use Neoflow\Framework\AppTrait;
 use RuntimeException;
 
-class Translator {
+class Translator
+{
 
     /**
      * App trait.
@@ -374,5 +374,4 @@ class Translator {
 
         return date($this->dateFormat, $timestamp);
     }
-
 }

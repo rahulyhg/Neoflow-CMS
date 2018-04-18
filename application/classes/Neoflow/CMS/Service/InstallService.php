@@ -50,31 +50,31 @@ class InstallService extends AbstractService
      */
     public function updateSettings(): self
     {
-        // Presetting
+        // Fetch and set settings
         $settings = SettingModel::findById(1);
         $this->app()->set('settings', $settings);
 
         // Reset translator (to get correct language detection after database installation)
         $this->app()->set('translator', new Translator());
 
+        // Update settings
+        $settings->timezone = date_default_timezone_get();
+        $settings->session_name = ini_get('session.name');
+        $settings->session_lifetime = (int) ini_get('session.gc_maxlifetime');
+
         // Get language
         $language = $this->translator()->getActiveLanguage();
 
-        // Update settings with config params
-        $settings->timezone = $this->config()->get('timezone');
-        $settings->session_name = $this->config()->get('session')->get('name');
-        $settings->session_lifetime = $this->config()->get('session')->get('lifetime');
+        // Update language settings
         $settings->default_language_id = $language->id();
-        $settings->language_ids = [
-            $language->id(),
-        ];
+
         $settings->save();
         $settings->setReadOnly();
 
-        // Update configured langauges
-        $this->config()->set('languages', [$language->code]);
+        // $this->app()->set('settings', $settings);
+        // Overwrite config with CMS settings
+        $settings->overwriteConfig();
 
-        $this->app()->set('settings', $settings);
 
         return $this;
     }

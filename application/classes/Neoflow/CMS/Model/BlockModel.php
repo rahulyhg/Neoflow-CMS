@@ -57,7 +57,7 @@ class BlockModel extends AbstractModel
      *
      * @return bool
      */
-    public function validate()
+    public function validate(): bool
     {
         $validator = new EntityValidator($this);
 
@@ -74,6 +74,6 @@ class BlockModel extends AbstractModel
             }, '{0} has to be unique', [$this->id()])
             ->set('block_key', 'Key');
 
-        return $validator->validate();
+        return (bool) $validator->validate();
     }
 }

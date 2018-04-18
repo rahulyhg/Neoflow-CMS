@@ -156,7 +156,7 @@ class SectionModel extends AbstractModel
      *
      * @return bool
      */
-    public function validate()
+    public function validate(): bool
     {
         $validator = new EntityValidator($this);
 
@@ -164,7 +164,7 @@ class SectionModel extends AbstractModel
                 ->required()
                 ->set('module_id', 'Module');
 
-        return $validator->validate();
+        return (bool) $validator->validate();
     }
 
     /**

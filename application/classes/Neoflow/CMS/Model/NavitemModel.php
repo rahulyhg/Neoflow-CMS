@@ -175,7 +175,7 @@ class NavitemModel extends AbstractModel
      *
      * @return bool
      */
-    public function validate()
+    public function validate(): bool
     {
         $validator = new EntityValidator($this);
 
@@ -200,7 +200,7 @@ class NavitemModel extends AbstractModel
             ->required()
             ->set('page_id', 'Page');
 
-        return $validator->validate();
+        return (bool) $validator->validate();
     }
 
     /**

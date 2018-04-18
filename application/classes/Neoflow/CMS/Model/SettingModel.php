@@ -6,6 +6,7 @@ use Neoflow\Framework\ORM\EntityCollection;
 use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Framework\ORM\Repository;
 use RuntimeException;
+use Neoflow\Framework\Core\AbstractModel as FrameworkAbstractModel;
 
 class SettingModel extends AbstractModel
 {
@@ -49,6 +50,26 @@ class SettingModel extends AbstractModel
         if ($this->app()->get('database')) {
             $this->language_ids = $this->getLanguages()->mapValue('language_id');
         }
+    }
+
+    /**
+     * Overwrite config
+     * @return self
+     */
+    public function overwriteConfig(): self
+    {
+        $this->config()->get('app')->setData([
+            'email' => $this->sender_emailaddress,
+            'timezone' => $this->timezone,
+            'languages' => $this->getLanguageCodes()
+        ]);
+
+        $this->config()->set('session', [
+            'lifetime' => (int) $this->session_lifetime,
+            'name' => $this->session_name
+        ]);
+
+        return $this;
     }
 
     /**
@@ -132,7 +153,7 @@ class SettingModel extends AbstractModel
      *
      * @return Repository
      */
-    public function languages(): Repository
+    public function languages()
     {
         return $this->hasManyThrough('\\Neoflow\\CMS\\Model\\LanguageModel', '\\Neoflow\\CMS\\Model\\SettingLanguageModel', 'setting_id', 'language_id');
     }
@@ -142,7 +163,7 @@ class SettingModel extends AbstractModel
      *
      * @return bool
      */
-    public function validate()
+    public function validate(): bool
     {
         $validator = new EntityValidator($this);
 
@@ -183,7 +204,7 @@ class SettingModel extends AbstractModel
             ->maxlength(50)
             ->set('session_name', 'Session name');
 
-        return $validator->validate();
+        return (bool) $validator->validate();
     }
 
     /**
@@ -192,7 +213,7 @@ class SettingModel extends AbstractModel
      */
     public function saveToConfig(): bool
     {
-        $this->config()->get('session')->setData([
+        $this->config()->set('session', [
             'name' => $this->session_name,
             'lifetime' => $this->session_lifetime
         ]);

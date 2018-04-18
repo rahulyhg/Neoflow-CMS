@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Model;
 
 use InvalidArgumentException;
@@ -12,6 +11,7 @@ use RuntimeException;
 
 class UserModel extends AbstractModel
 {
+
     /**
      * @var string
      */
@@ -27,7 +27,7 @@ class UserModel extends AbstractModel
      */
     public static $properties = ['user_id', 'email', 'firstname', 'lastname',
         'role_id', 'reset_key', 'reseted_when', 'password',
-        'failed_logins', ];
+        'failed_logins',];
 
     /**
      * @var string
@@ -148,9 +148,9 @@ class UserModel extends AbstractModel
     /**
      * Validate new password of user entity.
      *
-     * @return array
+     * @return bool
      */
-    public function validateNewPassword(): array
+    public function validateNewPassword(): bool
     {
         $validator = new Validator([
             'newPassword' => $this->newPassword,
@@ -174,7 +174,7 @@ class UserModel extends AbstractModel
             }, 'Password is not matching confirm password', [$this->confirmPassword])
             ->set('newPassword', 'Password');
 
-        return $validator->validate();
+        return (bool) $validator->validate();
     }
 
     /**
@@ -184,7 +184,7 @@ class UserModel extends AbstractModel
      */
     public function getFullname(): string
     {
-        return $this->firstname.' '.$this->lastname;
+        return $this->firstname . ' ' . $this->lastname;
     }
 
     /**
@@ -294,6 +294,6 @@ class UserModel extends AbstractModel
                     ->setNewPassword($newPassword, $confirmPassword)
                     ->deleteResetKey();
         }
-        throw new RuntimeException('Cannot update password of user (ID: '.$id.')');
+        throw new RuntimeException('Cannot update password of user (ID: ' . $id . ')');
     }
 }
