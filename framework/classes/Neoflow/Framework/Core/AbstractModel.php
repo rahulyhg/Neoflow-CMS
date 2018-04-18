@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\Core;
 
 use InvalidArgumentException;
@@ -13,6 +12,7 @@ use RuntimeException;
 
 abstract class AbstractModel
 {
+
     /**
      * App trait.
      */
@@ -408,7 +408,7 @@ abstract class AbstractModel
 
             return $entity;
         }
-        throw new InvalidArgumentException('Model entity not found (ID: '.$id.')');
+        throw new InvalidArgumentException('Model entity not found (ID: ' . $id . ')');
     }
 
     /**
@@ -499,7 +499,7 @@ abstract class AbstractModel
      *
      * @return Repository
      */
-    protected function hasOne($associatedModelClassName, $foreignKeyName)
+    protected function hasOne($associatedModelClassName, $foreignKeyName): Repository
     {
         return $this->mapper->hasOne($this, $associatedModelClassName, $foreignKeyName);
     }

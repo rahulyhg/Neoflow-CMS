@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\ORM;
 
 use Neoflow\Framework\AppTrait;
@@ -14,6 +13,7 @@ use RuntimeException;
 
 class Repository
 {
+
     /**
      * Load app.
      */
@@ -49,7 +49,7 @@ class Repository
      *
      * @throws RuntimeException
      */
-    public function forModel($modelClassName, $asSelect = true)
+    public function forModel($modelClassName, $asSelect = true): self
     {
         $this->reset();
 
@@ -70,7 +70,7 @@ class Repository
 
             return $this;
         }
-        throw new RuntimeException('Model class "'.$modelClassName.'" not found');
+        throw new RuntimeException('Model class "' . $modelClassName . '" not found');
     }
 
     /**
@@ -339,7 +339,7 @@ class Repository
             return $entityCollection->set($collection->toArray());
 
             $this->logger()->debug('Entity collection fetched', [
-                'Result' => $entityCollection->count().' model entities collected',
+                'Result' => $entityCollection->count() . ' model entities collected',
             ]);
         }
 
@@ -410,7 +410,7 @@ class Repository
             return $modelClassName::$tableName;
         }
 
-        throw new RuntimeException('Model class "'.$modelClassName.'" not found');
+        throw new RuntimeException('Model class "' . $modelClassName . '" not found');
     }
 
     /**
@@ -432,7 +432,7 @@ class Repository
             return $modelClassName::$collectionClassName;
         }
 
-        throw new RuntimeException('Model class "'.$modelClassName.'" not found');
+        throw new RuntimeException('Model class "' . $modelClassName . '" not found');
     }
 
     /**
@@ -454,7 +454,7 @@ class Repository
             return $modelClassName::$primaryKey;
         }
 
-        throw new RuntimeException('Model class "'.$modelClassName.'" not found');
+        throw new RuntimeException('Model class "' . $modelClassName . '" not found');
     }
 
     /**

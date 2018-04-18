@@ -1,11 +1,11 @@
 <?php
-
 namespace Neoflow\Framework\ORM;
 
 use InvalidArgumentException;
 
 class Mapper
 {
+
     /**
      * @var Repository
      */
@@ -68,7 +68,7 @@ class Mapper
      *
      * @return Repository
      */
-    public function hasOne($entity, $associatedModelClassName, $foreignKeyName)
+    public function hasOne($entity, $associatedModelClassName, $foreignKeyName): Repository
     {
         return $this->hasOneOrMany($entity, $associatedModelClassName, $foreignKeyName);
     }
@@ -82,7 +82,7 @@ class Mapper
      *
      * @return Repository
      */
-    public function hasOneOrMany($entity, $associatedModelClassName, $foreignKeyName)
+    public function hasOneOrMany($entity, $associatedModelClassName, $foreignKeyName): Repository
     {
         //Set entity mapper for associated model, create where statement and return it
         return $this->repo->forModel($associatedModelClassName)->where($foreignKeyName, '=', $entity->id());
@@ -112,8 +112,8 @@ class Mapper
         $this->repo
             ->forModel($associatedModelClassName)
             ->getQuery()
-            ->innerJoin($joinTableName, $associatedTableName.'.'.$associatedPrimaryKey.' = '.$joinTableName.'.'.$foreignKeyToAssociatedModel)
-            ->where($joinTableName.'.'.$foreignKeyToBaseModel, '=', $entity->id());
+            ->innerJoin($joinTableName, $associatedTableName . '.' . $associatedPrimaryKey . ' = ' . $joinTableName . '.' . $foreignKeyToAssociatedModel)
+            ->where($joinTableName . '.' . $foreignKeyToBaseModel, '=', $entity->id());
 
         // Return entity repository
         return $this->repo;
@@ -134,7 +134,7 @@ class Mapper
             return $modelClassName::$tableName;
         }
 
-        throw new RuntimeException('Model class '.$modelClassName.' not found');
+        throw new RuntimeException('Model class ' . $modelClassName . ' not found');
     }
 
     /**
@@ -152,6 +152,6 @@ class Mapper
             return $modelClassName::$primaryKey;
         }
 
-        throw new RuntimeException('Model class "'.$modelClassName.'" not found');
+        throw new RuntimeException('Model class "' . $modelClassName . '" not found');
     }
 }
