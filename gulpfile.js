@@ -20,14 +20,16 @@ gulp.task('install:_createZipPackage', function () {
     return gulp
             .src([
                 './**',
+                './.htaccess',
                 '!./config.php',
                 '!./package*',
                 '!./gulpfile.js',
                 '!./node_modules{,/**}',
                 '!./nbproject{,/**}',
-                '!./src{,/**}',
                 '!./robots.txt',
                 '!./sitemap.xml',
+                '!./logs/*',
+                '!./temp/installation{,/**}',
                 '!./temp/update{,/**}',
                 '!./media/modules/wysiwyg/{,/**}',
                 '!./themes/*/package*',
