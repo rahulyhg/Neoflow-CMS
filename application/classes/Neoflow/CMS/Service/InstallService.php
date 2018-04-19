@@ -54,7 +54,6 @@ class InstallService extends AbstractService
         $settings->timezone = date_default_timezone_get();
         $settings->session_name = ini_get('session.name');
         $settings->session_lifetime = (int) ini_get('session.gc_maxlifetime');
-        $settings->save();
 
         if (APP_MODE === 'DEV') {
             $settings->show_error_details = true;
@@ -88,7 +87,6 @@ class InstallService extends AbstractService
         $this->config()->get('app')->set('url', $config['url']);
 
         $this->config()->get('database')->setData($config['database']);
-
 
         if (APP_MODE === 'DEV') {
             $this->config()->get('logger')->set('level', 'DEBUG');

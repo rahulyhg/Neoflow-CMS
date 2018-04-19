@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\Persistence;
 
 use Neoflow\Framework\AppTrait;
@@ -7,12 +6,13 @@ use PDOStatement;
 
 class Statement extends PDOStatement
 {
+
     /**
      * App trait.
      */
     use AppTrait;
 
-    /**
+/**
      * Query counter trait.
      */
     use QueryCounterTrait;
@@ -50,11 +50,12 @@ class Statement extends PDOStatement
     {
         $result = parent::execute($parameters);
 
-        $this->logger()
-                ->debug('Database statement executed', [
-                    'Query' => $this->queryString,
-                    'Parameters' => count($parameters) ? $parameters : 'Bind by reference and not logged',
-                    'Result' => $this->rowCount().' rows affected',
+        $this
+            ->logger()
+            ->debug('Database statement executed', [
+                'Query' => $this->queryString,
+                'Parameters' => count($parameters) ? $parameters : 'Bind by reference and not logged',
+                'Result' => $this->rowCount() . ' rows affected',
         ]);
 
         $this->countUpExecutedQueries();
