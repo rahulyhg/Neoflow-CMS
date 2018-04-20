@@ -12,10 +12,10 @@
  *
  * @return string
  */
-function array_export(array $array, string $indentation = '    ', int $level = 0)
+function array_export(array $array, string $indentation = '    ', int $level = 0): string
 {
     // Start of array
-    $content = '['.PHP_EOL;
+    $content = '[' . PHP_EOL;
 
     $index = 1;
     $numberOfValues = count($array);
@@ -26,11 +26,11 @@ function array_export(array $array, string $indentation = '    ', int $level = 0
 
         if (is_scalar($value) || is_array($value)) {
             // Indentation space
-            $content .= str_repeat($indentation, $level).$indentation;
+            $content .= str_repeat($indentation, $level) . $indentation;
 
             // Set string key
             if (is_string($key)) {
-                $content .= '\''.$key.'\''.' => ';
+                $content .= '\'' . $key . '\'' . ' => ';
             }
 
             if (is_object($value)) {
@@ -42,7 +42,7 @@ function array_export(array $array, string $indentation = '    ', int $level = 0
             } elseif (is_bool($value)) {
                 $content .= ($value ? 'true' : 'false');
             } elseif (is_string($value)) {
-                $content .= '\''.$value.'\'';
+                $content .= '\'' . $value . '\'';
             } else {
                 $content .= $value;
             }

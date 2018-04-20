@@ -8,19 +8,19 @@ use Neoflow\CMS\Core\AbstractService;
 class NavitemService extends AbstractService
 {
     /**
-     * Update navitem order.
+     * Update navigation item order.
      *
-     * @param array $order
-     * @param int   $parent_id
+     * @param array $order             Ordered items (based on navigation items)
+     * @param int   $parent_navitem_id ID of parent navigation item
      *
      * @return bool
      */
-    public function updateOrder(array $order, $parent_id = null)
+    public function updateOrder(array $order, int $parent_navitem_id = null): bool
     {
         foreach ($order as $index => $item) {
             $navitem = NavitemModel::findById($item['id']);
             $navitem->position = ++$index;
-            $navitem->parent_navitem_id = $parent_id;
+            $navitem->parent_navitem_id = $parent_navitem_id;
             $navitem->save();
 
             if (isset($item['children'])) {

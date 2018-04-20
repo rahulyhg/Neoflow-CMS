@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\Handler\Logging;
 
 use DateTime;
@@ -12,6 +11,7 @@ use Throwable;
 
 class Logger
 {
+
     /**
      * App trait.
      */
@@ -57,15 +57,15 @@ class Logger
             mkdir($this->logfileFolderPath, 077, true);
         }
 
-        $this->logfilePath = $this->logfileFolderPath.$logConfig->get('prefix').date('Y-m-d').'.'.$logConfig->get('extension');
+        $this->logfilePath = $this->logfileFolderPath . $logConfig->get('prefix') . date('Y-m-d') . '.' . $logConfig->get('extension');
         if (file_exists($this->logfilePath) && !is_writable($this->logfilePath)) {
-            throw new RuntimeException('Log file "'.$this->logfilePath.'" is not writeable');
+            throw new RuntimeException('Log file "' . $this->logfilePath . '" is not writeable');
         }
 
         $this->fileHandle = fopen($this->logfilePath, 'a+');
         flock($this->fileHandle, LOCK_UN);
         if (!$this->fileHandle) {
-            throw new RuntimeException('Log file "'.$this->logfilePath.'" could not be opened');
+            throw new RuntimeException('Log file "' . $this->logfilePath . '" could not be opened');
         }
 
         $this->debug('Logger created');
@@ -74,14 +74,14 @@ class Logger
     /**
      * Get log files.
      *
-     * @param int $limit
+     * @param int $limit Limit
      *
      * @return FileCollection
      */
-    public function getLogfiles($limit = 10)
+    public function getLogfiles(int $limit = 10): FileCollection
     {
         $logfileFolder = new Folder($this->logfileFolderPath);
-        $logfiles = $logfileFolder->findFiles('*.'.$this->config()->get('logger')->get('extension'));
+        $logfiles = $logfileFolder->findFiles('*.' . $this->config()->get('logger')->get('extension'));
 
         return $logfiles->slice($limit, 0);
     }
@@ -91,7 +91,7 @@ class Logger
      *
      * @return string
      */
-    public function getLoglevel()
+    public function getLoglevel(): string
     {
         return $this->loglevelThreshold;
     }
@@ -109,13 +109,13 @@ class Logger
     /**
      * Log message.
      *
-     * @param int    $level
-     * @param string $message
-     * @param array  $context
+     * @param int    $level Log level
+     * @param string $message Log message
+     * @param array  $context Log context
      *
-     * @return Logger
+     * @return self
      */
-    public function log($level, $message, array $context = [])
+    public function log(int $level, string $message, array $context = []): self
     {
         if (Loglevel::isValid($level)) {
             if (is_array($message)) {
@@ -131,18 +131,18 @@ class Logger
 
             return $this;
         }
-        throw new InvalidArgumentException('Loglevel "'.$level.'" is not valid');
+        throw new InvalidArgumentException('Loglevel "' . $level . '" is not valid');
     }
 
     /**
      * Log error message.
      *
-     * @param string $message
-     * @param array  $context
+     * @param string $message Error message
+     * @param array  $context Error context
      *
-     * @return Logger
+     * @return self
      */
-    public function error($message, $context = [])
+    public function error(string $message, array $context = []): self
     {
         return $this->log(Loglevel::ERROR, $message, $context);
     }
@@ -150,12 +150,12 @@ class Logger
     /**
      * Log warning message.
      *
-     * @param string $message
-     * @param array  $context
+     * @param string $message Warning message
+     * @param array  $context Warning context
      *
-     * @return Logger
+     * @return self
      */
-    public function warning($message, $context = [])
+    public function warning(string $message, array $context = []): self
     {
         return $this->log(Loglevel::WARNING, $message, $context);
     }
@@ -163,12 +163,12 @@ class Logger
     /**
      * Log info message.
      *
-     * @param string $message
-     * @param array  $context
+     * @param string $message Info message
+     * @param array  $context Info context
      *
-     * @return Logger
+     * @return self
      */
-    public function info($message, $context = [])
+    public function info(string $message, array $context = []): self
     {
         return $this->log(Loglevel::INFO, $message, $context);
     }
@@ -176,12 +176,12 @@ class Logger
     /**
      * Log debug message.
      *
-     * @param string $message
-     * @param array  $context
+     * @param string $message Debug message
+     * @param array  $context Debug context
      *
-     * @return Logger
+     * @return self
      */
-    public function debug($message, $context = [])
+    public function debug(string $message, array $context = []): self
     {
         return $this->log(Loglevel::DEBUG, $message, $context);
     }
@@ -189,11 +189,11 @@ class Logger
     /**
      * Log exception as error.
      *
-     * @param Throwable $ex
+     * @param Throwable $ex Exception or throwable error
      *
-     * @return Logger
+     * @return self
      */
-    public function logException(Throwable $ex)
+    public function logException(Throwable $ex): self
     {
         $context = [
             'code' => $ex->getCode(),
@@ -203,10 +203,10 @@ class Logger
         ];
 
         if ($this->config()->get('logger')->get('stackTrace')) {
-            $context['stack trace'] = PHP_EOL."\t".str_replace(PHP_EOL, PHP_EOL."\t", get_exception_trace($ex, false, true));
+            $context['stack trace'] = PHP_EOL . "\t" . str_replace(PHP_EOL, PHP_EOL . "\t", get_exception_trace($ex, false, true));
         }
 
-        return $this->error(get_class($ex).': '.$ex->getMessage(), $context);
+        return $this->error(get_class($ex) . ': ' . $ex->getMessage(), $context);
     }
 
     /**
@@ -214,14 +214,14 @@ class Logger
      *
      * @param string $message Line to write to the log
      *
-     * @return Logger
+     * @return self
      */
-    public function write($message)
+    public function write(string $message): self
     {
         if (null !== $this->fileHandle) {
             if (flock($this->fileHandle, LOCK_EX)) {
                 if (false === fwrite($this->fileHandle, $message)) {
-                    throw new RuntimeException('Log file "'.$this->logfilePath.'" is not writeable');
+                    throw new RuntimeException('Log file "' . $this->logfilePath . '" is not writeable');
                 } else {
                     ++$this->logLineCount;
                 }
@@ -237,7 +237,7 @@ class Logger
      *
      * @return string
      */
-    public function getLogfilePath()
+    public function getLogfilePath(): string
     {
         return $this->logfilePath;
     }
@@ -247,7 +247,7 @@ class Logger
      *
      * @return string
      */
-    public function getLogfileFolderPath()
+    public function getLogfileFolderPath(): string
     {
         return $this->logfileFolderPath;
     }
@@ -255,19 +255,19 @@ class Logger
     /**
      * Formats the message for logging.
      *
-     * @param string $level
-     * @param string $message
-     * @param array  $context
+     * @param int    $level Log level
+     * @param string $message Log message
+     * @param array  $context Log context
      *
      * @return string
      */
-    protected function formatMessage($level, $message, $context)
+    protected function formatMessage(string $level, string $message, array $context = []): string
     {
         if (!empty($context)) {
-            $message .= PHP_EOL.$this->indent($this->contextToString($context));
+            $message .= PHP_EOL . $this->indent($this->contextToString($context));
         }
 
-        return '['.$this->getTimestamp().'] ['.Loglevel::getLabel($level).'] '.$message.PHP_EOL;
+        return '[' . $this->getTimestamp() . '] [' . Loglevel::getLabel($level) . '] ' . $message . PHP_EOL;
     }
 
     /**
@@ -278,27 +278,27 @@ class Logger
      *
      * @return string
      */
-    protected function getTimestamp()
+    protected function getTimestamp(): string
     {
         $originalTime = microtime(true);
         $micro = sprintf('%06d', ($originalTime - floor($originalTime)) * 1000000);
-        $date = new DateTime(date('Y-m-d H:i:s.'.$micro, $originalTime));
+        $date = new DateTime(date('Y-m-d H:i:s.' . $micro, $originalTime));
 
         return $date->format('Y-m-d G:i:s.u');
     }
 
     /**
-     * Takes the given context and coverts it to a string.
+     * Convert context to string
      *
-     * @param array $context
+     * @param array $context Log context
      *
      * @return string
      */
-    protected function contextToString($context)
+    protected function contextToString(array $context): string
     {
         $export = '';
         foreach ($context as $key => $value) {
-            $export .= $key.': '.stripslashes(json_encode($value, JSON_PRETTY_PRINT)).PHP_EOL;
+            $export .= $key . ': ' . stripslashes(json_encode($value, JSON_PRETTY_PRINT)) . PHP_EOL;
         }
 
         return str_replace(['\\\\', '\\\''], ['\\', '\''], rtrim($export));
@@ -307,13 +307,13 @@ class Logger
     /**
      * Indents the given string with the given indent.
      *
-     * @param string $string
-     * @param string $indent
+     * @param string $string String
+     * @param string $indent Indent string
      *
      * @return string
      */
-    protected function indent($string, $indent = '    ')
+    protected function indent(string $string, string $indent = '    '): string
     {
-        return $indent.str_replace("\n", "\n".$indent, $string);
+        return $indent . str_replace("\n", "\n" . $indent, $string);
     }
 }

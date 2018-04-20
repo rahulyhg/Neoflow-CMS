@@ -107,7 +107,7 @@ class Request
      *
      * @return string
      */
-    public function getHttpMethod()
+    public function getHttpMethod(): string
     {
         return strtoupper($_SERVER['REQUEST_METHOD']);
     }
@@ -117,7 +117,7 @@ class Request
      *
      * @return string
      */
-    public function getHttpLanguage()
+    public function getHttpLanguage(): string
     {
         return substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
     }
@@ -127,7 +127,7 @@ class Request
      *
      * @return string
      */
-    public function getHttpUserAgent()
+    public function getHttpUserAgent(): string
     {
         return $_SERVER['HTTP_USER_AGENT'];
     }
@@ -137,7 +137,7 @@ class Request
      *
      * @return bool
      */
-    public function hasFiles()
+    public function hasFiles(): bool
     {
         return $this->hasFiles;
     }
@@ -145,7 +145,7 @@ class Request
     /**
      * Get language code from URL.
      *
-     * @return string
+     * @return string|null
      */
     public function getUrlLanguage()
     {
@@ -155,19 +155,19 @@ class Request
             return $languageMatches[1];
         }
 
-        return '';
+        return null;
     }
 
     /**
      * Get request data.
      *
-     * @param string $key
+     * @param string $key Request data key
      *
      * @return Container
      *
      * @throws OutOfRangeException
      */
-    protected function getData($key): Container
+    protected function getData(string $key): Container
     {
         if (isset($this->data[$key])) {
             return $this->data[$key];
@@ -186,25 +186,25 @@ class Request
     }
 
     /**
-     * Get post value.
+     * Get post by key.
      *
-     * @param string $key
+     * @param string $key Post key
      *
      * @return mixed
      */
-    public function getPost($key)
+    public function getPost(string $key)
     {
         return $this->getPostData()->get($key);
     }
 
     /**
-     * Get cookie value.
+     * Get cookie value by key.
      *
-     * @param string $key
+     * @param string $key Cookie key
      *
      * @return mixed
      */
-    public function getCookie($key)
+    public function getCookie(string $key)
     {
         return $this->getData('cookies')->get($key);
     }
@@ -214,7 +214,7 @@ class Request
      *
      * @return Container
      */
-    public function getCookies()
+    public function getCookies(): Container
     {
         return $this->getData('cookies');
     }
@@ -224,7 +224,7 @@ class Request
      *
      * @return Container
      */
-    public function getGetData()
+    public function getGetData(): Container
     {
         return $this->getData('get');
     }
@@ -232,11 +232,11 @@ class Request
     /**
      * Get get value.
      *
-     * @param string $key
+     * @param string $key Get key
      *
      * @return mixed
      */
-    public function getGet($key)
+    public function getGet(string $key)
     {
         return $this->getGetData()->get($key);
     }
@@ -246,7 +246,7 @@ class Request
      *
      * @return Container
      */
-    public function getFileData()
+    public function getFileData(): Container
     {
         return $this->getData('files');
     }
@@ -254,11 +254,11 @@ class Request
     /**
      * Get file value.
      *
-     * @param string $key
+     * @param string $key File key
      *
      * @return mixed
      */
-    public function getFile($key)
+    public function getFile(string $key)
     {
         return $this->getFileData()->get($key);
     }
@@ -271,7 +271,7 @@ class Request
      *
      * @return string
      */
-    public function getUrlPath($languageCode = false, $basePath = false): string
+    public function getUrlPath(bool $languageCode = false, bool $basePath = false): string
     {
         // Base url
         $baseUrl = $this->config()->getUrl();
@@ -292,15 +292,5 @@ class Request
         }
 
         return $urlPath;
-    }
-
-    /**
-     * Parse URL
-     * @param int $component Url component (e.g. PHP_URL_HOST)
-     * @return mixed
-     */
-    public function parseUrl(int $component = null)
-    {
-        return parse_url($this->getUrl(), $component);
     }
 }

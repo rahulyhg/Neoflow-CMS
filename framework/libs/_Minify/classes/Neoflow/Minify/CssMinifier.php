@@ -1,17 +1,14 @@
 <?php
-
 namespace Neoflow\Minify;
 
 class CssMinifier extends AbstractMinifier
 {
+
     /**
      * Minify CSS code.
-     *
-     * @param string $targetFilePath
-     *
-     * @return string
+     * @return self
      */
-    protected function minify($targetFilePath = null)
+    public function minify(): AbstractMinifier
     {
         // Remove comments
         $this->code = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $this->code);
@@ -22,11 +19,6 @@ class CssMinifier extends AbstractMinifier
         // Remove whitespace
         $this->code = str_replace(["\r\n", "\r", "\n", "\t", '  ', '    ', '    '], '', $this->code);
 
-        // Save to file
-        if ($targetFilePath) {
-            file_put_contents($targetFilePath, $this->code);
-        }
-
-        return $this->code;
+        return $this;
     }
 }

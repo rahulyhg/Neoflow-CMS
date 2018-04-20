@@ -1,9 +1,9 @@
 <?php
-
 namespace Neoflow\Framework\Handler;
 
 class Loader
 {
+
     /**
      * @var array
      */
@@ -16,15 +16,15 @@ class Loader
      *
      * @return self
      */
-    public function loadLibraries(array $basePaths)
+    public function loadLibraries(array $basePaths): self
     {
         foreach ($basePaths as $basePath) {
-            $paths = array_filter(glob($basePath.'/[!_]*'), 'is_dir');
+            $paths = array_filter(glob($basePath . '/[!_]*'), 'is_dir');
 
             foreach ($paths as $path) {
                 $this
-                    ->loadFunctionsFromDirectory($path.'/functions')
-                    ->addClassDirectory($path.'/classes');
+                    ->loadFunctionsFromDirectory($path . '/functions')
+                    ->addClassDirectory($path . '/classes');
             }
         }
 
@@ -34,11 +34,11 @@ class Loader
     /**
      * Load functions from directories.
      *
-     * @param array $functionDirectories
+     * @param array $functionDirectories Function directories
      *
      * @return self
      */
-    public function loadFunctionsFromDirectories(array $functionDirectories)
+    public function loadFunctionsFromDirectories(array $functionDirectories): self
     {
         foreach ($functionDirectories as $functionDirectory) {
             $this->loadFunctionsFromDirectory($functionDirectory);
@@ -50,13 +50,13 @@ class Loader
     /**
      * Load functions from directory.
      *
-     * @param string $functionDirectory
+     * @param string $functionDirectory Function directory
      *
      * @return self
      */
-    public function loadFunctionsFromDirectory($functionDirectory)
+    public function loadFunctionsFromDirectory(string $functionDirectory): self
     {
-        foreach (glob($functionDirectory.'/*.php') as $functionFilePath) {
+        foreach (glob($functionDirectory . '/*.php') as $functionFilePath) {
             require_once $functionFilePath;
         }
 
@@ -70,10 +70,10 @@ class Loader
      *
      * @return bool
      */
-    public function loadClassFile($className)
+    public function loadClassFile(string $className): bool
     {
         foreach ($this->classDirectories as $classDirectory) {
-            $classFilePath = normalize_path($classDirectory.DIRECTORY_SEPARATOR.$className.'.php');
+            $classFilePath = normalize_path($classDirectory . DIRECTORY_SEPARATOR . $className . '.php');
             if (is_file($classFilePath)) {
                 require_once $classFilePath;
 
@@ -89,7 +89,7 @@ class Loader
      *
      * @return bool
      */
-    public function registerAutoload()
+    public function registerAutoload(): bool
     {
         return spl_autoload_register([$this, 'loadClassFile']);
     }
@@ -97,11 +97,11 @@ class Loader
     /**
      * Add directory.
      *
-     * @param string $classDirectory
+     * @param string $classDirectory Class directory
      *
      * @return self
      */
-    public function addClassDirectory($classDirectory)
+    public function addClassDirectory(string $classDirectory): self
     {
         $this->classDirectories[] = $classDirectory;
 
@@ -111,11 +111,11 @@ class Loader
     /**
      * Add directories.
      *
-     * @param array $classDirectories
+     * @param array $classDirectories Class directories
      *
      * @return self
      */
-    public function addClassDirectories($classDirectories)
+    public function addClassDirectories(array $classDirectories): self
     {
         $this->classDirectories = array_merge($this->classDirectories, $classDirectories);
 

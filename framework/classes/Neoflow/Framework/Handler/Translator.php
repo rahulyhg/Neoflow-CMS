@@ -279,9 +279,9 @@ class Translator
      *
      * @param string $key             Translation key
      * @param array  $values          Values for translation
-     * @param bool   $plural          State if translation should be plural
-     * @param bool   $errorPrefix     State if prefix should be added when an error appears
-     * @param bool   $translateValues State whether values should be translated too
+     * @param bool   $plural          Set TRUE when translation should be plural
+     * @param bool   $errorPrefix     Set FALSE to prevent the error prefix get added
+     * @param bool   $translateValues List of values for the translation
      *
      * @return string
      */

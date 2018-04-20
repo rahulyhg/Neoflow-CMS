@@ -3,11 +3,11 @@
 /**
  * Normalize URL.
  *
- * @param string $url
+ * @param string $url URL
  *
  * @return string
  */
-function normalize_url($url)
+function normalize_url(string $url): string
 {
     $normalized = preg_replace('/([^:])(\/{2,})/', '$1/', $url);
     $slashed = str_replace('\\', '/', $normalized);

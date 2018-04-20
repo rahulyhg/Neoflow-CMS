@@ -1,11 +1,11 @@
 <?php
-
 namespace Neoflow\Filesystem;
 
 use ReflectionClass;
 
 abstract class AbstractObject
 {
+
     /**
      * Filesystem object path.
      *
@@ -15,8 +15,10 @@ abstract class AbstractObject
 
     /**
      * Load filesystem object.
+     *
+     * @return static
      */
-    public static function load(string $path)
+    public static function load(string $path): self
     {
         return new static($path);
     }

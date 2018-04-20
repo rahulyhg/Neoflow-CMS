@@ -9,7 +9,7 @@ use Neoflow\CMS\App;
  *
  * @return bool
  */
-function has_permission($permissionKeys)
+function has_permission($permissionKeys): bool
 {
     return App::instance()->getService('auth')->hasPermission($permissionKeys);
 }

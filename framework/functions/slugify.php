@@ -3,14 +3,13 @@
 /**
  * Slugify string.
  *
- * @param string $text
- * @param string $separator
+ * @param string $text Text
+ * @param string $separator Separator and placeholder
  *
+ * @see https://github.com/keyvanakbary/slugifier
  * @return string
- *
- * @see based on https://github.com/keyvanakbary/slugifier
  */
-function slugify($text, $separator = '-')
+function slugify(string $text, string $separator = '-'): string
 {
     $charMap = [
         // Latin

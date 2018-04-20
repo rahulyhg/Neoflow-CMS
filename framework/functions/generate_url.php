@@ -5,14 +5,14 @@ use Neoflow\Framework\App;
 /**
  * Generate URL of route.
  *
- * @param string $routeKey
- * @param array  $args
- * @param array  $params
- * @param string $languageCode
+ * @param string $key Route key
+ * @param array  $args URL path arguments
+ * @param array  $parameters URL query parameters
+ * @param string $languageCode URL language code
  *
  * @return string
  */
-function generate_url($routeKey, $args = [], $params = [], $languageCode = '')
+function generate_url(string $key, array $args = [], array $parameters = [], string $languageCode = ''): string
 {
-    return App::instance()->get('router')->generateUrl($routeKey, $args, $params, $languageCode);
+    return App::instance()->get('router')->generateUrl($key, $args, $parameters, $languageCode);
 }

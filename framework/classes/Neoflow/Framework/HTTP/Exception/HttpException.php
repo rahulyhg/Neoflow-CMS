@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\HTTP\Exception;
 
 use Exception;
@@ -9,6 +8,7 @@ use Throwable;
 
 class HttpException extends Exception
 {
+
     /**
      * Constructor.
      *
@@ -26,7 +26,7 @@ class HttpException extends Exception
             }
             parent::__construct($message, $code, $previous);
         } else {
-            throw new InvalidArgumentException('HTTP status code "'.$code.'" is not valid');
+            throw new InvalidArgumentException('HTTP status code "' . $code . '" is invalid');
         }
     }
 }

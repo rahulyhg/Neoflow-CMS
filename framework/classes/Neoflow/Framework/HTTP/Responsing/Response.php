@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\HTTP\Responsing;
 
 use DateTime;
@@ -8,6 +7,7 @@ use Neoflow\Framework\AppTrait;
 
 class Response
 {
+
     /**
      * App trait.
      */
@@ -46,12 +46,12 @@ class Response
     /**
      * Set cookie value.
      *
-     * @param string $key
-     * @param mixed  $value
-     * @param string $expire
-     * @param mixed  $path
-     * @param mixed  $domain
-     * @param bool   $secure
+     * @param string $key Cookie key
+     * @param mixed  $value Cookie value
+     * @param string $expire Expiration token
+     * @param mixed  $path Cookie path
+     * @param mixed  $domain Valid cookie domain
+     * @param bool   $secure Set TRUE to allow only secure access
      *
      * @return bool
      */
@@ -59,8 +59,10 @@ class Response
     {
         // Create a date
         $date = new DateTime();
+
         // Modify it (+1hours; +1days; +20years; -2days etc)
         $date->modify($expire);
+
         // Set cookie
         return setcookie($key, $value, $date->getTimestamp(), $path, $domain, $secure, true);
     }
@@ -68,20 +70,21 @@ class Response
     /**
      * Delete cookie value.
      *
-     * @param string $key
-     * @param mixed  $path
-     * @param mixed  $domain
-     * @param bool   $secure
+     * @param string $key Cookie key
+     * @param mixed  $path Cookie path
+     * @param mixed  $domain Valid cookie domain
      *
      * @return bool
      */
-    public function deleteCookie(string $key, $path = false, $domain = false, bool $secure = false)
+    public function deleteCookie(string $key, bool $path = false, $domain = false): bool
     {
-        return $this->setCookie($key, '', '-1 hour', $path, $domain, $secure);
+        return $this->setCookie($key, '', '-1 hour', $path, $domain, false);
     }
 
     /**
      * Send HTTP header.
+     *
+     * @return void
      */
     protected function sendHeader(): void
     {
@@ -125,7 +128,7 @@ class Response
 
             return $this;
         }
-        throw new InvalidArgumentException('HTTP status code "'.$statusCode.'" is not valid');
+        throw new InvalidArgumentException('HTTP status code "' . $statusCode . '" is not valid');
     }
 
     /**

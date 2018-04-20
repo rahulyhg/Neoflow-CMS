@@ -54,7 +54,7 @@ class UserModel extends AbstractModel
      *
      * @param array $data Data of user entity
      *
-     * @return UserModel
+     * @return self
      */
     public static function create(array $data): FrameworkAbstractModel
     {
@@ -73,7 +73,7 @@ class UserModel extends AbstractModel
      * @param array $data Data for user
      * @param int   $id   Identifier of user
      *
-     * @return UserModel
+     * @return self
      */
     public static function updateById(array $data, int $id): FrameworkAbstractModel
     {
@@ -87,7 +87,7 @@ class UserModel extends AbstractModel
     }
 
     /**
-     * Validate user entity.
+     * Validate user.
      *
      * @return bool
      */
@@ -146,7 +146,7 @@ class UserModel extends AbstractModel
     }
 
     /**
-     * Validate new password of user entity.
+     * Validate new password of user.
      *
      * @return bool
      */
@@ -190,7 +190,7 @@ class UserModel extends AbstractModel
     /**
      * Get role.
      *
-     * @return RoleModel
+     * @return RoleModel|null
      */
     public function getRole(): RoleModel
     {
@@ -198,7 +198,7 @@ class UserModel extends AbstractModel
     }
 
     /**
-     * Save user entity.
+     * Save user.
      *
      * @param bool $preventCacheClearing Prevent that the cached database results will get deleted
      *
@@ -219,11 +219,11 @@ class UserModel extends AbstractModel
     }
 
     /**
-     * Delete user entity.
+     * Delete user.
      *
      * @return bool
      */
-    public function delete()
+    public function delete(): bool
     {
         // Prevent delete of initial user
         if (1 != $this->id()) {
@@ -238,7 +238,7 @@ class UserModel extends AbstractModel
      *
      * @return self
      */
-    public function generateResetKey()
+    public function generateResetKey(): self
     {
         $this->reset_key = sha1(uniqid());
         $this->reseted_when = microtime(true);
@@ -251,7 +251,7 @@ class UserModel extends AbstractModel
      *
      * @return self
      */
-    public function deleteResetKey()
+    public function deleteResetKey(): self
     {
         $this->reset_key = null;
         $this->reseted_when = null;
@@ -282,7 +282,7 @@ class UserModel extends AbstractModel
      * @param string     $confirmPassword Confirm password of user entity
      * @param string|int $id              Identifier of user entity
      *
-     * @return UserModel
+     * @return self
      *
      * @throws RuntimeException
      */

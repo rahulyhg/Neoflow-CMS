@@ -7,7 +7,18 @@ use Neoflow\Framework\ORM\EntityCollection;
 
 class NavitemView extends BackendView
 {
-    public function renderNavitemOptions(EntityCollection $navitems, $level = 0, array $selected = [], array $disabled = [], $property = 'navitem_id')
+    /**
+     * Render navigation items as select options.
+     *
+     * @param EntityCollection $navitems List of navigation items
+     * @param int              $level    Recursive level of rendering
+     * @param array            $selected List of selected navigation items
+     * @param array            $disabled List of disabled navigation items
+     * @param string           $property Return property of navigation item
+     *
+     * @return string
+     */
+    public function renderNavitemOptions(EntityCollection $navitems, int $level = 0, array $selected = [], array $disabled = [], string $property = 'navitem_id'): string
     {
         $output = '';
         foreach ($navitems as $navitem) {
@@ -30,13 +41,13 @@ class NavitemView extends BackendView
     }
 
     /**
-     * Render navitems.
+     * Render navigation items for nestable (drag'n drop list).
      *
-     * @param EntityCollection $navitems
+     * @param EntityCollection $navitems List of navigation items
      *
      * @return string
      */
-    public function renderNavitemNestable(EntityCollection $navitems)
+    public function renderNavitemNestable(EntityCollection $navitems): string
     {
         $output = '';
         if ($navitems->count()) {

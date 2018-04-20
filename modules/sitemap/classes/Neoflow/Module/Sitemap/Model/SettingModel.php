@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Module\Sitemap\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -7,6 +6,7 @@ use Neoflow\Framework\ORM\EntityValidator;
 
 class SettingModel extends AbstractModel
 {
+
     /**
      * @var array
      */
@@ -48,7 +48,7 @@ class SettingModel extends AbstractModel
     public static $properties = [
         'setting_id', 'default_changefreq',
         'default_priority', 'sitemap_lifetime',
-        'automated_creation', ];
+        'automated_creation',];
 
     /**
      * Setter.
@@ -96,7 +96,7 @@ class SettingModel extends AbstractModel
      *
      * @return int
      */
-    public function getSitemapLifetime(string $type = 'seconds')
+    public function getSitemapLifetime(string $type = 'seconds'): int
     {
         $sitemapLifetime = (int) $this->sitemap_lifetime;
         if ('seconds' === $type) {

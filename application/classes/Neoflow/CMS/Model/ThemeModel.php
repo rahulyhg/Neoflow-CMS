@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Model;
 
 use Neoflow\Framework\ORM\EntityValidator;
@@ -7,6 +6,7 @@ use Neoflow\Validation\ValidationException;
 
 class ThemeModel extends AbstractExtensionModel
 {
+
     /**
      * @var string
      */
@@ -40,31 +40,31 @@ class ThemeModel extends AbstractExtensionModel
     ];
 
     /**
-     * Get theme url.
+     * Get theme URL.
      *
-     * @param string $uri
+     * @param string $additionalUrlPath Additional URL path
      *
      * @return string
      */
-    public function getUrl($uri = '')
+    public function getUrl(string $additionalUrlPath = ''): string
     {
         return $this
                 ->config()
-                ->getThemesUrl('/'.$this->folder_name.'/'.$uri);
+                ->getThemesUrl('/' . $this->folder_name . '/' . $additionalUrlPath);
     }
 
     /**
      * Get theme path.
      *
-     * @param string $additionalPath
+     * @param string $additionalPath Additional path
      *
      * @return string
      */
-    public function getPath($additionalPath = '')
+    public function getPath(string $additionalPath = ''): string
     {
         return $this
                 ->config()
-                ->getThemesPath('/'.$this->folder_name.'/'.$additionalPath);
+                ->getThemesPath('/' . $this->folder_name . '/' . $additionalPath);
     }
 
     /**
@@ -72,7 +72,7 @@ class ThemeModel extends AbstractExtensionModel
      *
      * @return self
      */
-    public function loadBlocks()
+    public function loadBlocks(): self
     {
         // Get info file path
         $infoFilePath = $this->getPath('info.php');
@@ -114,7 +114,7 @@ class ThemeModel extends AbstractExtensionModel
      *
      * @return self
      */
-    public function loadNavigations()
+    public function loadNavigations(): self
     {
         // Get info file path
         $infoFilePath = $this->getPath('info.php');
@@ -206,7 +206,7 @@ class ThemeModel extends AbstractExtensionModel
      *
      * @throws ValidationException
      */
-    public function delete()
+    public function delete(): bool
     {
         if ($this->settings()->backend_theme_id != $this->id() && $this->settings()->theme_id != $this->id()) {
             return parent::delete();

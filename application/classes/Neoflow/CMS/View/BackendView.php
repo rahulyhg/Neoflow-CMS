@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\View;
 
 use Neoflow\CMS\Core\AbstractView;
@@ -7,6 +6,7 @@ use Neoflow\Alert\AbstractAlert;
 
 class BackendView extends AbstractView
 {
+
     /**
      * @var string
      */
@@ -114,15 +114,15 @@ class BackendView extends AbstractView
     }
 
     /**
-     * Set back url.
+     * Set back URL.
      *
-     * @param string $backUrl
+     * @param string $url Back URL
      *
      * @return self
      */
-    public function setBackUrl(string $backUrl): self
+    public function setBackUrl(string $url): self
     {
-        $this->backUrl = $backUrl;
+        $this->backUrl = $url;
 
         return $this;
     }

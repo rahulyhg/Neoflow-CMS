@@ -1,16 +1,16 @@
 <?php
 
 /**
- * Check whether array has associative data.
+ * Check whether array is associative
  *
- * @param array $array
+ * @param mixed $array Array
  *
  * @return bool
  */
-function is_assoc($array)
+function is_assoc($array): bool
 {
     if (is_array($array)) {
-        return count(array_filter(array_keys($array), 'is_string')) > 0;
+        return (count(array_filter(array_keys($array), 'is_string')) > 0);
     }
 
     return false;

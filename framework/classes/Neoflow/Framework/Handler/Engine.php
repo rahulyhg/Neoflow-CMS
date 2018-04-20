@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\Handler;
 
 use InvalidArgumentException;
@@ -9,6 +8,7 @@ use RuntimeException;
 
 class Engine
 {
+
     /**
      * App trait.
      */
@@ -60,25 +60,28 @@ class Engine
      * Start buffering block.
      *
      * @param string $key Block key
-     *
+     * @return self
      * @throws RuntimeException
      */
-    public function startBlock(string $key)
+    public function startBlock(string $key): self
     {
         if (in_array($key, $this->openBlocks)) {
-            throw new RuntimeException('Block has already started (Key: '.$key.')');
+            throw new RuntimeException('Block has already started (Key: ' . $key . ')');
         }
         $this->openBlocks[] = $key;
         ob_start();
         ob_implicit_flush(false);
+
+        return $this;
     }
 
     /**
      * Stop buffering block.
      *
+     * @return self
      * @throws OutOfRangeException
      */
-    public function stopBlock()
+    public function stopBlock(): self
     {
         if (0 === count($this->openBlocks)) {
             throw new OutOfRangeException('Started block not found');
@@ -88,6 +91,8 @@ class Engine
 
         $this->blocks[$key][] = ob_get_contents();
         ob_end_clean();
+
+        return $this;
     }
 
     /**
@@ -99,12 +104,12 @@ class Engine
      *
      * @return string
      */
-    public function renderBlock(string $key, string $preSeparator = '', string $postSeparator = '')
+    public function renderBlock(string $key, string $preSeparator = '', string $postSeparator = ''): string
     {
         $result = '';
         if ($this->hasBlock($key)) {
             foreach ($this->blocks[$key] as $block) {
-                $result .= $preSeparator.$block.$postSeparator;
+                $result .= $preSeparator . $block . $postSeparator;
             }
 
             return $result;
@@ -118,7 +123,7 @@ class Engine
      *
      * @return array
      */
-    public function getBlocks()
+    public function getBlocks(): array
     {
         return $this->blocks;
     }
@@ -126,13 +131,13 @@ class Engine
     /**
      * Unset all blocks.
      *
-     * @return self
+     * @return bool
      */
-    public function unsetBlocks()
+    public function unsetBlocks(): bool
     {
         $this->blocks = [];
 
-        return $this;
+        return true;
     }
 
     /**
@@ -142,7 +147,7 @@ class Engine
      *
      * @return array
      */
-    public function getBlock(string $key)
+    public function getBlock(string $key): array
     {
         if ($this->hasBlock($key)) {
             return $this->blocks[$key];
@@ -158,7 +163,7 @@ class Engine
      *
      * @return bool
      */
-    public function hasBlock(string $key)
+    public function hasBlock(string $key): bool
     {
         return isset($this->blocks[$key]);
     }
@@ -169,9 +174,9 @@ class Engine
      * @param string $key     Block key
      * @param string $content Block content
      *
-     * @return View
+     * @return self
      */
-    public function setBlock(string $key, string $content)
+    public function setBlock(string $key, string $content): self
     {
         $this->blocks[$key][] = $content;
 
@@ -183,15 +188,15 @@ class Engine
      *
      * @param string $key Block key
      *
-     * @return View
+     * @return bool
      */
-    public function unsetBlock(string $key)
+    public function unsetBlock(string $key): bool
     {
         if ($this->hasBlock($key)) {
             unset($this->blocks[$key]);
         }
 
-        return $this;
+        return true;
     }
 
     /**
@@ -200,9 +205,9 @@ class Engine
      * @param string $key     Block key
      * @param string $content Block content
      *
-     * @return View
+     * @return self
      */
-    public function addContentToBlock(string $key, string $content)
+    public function addContentToBlock(string $key, string $content): self
     {
         if (isset($this->blocks[$key])) {
             $this->blocks[$key][] = $content;
@@ -217,10 +222,14 @@ class Engine
      * Add parameters.
      *
      * @param array $parameters
+     *
+     * @return self
      */
-    protected function addParameters(array $parameters)
+    protected function addParameters(array $parameters): self
     {
         $this->parameters = array_merge($this->parameters, $parameters);
+
+        return $this;
     }
 
     /**
@@ -231,9 +240,9 @@ class Engine
      *
      * @return string
      *
-     * @throws InvalidArgumentException
+     * @throws OutOfRangeException
      */
-    public function renderFile($filePath, array $parameters = [])
+    public function renderFile(string $filePath, array $parameters = []): string
     {
         if (is_file($filePath)) {
             $parameters['engine'] = $this;
@@ -252,27 +261,27 @@ class Engine
             // Search and replace placeholders
             foreach ($parameters as $key => $value) {
                 if (is_string($value) || is_integer($value)) {
-                    $output = str_replace('['.$key.']', $value, $output);
+                    $output = str_replace('[' . $key . ']', $value, $output);
                 }
             }
 
             return $output;
         }
-        throw new OutOfRangeException('File "'.$filePath.'" not found');
+        throw new OutOfRangeException('File "' . $filePath . '" not found');
     }
 
     /**
-     * Add resource url.
+     * Add resource URL.
      *
-     * @param string $url
-     * @param string $type
-     * @param string $key
+     * @param string $url Ressource URL
+     * @param string $type Resource type (css or javascript)
+     * @param string $key Group key
      *
      * @return self
      *
      * @throw InvalidArgumentException
      */
-    protected function addResourceUrl($url, $type, $key = 'default')
+    protected function addResourceUrl(string $url, string $type, string $key = 'default'): self
     {
         if ('css' === $type || 'javascript' === $type) {
             if (!isset($this->resourceUrls[$type][$key]) || !in_array($url, $this->resourceUrls[$type][$key])) {
@@ -285,55 +294,55 @@ class Engine
     }
 
     /**
-     * Add CSS url.
+     * Add CSS file URL.
      *
-     * @param string $url
-     * @param string $key
+     * @param string $url CSS file URL
+     * @param string $key Group key
      *
      * @return self
      */
-    public function addCssUrl($url, $key = 'default')
+    public function addCssUrl(string $url, string $key = 'default'): self
     {
         return $this->addResourceUrl($url, 'css', $key);
     }
 
     /**
-     * Add stylesheet url.
+     * Add stylesheet URL.
      *
-     * @param string $url
-     * @param string $key
+     * @param string $url Stylesheet URL
+     * @param string $key Group key
      *
      * @return self
      */
-    public function addStylesheetUrl($url, $key = 'default')
+    public function addStylesheetUrl(string $url, string $key = 'default'): self
     {
         return $this->addCssUrl($url, $key);
     }
 
     /**
-     * Add Javascript url.
+     * Add Javascript URL.
      *
-     * @param string $url
-     * @param string $key
+     * @param string $url Javascript URL
+     * @param string $key Group key
      *
      * @return self
      */
-    public function addJavascriptUrl($url, $key = 'default')
+    public function addJavascriptUrl(string $url, string $key = 'default'): self
     {
         return $this->addResourceUrl($url, 'javascript', $key);
     }
 
     /**
-     * Get resource urls.
+     * Get resource URLs.
      *
-     * @param string $type
-     * @param string $key
+     * @param string $type Resource type (css or javascript)
+     * @param string $key Group key
      *
      * @return array
      *
      * @throws InvalidArgumentException
      */
-    protected function getResourceUrls($type, $key = 'default')
+    protected function getResourceUrls(string $type, string $key = 'default'): array
     {
         if ('javascript' === $type || 'css' === $type) {
             if (isset($this->resourceUrls[$type][$key])) {
@@ -346,81 +355,81 @@ class Engine
     }
 
     /**
-     * Get Javascript urls.
+     * Get Javascript URLs.
      *
-     * @param string $key
+     * @param string $key Group key
      *
      * @return array
      */
-    public function getJavascriptUrls($key = 'default')
+    public function getJavascriptUrls(string $key = 'default'): array
     {
         return $this->getResourceUrls('javascript', $key);
     }
 
     /**
-     * Get CSS urls.
+     * Get CSS URLs.
      *
-     * @param string $key
+     * @param string $key Group key
      *
      * @return array
      */
-    public function getCssUrls($key = 'default')
+    public function getCssUrls(string $key = 'default'): array
     {
         return $this->getResourceUrls('css', $key);
     }
 
     /**
-     * Get stylesheet urls.
+     * Get stylesheet URLs.
      *
-     * @param string $key
+     * @param string $key Group key
      *
      * @return array
      */
-    public function getStylesheetUrls($key = 'default')
+    public function getStylesheetUrls(string $key = 'default'): array
     {
         return $this->getCssUrls($key);
     }
 
     /**
-     * Render resource urls.
+     * Render resource URLs.
      *
-     * @param string $type
-     * @param string $template
-     * @param string $key
+     * @param string $type Resource type (css or javascript)
+     * @param string $template Resource template
+     * @param string $key Group key
      *
      * @return string
      */
-    protected function renderResourceUrls($type, $template, $key = 'default')
+    protected function renderResourceUrls(string $type, string $template, string $key = 'default'): string
     {
         $output = '';
         $urls = $this->getResourceUrls($type, $key);
         foreach ($urls as $url) {
-            $output .= sprintf($template, $url).PHP_EOL;
+            $output .= sprintf($template, $url) . PHP_EOL;
         }
 
         return $output;
     }
 
     /**
-     * Render Javascript urls.
+     * Render Javascript URLs.
      *
-     * @param string $key
+     * @param string $key Group key
      *
      * @return string
      */
-    public function renderJavascriptUrls($key = 'default')
+    public function renderJavascriptUrls(string $key = 'default'): string
     {
         return $this->renderResourceUrls('javascript', '<script src="%s"></script>', $key);
     }
 
     /**
-     * Render CSS urls.
+     * Render CSS URLs.
      *
-     * @param string $key
+     * @param string $key Group key
      *
      * @return string
      */
-    public function renderCssUrls($key = 'default')
+    public function renderCssUrls(string $key = 'default'): string
     {
         return $this->renderResourceUrls('css', '<link href="%s" rel="stylesheet" type="text/css" />', $key);
     }
@@ -428,11 +437,11 @@ class Engine
     /**
      * Render stylesheets urls.
      *
-     * @param string $key
+     * @param string $key Group key
      *
      * @return string
      */
-    public function renderStylesheetUrl($key = 'default')
+    public function renderStylesheetUrl(string $key = 'default'): string
     {
         return $this->renderCssUrls($key);
     }
@@ -440,15 +449,15 @@ class Engine
     /**
      * Add source.
      *
-     * @param string $source
-     * @param string $type
-     * @param string $key
+     * @param string $source Source code
+     * @param string $type Source type (css or javascript)
+     * @param string $key Group key
      *
      * @return self
      *
      * @throw InvalidArgumentException
      */
-    protected function addSource($source, $type, $key = 'default')
+    protected function addSource(string $source, string $type, string $key = 'default'): self
     {
         if ('javascript' === $type || 'css' === $type) {
             $this->sources[$type][$key][] = $source;
@@ -461,13 +470,12 @@ class Engine
     /**
      * Add Javascript source.
      *
-     * @param string $url
-     * @param string $key
-     * @param bool   $isRelative
+     * @param string $source Javascript source
+     * @param string $key Group key
      *
      * @return self
      */
-    public function addJavascript($source, $key = 'default')
+    public function addJavascript(string $source, string $key = 'default'): self
     {
         return $this->addSource($source, 'javascript', $key);
     }
@@ -475,12 +483,12 @@ class Engine
     /**
      * Add CSS source.
      *
-     * @param string $source
-     * @param string $key
+     * @param string $source CSS source
+     * @param string $key Group key
      *
      * @return self
      */
-    public function addCss($source, $key = 'default')
+    public function addCss(string $source, string $key = 'default'): self
     {
         return $this->addSource($source, 'css', $key);
     }
@@ -488,14 +496,14 @@ class Engine
     /**
      * Get sources.
      *
-     * @param string $type
-     * @param string $key
+     * @param string $type Source type (css or javascript)
+     * @param string $key Group key
      *
      * @return array
      *
      * @throws InvalidArgumentException
      */
-    protected function getSource($type, $key = 'default')
+    protected function getSource(string $type, string $key = 'default'): array
     {
         if ('javascript' === $type || 'css' === $type) {
             if (isset($this->sources[$type][$key])) {
@@ -510,11 +518,11 @@ class Engine
     /**
      * Get Javascript source.
      *
-     * @param string $key
+     * @param string $key Group key
      *
      * @return array
      */
-    public function getJavascript($key = 'default')
+    public function getJavascript(string $key = 'default'): array
     {
         return $this->getSource('javascript', $key);
     }
@@ -522,11 +530,11 @@ class Engine
     /**
      * Get CSS source.
      *
-     * @param string $key
+     * @param string $key Group key
      *
      * @return array
      */
-    public function getCss($key = 'css')
+    public function getCss(string $key = 'css'): array
     {
         return $this->getSource('css', $key);
     }
@@ -534,17 +542,17 @@ class Engine
     /**
      * Render source.
      *
-     * @param string $type
-     * @param string $template
-     * @param string $key
+     * @param string $type Source code type (css or javascript)
+     * @param string $template Source template
+     * @param string $key Group key
      *
      * @return string
      */
-    protected function renderSource($type, $template, $key = 'default')
+    protected function renderSource(string $type, string $template, string $key = 'default'): string
     {
         $source = implode(PHP_EOL, $this->getSource($type, $key));
         if ($source) {
-            return sprintf($template, $source).PHP_EOL;
+            return sprintf($template, $source) . PHP_EOL;
         }
 
         return '';
@@ -553,37 +561,37 @@ class Engine
     /**
      * Render Javascript source.
      *
-     * @param string $key
+     * @param string $key Group key
      *
      * @return string
      */
-    public function renderJavascript($key = 'default')
+    public function renderJavascript(string $key = 'default'): string
     {
-        return $this->renderSource('javascript', '<script>'.PHP_EOL.'%s'.PHP_EOL.'</script>', $key);
+        return $this->renderSource('javascript', '<script>' . PHP_EOL . '%s' . PHP_EOL . '</script>', $key);
     }
 
     /**
      * Render CSS source.
      *
-     * @param string $key
+     * @param string $key Group key
      *
      * @return string
      */
-    public function renderCss($key = 'default')
+    public function renderCss(string $key = 'default'): string
     {
-        return $this->renderSource('css', '<style>'.PHP_EOL.'%s'.PHP_EOL.'</style>', $key);
+        return $this->renderSource('css', '<style>' . PHP_EOL . '%s' . PHP_EOL . '</style>', $key);
     }
 
     /**
      * Add meta tag properties.
      *
      * @param array  $properties Meta tag properties
-     * @param string $name       Unique identifiable name
-     * @param string $key        Unique group key
+     * @param string $name       Tag name
+     * @param string $key        Group key
      *
      * @return self
      */
-    public function addMetaTagProperties(array $properties, string $name = '', string $key = 'default')
+    public function addMetaTagProperties(array $properties, string $name = '', string $key = 'default'): self
     {
         return $this->addTagProperties($properties, $name, 'meta', $key);
     }
@@ -592,12 +600,12 @@ class Engine
      * Add link tag properties.
      *
      * @param array  $properties Link tag properties
-     * @param string $name       Unique identifiable name
-     * @param string $key        Unique group key
+     * @param string $name       Tag name
+     * @param string $key        Group key
      *
      * @return self
      */
-    public function addLinkTagProperties(array $properties, string $name = '', string $key = 'default')
+    public function addLinkTagProperties(array $properties, string $name = '', string $key = 'default'): self
     {
         return $this->addTagProperties($properties, $name, 'link', $key);
     }
@@ -606,15 +614,15 @@ class Engine
      * Add tag properties.
      *
      * @param array  $properties Tag properties
-     * @param string $name       Unique identifiable name
-     * @param string $type       Type of tag
-     * @param string $key        Unique group key
+     * @param string $name       Tag name
+     * @param string $type       Tag type (meta or link)
+     * @param string $key        Group key
      *
      * @return self
      *
      * @throws InvalidArgumentException
      */
-    public function addTagProperties(array $properties, string $name, string $type, string $key = 'default')
+    public function addTagProperties(array $properties, string $name, string $type, string $key = 'default'): self
     {
         if ('meta' === $type || 'link' === $type) {
             if (!isset($this->tagProperties[$type][$key])) {
@@ -635,14 +643,14 @@ class Engine
     /**
      * Get tag properties.
      *
-     * @param string $type Type of tag
-     * @param string $key  Unique group key
+     * @param string $type Tag type (meta or link)
+     * @param string $key  Group key
      *
      * @return array
      *
      * @throws InvalidArgumentException
      */
-    protected function getTagProperties($type, $key = 'default')
+    protected function getTagProperties(string $type, string $key = 'default'): array
     {
         if ('meta' === $type || 'link' === $type) {
             if (isset($this->tagProperties[$type][$key])) {
@@ -657,11 +665,11 @@ class Engine
     /**
      * Get meta tag properties.
      *
-     * @param string $key Unique group key
+     * @param string $key Group key
      *
      * @return array
      */
-    public function getMetaTagProperties($key = 'default')
+    public function getMetaTagProperties(string $key = 'default'): array
     {
         return $this->getTagProperties('meta', $key);
     }
@@ -669,11 +677,11 @@ class Engine
     /**
      * Get link tag properties.
      *
-     * @param string $key Unique group key
+     * @param string $key Group key
      *
      * @return array
      */
-    public function getLinkTagProperties($key = 'default')
+    public function getLinkTagProperties(string $key = 'default'): array
     {
         return $this->getTagProperties('link', $key);
     }
@@ -681,23 +689,23 @@ class Engine
     /**
      * Render tags properties.
      *
-     * @param string $type     Type of tag
+     * @param string $type     Tag type (meta or link)
      * @param string $template Tag template
-     * @param string $key      Unique group key
+     * @param string $key      Group key
      *
      * @return string
      */
-    protected function renderTagProperties($type, $template, $key = 'default')
+    protected function renderTagProperties(string $type, string $template, string $key = 'default'): string
     {
         $output = '';
         $tags = $this->getTagProperties($type, $key);
         foreach ($tags as $tag) {
             $properties = array_filter(array_map(function ($value, $key) {
-                if (is_string($key)) {
-                    return $key.'="'.$value.'"';
-                }
-            }, $tag, array_keys($tag)));
-            $output .= sprintf($template, implode(' ', $properties)).PHP_EOL;
+                    if (is_string($key)) {
+                        return $key . '="' . $value . '"';
+                    }
+                }, $tag, array_keys($tag)));
+            $output .= sprintf($template, implode(' ', $properties)) . PHP_EOL;
         }
 
         return $output;
@@ -706,11 +714,11 @@ class Engine
     /**
      * Render meta tag properties.
      *
-     * @param string $key Unique group key
+     * @param string $key Group key
      *
      * @return string
      */
-    public function renderMetaTagProperties($key = 'default')
+    public function renderMetaTagProperties(string $key = 'default'): string
     {
         return $this->renderTagProperties('meta', '<meta %s />', $key);
     }
@@ -718,11 +726,11 @@ class Engine
     /**
      * Render link tag properties.
      *
-     * @param string $key Unique group key
+     * @param string $key Group key
      *
      * @return string
      */
-    public function renderLinkTagProperties($key = 'default')
+    public function renderLinkTagProperties(string $key = 'default'): string
     {
         return $this->renderTagProperties('link', '<link %s />', $key);
     }

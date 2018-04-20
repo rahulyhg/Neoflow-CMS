@@ -80,11 +80,11 @@ class Container implements IteratorAggregate, Countable, ArrayAccess
     /**
      * Get container data as an array.
      *
-     * @param bool $recursively Set false to prevent recursively to array casting
+     * @param bool $recursively Set FALSE to prevent recursive array casting
      *
      * @return array
      */
-    public function toArray(bool $recursively = true)
+    public function toArray(bool $recursively = true): array
     {
         $data = $this->data;
 
@@ -116,7 +116,7 @@ class Container implements IteratorAggregate, Countable, ArrayAccess
      *
      * return self
      */
-    public function setReadOnly(bool $isReadOnly = true)
+    public function setReadOnly(bool $isReadOnly = true): self
     {
         $this->isReadOnly = $isReadOnly;
 
@@ -138,7 +138,7 @@ class Container implements IteratorAggregate, Countable, ArrayAccess
      *
      * @return bool
      */
-    public function isReadOnly()
+    public function isReadOnly(): bool
     {
         return $this->isReadOnly;
     }
@@ -199,7 +199,7 @@ class Container implements IteratorAggregate, Countable, ArrayAccess
     /**
      * Check whether data value exists.
      *
-     * @param mixed $key
+     * @param string $key Key of data value
      *
      * @return bool
      */
@@ -211,7 +211,7 @@ class Container implements IteratorAggregate, Countable, ArrayAccess
     /**
      * Delete data value.
      *
-     * @param mixed $key
+     * @param string $key Key of data value
      *
      * @return bool
      *
@@ -236,8 +236,8 @@ class Container implements IteratorAggregate, Countable, ArrayAccess
     /**
      * Get data value.
      *
-     * @param mixed $key
-     * @param mixed $default
+     * @param string $key Key of data value
+     * @param mixed $default Default return value when key doesn't exists
      *
      * @return mixed
      */
@@ -346,21 +346,21 @@ class Container implements IteratorAggregate, Countable, ArrayAccess
     }
 
     /**
-     * Check whether data value exists, implements ArrayAccess.
+     * Check whether value by exists, implements ArrayAccess.
      *
-     * @param int|string $offset
+     * @param mixed $offset Offset
      *
-     * @return mixed
+     * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return $this->exists($offset);
     }
 
     /**
-     * Get data value, implements ArrayAccess.
+     * Get value by offset, implements ArrayAccess.
      *
-     * @param int|string $offset
+     * @param mixed $offset Offset
      *
      * @return mixed
      */
@@ -370,25 +370,25 @@ class Container implements IteratorAggregate, Countable, ArrayAccess
     }
 
     /**
-     * Set data value, implements ArrayAccess.
+     * Set value, implements ArrayAccess.
      *
-     * @param int|string $offset
+     * @param mixed $offset Offset
      *
-     * @return mixed
+     * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->set($offset, $value);
     }
 
     /**
-     * Delete data value, implements ArrayAccess.
+     * Unset/delete value by offset, implements ArrayAccess.
      *
-     * @param int|string $offset
+     * @param mixed $offset Offset
      *
-     * @return mixed
+     * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         $this->delete($offset);
     }

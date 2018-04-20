@@ -95,7 +95,7 @@ class App extends Container
      *
      * @return float
      */
-    public function getExecutionTime()
+    public function getExecutionTime(): float
     {
         return microtime(true) - $this->get('startTime');
     }

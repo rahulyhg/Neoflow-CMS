@@ -1,9 +1,9 @@
 <?php
-
 namespace Neoflow\Mailer;
 
 class Mail
 {
+
     /**
      * @var array
      */
@@ -45,11 +45,11 @@ class Mail
     /**
      * Add to email address.
      *
-     * @param string $email
+     * @param string $email Reciever email address
      *
      * @return self
      */
-    public function addTo($email)
+    public function addTo(string $email): self
     {
         $this->to[] = $email;
 
@@ -59,11 +59,11 @@ class Mail
     /**
      * Set from email address.
      *
-     * @param string $email
+     * @param string $email Sender email address
      *
      * @return self
      */
-    public function setFrom($email)
+    public function setFrom(string $email): self
     {
         $this->from = $email;
 
@@ -73,11 +73,11 @@ class Mail
     /**
      * Set subject.
      *
-     * @param string $subject
+     * @param string $subject Email subject title
      *
      * @return self
      */
-    public function setSubject($subject)
+    public function setSubject(string $subject): self
     {
         $this->subject = $subject;
 
@@ -87,12 +87,12 @@ class Mail
     /**
      * Add header.
      *
-     * @param string $key
-     * @param string $value
+     * @param string $key Email header key
+     * @param string $value Email header value
      *
      * @return self
      */
-    public function addHeader($key, $value)
+    public function addHeader(string $key, string $value): self
     {
         if ($key && $value) {
             $this->headers[$key] = $value;
@@ -104,11 +104,11 @@ class Mail
     /**
      * Add Cc email address.
      *
-     * @param string $email
+     * @param string $email Cc reciever email address
      *
      * @return self
      */
-    public function addCc($email)
+    public function addCc(string $email): self
     {
         $this->cc[] = $email;
 
@@ -118,11 +118,11 @@ class Mail
     /**
      * Add Bcc email address.
      *
-     * @param string $email
+     * @param string $email Bcc reciever email address
      *
      * @return self
      */
-    public function addBcc($email)
+    public function addBcc(string $email): self
     {
         $this->bcc = $email;
 
@@ -132,13 +132,13 @@ class Mail
     /**
      * Set message.
      *
-     * @param string $message
+     * @param string $message Email message
      *
      * @return self
      */
-    public function setMessage($message)
+    public function setMessage($message): self
     {
-        $this->message = '<html><body>'.nl2br($message).'</body></html>';
+        $this->message = '<html><body>' . nl2br($message) . '</body></html>';
 
         return $this;
     }
@@ -150,7 +150,7 @@ class Mail
      *
      * @throws MailException
      */
-    public function send()
+    public function send(): bool
     {
         // Check for reciever or receivers
         if (!$this->to) {
@@ -172,7 +172,7 @@ class Mail
 
         // Implode header to string
         $headers = array_map(function ($key, $value) {
-            return $key.': '.$value;
+            return $key . ': ' . $value;
         }, array_keys($this->headers), $this->headers);
 
         return mail(implode(',', $this->to), $this->subject, $this->message, implode("\r\n", $headers));

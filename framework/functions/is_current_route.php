@@ -3,17 +3,17 @@
 use Neoflow\CMS\App;
 
 /**
- * Check whether route is active.
+ * Check whether route is current.
  *
- * @param array|string $routeKeys
- * @param mixed        $returnValue
- * @param mixed        $returnFailedValue
+ * @param mixed $keys Route keys
+ * @param mixed        $returnValue Return value
+ * @param mixed        $returnFailedValue Return value when not current
  *
  * @return mixed
  */
-function is_current_route($routeKeys, $returnValue = true, $returnFailedValue = false)
+function is_current_route($keys, $returnValue = true, $returnFailedValue = false)
 {
-    if (App::instance()->get('router')->isCurrentRoute($routeKeys)) {
+    if (App::instance()->get('router')->isCurrentRoute($keys)) {
         return $returnValue;
     }
 

@@ -124,7 +124,7 @@ class App extends FrameworkApp
      *
      * @return bool
      */
-    protected function updateVisitorStats()
+    protected function updateVisitorStats(): bool
     {
         // Update visitor stats only when database connection is etablished
         if ($this->get('database')) {

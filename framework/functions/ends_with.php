@@ -10,7 +10,7 @@
  *
  * @return string
  */
-function ends_with(string $haystack, string $needle)
+function ends_with(string $haystack, string $needle): string
 {
     $length = strlen($needle);
 

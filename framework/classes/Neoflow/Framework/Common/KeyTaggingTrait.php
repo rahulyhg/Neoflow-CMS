@@ -1,21 +1,23 @@
 <?php
-
 namespace Neoflow\Framework\Common;
 
 trait KeyTaggingTrait
 {
+
     /**
      * @var array
      */
     protected $tags = [];
 
     /**
-     * Set key to tags.
+     * Map key to tags.
      *
-     * @param array  $tags
-     * @param string $key
+     * @param array  $tags Tags to map key with
+     * @param string $key Key for tag mapping
+     *
+     * @return self
      */
-    protected function setKeyToTags(array $tags, $key)
+    protected function mapKeyToTags(array $tags, string $key): self
     {
         foreach ($tags as $tag) {
             if (!isset($this->tags[$tag])) {
@@ -23,16 +25,18 @@ trait KeyTaggingTrait
             }
             $this->tags[$tag][] = $key;
         }
+
+        return $this;
     }
 
     /**
      * Get keys by tag.
      *
-     * @param string $tag
+     * @param string $tag Tag
      *
      * @return array
      */
-    protected function getKeysFromTag($tag)
+    protected function getKeysFromTag($tag): array
     {
         if (isset($this->tags[$tag])) {
             return $this->tags[$tag];
@@ -44,11 +48,11 @@ trait KeyTaggingTrait
     /**
      * Delete tags and tagged keys.
      *
-     * @param string $tags
+     * @param string $tags List of tags
      *
      * @return bool
      */
-    protected function deleteTags(array $tags)
+    protected function deleteTags(array $tags): bool
     {
         foreach ($tags as $tag) {
             $this->deleteTag($tag);
@@ -60,11 +64,11 @@ trait KeyTaggingTrait
     /**
      * Delete tag and tagged keys.
      *
-     * @param string $tag
+     * @param string $tag Tag
      *
      * @return bool
      */
-    protected function deleteTag($tag)
+    protected function deleteTag($tag): bool
     {
         if (isset($this->tags[$tag])) {
             unset($this->tags[$tag]);

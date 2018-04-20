@@ -1,15 +1,15 @@
 <?php
-
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
-use Neoflow\Framework\Core\AbstractModel as FW_AbstractModel;
+use Neoflow\Framework\Core\AbstractModel as FrameworkAbstractModel;
 use Neoflow\Framework\ORM\EntityCollection;
 use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Framework\ORM\Repository;
 
 class NavigationModel extends AbstractModel
 {
+
     /**
      * @var string
      */
@@ -30,7 +30,7 @@ class NavigationModel extends AbstractModel
      *
      * @return Repository
      */
-    public function navitems()
+    public function navitems(): Repository
     {
         return $this->hasMany('\\Neoflow\\CMS\\Model\\NavitemModel', 'navigation_id');
     }
@@ -40,7 +40,7 @@ class NavigationModel extends AbstractModel
      *
      * @return bool
      */
-    public function delete()
+    public function delete(): bool
     {
         // Prevent delete of main navigation
         if (1 != $this->id()) {
@@ -80,19 +80,21 @@ class NavigationModel extends AbstractModel
     /**
      * Set navigation value.
      *
-     * @param string $key    Key of entity value
-     * @param mixed  $value  Entity value
-     * @param bool   $silent State if setting shouldn't be tracked
+     * @param string $property Navigation property
+     * @param mixed  $value  Property value
+     * @param bool   $silent Set TRUE to prevent the tracking of the change
      *
      * @return self
+     *
+     * @throws RuntimeException
      */
-    protected function set($key, $value = null, $silent = false): FW_AbstractModel
+    protected function set(string $property, $value = null, bool $silent = false): FrameworkAbstractModel
     {
-        if ('navigation_key' === $key) {
+        if ('navigation_key' === $property) {
             $value = slugify($value);
         }
 
-        return parent::set($key, $value, $silent);
+        return parent::set($property, $value, $silent);
     }
 
     /**

@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Image;
 
 use Neoflow\Filesystem\File;
@@ -7,6 +6,7 @@ use Neoflow\Image\Exception\ImageFileException;
 
 class ImageFile extends File
 {
+
     /**
      * Image resource.
      *
@@ -23,7 +23,7 @@ class ImageFile extends File
      *
      * @throws ImageFileException
      */
-    public function load($filePath)
+    public function load(string $filePath): self
     {
         if (parent::load($filePath)) {
             switch ($this->getType()) {
@@ -44,7 +44,7 @@ class ImageFile extends File
 
                     break;
                 default:
-                    throw new ImageFileException('Cannot load image file path, because "'.$this->path.'" is not a valid PNG, GIF, BMP or JPEG-based image.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
+                    throw new ImageFileException('Cannot load image file path, because "' . $this->path . '" is not a valid PNG, GIF, BMP or JPEG-based image.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
             }
             $this->fixOrientation();
         }
@@ -57,7 +57,7 @@ class ImageFile extends File
      *
      * @return int
      */
-    public function getType()
+    public function getType(): int
     {
         return @getimagesize($this->path)[2];
     }
@@ -67,7 +67,7 @@ class ImageFile extends File
      *
      * @return int
      */
-    protected function setRequiredMemory()
+    protected function setRequiredMemory(): bool
     {
         $imageInfo = @getimagesize($this->path);
         if (is_array($imageInfo)) {
@@ -81,7 +81,7 @@ class ImageFile extends File
             if ($memoryUsage + $memoryNeeded > $memoryLimit) {
                 $newMemoryLimit = ($memoryLimit + ceil($memoryUsage + $memoryNeeded - $memoryLimit)) / $MB;
 
-                return (bool) @ini_set('memory_limit', $newMemoryLimit.'M');
+                return (bool) @ini_set('memory_limit', $newMemoryLimit . 'M');
             }
         }
 
@@ -93,7 +93,7 @@ class ImageFile extends File
      *
      * @return int
      */
-    public function getWidth()
+    public function getWidth(): int
     {
         return imagesx($this->image);
     }
@@ -103,7 +103,7 @@ class ImageFile extends File
      *
      * @return int
      */
-    public function getHeight()
+    public function getHeight(): int
     {
         return imagesy($this->image);
     }
@@ -143,7 +143,7 @@ class ImageFile extends File
         if ($this->createImageFile($newFilePath, $imageType, $quality)) {
             return new static($newFilePath);
         }
-        throw new ImageFileException('Saving image file to file path "'.$newFilePath.'" failed', ImageFileException::NOT_WRITEABLE);
+        throw new ImageFileException('Saving image file to file path "' . $newFilePath . '" failed', ImageFileException::NOT_WRITEABLE);
     }
 
     /**
@@ -165,11 +165,11 @@ class ImageFile extends File
     /**
      * Resize image to width.
      *
-     * @param int $width
+     * @param int $width Image resize
      *
      * @return self
      */
-    public function resizeToWidth($width)
+    public function resizeToWidth(int $width): self
     {
         $ratio = $width / $this->getWidth();
         $height = $this->getHeight() * $ratio;
@@ -181,11 +181,11 @@ class ImageFile extends File
     /**
      * Scale image.
      *
-     * @param int $scale
+     * @param int $scale Scale size
      *
      * @return self
      */
-    public function scale($scale)
+    public function scale(int $scale): self
     {
         $newWidth = $this->getWidth() * $scale / 100;
         $newHeight = $this->getHeight() * $scale / 100;
@@ -201,7 +201,7 @@ class ImageFile extends File
      *
      * @return self
      */
-    public function resize($newWidth, $newHeight)
+    public function resize(int $newWidth, int $newHeight): self
     {
         $newImage = $this->createNewImage($newWidth, $newHeight);
 
@@ -220,7 +220,7 @@ class ImageFile extends File
      *
      * @return resource
      */
-    protected function createNewImage($newWidth, $newHeight)
+    protected function createNewImage(int $newWidth, int $newHeight): resource
     {
         $newImage = imagecreatetruecolor($newWidth, $newHeight);
 
@@ -304,12 +304,12 @@ class ImageFile extends File
                     image2wbmp($this->image, $imageFilePath, round(255 / 100 * $compression));
                     break;
                 default:
-                    throw new ImageFileException('Image type "'.$imageType.'" is not supported.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
+                    throw new ImageFileException('Image type "' . $imageType . '" is not supported.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
             }
 
             return true;
         }
-        throw new ImageFileException('Cannot create image file, because the image file path "'.$imageFilePath.'" already exist.', ImageFileException::ALREADY_EXIST);
+        throw new ImageFileException('Cannot create image file, because the image file path "' . $imageFilePath . '" already exist.', ImageFileException::ALREADY_EXIST);
     }
 
     /**
@@ -334,7 +334,7 @@ class ImageFile extends File
             case 'bmp':
                 return IMAGETYPE_BMP;
             default:
-                throw new ImageFileException('File extension "'.$fileExtension.'" is not supported as image type.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
+                throw new ImageFileException('File extension "' . $fileExtension . '" is not supported as image type.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
         }
     }
 
@@ -372,7 +372,7 @@ class ImageFile extends File
      *
      * @return bool
      */
-    public function fixOrientation()
+    public function fixOrientation(): bool
     {
         // Correct image rotation
         if (function_exists('exif_read_data')) {

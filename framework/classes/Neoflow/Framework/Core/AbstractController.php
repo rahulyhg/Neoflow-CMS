@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\Core;
 
 use Neoflow\Framework\AppTrait;
@@ -10,6 +9,7 @@ use RuntimeException;
 
 abstract class AbstractController
 {
+
     /**
      * @var AbstractView
      */
@@ -131,7 +131,7 @@ abstract class AbstractController
      *
      * @return Response
      */
-    public function postHook(Response $response)
+    public function postHook(Response $response): Response
     {
         return $response;
     }
@@ -144,7 +144,7 @@ abstract class AbstractController
      *
      * @return Session
      */
-    protected function setNewFlash(string $key, $value)
+    protected function setNewFlash(string $key, $value): Session
     {
         return $this->session()->setNewFlash($key, $value);
     }

@@ -79,7 +79,7 @@ class Service extends AbstractService
     /**
      * Get sitemap file.
      *
-     * @return File|bool
+     * @return File|null
      */
     public function getFile()
     {
@@ -88,7 +88,7 @@ class Service extends AbstractService
             return new File($sitemapPath);
         }
 
-        return false;
+        return null;
     }
 
     /**

@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Module\Code;
 
 use ErrorException;
@@ -8,6 +7,7 @@ use RuntimeException;
 
 class Service extends AbstractService
 {
+
     /**
      * @var string
      */
@@ -31,11 +31,11 @@ class Service extends AbstractService
         if ($this->app()->get('view')) {
             if ($this->templateFile) {
                 return $this->app()->get('view')->renderTemplate($this->templateFile, [
-                            'name' => $name,
-                            'id' => $id,
-                            'content' => $content,
-                            'height' => $height,
-                            'options' => $options,
+                        'name' => $name,
+                        'id' => $id,
+                        'content' => $content,
+                        'height' => $height,
+                        'options' => $options,
                 ]);
             }
             throw new RuntimeException('Template file not found');
@@ -46,8 +46,8 @@ class Service extends AbstractService
     /**
      * Execute code.
      *
-     * @param string $code
-     * @param array  $parameters
+     * @param string $code Executable PHP code
+     * @param array  $parameters Parameters for PHP code
      *
      * @return mixed
      */
@@ -58,7 +58,7 @@ class Service extends AbstractService
         }, E_ALL);
 
         // Execute code
-        $result = @eval('return (function() use ($parameters) {extract($parameters);'.$code.'})();');
+        $result = @eval('return (function() use ($parameters) {extract($parameters);' . $code . '})();');
 
         // Reset error handler
         $this->app()->registerErrorHandler();

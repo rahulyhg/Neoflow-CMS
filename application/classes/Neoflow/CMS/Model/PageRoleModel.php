@@ -1,12 +1,13 @@
 <?php
 
-namespace Neoflow\CMS\Model;
-
-use Neoflow\CMS\Core\AbstractModel;
+use Neoflow\Framework\Core\AbstractModel;
 use Neoflow\Framework\ORM\Repository;
+
+namespace Neoflow\CMS\Model;
 
 class PageRoleModel extends AbstractModel
 {
+
     /**
      * @var string
      */
@@ -27,7 +28,7 @@ class PageRoleModel extends AbstractModel
      *
      * @return Repository
      */
-    public function role()
+    public function role(): Repository
     {
         return $this->belongsTo('\\Neoflow\\CMS\\Model\\RoleModel', 'role_id');
     }
@@ -37,7 +38,7 @@ class PageRoleModel extends AbstractModel
      *
      * @return Repository
      */
-    public function page()
+    public function page(): Repository
     {
         return $this->belongsTo('\\Neoflow\\CMS\\Model\\PageModel', 'page_id');
     }

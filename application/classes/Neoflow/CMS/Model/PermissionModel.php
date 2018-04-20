@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -7,6 +6,7 @@ use Neoflow\Framework\ORM\Repository;
 
 class PermissionModel extends AbstractModel
 {
+
     /**
      * @var string
      */
@@ -27,7 +27,7 @@ class PermissionModel extends AbstractModel
      *
      * @return Repository
      */
-    public function roles()
+    public function roles(): Repository
     {
         return $this->hasManyThrough('\\Neoflow\\CMS\\Model\\RoleModel', '\\Neoflow\\CMS\\Model\\RolePermissionModel', 'permission_id', 'role_id');
     }

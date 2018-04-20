@@ -3,11 +3,11 @@
 /**
  * Check whether string is valid JSON encoded data.
  *
- * @param string $string
+ * @param string $string String
  *
  * @return bool
  */
-function is_json($string)
+function is_json(string $string): bool
 {
     json_decode($string);
 

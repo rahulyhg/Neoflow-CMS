@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Validation;
 
 use InvalidArgumentException;
@@ -8,12 +7,13 @@ use ReflectionMethod;
 
 class Validator
 {
+
     /**
      * App trait.
      */
     use \Neoflow\Framework\AppTrait;
 
-    /**
+/**
      * Rule trait.
      */
     use RuleTrait;
@@ -75,11 +75,11 @@ class Validator
     /**
      * Set data.
      *
-     * @param array|AbstractModel $data
+     * @param array $data Data for validation
      *
-     * @return Validator
+     * @return self
      */
-    protected function setData($data)
+    protected function setData(array $data): self
     {
         if (is_array($data)) {
             $this->data = $data;
@@ -95,7 +95,7 @@ class Validator
     /**
      * Callback.
      *
-     * @param callable|array $callback     Callback function or array with object and callback method
+     * @param callable $callback     Validation callback
      * @param string         $message      Rule message
      * @param array          $callbackArgs Callback arguments
      *
@@ -103,27 +103,19 @@ class Validator
      *
      * @throws InvalidArgumentException
      */
-    public function callback($callback, $message = '', $callbackArgs = [])
+    public function callback(callable $callback, string $message = '', array$callbackArgs = []): self
     {
         if (is_callable($callback)) {
             // Generate generic and unique rule name
-            $name = 'callback_'.sha1(uniqid('', true));
+            $name = 'callback_' . sha1(uniqid('', true));
 
             // Set callback rule
             $this->setRule($name, function ($value) use ($callback, $callbackArgs) {
                 // Add value to the callback arguments
                 array_unshift($callbackArgs, $value);
 
-                // if callback is an array then define reflection method
-                if (is_array($callback)) {
-                    $reflection = new ReflectionMethod($callback[0], $callback[1]);
-
-                    return $reflection->invokeArgs($callback[0], $callbackArgs);
-                } else {
-                    $reflection = new ReflectionFunction($callback);
-
-                    return $reflection->invokeArgs($callbackArgs);
-                }
+                $reflection = new ReflectionFunction($callback);
+                return $reflection->invokeArgs($callbackArgs);
             }, $message);
         } else {
             throw new InvalidArgumentException('Callback is not callable');
@@ -138,9 +130,9 @@ class Validator
      * @param string $key   Key of data value
      * @param string $label Label of data value
      *
-     * @return mixed
+     * @return self
      */
-    public function set($key, $label = '')
+    public function set(string $key, string $label = ''): self
     {
         // Set and translate label for the error message
         if ($label) {
@@ -180,29 +172,32 @@ class Validator
         // reset rules
         $this->rules = [];
 
-        return $value;
+        return $this;
     }
 
     /**
-     * Whether errors have been found.
+     * Check whether errors have been found.
      *
      * @return bool
      */
-    public function hasErrors()
+    public function hasErrors(): bool
     {
         return count($this->errors) > 0;
     }
 
     /**
-     * Get specific error.
+     * Get specific error by key.
      *
      * @param string $key Key of data value
      *
-     * @return string|bool
+     * @return string
      */
-    public function getError($key)
+    public function getErrorByKey(string $key): string
     {
-        return isset($this->errors[$key]) ? $this->errors[$key] : false;
+        if (isset($this->errors[$key])) {
+            return $this->errors[$key];
+        }
+        return null;
     }
 
     /**
@@ -212,19 +207,19 @@ class Validator
      *
      * @throws ValidationException
      */
-    public function validate()
+    public function validate(): array
     {
         // check for errors
         if ($this->hasErrors()) {
             $this->session()
-                ->setNewFlash('validationErrors', $this->getAllErrors())
+                ->setNewFlash('validationErrors', $this->getErrors())
                 ->setNewFlash('validationData', $this->data);
 
             $this->logger()->info('Validation failed', [
-                'Errors' => $this->getAllErrors(),
+                'Errors' => $this->getErrors(),
             ]);
 
-            throw new ValidationException('There were validation errors', $this->getAllErrors());
+            throw new ValidationException('There were validation errors', $this->getErrors());
         }
 
         return $this->getValidData();
@@ -235,17 +230,17 @@ class Validator
      *
      * @return array
      */
-    public function getAllErrors($keys = true)
+    public function getErrors(): array
     {
-        return (true == $keys) ? $this->errors : array_values($this->errors);
+        return $this->errors;
     }
 
     /**
      * Returns valid data.
      *
-     * @return mixed
+     * @return array
      */
-    public function getValidData()
+    public function getValidData(): array
     {
         return $this->validData;
     }
@@ -257,9 +252,13 @@ class Validator
      *
      * @return mixed
      */
-    protected function get($key)
+    protected function get(string $key)
     {
-        return isset($this->data[$key]) ? $this->data[$key] : null;
+        if (isset($this->data[$key])) {
+            return $this->data[$key];
+        }
+
+        return null;
     }
 
     /**
@@ -268,8 +267,10 @@ class Validator
      * @param string $rule    Name of rule
      * @param string $key     Key of data value
      * @param string $message Rule message
+     *
+     * return self
      */
-    protected function registerError($rule, $key, $message = '')
+    protected function registerError(string $rule, string $key, string $message = ''): self
     {
         // Initialize translation values
         $values = [$this->labels[$key]];
@@ -282,37 +283,38 @@ class Validator
 
         // Translate and set error message
         $this->errors[$key] = $this->translator()->translate($message, $values);
+
+        return $this;
     }
 
     /**
      * Set rule.
      *
      * @param string  $rule     Name of rule
-     * @param closure $function Anonymous rule function
+     * @param callable $function Rule function
      * @param string  $message  Rule message
      * @param array   $args     Arguments for anonymous rule function
      *
+     * @return self
+     *
      * @throws InvalidArgumentException
      */
-    protected function setRule($rule, $function, $message = '', $args = [])
+    protected function setRule(string $rule, callable $function, string $message = '', array $args = []): self
     {
         // Check if rule exists
         if (!isset($this->rules[$rule])) {
             // Activate rule for validation
             $this->rules[$rule] = true;
 
-            // Check if function is callable
-            if (is_callable($function)) {
-                $this->functions[$rule] = $function;
-                $this->arguments[$rule] = $args;
-                $this->messages[$rule] = [
-                    'message' => empty($message) ? $this->getDefaultMessage($rule) : $message,
-                    'args' => $args,
-                ];
-            } else {
-                throw new InvalidArgumentException('Rule function is invalid (Name: '.$name.')');
-            }
+            $this->functions[$rule] = $function;
+            $this->arguments[$rule] = $args;
+            $this->messages[$rule] = [
+                'message' => empty($message) ? $this->getDefaultMessage($rule) : $message,
+                'args' => $args,
+            ];
         }
+
+        return $this;
     }
 
     /**
@@ -322,7 +324,7 @@ class Validator
      *
      * @return string
      */
-    protected function getDefaultMessage($rule)
+    protected function getDefaultMessage(string $rule): string
     {
         switch ($rule) {
             case 'email':

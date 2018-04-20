@@ -3,11 +3,11 @@
 /**
  * Normalize array of files from post upload.
  *
- * @param array $files
+ * @param array $files Uploaded file items
  *
  * @return array
  */
-function normalize_post_files(array $files)
+function normalize_post_files(array $files): array
 {
     $newFiles = [];
     $numberOfFiles = count($files['name']);

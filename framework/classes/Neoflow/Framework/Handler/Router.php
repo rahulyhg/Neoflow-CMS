@@ -43,40 +43,28 @@ class Router
     }
 
     /**
-     * Add single route.
-     *
-     * @param array  $route
-     * @param string $namespace
-     * @param string $prefix
-     *
-     * @return Router
-     */
-    public function addRoute($route, $namespace = '', $prefix = '')
-    {
-        if (4 === count($route)) {
-            $route = array_values($route);
-            $route[0] = $prefix . $route[0];
-            $route[3] = $namespace . $route[3];
-            $this->routes[] = $route;
-        }
-
-        return $this;
-    }
-
-    /**
      * Add routes.
      *
-     * @param array  $routes
-     * @param string $namespace
-     * @param string $prefix
+     * @param array  $routes One or multiple route arrays
+     * @param string $namespace Namespace for route controller
+     * @param string $prefix Prefix for route identifier
      *
-     * @return Router
+     * @return self
      */
-    public function addRoutes($routes, $namespace = '', $prefix = '')
+    public function addRoutes(array $routes, string $namespace = '', string $prefix = ''): self
     {
-        if ($namespace) {
+        if (!is_array($routes[0])) {
+            $routes = [$routes];
+        }
+
+        if ($namespace || $prefix) {
             foreach ($routes as $route) {
-                $this->addRoute($route, $namespace, $prefix);
+                if (4 === count($route)) {
+                    $route = array_values($route);
+                    $route[0] = $prefix . $route[0];
+                    $route[3] = $namespace . $route[3];
+                    $this->routes[] = $route;
+                }
             }
         } else {
             $this->routes = array_merge($this->routes, $routes);
@@ -89,13 +77,13 @@ class Router
      * Load route file.
      *
      * @param string $routeFilePath Route file path
-     * @param bool   $silent        Disable runtime exception when route file path won't exists
+     * @param bool   $silent        Set TRUE to prevent an error when route file path doesn't exist
      *
      * @return self
      *
      * @throws RuntimeException
      */
-    protected function loadRouteFile($routeFilePath, $silent = false)
+    protected function loadRouteFile(string $routeFilePath, bool $silent = false): self
     {
         if (is_file($routeFilePath)) {
             $routesData = include $routeFilePath;
@@ -127,19 +115,19 @@ class Router
     }
 
     /**
-     * Get routing by uri and optional HTTP method.
+     * Get routing by URL and optional HTTP method.
      *
-     * @param string $url        URL path of request
+     * @param string $urlPath    URL path of request
      * @param string $httpMethod HTTP method of request
      *
      * @throws RuntimeException
      *
      * @return array
      */
-    public function getRoutingByUrl($url, $httpMethod = 'any'): array
+    public function getRoutingByUrl(string $urlPath, string $httpMethod = 'any'): array
     {
         // Generate cache key
-        $cacheKey = sha1($httpMethod . $url);
+        $cacheKey = sha1($httpMethod . $urlPath);
 
         // Get from cachen when cache key exists
         if ($this->cache()->exists($cacheKey)) {
@@ -148,25 +136,25 @@ class Router
             foreach ($this->routes as $route) {
                 $args = [];
                 $routeMethods = explode('|', $route[1]);
-                $routeUrl = $route[2];
+                $routeUrlPath = $route[2];
 
-                if ($routeUrl && ('any' === strtolower($routeMethods[0]) || strtolower($routeMethods[0]) === strtolower($httpMethod))) {
+                if ($routeUrlPath && ('any' === strtolower($routeMethods[0]) || strtolower($routeMethods[0]) === strtolower($httpMethod))) {
                     // Get args of routeUrl
-                    $routeUrlArgs = $this->getRouteUrlArgs($routeUrl);
+                    $routeUrlArgs = $this->getRouteUrlArgs($routeUrlPath);
 
                     // Create regexCode of routeUrl
-                    $routeUrlRegex = preg_replace('/\(([a-zA-Z0-9\-\_]+)\:[string|any]+\)/ ', '([a-zA-Z0-9\-\.\_\~\:\?\#\[\]\@\!\$\&\'\(\)\*\<\+\,\;\=]+)', $routeUrl);
+                    $routeUrlRegex = preg_replace('/\(([a-zA-Z0-9\-\_]+)\:[string|any]+\)/ ', '([a-zA-Z0-9\-\.\_\~\:\?\#\[\]\@\!\$\&\'\(\)\*\<\+\,\;\=]+)', $routeUrlPath);
                     $routeUrlRegex = preg_replace('/\(([a-zA-Z0-9\-\_]+)\:[num]+\)/', '([0-9\.\,]+)', $routeUrlRegex);
                     $routeUrlRegex = preg_replace('/\(([a-zA-Z0-9\-\_]+)\:[uri]+\)/', '(.*)', $routeUrlRegex);
                     $routeUrlRegex = str_replace(['/'], ['\/'], $routeUrlRegex);
                     $routeUrlRegex = '/^' . $routeUrlRegex . '$/';
 
-                    // Remove args of routeUrl
-                    $routeUrl = str_replace('//', '/', preg_replace($this->routeUrlRegexPattern, '', $routeUrl));
+                    // Remove args from route URL path
+                    $routeUrlPath = str_replace('//', '/', preg_replace($this->routeUrlRegexPattern, '', $routeUrlPath));
 
-                    // Check if routeUrl (regexCode) is matching uri
-                    if (preg_match($routeUrlRegex, $url)) {
-                        $urlParts = array_values(array_filter(explode('/', $url)));
+                    // Check if route URL path (regexCode) is matching uri
+                    if (preg_match($routeUrlRegex, $urlPath)) {
+                        $urlParts = array_values(array_filter(explode('/', $urlPath)));
                         $routeUrlParts = array_values(array_filter(explode('/', $route[2])));
 
                         foreach ($urlParts as $index => $urlPart) {
@@ -180,7 +168,7 @@ class Router
                                 } elseif ('string' === $routeUrlArgs[2] && is_string($urlPart)) {
                                     $args[$routeUrlArgs[1]] = $urlPart;
                                 } elseif ('uri' === $routeUrlArgs[2]) {
-                                    $args[$routeUrlArgs[1]] = $url;
+                                    $args[$routeUrlArgs[1]] = $urlPath;
                                     break;
                                 } elseif ('any' === $routeUrlArgs[2]) {
                                     $args[$routeUrlArgs[1]] = $urlPart;
@@ -202,7 +190,7 @@ class Router
                 }
             }
         }
-        throw new OutOfRangeException('Route not found (URL: ' . $url . ')');
+        throw new OutOfRangeException('Route not found (URL path: ' . $urlPath . ')');
     }
 
     /**
@@ -228,11 +216,11 @@ class Router
         $routing = $this->getRoutingByUrl($urlPath, $httpMethod);
 
         // Check whether language code not found, not sent if needed or sent if not needed
-        $uriLanguageCode = $this->request()->getUrlLanguage();
+        $urlLanguageCode = $this->request()->getUrlLanguage();
         $languageCodes = $this->translator()->getLanguageCodes();
-        if (($uriLanguageCode && count($languageCodes) && !in_array($uriLanguageCode, $languageCodes)) ||
-            (count($languageCodes) > 1 && !$uriLanguageCode) ||
-            (1 === count($languageCodes) && $uriLanguageCode)) {
+        if (($urlLanguageCode && count($languageCodes) && !in_array($urlLanguageCode, $languageCodes)) ||
+            (count($languageCodes) > 1 && !$urlLanguageCode) ||
+            (1 === count($languageCodes) && $urlLanguageCode)) {
             $url = $this->generateUrl($routing['route'][0], array_merge($routing['args'], $this->request()->getGetData()->toArray()));
 
             return new RedirectResponse($url);
@@ -246,13 +234,13 @@ class Router
     /**
      * Get route by key.
      *
-     * @param string $key
-     *
-     * @throws OutOfRangeException
+     * @param string $key Route key
      *
      * @return array
+     *
+     * @throws OutOfRangeException
      */
-    public function getRouteByKey($key)
+    public function getRouteByKey(string $key): array
     {
         foreach ($this->routes as $index => $route) {
             if ($route[0] === $key) {
@@ -330,11 +318,13 @@ class Router
     }
 
     /**
-     * Get active route.
+     * Get current routing.
+     *
+     * @param  string $key Routing key (route or args)
      *
      * @return mixed
      */
-    public function getCurrentRouting($key = null)
+    public function getCurrentRouting(string $key = '')
     {
         if (isset($this->currentRouting[$key])) {
             return $this->currentRouting[$key];
@@ -346,22 +336,22 @@ class Router
     /**
      * Check whether route is active.
      *
-     * @param array|string $routeKeys
+     * @param mixed $keys Route keys
      *
-     * @return mixed
+     * @return bool
      */
-    public function isCurrentRoute($routeKeys)
+    public function isCurrentRoute($keys): bool
     {
         $currentRoute = $this->getCurrentRouting('route');
 
         if (isset($currentRoute[0])) {
             $currentRouteKey = $currentRoute[0];
 
-            if (is_string($routeKeys)) {
-                $routeKeys = [$routeKeys];
+            if (is_string($keys)) {
+                $keys = [$keys];
             }
 
-            foreach ($routeKeys as $routeKey) {
+            foreach ($keys as $routeKey) {
                 if (fnmatch($routeKey, $currentRouteKey)) {
                     return true;
                 }
@@ -374,12 +364,12 @@ class Router
     /**
      * Get the controller and action name of the route path.
      *
-     * @param string $routePath
-     * @param string $defaultActionMethod
+     * @param string $routePath Route path
+     * @param string $defaultActionMethod Default action method
      *
      * @return array
      */
-    public function getRoutePathParts($routePath, $defaultActionMethod = 'indexAction')
+    protected function getRoutePathParts(string $routePath, string $defaultActionMethod = 'indexAction'): array
     {
         $routePathParts = explode('@', $routePath);
         $result = [
@@ -396,77 +386,76 @@ class Router
     /**
      * Generate URL of route.
      *
-     * @param string $routeKey
-     * @param array  $args
-     * @param array  $params
-     * @param string $languageCode
+     * @param string $key Route key
+     * @param array  $args URL path arguments
+     * @param array  $parameters URL query parameters
+     * @param string $languageCode URL language code
      *
      * @return string
      */
-    public function generateUrl($routeKey, $args = [], $params = [], $languageCode = '')
+    public function generateUrl(string $key, array $args = [], array $parameters = [], string $languageCode = ''): string
     {
-        $routeUri = $routeKey;
-        if ($routeKey) {
-            $route = $this->getRouteByKey($routeKey);
+        $routeUrlPath = $key;
+        if ($key) {
+            $route = $this->getRouteByKey($key);
         } else {
             $route = $this->getCurrentRouting('route');
             $args = $this->getCurrentRouting('args');
         }
         if ($route) {
-            $routeUri = $route[2];
+            $routeUrlPath = $route[2];
 
             if (count($args)) {
-                $routeUriArgs = $this->getRouteUrlArgs($routeUri);
+                $routeUrlArgs = $this->getRouteUrlArgs($routeUrlPath);
 
-                if (isset($routeUriArgs[1])) {
-                    for ($i = 0; $i < count($routeUriArgs[1]); ++$i) {
-                        if (isset($args[$routeUriArgs[1][$i]])) {
-                            $pattern = '/\([' . preg_quote($routeUriArgs[1][$i]) . ']+\:[any|num|string|uri]+\)/';
-                            $routeUri = preg_replace($pattern, $args[$routeUriArgs[1][$i]], $routeUri);
-                            unset($args[$routeUriArgs[1][$i]]);
+                if (isset($routeUrlArgs[1])) {
+                    for ($i = 0; $i < count($routeUrlArgs[1]); ++$i) {
+                        if (isset($args[$routeUrlArgs[1][$i]])) {
+                            $pattern = '/\([' . preg_quote($routeUrlArgs[1][$i]) . ']+\:[any|num|string|uri]+\)/';
+                            $routeUrlPath = preg_replace($pattern, $args[$routeUrlArgs[1][$i]], $routeUrlPath);
+                            unset($args[$routeUrlArgs[1][$i]]);
                         }
                     }
                 }
 
                 if (isset($args['slug'])) {
-                    $routeUri .= $args['slug'];
+                    $routeUrlPath .= $args['slug'];
                     unset($args['slug']);
                 }
 
-                $args = array_filter($args);
                 if (count($args)) {
-                    $routeUri .= '?' . http_build_query($args);
+                    $parameters = array_merge($parameters, $args);
                 }
             }
 
             $pattern = '/(\/\([a-zA-Z0-9]+\:[any|num|string|uri]+\))/';
-            $routeUri = preg_replace($pattern, '', $routeUri);
+            $routeUrlPath = preg_replace($pattern, '', $routeUrlPath);
         }
 
         if ($languageCode) {
-            $routeUri = '/' . $languageCode . $routeUri;
+            $routeUrlPath = '/' . $languageCode . $routeUrlPath;
         } elseif (count($this->config()->get('app')->get('languages')) > 1) {
-            $routeUri = '/' . $this->translator()->getActiveLanguageCode() . $routeUri;
+            $routeUrlPath = '/' . $this->translator()->getActiveLanguageCode() . $routeUrlPath;
         }
 
-        $params = array_filter($params);
-        if (is_array($params) && count($params)) {
-            $routeUri .= '?' . http_build_query($params);
+        $parameters = array_filter($parameters);
+        if (is_array($parameters) && count($parameters)) {
+            $routeUrlPath .= '?' . http_build_query($parameters);
         }
 
-        return $this->config()->getUrl($routeUri);
+        return $this->config()->getUrl($routeUrlPath);
     }
 
     /**
-     * Get route uri matches.
+     * Get route URL arguments from route URL path
      *
-     * @param string $routeUri
+     * @param string $routeUrlPath Route URL path
      *
      * @return array
      */
-    protected function getRouteUrlArgs($routeUri)
+    protected function getRouteUrlArgs(string $routeUrlPath): array
     {
-        preg_match_all($this->routeUrlRegexPattern, $routeUri, $matches);
+        preg_match_all($this->routeUrlRegexPattern, $routeUrlPath, $matches);
 
         return $matches;
     }

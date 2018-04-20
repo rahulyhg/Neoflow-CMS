@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\Persistence\Querying;
 
 use Neoflow\Framework\Common\Collection;
@@ -16,6 +15,7 @@ use Neoflow\Framework\Persistence\Statement;
  */
 class SelectQuery extends AbstractQuery
 {
+
     /**
      * Query traits.
      */
@@ -205,7 +205,7 @@ class SelectQuery extends AbstractQuery
      */
     public function orderByAsc(string $column): self
     {
-        return $this->orderByRaw($this->quoteIdentifier($column).' ASC');
+        return $this->orderByRaw($this->quoteIdentifier($column) . ' ASC');
     }
 
     /**
@@ -217,7 +217,7 @@ class SelectQuery extends AbstractQuery
      */
     public function orderByDesc(string $column): self
     {
-        return $this->orderByRaw($this->quoteIdentifier($column).' DESC');
+        return $this->orderByRaw($this->quoteIdentifier($column) . ' DESC');
     }
 
     /**
@@ -263,7 +263,7 @@ class SelectQuery extends AbstractQuery
      *
      * @return mixed
      */
-    public function fetch(int $id = 0)
+    public function fetch(int $id = null)
     {
         if ($id) {
             $this->where($this->primaryKey, '=', $id);
@@ -378,7 +378,7 @@ class SelectQuery extends AbstractQuery
     /**
      * Fetch result from cache.
      *
-     * @param string $cacheKey
+     * @param string $cacheKey Cache key
      *
      * @return mixed
      */
@@ -397,24 +397,20 @@ class SelectQuery extends AbstractQuery
     }
 
     /**
-     * Generate cache key.
+     * Generate cache key
      *
-     * @param string $salt
+     * @param string $salt Additional random salt value
      *
      * @return string
      */
     protected function generateCacheKey(string $salt = ''): string
     {
-        if (!$this->cacheKey) {
-            return sha1($salt.$this->getQuery().':'.implode('|', array_map(function ($parameter) {
-                if (is_array($parameter)) {
-                    return implode('|', $parameter);
-                }
+        return sha1($salt . $this->getQuery() . ':' . implode('|', array_map(function ($parameter) {
+                    if (is_array($parameter)) {
+                        return implode('|', $parameter);
+                    }
 
-                return $parameter;
-            }, $this->getParameters())));
-        }
-
-        return $this->cacheKey;
+                    return $parameter;
+                }, $this->getParameters())));
     }
 }

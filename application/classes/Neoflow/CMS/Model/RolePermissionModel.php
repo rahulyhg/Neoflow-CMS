@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -7,6 +6,7 @@ use Neoflow\Framework\ORM\Repository;
 
 class RolePermissionModel extends AbstractModel
 {
+
     /**
      * @var string
      */
@@ -27,7 +27,7 @@ class RolePermissionModel extends AbstractModel
      *
      * @return Repository
      */
-    public function permission()
+    public function permission(): Repository
     {
         return $this->belongsTo('\\Neoflow\\CMS\\Model\\PermissionModel', 'permission_id');
     }
@@ -37,7 +37,7 @@ class RolePermissionModel extends AbstractModel
      *
      * @return Repository
      */
-    public function role()
+    public function role(): Repository
     {
         return $this->belongsTo('\\Neoflow\\CMS\\Model\\RoleModel', 'role_id');
     }

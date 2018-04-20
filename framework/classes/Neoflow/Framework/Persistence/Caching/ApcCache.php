@@ -1,13 +1,13 @@
 <?php
-
 namespace Neoflow\Framework\Persistence\Caching;
 
 class ApcCache extends AbstractCache
 {
+
     /**
      * Fetch cache value.
      *
-     * @param string $key
+     * @param string $key Cache key
      *
      * @return mixed
      */
@@ -19,17 +19,17 @@ class ApcCache extends AbstractCache
     /**
      * Store cache value.
      *
-     * @param string $key
-     * @param mixed  $data
-     * @param int    $ttl
-     * @param array  $tags
+     * @param string $key Cache key
+     * @param mixed  $data Cache data
+     * @param int    $ttl Cache lifetime
+     * @param array  $tags Cache tags
      *
      * @return bool
      */
     public function store(string $key, $data, int $ttl = 0, array $tags = []): bool
     {
         // Set key to tags
-        $this->setKeyToTags($tags, $key);
+        $this->mapKeyToTags($tags, $key);
 
         return \apc_store($key, $data, $ttl);
     }
@@ -37,7 +37,7 @@ class ApcCache extends AbstractCache
     /**
      * Delete cache value.
      *
-     * @param string $key
+     * @param string $key Cache key
      *
      * @return bool
      */

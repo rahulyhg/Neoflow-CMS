@@ -102,7 +102,7 @@ class Model extends AbstractModel
      *
      * @return string
      */
-    public function getPlaceholder(bool $withParameters = false)
+    public function getPlaceholder(bool $withParameters = false): string
     {
         $placeholder = '[[' . $this->placeholder;
 

@@ -1,17 +1,15 @@
 <?php
-
 namespace Neoflow\Minify;
 
 class JsMinifier extends AbstractMinifier
 {
+
     /**
      * Minify Javascript code.
      *
-     * @param string $targetFilePath
-     *
-     * @return string
+     * @return self
      */
-    protected function minify($targetFilePath = null)
+    public function minify(): AbstractMinifier
     {
         /* remove comments */
         $this->code = preg_replace('/((?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:\/\/.*))/', '', $this->code);
@@ -22,11 +20,6 @@ class JsMinifier extends AbstractMinifier
         /* remove other spaces before/after ) */
         $this->code = preg_replace(['(( )+\))', '(\)( )+)'], ')', $this->code);
 
-        // Save to file
-        if ($targetFilePath) {
-            file_put_contents($targetFilePath, $this->code);
-        }
-
-        return $this->code;
+        return $this;
     }
 }

@@ -78,15 +78,15 @@ abstract class AbstractView extends FrameworkAbstractView
     }
 
     /**
-     * Get theme url.
+     * Get theme URL.
      *
-     * @param string $uri
+     * @param string $additionalUrlPath Additional URL path
      *
      * @return string
      */
-    public function getThemeUrl(string $uri = ''): string
+    public function getThemeUrl(string $additionalUrlPath = ''): string
     {
-        return $this->theme->getUrl($uri);
+        return $this->theme->getUrl($additionalUrlPath);
     }
 
     /**
@@ -150,9 +150,9 @@ abstract class AbstractView extends FrameworkAbstractView
     }
 
     /**
-     * Get website url.
+     * Get website URL.
      *
-     * @param string $additionalUrlPath
+     * @param string $additionalUrlPath Additional URL path
      *
      * @return string
      */
@@ -164,9 +164,9 @@ abstract class AbstractView extends FrameworkAbstractView
     /**
      * Check whether alerts exists.
      *
-     * @return array
+     * @return bool
      */
-    public function hasAlerts()
+    public function hasAlerts(): bool
     {
         return (bool) count($this->getAlerts());
     }

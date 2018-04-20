@@ -3,14 +3,15 @@ namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
 use Neoflow\CMS\View\FrontendView;
-use Neoflow\Framework\HTTP\Exception\ForbiddenException;
 use Neoflow\Framework\HTTP\Exception\NotFoundException;
-use Neoflow\Framework\HTTP\Exception\UnauthorizedException;
 use Neoflow\Framework\ORM\EntityCollection;
 use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Framework\ORM\Repository;
 use Neoflow\Validation\ValidationException;
 use RuntimeException;
+use function normalize_url;
+use function slugify;
+use function translate;
 
 class PageModel extends AbstractModel
 {
@@ -38,7 +39,7 @@ class PageModel extends AbstractModel
      *
      * @return Repository
      */
-    public function sections()
+    public function sections(): Repository
     {
         return $this->hasMany('\\Neoflow\\CMS\\Model\\SectionModel', 'page_id');
     }
@@ -47,11 +48,8 @@ class PageModel extends AbstractModel
      * Get status whether page is accessible (for current user).
      *
      * @return bool
-     *
-     * @throws UnauthorizedException
-     * @throws ForbiddenException
      */
-    public function isAccessible()
+    public function isAccessible(): bool
     {
         if ($this->is_active) {
             // Anonymous access
@@ -84,7 +82,7 @@ class PageModel extends AbstractModel
     }
 
     /**
-     * Get page url.
+     * Get page URL.
      *
      * @param bool $forStartpage SET true to get the URL path for the startpage too
      *
@@ -151,7 +149,7 @@ class PageModel extends AbstractModel
     /**
      * Get parent page.
      *
-     * @return PageModel|bool
+     * @return PageModel|null
      */
     public function getParentPage()
     {
@@ -163,7 +161,7 @@ class PageModel extends AbstractModel
             }
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -202,17 +200,17 @@ class PageModel extends AbstractModel
      *
      * @return Repository
      */
-    public function language()
+    public function language(): Repository
     {
         return $this->belongsTo('\\Neoflow\\CMS\\Model\\LanguageModel', 'language_id');
     }
 
     /**
-     * Get repository to fetch navitems.
+     * Get repository to fetch navigation items.
      *
      * @return Repository
      */
-    public function navitems()
+    public function navitems(): Repository
     {
         return $this->hasMany('\\Neoflow\\CMS\\Model\\NavitemModel', 'page_id');
     }
@@ -220,11 +218,16 @@ class PageModel extends AbstractModel
     /**
      * Get main navitem.
      *
-     * @return NavitemModel
+     * @return NavitemModel|null
      */
     public function getMainNavitem()
     {
-        return $this->navitems()->where('navigation_id', '=', 1)->fetch();
+        $navitem = $this->navitems()->where('navigation_id', '=', 1)->fetch();
+
+        if ($navitem) {
+            return $navitem;
+        }
+        return null;
     }
 
     /**
@@ -374,7 +377,7 @@ class PageModel extends AbstractModel
      *
      * @return bool
      */
-    public function delete()
+    public function delete(): bool
     {
         // Delete sub pages
         $navitem = $this->navitems()->where('navigation_id', '=', 1)->fetch();
@@ -433,15 +436,15 @@ class PageModel extends AbstractModel
     }
 
     /**
-     * Render frontend output based on the referenced page module.
+     * Render page (based on sections and page modules)
      *
-     * @param FrontendView $view
+     * @param FrontendView $view Frontend view
      *
      * @return string
      *
-     * @throws RuntimeException
+     * @throws NotFoundException
      */
-    public function render(FrontendView $view)
+    public function render(FrontendView $view): string
     {
         // Get all sections
         $sections = $this->sections()
@@ -503,7 +506,7 @@ class PageModel extends AbstractModel
      *
      * @return Repository
      */
-    public function roles()
+    public function roles(): Repository
     {
         return $this->hasManyThrough('\\Neoflow\\CMS\\Model\\RoleModel', '\\Neoflow\\CMS\\Model\\PageRoleModel', 'page_id', 'role_id');
     }

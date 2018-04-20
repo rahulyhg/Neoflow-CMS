@@ -2,6 +2,9 @@
 namespace Neoflow\Framework\ORM;
 
 use InvalidArgumentException;
+use Neoflow\Framework\Core\AbstractModel;
+use Neoflow\Module\WYSIWYG\Model;
+use RuntimeException;
 
 class Mapper
 {
@@ -20,16 +23,15 @@ class Mapper
     }
 
     /**
-     * Manage one-to-one and one-to-many relations where the foreign key
-     * is on the base model entity.
+     * Manage one-to-one and one-to-many relations where the foreign key is on the base model entity.
      *
-     * @param Model  $entity
-     * @param string $associatedModelClassName
-     * @param string $foreignKeyName
+     * @param AbstractModel  $entity Model entity
+     * @param string $associatedModelClassName Associated model class name
+     * @param string $foreignKeyName Foreign key name
      *
      * @return Repository
      */
-    public function belongsTo($entity, $associatedModelClassName, $foreignKeyName)
+    public function belongsTo(AbstractModel $entity, string $associatedModelClassName, string $foreignKeyName): Repository
     {
         // Get primary key
         $associatedPrimaryKey = $this->getPrimaryKey($associatedModelClassName);
@@ -44,16 +46,15 @@ class Mapper
     }
 
     /**
-     * Manage one-to-many relations where the foreign key
-     * is on the associated model entity.
+     * Manage one-to-many relations where the foreign key is on the associated model entity.
      *
-     * @param Model  $entity
-     * @param string $associatedModelClassName
-     * @param string $foreignKeyName
+     * @param AbstractModel  $entity Model entity
+     * @param string $associatedModelClassName Associated model class name
+     * @param string $foreignKeyName Foreign key name
      *
      * @return Repository
      */
-    public function hasMany($entity, $associatedModelClassName, $foreignKeyName)
+    public function hasMany(AbstractModel $entity, string $associatedModelClassName, string $foreignKeyName): Repository
     {
         return $this->hasOneOrMany($entity, $associatedModelClassName, $foreignKeyName);
     }
@@ -91,15 +92,15 @@ class Mapper
     /**
      * Manage many-to-many relations trought join model.
      *
-     * @param Model  $entity
-     * @param string $associatedModelClassName
-     * @param string $joinModelClassName
-     * @param string $foreignKeyToBaseModel
-     * @param string $foreignKeyToAssociatedModel
+     * @param AbstractModel  $entity Model entity
+     * @param string $associatedModelClassName Associated model class name
+     * @param string $joinModelClassName Join model class name
+     * @param string $foreignKeyToBaseModel Foreign key to the base model
+     * @param string $foreignKeyToAssociatedModel Foreign key to the associated model
      *
      * @return Repository
      */
-    public function hasManyThrough($entity, $associatedModelClassName, $joinModelClassName, $foreignKeyToBaseModel, $foreignKeyToAssociatedModel)
+    public function hasManyThrough(AbstractModel $entity, string $associatedModelClassName, string $joinModelClassName, string $foreignKeyToBaseModel, string $foreignKeyToAssociatedModel): Repository
     {
         // Get table names for each class
         $associatedTableName = $this->getTableName($associatedModelClassName);
@@ -122,13 +123,13 @@ class Mapper
     /**
      * Get table name of model.
      *
-     * @param string $modelClassName
+     * @param string $modelClassName Model class name
      *
      * @return string
      *
      * @throws InvalidArgumentException
      */
-    protected function getTableName($modelClassName)
+    protected function getTableName(string $modelClassName): string
     {
         if (class_exists($modelClassName)) {
             return $modelClassName::$tableName;
@@ -140,13 +141,13 @@ class Mapper
     /**
      * Get primary key of model.
      *
-     * @param string $modelClassName
+     * @param string $modelClassName Model class name
      *
      * @return string
      *
      * @throws InvalidArgumentException
      */
-    public function getPrimaryKey($modelClassName)
+    public function getPrimaryKey(string $modelClassName): string
     {
         if (class_exists($modelClassName)) {
             return $modelClassName::$primaryKey;

@@ -10,11 +10,11 @@ class SectionService extends AbstractService
     /**
      * Update section order.
      *
-     * @param array $order
+     * @param array $order Ordered items (based on blocks)
      *
      * @return bool
      */
-    public function updateOrder(array $order)
+    public function updateOrder(array $order): bool
     {
         foreach ($order as $index => $item) {
             $section = SectionModel::findById($item['id']);

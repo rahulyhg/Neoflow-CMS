@@ -67,9 +67,9 @@ class Service extends WysiwygService
      *
      * @param string $id
      *
-     * @return boolean
+     * @return bool
      */
-    public function deleteUploadedImages($id)
+    public function deleteUploadedImages($id): bool
     {
         $mediaPath = $this->config()->getMediaPath('/modules/wysiwyg/'.$id);
         if (is_dir($mediaPath)) {

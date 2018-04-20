@@ -1,11 +1,11 @@
 <?php
-
 namespace Neoflow\Filesystem;
 
 use Neoflow\Filesystem\Exception\FolderException;
 
 class Folder extends AbstractObject
 {
+
     /**
      * Constructor.
      *
@@ -19,10 +19,10 @@ class Folder extends AbstractObject
             if (is_readable($path)) {
                 $this->path = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
             } else {
-                throw new FolderException('Cannot load folder path, because ('.$path.') is not readable', FolderException::NOT_READABLE);
+                throw new FolderException('Cannot load folder path, because (' . $path . ') is not readable', FolderException::NOT_READABLE);
             }
         } else {
-            throw new FolderException('Cannot load the folder path, because ('.$path.') don\'t exist', FolderException::DONT_EXIST);
+            throw new FolderException('Cannot load the folder path, because (' . $path . ') don\'t exist', FolderException::DONT_EXIST);
         }
     }
 
@@ -36,7 +36,7 @@ class Folder extends AbstractObject
      */
     public function find(string $pattern, int $flags = 0): Collection
     {
-        $files = glob(normalize_path($this->path.'/'.$pattern), $flags);
+        $files = glob(normalize_path($this->path . '/' . $pattern), $flags);
         foreach ($files as $index => $file) {
             if (is_dir($file)) {
                 $files[$index] = new self($file);
@@ -58,7 +58,7 @@ class Folder extends AbstractObject
      */
     public function findFiles(string $pattern, int $flags = 0): FileCollection
     {
-        $files = glob(normalize_path($this->path.'/'.$pattern), $flags);
+        $files = glob(normalize_path($this->path . '/' . $pattern), $flags);
         foreach ($files as $index => $file) {
             if (is_file($file)) {
                 $files[$index] = new File($file);
@@ -80,7 +80,7 @@ class Folder extends AbstractObject
      */
     public function findFolders(string $pattern, int $flags = 0): FolderCollection
     {
-        $folders = glob(normalize_path($this->path.'/'.$pattern), $flags);
+        $folders = glob(normalize_path($this->path . '/' . $pattern), $flags);
         foreach ($folders as $index => $folder) {
             if (is_dir($folder)) {
                 $folders[$index] = new self($folder);
@@ -132,7 +132,7 @@ class Folder extends AbstractObject
      */
     public function getPath(string $additionalPath = ''): string
     {
-        return normalize_path($this->path.'/'.$additionalPath);
+        return normalize_path($this->path . '/' . $additionalPath);
     }
 
     /**
@@ -202,7 +202,7 @@ class Folder extends AbstractObject
 
             return rmdir($this->path);
         }
-        throw new FolderException('Cannot delete folder, because ('.$this->path.') is not writeable', FolderException::NOT_WRITEABLE);
+        throw new FolderException('Cannot delete folder, because (' . $this->path . ') is not writeable', FolderException::NOT_WRITEABLE);
     }
 
     /**
@@ -216,11 +216,11 @@ class Folder extends AbstractObject
      */
     public function rename(string $newFolderName): self
     {
-        $newFolderPath = normalize_path($this->getDirectory().DIRECTORY_SEPARATOR.$newFolderName);
+        $newFolderPath = normalize_path($this->getDirectory() . DIRECTORY_SEPARATOR . $newFolderName);
         if ($newFolderPath === $this->getPath() || (!is_dir($newFolderPath) && $this->move($newFolderPath))) {
             return static::load($newFolderPath);
         }
-        throw new FolderException('Cannot move the folder, because the new folder path ('.$newFolderPath.') already exist', FolderException::ALREADY_EXIST);
+        throw new FolderException('Cannot move the folder, because the new folder path (' . $newFolderPath . ') already exist', FolderException::ALREADY_EXIST);
     }
 
     /**
@@ -238,9 +238,9 @@ class Folder extends AbstractObject
             if (rename($this->path, $newFolderPath)) {
                 return new static($newFolderPath);
             }
-            throw new FolderException('Cannot move folder to the new folder path ('.$newFolderPath.') for unknown reasons');
+            throw new FolderException('Cannot move folder to the new folder path (' . $newFolderPath . ') for unknown reasons');
         }
-        throw new FolderException('Cannot move the folder, because the new folder path ('.$newFolderPath.') already exist', FolderException::ALREADY_EXIST);
+        throw new FolderException('Cannot move the folder, because the new folder path (' . $newFolderPath . ') already exist', FolderException::ALREADY_EXIST);
     }
 
     /**
@@ -256,13 +256,13 @@ class Folder extends AbstractObject
     {
         if (is_dir($newDirectoryPath)) {
             if (is_writeable($newDirectoryPath)) {
-                $newFolderPath = normalize_path($newDirectoryPath.DIRECTORY_SEPARATOR.$this->getFileName());
+                $newFolderPath = normalize_path($newDirectoryPath . DIRECTORY_SEPARATOR . $this->getFileName());
 
                 return $this->move($newFolderPath);
             }
-            throw new FolderException('Cannot move the folder, because the directory ('.$newDirectoryPath.') is not writeable', FolderException::NOT_WRITEABLE);
+            throw new FolderException('Cannot move the folder, because the directory (' . $newDirectoryPath . ') is not writeable', FolderException::NOT_WRITEABLE);
         }
-        throw new FolderException('Cannot move the folder, because the directory (('.$newDirectoryPath.')) don\'t exist', FolderException::DONT_EXIST);
+        throw new FolderException('Cannot move the folder, because the directory ((' . $newDirectoryPath . ')) don\'t exist', FolderException::DONT_EXIST);
     }
 
     /**
@@ -281,9 +281,9 @@ class Folder extends AbstractObject
             if ($this->copyContent($newFolder->getPath())) {
                 return $newFolder;
             }
-            throw new FolderException('Cannot copy folder to the new folder path ('.$newFolderPath.') for unknown reasons');
+            throw new FolderException('Cannot copy folder to the new folder path (' . $newFolderPath . ') for unknown reasons');
         }
-        throw new FolderException('Cannot copy the folder, because a folder with the same name and path ('.$newFolderPath.') already exist', FolderException::ALREADY_EXIST);
+        throw new FolderException('Cannot copy the folder, because a folder with the same name and path (' . $newFolderPath . ') already exist', FolderException::ALREADY_EXIST);
     }
 
     /**
@@ -299,12 +299,12 @@ class Folder extends AbstractObject
     {
         if (is_dir($newDirectoryPath)) {
             if (is_writeable($newDirectoryPath)) {
-                $newFolderPath = $newDirectoryPath.DIRECTORY_SEPARATOR.$this->getFileName();
+                $newFolderPath = $newDirectoryPath . DIRECTORY_SEPARATOR . $this->getFileName();
                 $this->copy($newFolderPath);
             }
-            throw new FolderException('Cannot copy the folder, because the new directory path ('.$newDirectoryPath.') is not writeable', FolderException::NOT_WRITEABLE);
+            throw new FolderException('Cannot copy the folder, because the new directory path (' . $newDirectoryPath . ') is not writeable', FolderException::NOT_WRITEABLE);
         }
-        throw new FolderException('Cannot copy the folder, because the new directory path ('.$newDirectoryPath.') don\'t exist', FolderException::DONT_EXIST);
+        throw new FolderException('Cannot copy the folder, because the new directory path (' . $newDirectoryPath . ') don\'t exist', FolderException::DONT_EXIST);
     }
 
     /**
@@ -323,7 +323,7 @@ class Folder extends AbstractObject
                 return static::load($newFolderPath);
             }
         }
-        throw new FolderException('Cannot copy folder content, because the destination folder path ('.$newFolderPath.') don\'t exist', FolderException::DONT_EXIST);
+        throw new FolderException('Cannot copy folder content, because the destination folder path (' . $newFolderPath . ') don\'t exist', FolderException::DONT_EXIST);
     }
 
     /**
@@ -335,7 +335,7 @@ class Folder extends AbstractObject
      *
      * @throws FolderException
      */
-    public static function create(string $path)
+    public static function create(string $path): self
     {
         $path = normalize_path($path);
         if (!is_dir($path)) {
@@ -343,11 +343,11 @@ class Folder extends AbstractObject
                 if (mkdir($path)) {
                     return new static($path);
                 }
-                throw new FolderException('Creating folder ('.$path.') failed');
+                throw new FolderException('Creating folder (' . $path . ') failed');
             }
-            throw new FolderException('Cannot create folder, because the directory ('.dirname($path).') is not accessible', FolderException::NOT_WRITEABLE);
+            throw new FolderException('Cannot create folder, because the directory (' . dirname($path) . ') is not accessible', FolderException::NOT_WRITEABLE);
         }
-        throw new FolderException('Cannot create folder, because the folder path ('.$path.') already exist', FolderException::ALREADY_EXIST);
+        throw new FolderException('Cannot create folder, because the folder path (' . $path . ') already exist', FolderException::ALREADY_EXIST);
     }
 
     /**
@@ -358,7 +358,7 @@ class Folder extends AbstractObject
      *
      * @return bool
      */
-    public static function unlink($path, $recursivly = true)
+    public static function unlink($path, $recursivly = true): bool
     {
         return static::load($path)->delete($recursivly);
     }

@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\Common;
 
 use ArrayAccess;
@@ -8,10 +7,10 @@ use Countable;
 use InvalidArgumentException;
 use IteratorAggregate;
 use JsonSerializable;
-use Neoflow\Framework\Core\AbstractModel;
 
 class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSerializable
 {
+
     /**
      * The items contained in the collection.
      *
@@ -32,7 +31,7 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     /**
      * Get item by index.
      *
-     * @param int $index
+     * @param int $index Item index
      *
      * @return mixed
      */
@@ -48,11 +47,11 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     /**
      * Delete item by index.
      *
-     * @param type $index
+     * @param int $index Item index
      *
      * @return bool
      */
-    public function deleteByIndex($index)
+    public function deleteByIndex(int $index): bool
     {
         if ($this->exists($index)) {
             unset($this->items[$index]);
@@ -62,13 +61,13 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     }
 
     /**
-     * Check wehter item exist by index.
+     * Check whether item exist by index.
      *
-     * @param index $index
+     * @param int $index Item index
      *
      * @return bool
      */
-    public function existsByIndex($index)
+    public function existsByIndex(index $index): bool
     {
         return isset($this->items[$index]);
     }
@@ -76,46 +75,43 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     /**
      * Apply callback to each collection items.
      *
-     * @param callable $callback
-     * @param mixed    $data     optional data parameter as third parameter for the callback
+     * @param callable $callback Each callback
+     * @param mixed    $data     Optional parameters for the callback
      *
-     * @return self;
+     * @return self
      *
      * @throws InvalidArgumentException
      */
-    public function each($callback, $data = null)
+    public function each(callable $callback, $data = null): self
     {
-        if (is_callable($callback)) {
-            array_walk_recursive($this->items, $callback, $data);
+        array_walk_recursive($this->items, $callback, $data);
 
-            return $this;
-        }
-        throw new InvalidArgumentException('Callback for each collection item is not callable');
+        return $this;
     }
 
     /**
      * Filter collection items where are matching.
      *
-     * @param string $property
-     * @param string $value
+     * @param string $property Item property
+     * @param mixed $value Property value
      *
      * @return self
      */
-    public function where($property, $value)
+    public function where(string $property, $value): self
     {
         return $this->filter(function ($item) use ($property, $value) {
-            return $item->{$property} == $value;
-        });
+                return $item->{$property} == $value;
+            });
     }
 
     /**
      * Add item to collection.
      *
-     * @param mixed $item
+     * @param mixed $item Collection item
      *
      * @return self
      */
-    public function add($item)
+    public function add($item): self
     {
         $this->items[] = $item;
 
@@ -153,11 +149,11 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     /**
      * Add item as first collection item.
      *
-     * @param mixed $item
+     * @param mixed $item Collection item
      *
      * @return self
      */
-    public function addFirst(AbstractModel $item)
+    public function addFirst($item): self
     {
         array_unshift($this->items, $item);
 
@@ -167,28 +163,28 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     /**
      * Filter collection items where are not matching.
      *
-     * @param string $property
-     * @param string $value
+     * @param string $property Item property
+     * @param mixed $value Property value
      *
      * @return self
      */
-    public function whereNot($property, $value)
+    public function whereNot(string $property, $value): self
     {
         return $this->filter(function ($item) use ($property, $value) {
-            return $item->{$property} != $value;
-        });
+                return $item->{$property} != $value;
+            });
     }
 
     /**
      * Apply callback to filters collection items.
      *
-     * @param callable $callback
+     * @param callable $callback Filter callback
      *
      * @return self
      *
      * @throws InvalidArgumentException
      */
-    public function filter($callback)
+    public function filter(callable $callback): self
     {
         if (is_callable($callback)) {
             $result = array_filter($this->items, $callback);
@@ -201,13 +197,13 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     /**
      * Apply mapper callback to collection items.
      *
-     * @param callable $callback
+     * @param callable $callback Mapper callback
      *
      * @return array
      *
      * @throws InvalidArgumentException
      */
-    public function map($callback)
+    public function map(callable $callback): array
     {
         if (is_callable($callback)) {
             if ($this->count()) {
@@ -271,12 +267,12 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     /**
      * Join collection items to a string.
      *
-     * @param callable $callback
-     * @param string   $seperator
+     * @param callable $callback Implode callback
+     * @param string   $seperator String seperator
      *
      * @return string
      */
-    public function implode($callback, $seperator = ', ')
+    public function implode(callable $callback, $seperator = ', '): string
     {
         $result = $this->map($callback);
 
@@ -298,7 +294,7 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
      *
      * @return self
      */
-    public function reverse()
+    public function reverse(): self
     {
         $this->items = array_reverse($this->items, true);
 
@@ -320,7 +316,7 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->items);
     }
@@ -330,7 +326,7 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->items;
     }
@@ -350,44 +346,31 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     }
 
     /**
-     * Get the collection of items as json.
-     *
-     * @param int $options
-     * @param int $depth
-     *
-     * @return string
-     */
-    public function toJson($options = 0, $depth = 512)
-    {
-        return json_encode($this->items, $options, $depth);
-    }
-
-    /**
      * Get an iterator for the items.
      *
      * @return ArrayIterator
      */
-    public function getIterator()
+    public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->items);
     }
 
     /**
-     * Determine if an item exists at an offset.
+     * Check whether item exists, implements ArrayAccess.
      *
-     * @param mixed $offset
+     * @param mixed $offset Offset
      *
      * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return array_key_exists($offset, $this->items);
     }
 
     /**
-     * Get an item at a given offset.
+     * Get item by offset, implements ArrayAccess.
      *
-     * @param mixed $offset
+     * @param mixed $offset Offset
      *
      * @return mixed
      */
@@ -397,10 +380,12 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     }
 
     /**
-     * Set the item at a given offset.
+     * Set item, implements ArrayAccess.
      *
-     * @param mixed $offset
-     * @param mixed $item
+     * @param mixed $offset Offset
+     * @param mixed $item Collection item
+     *
+     * @return void
      */
     public function offsetSet($offset, $item)
     {
@@ -412,23 +397,15 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     }
 
     /**
-     * Unset the item at a given offset.
+     * Unset/delete item by offset, implements ArrayAccess.
      *
-     * @param string $offset
+     * @param mixed $offset Offset
+     *
+     * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->items[$offset]);
-    }
-
-    /**
-     * Convert collection into array to get JSON serializable.
-     *
-     * @return array
-     */
-    public function jsonSerialize()
-    {
-        return $this->items;
     }
 
     /**
@@ -439,7 +416,7 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
      *
      * @return self
      */
-    public function sort($property, $order = 'ASC')
+    public function sort($property, $order = 'ASC'): self
     {
         usort($this->items, function ($a, $b) use ($property) {
             if (method_exists($a, $property)) {
@@ -458,17 +435,26 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     /**
      * Extract a slice of the collection items.
      *
-     * @param int $length
-     * @param int $offset
+     * @param int $length Slice length
+     * @param int $offset Offset of slice start
      *
      * @return self
      */
-    public function slice($length, $offset = 0)
+    public function slice(int $length, int $offset = 0): self
     {
         if (is_int($length) && $length > 0) {
             $this->items = array_slice($this->items, $offset, $length);
         }
 
         return $this;
+    }
+
+    /**
+     * Serialize collection
+     * @return string
+     */
+    public function jsonSerialize(): string
+    {
+        return json_encode($this->items);
     }
 }

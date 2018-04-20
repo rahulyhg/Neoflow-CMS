@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -10,6 +9,7 @@ use RuntimeException;
 
 class SectionModel extends AbstractModel
 {
+
     /**
      * @var string
      */
@@ -24,28 +24,28 @@ class SectionModel extends AbstractModel
      * @var array
      */
     public static $properties = ['section_id', 'page_id', 'module_id',
-        'position', 'block_id', 'is_active', ];
+        'position', 'block_id', 'is_active',];
 
     /**
      * Get repository to fetch page.
      *
      * @return Repository
      */
-    public function page()
+    public function page(): Repository
     {
         return $this->belongsTo('\\Neoflow\\CMS\\Model\\PageModel', 'page_id');
     }
 
     /**
-     * Render frontend output based on the referenced page module.
+     * Render section (based on page module)
      *
-     * @param FrontendView $view
+     * @param FrontendView $view Frontend view
      *
      * @return string
      *
      * @throws RuntimeException
      */
-    public function render(FrontendView $view)
+    public function render(FrontendView $view): string
     {
         // Get module
         $module = $this->module()->fetch();
@@ -54,11 +54,11 @@ class SectionModel extends AbstractModel
             $routing = [];
             if ($this->app()->get('module_url')) {
                 // Define URL params
-                $url = '{url:'.$module->identifier.'}'.$this->app()->get('module_url');
+                $urlPath = '{url:' . $module->identifier . '}' . $this->app()->get('module_url');
                 $httpMethod = $this->request()->getHttpMethod();
 
                 // Get routing
-                $routing = $this->router()->getRoutingByUrl($url, $httpMethod);
+                $routing = $this->router()->getRoutingByUrl($urlPath, $httpMethod);
             }
 
             if (isset($routing['route'][0]) && $routing['route'][0] !== 'frontend_index') {
@@ -77,15 +77,15 @@ class SectionModel extends AbstractModel
 
             return $content;
         }
-        throw new RuntimeException('Cannot render section');
+        throw new RuntimeException('Cannot render section. Page module of section missing.');
     }
 
     /**
      * Get repository to fetch module.
      *
-     * @return ModuleModel
+     * @return Repository
      */
-    public function module()
+    public function module(): Repository
     {
         return $this->belongsTo('\\Neoflow\\CMS\\Model\\ModuleModel', 'module_id');
     }
@@ -93,9 +93,9 @@ class SectionModel extends AbstractModel
     /**
      * Get repository to fetch block.
      *
-     * @return BlockModel
+     * @return Repository
      */
-    public function block()
+    public function block(): Repository
     {
         return $this->belongsTo('\\Neoflow\\CMS\\Model\\BlockModel', 'block_id');
     }
@@ -117,8 +117,8 @@ class SectionModel extends AbstractModel
             $this->position = 1;
             $page = $this->page()->fetch();
             $lastSection = $page->sections()
-                    ->orderByDesc('position')
-                    ->fetch();
+                ->orderByDesc('position')
+                ->fetch();
 
             if ($lastSection) {
                 $this->position = $lastSection->position + 1;
@@ -143,12 +143,13 @@ class SectionModel extends AbstractModel
      *
      * @return bool
      */
-    public function delete()
+    public function delete(): bool
     {
         $module = $this->module()->fetch();
         if ($module && $module->getManager()->remove($this)) {
             return parent::delete();
         }
+        return false;
     }
 
     /**
@@ -161,8 +162,8 @@ class SectionModel extends AbstractModel
         $validator = new EntityValidator($this);
 
         $validator
-                ->required()
-                ->set('module_id', 'Module');
+            ->required()
+            ->set('module_id', 'Module');
 
         return (bool) $validator->validate();
     }
@@ -172,7 +173,7 @@ class SectionModel extends AbstractModel
      *
      * @return self
      */
-    public function toggleActivation()
+    public function toggleActivation(): self
     {
         if ($this->is_active) {
             $this->is_active = false;

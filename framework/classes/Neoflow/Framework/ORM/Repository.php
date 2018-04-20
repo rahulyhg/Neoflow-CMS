@@ -9,6 +9,7 @@ use Neoflow\Framework\Persistence\Querying\DeleteQuery;
 use Neoflow\Framework\Persistence\Querying\InsertQuery;
 use Neoflow\Framework\Persistence\Querying\SelectQuery;
 use Neoflow\Framework\Persistence\Querying\UpdateQuery;
+use Neoflow\Framework\Persistence\Statement;
 use RuntimeException;
 
 class Repository
@@ -34,7 +35,7 @@ class Repository
      *
      * @return SelectQuery
      */
-    public function getQuery()
+    public function getQuery(): SelectQuery
     {
         return $this->query;
     }
@@ -108,9 +109,9 @@ class Repository
      * @param AbstractModel $entity
      * @param bool          $preventCacheClearing Prevent that the cached database results will get deleted
      *
-     * @return \Neoflow\Framework\Persistence\Statement
+     * @return Statement
      */
-    public function update(AbstractModel $entity, bool $preventCacheClearing = false): \Neoflow\Framework\Persistence\Statement
+    public function update(AbstractModel $entity, bool $preventCacheClearing = false): Statement
     {
         $this->forModel(get_class($entity), false);
 
@@ -137,9 +138,9 @@ class Repository
      * @param AbstractModel $entity
      * @param bool          $preventCacheClearing Prevent that the cached database results will get deleted
      *
-     * @return \Neoflow\Framework\Persistence\Statement
+     * @return Statement
      */
-    public function insert(AbstractModel $entity, bool $preventCacheClearing = false): \Neoflow\Framework\Persistence\Statement
+    public function insert(AbstractModel $entity, bool $preventCacheClearing = false): Statement
     {
         $this->forModel(get_class($entity), false);
 
@@ -164,9 +165,9 @@ class Repository
      *
      * @param bool $preventCacheClearing Prevent that the cached database results will get deleted
      *
-     * @return \Neoflow\Framework\Persistence\Statement
+     * @return Statement
      */
-    public function save(AbstractModel $entity, bool $preventCacheClearing = false): \Neoflow\Framework\Persistence\Statement
+    public function save(AbstractModel $entity, bool $preventCacheClearing = false): Statement
     {
         if ($entity->id()) {
             return $this->update($entity, $preventCacheClearing);
@@ -180,9 +181,9 @@ class Repository
      *
      * @param bool $preventCacheClearing Prevent that the cached database results will get deleted
      *
-     * @return \Neoflow\Framework\Persistence\Statement
+     * @return Statement
      */
-    public function persist(AbstractModel $entity, bool $preventCacheClearing = false): \Neoflow\Framework\Persistence\Statement
+    public function persist(AbstractModel $entity, bool $preventCacheClearing = false): Statement
     {
         return $this->save($entity, $preventCacheClearing);
     }
@@ -190,11 +191,11 @@ class Repository
     /**
      * Add ORDER BY ASC for column.
      *
-     * @param string $column
+     * @param string $column Column name
      *
      * @return self
      */
-    public function orderByAsc($column)
+    public function orderByAsc(string $column): self
     {
         $this->query->orderByAsc($column);
 
@@ -204,11 +205,11 @@ class Repository
     /**
      * Add ORDER BY ASC for column.
      *
-     * @param string $column
+     * @param string $column Column name
      *
      * @return self
      */
-    public function orderByDesc($column)
+    public function orderByDesc(string $column): self
     {
         $this->query->orderByDesc($column);
 
@@ -218,11 +219,11 @@ class Repository
     /**
      * Add raw ORDER BY statement.
      *
-     * @param string $statement
+     * @param string $statement Statement
      *
      * @return self
      */
-    public function orderByRaw($statement)
+    public function orderByRaw(string $statement): self
     {
         $this->query->orderByRaw($statement);
 
@@ -236,7 +237,7 @@ class Repository
      *
      * @return self
      */
-    public function caching($enable = true)
+    public function caching(bool $enable = true): self
     {
         $this->query->caching($enable);
 
@@ -246,11 +247,11 @@ class Repository
     /**
      * Add LIMIT.
      *
-     * @param string $limit
+     * @param int $limit Limit
      *
      * @return self
      */
-    public function limit($limit)
+    public function limit(int $limit): self
     {
         $this->query->limit($limit);
 
@@ -260,11 +261,11 @@ class Repository
     /**
      * Add OFFSET.
      *
-     * @param string $offset
+     * @param int $offset
      *
      * @return self
      */
-    public function offset($offset)
+    public function offset(int $offset): self
     {
         $this->query->offset($offset);
 
@@ -274,12 +275,12 @@ class Repository
     /**
      * Add raw WHERE condition.
      *
-     * @param string $condition
-     * @param array  $parameters
+     * @param string $condition Condition query
+     * @param array  $parameters Condition parameters
      *
      * @return self
      */
-    public function whereRaw($condition, array $parameters = [])
+    public function whereRaw(string $condition, array $parameters = []): self
     {
         $this->query->whereRaw($condition, $parameters);
 
@@ -287,15 +288,15 @@ class Repository
     }
 
     /**
-     * Add where condition.
+     * Add WHERE condition.
      *
-     * @param string $property
-     * @param string $operator
-     * @param mixed  $parameter
+     * @param string $property Property
+     * @param string $operator Where condition operator
+     * @param mixed  $parameter Condition parameter
      *
      * @return self
      */
-    public function where($property, $operator, $parameter)
+    public function where(string $property, string $operator, $parameter): self
     {
         $this->query->where($property, $operator, $parameter);
 
@@ -305,11 +306,11 @@ class Repository
     /**
      * Add GROUP BY for column.
      *
-     * @param string $column
+     * @param string $column Column name
      *
      * @return self
      */
-    public function groupBy($column)
+    public function groupBy(string $column): self
     {
         $this->query->groupBy($column);
 
@@ -321,7 +322,7 @@ class Repository
      *
      * @return EntityCollection
      */
-    public function fetchAll()
+    public function fetchAll(): EntityCollection
     {
         // Execute query
         $collection = $this->query->fetchAll();
@@ -350,11 +351,11 @@ class Repository
     /**
      * Find first model enity.
      *
-     * @param string|int $id Identifier of model entity Identifier of model entity
+     * @param int $id Identifier of model entity
      *
-     * @return AbstractModel
+     * @return AbstractModel|null
      */
-    public function fetch($id = 0)
+    public function fetch(int $id = 0)
     {
         // Execute query
         $result = $this->query->fetch($id);
@@ -379,7 +380,7 @@ class Repository
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         // Execute query
         $result = $this->query->count();
@@ -394,13 +395,13 @@ class Repository
     /**
      * Get table name of model.
      *
-     * @param string $modelClassName
+     * @param string $modelClassName Model class name
      *
      * @return string
      *
      * @throws RuntimeException
      */
-    protected function getTableName($modelClassName = null)
+    protected function getTableName(string $modelClassName = ''): string
     {
         if (!$modelClassName) {
             $modelClassName = $this->modelClassName;
@@ -416,13 +417,13 @@ class Repository
     /**
      * Get collection class name of model.
      *
-     * @param string $modelClassName
+     * @param string $modelClassName Model class name
      *
      * @return string
      *
      * @throws RuntimeException
      */
-    protected function getCollectionClassName($modelClassName = null)
+    protected function getCollectionClassName(string $modelClassName = ''): string
     {
         if (!$modelClassName) {
             $modelClassName = $this->modelClassName;
@@ -438,13 +439,13 @@ class Repository
     /**
      * Get primary key of model.
      *
-     * @param string $modelClassName
+     * @param string $modelClassName Model class name
      *
      * @return string
      *
      * @throws RuntimeException
      */
-    protected function getPrimaryKey($modelClassName = null)
+    protected function getPrimaryKey(string $modelClassName = ''): string
     {
         if (!$modelClassName) {
             $modelClassName = $this->modelClassName;
@@ -459,10 +460,14 @@ class Repository
 
     /**
      * Reset entity repository.
+     *
+     * @return self
      */
-    protected function reset()
+    protected function reset(): self
     {
         $this->modelClassName = null;
         $this->query = new QueryBuilder();
+
+        return $this;
     }
 }

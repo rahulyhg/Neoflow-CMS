@@ -1,14 +1,15 @@
 <?php
-
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
 use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Framework\ORM\Repository;
 use Neoflow\Validation\ValidationException;
+use function translate;
 
 class RoleModel extends AbstractModel
 {
+
     /**
      * @var string
      */
@@ -29,7 +30,7 @@ class RoleModel extends AbstractModel
      *
      * @return Repository
      */
-    public function permissions()
+    public function permissions(): Repository
     {
         return $this->hasManyThrough('\\Neoflow\\CMS\\Model\\PermissionModel', '\\Neoflow\\CMS\\Model\\RolePermissionModel', 'role_id', 'permission_id');
     }
@@ -39,7 +40,7 @@ class RoleModel extends AbstractModel
      *
      * @return Repository
      */
-    public function pages()
+    public function pages(): Repository
     {
         return $this->hasManyThrough('\\Neoflow\\CMS\\Model\\PageModel', '\\Neoflow\\CMS\\Model\\PageRoleModel', 'role_id', 'page_id');
     }
@@ -49,7 +50,7 @@ class RoleModel extends AbstractModel
      *
      * @return Repository
      */
-    public function users()
+    public function users(): Repository
     {
         return $this->hasMany('\\Neoflow\\CMS\\Model\\UserModel', 'role_id');
     }
@@ -117,8 +118,10 @@ class RoleModel extends AbstractModel
      * Delete role.
      *
      * @return bool
+     *
+     * @throws ValidationException
      */
-    public function delete()
+    public function delete(): bool
     {
         if (1 !== $this->id()) {
             if (!$this->users()->count()) {

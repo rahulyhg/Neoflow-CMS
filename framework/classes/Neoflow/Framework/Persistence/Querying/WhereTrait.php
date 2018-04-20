@@ -1,20 +1,20 @@
 <?php
-
 namespace Neoflow\Framework\Persistence\Querying;
 
 use InvalidArgumentException;
 
 trait WhereTrait
 {
+
     /**
      * Add raw WHERE condition.
      *
-     * @param string $condition
-     * @param array  $parameters
+     * @param string $condition Condition
+     * @param array  $parameters Parameters
      *
-     * @return AbstractQuery
+     * @return self
      */
-    public function whereRaw(string $condition, array $parameters = []): AbstractQuery
+    public function whereRaw(string $condition, array $parameters = []): self
     {
         return $this->addStatement('WHERE', $condition, $parameters);
     }
@@ -22,15 +22,15 @@ trait WhereTrait
     /**
      * Add where condition.
      *
-     * @param string $column
-     * @param string $operator
-     * @param mixed  $parameter
+     * @param string $column Columm name
+     * @param string $operator Where condition operator
+     * @param mixed  $parameter Condition parameter
      *
-     * @return AbstractQuery
+     * @return self
      *
      * @throws InvalidArgumentException
      */
-    public function where($column, $operator, $parameter)
+    public function where(string $column, string $operator, $parameter): self
     {
         if (in_array($operator, ['<', '>', '=', '!=', 'BETWEEN', 'LIKE', 'IS', 'IS NOT', 'IN'])) {
             if (is_null($parameter)) {
@@ -41,7 +41,7 @@ trait WhereTrait
                 }
             } elseif (is_array($parameter)) {
                 if (count($parameter) > 1) {
-                    return $this->addStatement('WHERE', $this->quoteIdentifier($column).' IN ('.implode(',', array_fill(0, count($parameter), '?')).')', $parameter);
+                    return $this->addStatement('WHERE', $this->quoteIdentifier($column) . ' IN (' . implode(',', array_fill(0, count($parameter), '?')) . ')', $parameter);
                 } elseif (1 === count($parameter)) {
                     $parameter = array_values($parameter)[0];
                 } else {
@@ -49,8 +49,8 @@ trait WhereTrait
                 }
             }
 
-            return $this->addStatement('WHERE', $this->quoteIdentifier($column).' '.$operator.' ?', [$parameter]);
+            return $this->addStatement('WHERE', $this->quoteIdentifier($column) . ' ' . $operator . ' ?', [$parameter]);
         }
-        throw new InvalidArgumentException('WHERE condition operator "'.$operator.'" is invalid');
+        throw new InvalidArgumentException('WHERE condition operator "' . $operator . '" is invalid');
     }
 }

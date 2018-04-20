@@ -78,7 +78,7 @@ class UpdateService extends AbstractService
      *
      * @throws ValidationException
      */
-    protected function validateVersion(array $info)
+    protected function validateVersion(array $info): bool
     {
         if ($info['version'] === $this->config()->get('app')->get('version')) {
             throw new ValidationException(translate('The CMS is already up to date'));

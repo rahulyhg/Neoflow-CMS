@@ -5,6 +5,7 @@ use Neoflow\Framework\AppTrait;
 use Neoflow\Framework\Common\Container;
 use OutOfRangeException;
 use RuntimeException;
+use function normalize_path;
 
 abstract class AbstractView extends Container
 {
@@ -46,7 +47,7 @@ abstract class AbstractView extends Container
      *
      * @return float
      */
-    public function getExecutionTime()
+    public function getExecutionTime(): float
     {
         return $this->app()->getExecutionTime();
     }
@@ -54,13 +55,13 @@ abstract class AbstractView extends Container
     /**
      * Get theme url.
      *
-     * @param string $uri
+     * @param string $additionalUrlPath Additional URL path
      *
      * @return string
      */
-    public function getThemeUrl(string $uri = ''): string
+    public function getThemeUrl(string $additionalUrlPath = ''): string
     {
-        return $this->config()->getUrl('/theme/' . $uri);
+        return $this->config()->getUrl('/theme/' . $additionalUrlPath);
     }
 
     /**

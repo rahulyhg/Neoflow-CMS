@@ -176,7 +176,7 @@ class File extends AbstractObject
      *
      * @return string
      */
-    public function getDirectory()
+    public function getDirectory(): string
     {
         return pathinfo($this->path, PATHINFO_DIRNAME);
     }
@@ -260,7 +260,7 @@ class File extends AbstractObject
      *
      * @throws FileException
      */
-    public function moveToDirectory($newDirectoryPath, $overwrite = true)
+    public function moveToDirectory(string $newDirectoryPath, bool $overwrite = true): self
     {
         if (is_dir($newDirectoryPath)) {
             if (is_writable($newDirectoryPath)) {
@@ -309,7 +309,7 @@ class File extends AbstractObject
      *
      * @throws FileException
      */
-    public function copyToDirectory($newDirectoryPath, $overwrite = true)
+    public function copyToDirectory(string $newDirectoryPath, bool $overwrite = true): self
     {
         if (is_dir($newDirectoryPath)) {
             if (is_writable($newDirectoryPath)) {
@@ -334,7 +334,7 @@ class File extends AbstractObject
      *
      * @return bool
      */
-    public static function unlink($path)
+    public static function unlink($path): bool
     {
         if (is_file($path)) {
             return static::load($path)->delete();

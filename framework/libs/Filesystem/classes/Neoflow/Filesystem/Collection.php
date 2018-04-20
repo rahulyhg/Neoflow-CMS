@@ -1,17 +1,17 @@
 <?php
-
 namespace Neoflow\Filesystem;
 
 use Neoflow\Framework\Common\Collection as FrameworkCollection;
 
 class Collection extends FrameworkCollection
 {
+
     /**
      * Delete all files and folders.
      *
      * @return bool
      */
-    public function delete()
+    public function delete(): bool
     {
         $result = true;
         $this->each(function ($item) use ($result) {
@@ -26,11 +26,11 @@ class Collection extends FrameworkCollection
     /**
      * Sort files and folders by name.
      *
-     * @param string $order
+     * @param string $order Order (ASC or DESC)
      *
      * @return self
      */
-    public function sortByName($order = 'ASC')
+    public function sortByName(string $order = 'ASC'): self
     {
         $this->sort('getName', $order);
 

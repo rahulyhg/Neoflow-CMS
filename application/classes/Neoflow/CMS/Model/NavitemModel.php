@@ -1,13 +1,14 @@
 <?php
-
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
+use Neoflow\Framework\ORM\EntityCollection;
 use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Framework\ORM\Repository;
 
 class NavitemModel extends AbstractModel
 {
+
     /**
      * @var string
      */
@@ -23,14 +24,14 @@ class NavitemModel extends AbstractModel
      */
     public static $properties = ['navitem_id', 'title', 'page_id',
         'parent_navitem_id', 'navigation_id', 'language_id',
-        'position', 'is_active', ];
+        'position', 'is_active',];
 
     /**
      * Get repository to fetch child navitems.
      *
      * @return Repository
      */
-    public function childNavitems()
+    public function childNavitems(): Repository
     {
         return $this->hasMany('\\Neoflow\\CMS\\Model\\NavitemModel', 'parent_navitem_id');
     }
@@ -38,11 +39,16 @@ class NavitemModel extends AbstractModel
     /**
      * Get page.
      *
-     * @return PageModel
+     * @return PageModel|null
      */
     public function getPage()
     {
-        return $this->page()->fetch();
+        $page = $this->page()->fetch();
+
+        if ($page) {
+            return $page;
+        }
+        return null;
     }
 
     /**
@@ -50,7 +56,7 @@ class NavitemModel extends AbstractModel
      *
      * @return Repository
      */
-    public function parentNavitem()
+    public function parentNavitem(): Repository
     {
         return $this->belongsTo('\\Neoflow\\CMS\\Model\\NavitemModel', 'parent_navitem_id');
     }
@@ -60,7 +66,7 @@ class NavitemModel extends AbstractModel
      *
      * @return Repository
      */
-    public function language()
+    public function language(): Repository
     {
         return $this->belongsTo('\\Neoflow\\CMS\\Model\\LanguageModel', 'language_id');
     }
@@ -70,7 +76,7 @@ class NavitemModel extends AbstractModel
      *
      * @return Repository
      */
-    public function navigation()
+    public function navigation(): Repository
     {
         return $this->belongsTo('\\Neoflow\\CMS\\Model\\NavigationModel', 'navigation_id');
     }
@@ -80,13 +86,13 @@ class NavitemModel extends AbstractModel
      *
      * @return Repository
      */
-    public function page()
+    public function page(): Repository
     {
         return $this->belongsTo('\\Neoflow\\CMS\\Model\\PageModel', 'page_id');
     }
 
     /**
-     * Save navitem.
+     * Save navigation item.
      *
      * @param bool $preventCacheClearing Prevent that the cached database results will get deleted
      *
@@ -148,7 +154,7 @@ class NavitemModel extends AbstractModel
      *
      * @return bool
      */
-    public function delete()
+    public function delete(): bool
     {
         if (1 === $this->navigation_id) {
             $page = $this->page()->fetch();
@@ -185,8 +191,8 @@ class NavitemModel extends AbstractModel
                     ->orderByAsc('position')
                     ->fetchAll()
                     ->map(function ($navitem) {
-                        return $navitem->id();
-                    });
+                    return $navitem->id();
+                });
 
                 if ($navitem->id()) {
                     $forbiddenNavitemIds[] = $navitem->id();
@@ -208,7 +214,7 @@ class NavitemModel extends AbstractModel
      *
      * @return self
      */
-    public function toggleActivation()
+    public function toggleActivation(): self
     {
         if ($this->is_active) {
             $this->is_active = false;
@@ -222,9 +228,9 @@ class NavitemModel extends AbstractModel
     /**
      * Get child navitems.
      *
-     * @return \Neoflow\Framework\ORM\EntityCollection
+     * @return EntityCollection
      */
-    public function getChildNavitems()
+    public function getChildNavitems(): EntityCollection
     {
         return $this->childNavitems()->fetchAll();
     }

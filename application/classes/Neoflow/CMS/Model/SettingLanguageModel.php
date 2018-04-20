@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -7,6 +6,7 @@ use Neoflow\Framework\ORM\Repository;
 
 class SettingLanguageModel extends AbstractModel
 {
+
     /**
      * @var string
      */
@@ -27,7 +27,7 @@ class SettingLanguageModel extends AbstractModel
      *
      * @return Repository
      */
-    public function setting()
+    public function setting(): Repository
     {
         return $this->belongsTo('\\Neoflow\\CMS\\Model\\SettingModel', 'setting_id');
     }
@@ -37,7 +37,7 @@ class SettingLanguageModel extends AbstractModel
      *
      * @return Repository
      */
-    public function language()
+    public function language(): Repository
     {
         return $this->belongsTo('\\Neoflow\\CMS\\Model\\LanguageModel', 'language_id');
     }

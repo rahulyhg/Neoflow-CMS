@@ -1,18 +1,19 @@
 <?php
-
 namespace Neoflow\CMS\Model;
 
 use InvalidArgumentException;
 use Neoflow\CMS\Manager\AbstractModuleManager;
+use Neoflow\Filesystem\File;
 use Neoflow\Framework\ORM\EntityCollection;
 use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Framework\ORM\Repository;
-use Neoflow\Filesystem\File;
 use Neoflow\Validation\ValidationException;
 use RuntimeException;
+use function translate;
 
 class ModuleModel extends AbstractExtensionModel
 {
+
     /**
      * @var string
      */
@@ -48,7 +49,7 @@ class ModuleModel extends AbstractExtensionModel
      *
      * @return Repository
      */
-    public function sections()
+    public function sections(): Repository
     {
         return $this->hasMany('\\Neoflow\\CMS\\Model\\SectionModel', 'module_id');
     }
@@ -62,12 +63,12 @@ class ModuleModel extends AbstractExtensionModel
      *
      * @throws InvalidArgumentException
      */
-    public static function findAllByType(string $type)
+    public static function findAllByType(string $type): EntityCollection
     {
         if (in_array($type, self::$types)) {
             return parent::findAllByColumn('type', $type);
         }
-        throw new InvalidArgumentException('Module type is not valid');
+        throw new InvalidArgumentException('Module type is invalid');
     }
 
     /**
@@ -149,19 +150,13 @@ class ModuleModel extends AbstractExtensionModel
      *
      * @return self
      */
-    public function toggleActivation()
+    public function toggleActivation(): AbstractExtensionModel
     {
-        if ($this->is_active) {
-            if (!$this->hasDependentModules()) {
-                $this->is_active = false;
-            } else {
-                throw new ValidationException(translate('{0} has at least one or more depending modules ({1}) and cannot be disabled', [$this->name, $this->getDependentModules()->mapValue('name')]));
-            }
-        } else {
-            $this->is_active = true;
+        if ($this->hasDependentModules()) {
+            throw new ValidationException(translate('{0} has at least one or more depending modules ({1}) and cannot be disabled', [$this->name, $this->getDependentModules()->mapValue('name')]));
         }
 
-        return $this;
+        return parent::toggleActivation();
     }
 
     /**
@@ -176,7 +171,7 @@ class ModuleModel extends AbstractExtensionModel
         if (!$this->manager && class_exists($this->manager_class)) {
             $this->manager = new $this->manager_class($this);
         } elseif (!class_exists($this->manager_class)) {
-            throw new RuntimeException('Manager class '.$this->manager_class.'  not found');
+            throw new RuntimeException('Manager class ' . $this->manager_class . '  not found');
         }
 
         return $this->manager;
@@ -217,7 +212,7 @@ class ModuleModel extends AbstractExtensionModel
      */
     public function hasDependentModules(): bool
     {
-        return self::repo()->where('dependencies', 'LIKE', '%'.$this->identifier.'%')->count() > 0;
+        return self::repo()->where('dependencies', 'LIKE', '%' . $this->identifier . '%')->count() > 0;
     }
 
     /**
@@ -227,7 +222,7 @@ class ModuleModel extends AbstractExtensionModel
      */
     public function getDependentModules(): EntityCollection
     {
-        return self::repo()->where('dependencies', 'LIKE', '%'.$this->identifier.'%')->fetchAll();
+        return self::repo()->where('dependencies', 'LIKE', '%' . $this->identifier . '%')->fetchAll();
     }
 
     /**
@@ -286,7 +281,7 @@ class ModuleModel extends AbstractExtensionModel
      *
      * @throws ValidationException
      */
-    public function delete()
+    public function delete(): bool
     {
         if (false == $this->is_core) {
             if (0 === $this->sections()->count()) {
@@ -305,30 +300,30 @@ class ModuleModel extends AbstractExtensionModel
     }
 
     /**
-     * Get module url.
+     * Get module URL.
      *
-     * @param string $uri
+     * @param string $additionalUrlPath Additional URL path
      *
      * @return string
      */
-    public function getUrl($uri = '')
+    public function getUrl(string $additionalUrlPath = ''): string
     {
         return $this
                 ->config()
-                ->getModulesUrl('/'.$this->folder_name.'/'.$uri);
+                ->getModulesUrl('/' . $this->folder_name . '/' . $additionalUrlPath);
     }
 
     /**
      * Get module path.
      *
-     * @param string $additionalPath
+     * @param string $additionalPath Additional path
      *
      * @return string
      */
-    public function getPath($additionalPath = '')
+    public function getPath(string $additionalPath = ''): string
     {
         return $this
                 ->config()
-                ->getModulesPath('/'.$this->folder_name.'/'.$additionalPath);
+                ->getModulesPath('/' . $this->folder_name . '/' . $additionalPath);
     }
 }

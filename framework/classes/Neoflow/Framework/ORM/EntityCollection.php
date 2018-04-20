@@ -1,11 +1,11 @@
 <?php
-
 namespace Neoflow\Framework\ORM;
 
 use Neoflow\Framework\Common\Collection;
 
 class EntityCollection extends Collection
 {
+
     /**
      * Load app.
      */
@@ -16,7 +16,7 @@ class EntityCollection extends Collection
      *
      * @return bool
      */
-    public function delete()
+    public function delete(): bool
     {
         $result = true;
         $this->each(function ($item) use ($result) {
@@ -31,14 +31,14 @@ class EntityCollection extends Collection
     /**
      * Apply mapper value to collection entities.
      *
-     * @param string $key
+     * @param string $property Entity property
      *
      * @return array
      */
-    public function mapValue(string $key)
+    public function mapValue(string $property): array
     {
-        $callback = function ($entity) use ($key) {
-            return $entity->$key;
+        $callback = function ($entity) use ($property) {
+            return $entity->{$property};
         };
 
         return $this->map($callback);
@@ -47,15 +47,15 @@ class EntityCollection extends Collection
     /**
      * Join collection values to a string.
      *
-     * @param string $key
-     * @param string $seperator
+     * @param string $property Entity property
+     * @param string $seperator Implode seperator
      *
      * @return string
      */
-    public function implodeValue(string $key, string $seperator = ', ')
+    public function implodeValue(string $property, string $seperator = ', '): string
     {
-        $callback = function ($entity) use ($key) {
-            return $entity->$key;
+        $callback = function ($entity) use ($property) {
+            return $entity->{$property};
         };
 
         return $this->implode($callback, $seperator);

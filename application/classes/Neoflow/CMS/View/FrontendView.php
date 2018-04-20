@@ -144,13 +144,13 @@ class FrontendView extends AbstractView
     }
 
     /**
-     * Generate cache key based random salt value, current page and authenticated user.
+     * Generate cache key
      *
-     * @param string $salt
+     * @param string $salt Additional random salt value
      *
      * @return string
      */
-    protected function generateCacheKey($salt)
+    protected function generateCacheKey(string $salt = ''): string
     {
         $authenticedUser = $this->app()->getService('auth')->getUser();
         $currentPage = $this->app()->get('page');
@@ -161,12 +161,12 @@ class FrontendView extends AbstractView
     /**
      * Get breadcrumbs based on navigation tree.
      *
-     * @param int $startLevel
-     * @param int $maxLevel
+     * @param int $startLevel Start level
+     * @param int $maxLevel Max level
      *
      * @return array
      */
-    public function getBreadcrumbs(int $startLevel = 0, int $maxLevel = 5)
+    public function getBreadcrumbs(int $startLevel = 0, int $maxLevel = 5): array
     {
         $breadcrumbs = [];
         $cacheKey = $this->generateCacheKey('breadcrumbs' . $startLevel . $maxLevel);

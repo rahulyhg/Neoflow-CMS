@@ -77,7 +77,7 @@ class SettingModel extends AbstractModel
      *
      * @return Repository
      */
-    public function frontendTheme()
+    public function frontendTheme(): Repository
     {
         return $this->belongsTo('\\Neoflow\\CMS\\Model\\ThemeModel', 'theme_id');
     }
@@ -113,9 +113,7 @@ class SettingModel extends AbstractModel
     /**
      * Get frontend theme.
      *
-     * @return ThemeModel
-     *
-     * @throws RuntimeException
+     * @return ThemeModel|null
      */
     public function getFrontendTheme()
     {
@@ -123,15 +121,13 @@ class SettingModel extends AbstractModel
         if ($theme) {
             return $theme;
         }
-        throw new RuntimeException('Frontend theme not found');
+        return null;
     }
 
     /**
      * Get backend theme.
      *
-     * @return ThemeModel
-     *
-     * @throws RuntimeException
+     * @return ThemeModel|null
      */
     public function getBackendTheme()
     {
@@ -139,7 +135,7 @@ class SettingModel extends AbstractModel
         if ($theme) {
             return $theme;
         }
-        throw new RuntimeException('Backend theme not found');
+        return null;
     }
 
     /**
@@ -147,7 +143,7 @@ class SettingModel extends AbstractModel
      *
      * @return Repository
      */
-    public function backendTheme()
+    public function backendTheme(): Repository
     {
         return $this->belongsTo('\\Neoflow\\CMS\\Model\\ThemeModel', 'backend_theme_id');
     }
@@ -157,7 +153,7 @@ class SettingModel extends AbstractModel
      *
      * @return Repository
      */
-    public function defaultLanguage()
+    public function defaultLanguage(): Repository
     {
         return $this->belongsTo('\\Neoflow\\CMS\\Model\\LanguageModel', 'default_language_id');
     }
@@ -167,7 +163,7 @@ class SettingModel extends AbstractModel
      *
      * @return Repository
      */
-    public function languages()
+    public function languages(): Repository
     {
         return $this->hasManyThrough('\\Neoflow\\CMS\\Model\\LanguageModel', '\\Neoflow\\CMS\\Model\\SettingLanguageModel', 'setting_id', 'language_id');
     }

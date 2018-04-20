@@ -7,13 +7,13 @@ use Neoflow\Framework\App;
  *
  * @param string $key             Translation key
  * @param array  $values          Values for translation
- * @param bool   $plural          State if translation should be plural
- * @param bool   $errorPrefix     State if prefix should be added when an error appears
- * @param bool   $translateValues State whether values should be translated too
+ * @param bool   $plural          Set TRUE when translation should be plural
+ * @param bool   $errorPrefix     Set FALSE to prevent the error prefix get added
+ * @param bool   $translateValues List of values for the translation
  *
  * @return string
  */
-function translate($key, array $values = [], $plural = false, $errorPrefix = true, $translateValues = true)
+function translate(string $key, array $values = [], bool $plural = false, bool $errorPrefix = true, bool $translateValues = true): string
 {
     return App::instance()->get('translator')->translate($key, $values, $plural, $errorPrefix, $translateValues);
 }

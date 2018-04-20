@@ -1,11 +1,11 @@
 <?php
-
 namespace Neoflow\Minify;
 
 use InvalidArgumentException;
 
 abstract class AbstractMinifier
 {
+
     /**
      * @var string
      */
@@ -20,10 +20,10 @@ abstract class AbstractMinifier
      *
      * @throws InvalidArgumentException
      */
-    public function addCode($code)
+    public function addCode(string $code): self
     {
         if (is_string($code)) {
-            $this->code .= $code.PHP_EOL.PHP_EOL;
+            $this->code .= $code . PHP_EOL . PHP_EOL;
 
             return $this;
         }
@@ -33,11 +33,11 @@ abstract class AbstractMinifier
     /**
      * Add path or URL of resource.
      *
-     * @param string $path
+     * @param string $path Path or URL of ressource
      *
      * @return self
      */
-    public function add($path)
+    public function add(string $path): self
     {
         if (is_array($path)) {
             array_filter($path, function ($path) {
@@ -53,21 +53,17 @@ abstract class AbstractMinifier
         return $this;
     }
 
-    abstract public function minify($targetPath = null);
+    abstract public function minify(): self;
 
     /**
-     * Save code to file.
+     * Save minified code as file.
      *
-     * @param string $targetFilePath
+     * @param string $filePath File path
      *
-     * @return int
+     * @return bool
      */
-    protected function saveToFile($targetFilePath)
+    protected function saveAsFile(string $filePath): bool
     {
-        if (is_string($targetFilePath)) {
-            return file_put_contents($targetFilePath, $this->code);
-        }
-
-        return false;
+        return (bool) file_put_contents($filePath, $this->code);
     }
 }

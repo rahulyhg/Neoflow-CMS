@@ -94,9 +94,7 @@ abstract class AbstractModel
      */
     public function __construct(array $data = [], $isReadOnly = false)
     {
-        foreach ($data as $key => $value) {
-            $this->set($key, $value, true);
-        }
+        $this->setData($data, true);
 
         $this->mapper = new Mapper();
 
@@ -115,7 +113,7 @@ abstract class AbstractModel
      *
      * @return string
      */
-    protected function getTableName()
+    protected function getTableName(): string
     {
         $modelClassName = get_class($this);
 
@@ -127,7 +125,7 @@ abstract class AbstractModel
      *
      * @return string
      */
-    protected function getCollectionClassName()
+    protected function getCollectionClassName(): string
     {
         $modelClassName = get_class($this);
 
@@ -139,7 +137,7 @@ abstract class AbstractModel
      *
      * @return string
      */
-    protected function getPrimaryKey()
+    protected function getPrimaryKey(): string
     {
         $modelClassName = get_class($this);
 
@@ -151,7 +149,7 @@ abstract class AbstractModel
      *
      * @return string
      */
-    protected function getProperties()
+    protected function getProperties(): array
     {
         $modelClassName = get_class($this);
 
@@ -163,7 +161,7 @@ abstract class AbstractModel
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->data;
     }
@@ -171,7 +169,7 @@ abstract class AbstractModel
     /**
      * Return id of model entity.
      *
-     * @return mixed
+     * @return int|null
      */
     public function id()
     {
@@ -181,7 +179,7 @@ abstract class AbstractModel
             return (int) $id;
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -189,7 +187,7 @@ abstract class AbstractModel
      *
      * @return bool
      */
-    public function isReadOnly()
+    public function isReadOnly(): bool
     {
         return $this->isReadOnly;
     }
@@ -221,29 +219,29 @@ abstract class AbstractModel
     /**
      * Set model entity value.
      *
-     * @param string $key    Key of entity value
-     * @param mixed  $value  Entity value
-     * @param bool   $silent State if change shouldn't be tracked
+     * @param string $property Entity property
+     * @param mixed  $value  Property value
+     * @param bool   $silent Set TRUE to prevent the tracking of the change
      *
      * @return self
      *
      * @throws RuntimeException
      */
-    protected function set($key, $value = null, $silent = false): self
+    protected function set(string $property, $value = null, bool $silent = false): self
     {
         if ($this->isReadOnly()) {
             throw new RuntimeException('Model entity is read only and cannot set value');
         }
 
-        if (in_array($key, $this->getProperties())) {
-            $this->data[$key] = $value;
+        if (in_array($property, $this->getProperties())) {
+            $this->data[$property] = $value;
 
             if (!$silent) {
-                $this->modifiedProperties[] = $key;
+                $this->modifiedProperties[] = $property;
                 $this->isModified = true;
             }
         } else {
-            $this->$key = $value;
+            $this->$property = $value;
         }
 
         return $this;
@@ -252,27 +250,27 @@ abstract class AbstractModel
     /**
      * Check whether model entity property exists.
      *
-     * @param string $key
+     * @param string $property Entity property
      *
      * @return bool
      */
-    protected function exists($key): bool
+    protected function exists($property): bool
     {
-        return isset($this->data[$key]);
+        return isset($this->data[$property]);
     }
 
     /**
      * Get model entity value.
      *
-     * @param string $key
-     * @param string $default
+     * @param string $property Entity property
+     * @param mixed $default Default return value when key doesn't exists
      *
      * @return mixed
      */
-    protected function get($key, $default = '')
+    protected function get(string $property, $default = '')
     {
-        if ($this->exists($key)) {
-            return $this->data[$key];
+        if ($this->exists($property)) {
+            return $this->data[$property];
         }
 
         return $default;
@@ -281,18 +279,17 @@ abstract class AbstractModel
     /**
      * Remove model entity value.
      *
-     * @param string $key
-     * @param mixed  $default
+     * @param string $property Entity property
      *
      * @return self
      */
-    protected function remove($key): self
+    protected function remove($property): self
     {
-        if ($this->exists($key)) {
-            unset($this->data[$key]);
+        if ($this->exists($property)) {
+            unset($this->data[$property]);
         }
 
-        if (false !== ($index = array_search($key, $this->modifiedProperties))) {
+        if (false !== ($index = array_search($property, $this->modifiedProperties))) {
             unset($this->modifiedProperties[$index]);
         }
 
@@ -375,14 +372,15 @@ abstract class AbstractModel
     /**
      * Set data of model entity.
      *
-     * @param array $data Data for model entity
+     * @param array $data Entity data
+     * @param bool   $silent Set TRUE to prevent the tracking of the change
      *
      * @return self
      */
-    public function setData(array $data): self
+    public function setData(array $data, bool $silent = false): self
     {
-        foreach ($data as $key => $value) {
-            $this->set($key, $value);
+        foreach ($data as $property => $value) {
+            $this->set($property, $value, $silent);
         }
 
         return $this;
@@ -394,7 +392,7 @@ abstract class AbstractModel
      * @param array  $data Data for model entity
      * @param string $id   Identifier of model entity
      *
-     * @return static
+     * @return self
      *
      * @throws InvalidArgumentException
      */
@@ -402,9 +400,7 @@ abstract class AbstractModel
     {
         $entity = static::findById($id);
         if ($entity) {
-            foreach ($data as $key => $value) {
-                $entity->set($key, $value);
-            }
+            $entity->setData($data);
 
             return $entity;
         }
@@ -447,7 +443,7 @@ abstract class AbstractModel
      *
      * @return array
      */
-    public function getData()
+    public function getData(): array
     {
         return $this->toArray();
     }
@@ -457,7 +453,7 @@ abstract class AbstractModel
      *
      * @return array
      */
-    public function getModifiedData()
+    public function getModifiedData(): array
     {
         return array_intersect_key($this->data, array_flip($this->modifiedProperties));
     }
@@ -467,7 +463,7 @@ abstract class AbstractModel
      *
      * @return bool
      */
-    public function delete()
+    public function delete(): bool
     {
         if ($this->id()) {
             return static::repo()->delete($this);
@@ -477,43 +473,40 @@ abstract class AbstractModel
     }
 
     /**
-     * Manage one-to-one and one-to-many relations where the foreign key
-     * is on the base model entity.
+     * Manage one-to-one and one-to-many relations where the foreign key is on the base model entity.
      *
-     * @param string $associatedModelClassName
-     * @param string $foreignKeyName
+     * @param string $associatedModelClassName Associated model class name
+     * @param string $foreignKeyName Foreign key name
      *
      * @return Repository
      */
-    protected function belongsTo($associatedModelClassName, $foreignKeyName)
+    protected function belongsTo(string $associatedModelClassName, string $foreignKeyName): Repository
     {
         return $this->mapper->belongsTo($this, $associatedModelClassName, $foreignKeyName);
     }
 
     /**
-     * Manage one-to-one relation where the foreign key
-     * is on the associated model entity.
+     * Manage one-to-one relation where the foreign key is on the associated model entity.
      *
-     * @param string $associatedModelClassName
-     * @param string $foreignKeyName
+     * @param string $associatedModelClassName Associated model class name
+     * @param string $foreignKeyName Foreign key name
      *
      * @return Repository
      */
-    protected function hasOne($associatedModelClassName, $foreignKeyName): Repository
+    protected function hasOne(string $associatedModelClassName, string $foreignKeyName): Repository
     {
         return $this->mapper->hasOne($this, $associatedModelClassName, $foreignKeyName);
     }
 
     /**
-     * Manage one-to-many relations where the foreign key
-     * is on the associated model entity.
+     * Manage one-to-many relations where the foreign key is on the associated model entity.
      *
-     * @param string $associatedModelClassName
-     * @param string $foreignKeyName
+     * @param string $associatedModelClassName Associated model class name
+     * @param string $foreignKeyName Foreign key name
      *
      * @return Repository
      */
-    protected function hasMany($associatedModelClassName, $foreignKeyName)
+    protected function hasMany(string $associatedModelClassName, string $foreignKeyName): Repository
     {
         return $this->mapper->hasMany($this, $associatedModelClassName, $foreignKeyName);
     }
@@ -521,14 +514,14 @@ abstract class AbstractModel
     /**
      * Manage many-to-many relations trought join model.
      *
-     * @param string $associatedModelClassName
-     * @param string $joinModelClassName
-     * @param string $foreignKeyToBaseModel
-     * @param string $foreignKeyToAssociatedModel
+     * @param string $associatedModelClassName Associated model class name
+     * @param string $joinModelClassName Join model class name
+     * @param string $foreignKeyToBaseModel Foreign key to the base model
+     * @param string $foreignKeyToAssociatedModel Foreign key to the associated model
      *
      * @return Repository
      */
-    protected function hasManyThrough($associatedModelClassName, $joinModelClassName, $foreignKeyToBaseModel, $foreignKeyToAssociatedModel)
+    protected function hasManyThrough(string $associatedModelClassName, string $joinModelClassName, string $foreignKeyToBaseModel, string $foreignKeyToAssociatedModel): Repository
     {
         return $this->mapper->hasManyThrough($this, $associatedModelClassName, $joinModelClassName, $foreignKeyToBaseModel, $foreignKeyToAssociatedModel);
     }
@@ -536,15 +529,15 @@ abstract class AbstractModel
     /**
      * Add additional property to model entity.
      *
-     * @param string $key
+     * @param string $property Entity property
      *
      * @return self
      */
-    public function addProperty($key)
+    public function addProperty(string $property): self
     {
         $modelClassName = get_class($this);
 
-        $modelClassName::$properties[] = $key;
+        $modelClassName::$properties[] = $property;
 
         return $this;
     }
@@ -552,19 +545,19 @@ abstract class AbstractModel
     /**
      * Remove property from model entity.
      *
-     * @param string $key
+     * @param string $property Entity property
      *
      * @return self
      */
-    public function removeProperty($key)
+    public function removeProperty(string $property): self
     {
         $modelClassName = get_class($this);
 
-        if (false !== ($index = array_search($key, $modelClassName::$properties))) {
+        if (false !== ($index = array_search($property, $modelClassName::$properties))) {
             unset($modelClassName::$properties[$index]);
         }
 
-        return $this->remove($key);
+        return $this->remove($property);
     }
 
     /**
@@ -586,7 +579,7 @@ abstract class AbstractModel
      *
      * @return SelectQuery
      */
-    protected static function selectQuery(array $columns = [])
+    protected static function selectQuery(array $columns = []): SelectQuery
     {
         return static::queryBuilder()->selectFrom(static::$tableName, $columns);
     }
@@ -596,7 +589,7 @@ abstract class AbstractModel
      *
      * @return QueryBuilder
      */
-    protected static function queryBuilder()
+    protected static function queryBuilder(): QueryBuilder
     {
         return new QueryBuilder();
     }
@@ -634,9 +627,9 @@ abstract class AbstractModel
     /**
      * Find model entity by id.
      *
-     * @param string|int $id Identifier of model entity
+     * @param mixed $id Identifier of model entity
      *
-     * @return static
+     * @return static|null
      */
     public static function findById($id)
     {
@@ -649,9 +642,9 @@ abstract class AbstractModel
      * @param string $column
      * @param mixed  $value
      *
-     * @return static
+     * @return static|null
      */
-    public static function findByColumn($column, $value)
+    public static function findByColumn(string $column, $value)
     {
         return static::repo()
                 ->where($column, '=', $value)

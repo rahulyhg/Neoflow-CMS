@@ -1,24 +1,26 @@
 <?php
-
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
 use Neoflow\CMS\Exception\AuthException;
 use Neoflow\CMS\Model\UserModel;
-use Neoflow\Validation\ValidationException;
 use RuntimeException;
+use function array_in_array;
+use function generate_url;
+use function translate;
 
 class AuthService extends AbstractService
 {
+
     /**
      * Authenticate and authorize user by email address and password.
      *
-     * @param string $email
-     * @param string $password
+     * @param string $email User email address
+     * @param string $password User password
      *
      * @return bool
      */
-    public function login($email, $password)
+    public function login(string $email, string $password): bool
     {
         if ($this->authenticate($email, $password)) {
             return $this->authorize();
@@ -32,7 +34,7 @@ class AuthService extends AbstractService
      *
      * @return bool
      */
-    public function logout()
+    public function logout(): bool
     {
         $this->session()->restart();
 
@@ -44,7 +46,7 @@ class AuthService extends AbstractService
      *
      * @return bool
      */
-    public function isAuthenticated()
+    public function isAuthenticated(): bool
     {
         return $this->session()->exists('_USER');
     }
@@ -52,7 +54,7 @@ class AuthService extends AbstractService
     /**
      * Get authenticated user.
      *
-     * @return UserModel
+     * @return UserModel|null
      */
     public function getUser()
     {
@@ -62,14 +64,14 @@ class AuthService extends AbstractService
     /**
      * Create reset key for user.
      *
-     * @param string $email
-     * @param bool   $sendMail
+     * @param string $email User email address
+     * @param bool   $sendMail Set FALSE to prevent sending an email with password reset link
      *
      * @return bool
      *
-     * @throws ValidationException
+     * @throws AuthException
      */
-    public function createResetKey(string $email, bool $sendMail = true)
+    public function createResetKey(string $email, bool $sendMail = true): bool
     {
         $user = UserModel::repo()
             ->where('email', '=', $email)
@@ -78,7 +80,7 @@ class AuthService extends AbstractService
         if ($user) {
             if (!$user->reset_key || 1 === 1 || $user->reseted_when < microtime(true) - 60 * 60) {
                 if ($user->generateResetKey() && $user->save()) {
-                    $link = generate_url('backend_new_password', [
+                    $link = generate_url('backend_auth_new_password', [
                         'reset_key' => $user->reset_key,
                     ]);
                     $message = translate('Password reset email message', [$user->getFullName(), $link]);
@@ -104,11 +106,11 @@ class AuthService extends AbstractService
     /**
      * Check whether authenticated user has permission.
      *
-     * @param string|array $permissionKeys
+     * @param string|array $permissionKeys One or multiple permission keys
      *
      * @return bool
      */
-    public function hasPermission($permissionKeys)
+    public function hasPermission($permissionKeys): bool
     {
         if (is_string($permissionKeys)) {
             $permissionKeys = [$permissionKeys];
@@ -159,13 +161,11 @@ class AuthService extends AbstractService
     /**
      * Authorize authenticated user.
      *
-     * @param UserModel $user
-     *
      * @return bool
      *
      * @throws RuntimeException
      */
-    protected function authorize()
+    protected function authorize(): bool
     {
         $user = $this->getUser();
 
@@ -188,7 +188,7 @@ class AuthService extends AbstractService
 
             return true;
         }
-        throw new RuntimeException('Authentication failed');
+        throw new RuntimeException('Authorization failed');
     }
 
     /**
@@ -196,7 +196,7 @@ class AuthService extends AbstractService
      *
      * @return array
      */
-    protected function getPermissionKeys()
+    protected function getPermissionKeys(): array
     {
         return $this->session()->get('_PERMISSION_KEYS') ?: [];
     }

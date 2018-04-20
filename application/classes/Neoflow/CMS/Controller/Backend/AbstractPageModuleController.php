@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Model\SectionModel;
@@ -9,6 +8,7 @@ use RuntimeException;
 
 abstract class AbstractPageModuleController extends SectionController
 {
+
     /**
      * Constructor.
      *
@@ -40,14 +40,14 @@ abstract class AbstractPageModuleController extends SectionController
             // Set title and breadcrumb for view
             $this->view
                 ->setTitle($module->name)
-                ->setSubtitle('ID: '.$this->section->id().' '.translate('Block').': '.($block ? $block->title : translate('Not specified')))
+                ->setSubtitle('ID: ' . $this->section->id() . ' ' . translate('Block') . ': ' . ($block ? $block->title : translate('Not specified')))
                 ->addBreadcrumb(translate('Page', [], true), generate_url('backend_page_index', ['language_id' => $page->language_id]))
                 ->addBreadcrumb($page->title, generate_url('backend_section_index', ['page_id' => $page->id()]));
 
             // Set back and preview url
             $this->view
                 ->setBackRoute('backend_section_index', ['page_id' => $page->id()])
-                ->setPreviewUrl($page->getUrl().'#section-'.$this->section->id());
+                ->setPreviewUrl($page->getUrl() . '#section-' . $this->section->id());
         } else {
             throw new RuntimeException('Section not found in request params (GET/POST)');
         }
@@ -70,7 +70,7 @@ abstract class AbstractPageModuleController extends SectionController
         $parameters = array_merge([
             'section' => $this->section,
             'page' => $page,
-            'module' => $module, ], $parameters);
+            'module' => $module,], $parameters);
 
         $this->view->renderView($viewFile, $parameters, 'backend-page-module-view');
 
@@ -82,7 +82,7 @@ abstract class AbstractPageModuleController extends SectionController
      *
      * @return bool
      */
-    protected function updateModifiedWhen()
+    protected function updateModifiedWhen(): bool
     {
         $page = $this->section->page()->fetch();
         $page->updateModifiedWhen();

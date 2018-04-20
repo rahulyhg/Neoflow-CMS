@@ -36,7 +36,7 @@ class Config extends FrameworkConfig
     /**
      * Get themes url.
      *
-     * @param string $additionalUrlPath
+     * @param string $additionalUrlPath Additional URL path
      *
      * @return string
      */
@@ -50,7 +50,7 @@ class Config extends FrameworkConfig
     /**
      * Get modules url.
      *
-     * @param string $additionalUrlPath
+     * @param string $additionalUrlPath Additional URL path
      *
      * @return string
      */
@@ -64,7 +64,7 @@ class Config extends FrameworkConfig
     /**
      * Get media url.
      *
-     * @param string $additionalUrlPath
+     * @param string $additionalUrlPath Additional URL path
      *
      * @return string
      */

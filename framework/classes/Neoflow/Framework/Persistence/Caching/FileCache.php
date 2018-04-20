@@ -1,9 +1,11 @@
 <?php
-
 namespace Neoflow\Framework\Persistence\Caching;
+
+use RuntimeException;
 
 class FileCache extends AbstractCache
 {
+
     /**
      * @var string
      */
@@ -14,7 +16,7 @@ class FileCache extends AbstractCache
      */
     public function __construct()
     {
-        $this->fileCacheFolder = $this->config()->getTempPath(DIRECTORY_SEPARATOR.'cache');
+        $this->fileCacheFolder = $this->config()->getTempPath(DIRECTORY_SEPARATOR . 'cache');
         if (!is_dir($this->fileCacheFolder)) {
             mkdir($this->fileCacheFolder);
         }
@@ -31,7 +33,7 @@ class FileCache extends AbstractCache
      */
     protected function getFileName(string $key): string
     {
-        return $this->fileCacheFolder.DIRECTORY_SEPARATOR.'cache_'.sha1($key);
+        return $this->fileCacheFolder . DIRECTORY_SEPARATOR . 'cache_' . sha1($key);
     }
 
     /**
@@ -64,10 +66,10 @@ class FileCache extends AbstractCache
     /**
      * Store cache value.
      *
-     * @param string $key
-     * @param mixed  $data
-     * @param int    $ttl
-     * @param array  $tags
+     * @param string $key Cache key
+     * @param mixed  $data Cache data
+     * @param int    $ttl Cache lifetime
+     * @param array  $tags Cache tags
      *
      * @throws RuntimeException
      *
@@ -76,12 +78,13 @@ class FileCache extends AbstractCache
     public function store(string $key, $data, int $ttl = 0, array $tags = []): bool
     {
         // Set key to tags
-        $this->setKeyToTags($tags, $key);
+        $this->mapKeyToTags($tags, $key);
+
         // Opening the file in read/write mode
         $cacheFile = $this->getFileName($key);
         $handle = fopen($cacheFile, 'w+');
         if (!$handle) {
-            throw new RuntimeException('Cache file "'.$cacheFile.'" could not be opened');
+            throw new RuntimeException('Cache file "' . $cacheFile . '" could not be opened');
         }
 
         if (0 === $ttl) {
@@ -96,7 +99,7 @@ class FileCache extends AbstractCache
     /**
      * Delete cache value.
      *
-     * @param string $key
+     * @param string $key Cache key
      *
      * @return bool
      */
@@ -113,7 +116,7 @@ class FileCache extends AbstractCache
     /**
      * Check whether cache value exists.
      *
-     * @param string $key
+     * @param string $key Cache key
      *
      * @return bool
      */
@@ -133,7 +136,7 @@ class FileCache extends AbstractCache
 
         $cacheFiles = scandir($this->fileCacheFolder);
         foreach ($cacheFiles as $cacheFile) {
-            $cacheFile = $this->fileCacheFolder.DIRECTORY_SEPARATOR.$cacheFile;
+            $cacheFile = $this->fileCacheFolder . DIRECTORY_SEPARATOR . $cacheFile;
             if (is_file($cacheFile) && 0 === mb_strpos(basename($cacheFile), 'cache_')) {
                 unlink($cacheFile);
             }

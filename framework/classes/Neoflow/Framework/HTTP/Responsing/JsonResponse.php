@@ -1,11 +1,11 @@
 <?php
-
 namespace Neoflow\Framework\HTTP\Responsing;
 
 use InvalidArgumentException;
 
 class JsonResponse extends Response
 {
+
     /**
      * Constructor.
      *
@@ -22,8 +22,10 @@ class JsonResponse extends Response
      * Set JSON data.
      *
      * @param array $data JSON data
+     *
+     * @return self
      */
-    public function setJson(array $data)
+    public function setJson(array $data): self
     {
         return $this->setContent(json_encode($data));
     }

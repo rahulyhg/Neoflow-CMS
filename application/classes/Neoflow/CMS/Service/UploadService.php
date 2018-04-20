@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Service;
 
 use InvalidArgumentException;
@@ -10,6 +9,7 @@ use Neoflow\Validation\ValidationException;
 
 class UploadService extends AbstractService
 {
+
     /**
      * Move multiple uploaded file items to directory.
      *
@@ -69,7 +69,7 @@ class UploadService extends AbstractService
                     throw new ValidationException(translate('The file "{0}" is larger than allowed', [$uploadedItem['name']]));
                 }
 
-                $uploadedFilePath = normalize_path($directoryPath.'/'.$uploadedItem['name']);
+                $uploadedFilePath = normalize_path($directoryPath . '/' . $uploadedItem['name']);
                 if ($overwrite || !is_file($uploadedFilePath)) {
                     move_uploaded_file($uploadedItem['tmp_name'], $uploadedFilePath);
 
@@ -77,7 +77,7 @@ class UploadService extends AbstractService
                 }
                 throw new ValidationException(translate('A file with the name "{0}" already exists', [$uploadedItem['name']]));
             }
-            throw new InvalidArgumentException('Target directory is not valid');
+            throw new InvalidArgumentException('Target directory is invalid');
         }
         throw new InvalidArgumentException('Uploaded file item is not a valid POST file array');
     }

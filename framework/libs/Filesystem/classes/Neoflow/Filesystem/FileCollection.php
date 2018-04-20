@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Filesystem;
 
 /**
@@ -8,14 +7,14 @@ namespace Neoflow\Filesystem;
  */
 class FileCollection extends Collection
 {
+
     /**
      * Sort files by size.
-     *
-     * @param string $order
+     * @param string $order Order (ASC or DESC)
      *
      * @return self
      */
-    public function sortBySize($order = 'ASC')
+    public function sortBySize(string $order = 'ASC'): self
     {
         $this->sort('getSize', $order);
 
@@ -25,11 +24,11 @@ class FileCollection extends Collection
     /**
      * Sort files by extension.
      *
-     * @param string $order
+     * @param string $order Order (ASC or DESC)
      *
      * @return self
      */
-    public function sortByExtension($order = 'ASC')
+    public function sortByExtension(string $order = 'ASC'): self
     {
         $this->sort('getExtension', $order);
 

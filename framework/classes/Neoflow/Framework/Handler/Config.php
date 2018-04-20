@@ -14,9 +14,9 @@ class Config extends Container
     use AppTrait;
 
     /**
-     * Get url.
+     * Get URL.
      *
-     * @param string $additionalUrlPath
+     * @param string $additionalUrlPath Additional URL path
      *
      * @return string
      */

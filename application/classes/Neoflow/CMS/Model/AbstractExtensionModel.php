@@ -1,17 +1,18 @@
 <?php
-
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
 use Neoflow\Filesystem\File;
 use Neoflow\Filesystem\Folder;
-use Neoflow\Framework\Core\AbstractModel as FW_AbstractModel;
+use Neoflow\Framework\Core\AbstractModel as FrameworkAbstractModel;
 use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Validation\ValidationException;
 use ZipArchive;
+use function translate;
 
 abstract class AbstractExtensionModel extends AbstractModel
 {
+
     /**
      * @var string
      */
@@ -27,7 +28,7 @@ abstract class AbstractExtensionModel extends AbstractModel
      *
      * @return bool
      */
-    public function delete()
+    public function delete(): bool
     {
         if (parent::delete()) {
             if (is_dir($this->getPath())) {
@@ -103,7 +104,7 @@ abstract class AbstractExtensionModel extends AbstractModel
      *
      * @return bool
      */
-    public function reload()
+    public function reload(): bool
     {
         // Get info file path
         $infoFilePath = $this->getPath('info.php');
@@ -112,7 +113,7 @@ abstract class AbstractExtensionModel extends AbstractModel
         $info = $this->fetchInfoFile($infoFilePath);
         $this->setData($info);
 
-        return $this->validate() && $this->save();
+        return ($this->validate() && $this->save());
     }
 
     /**
@@ -128,7 +129,7 @@ abstract class AbstractExtensionModel extends AbstractModel
     protected function unpack(File $extensionPackageFile, bool $delete = true): Folder
     {
         // Create temporary update folder
-        $extensionFolderPath = $this->config()->getTempPath('/extension_'.uniqid());
+        $extensionFolderPath = $this->config()->getTempPath('/extension_' . uniqid());
         $extensionFolder = Folder::create($extensionFolderPath);
 
         // Extract package
@@ -264,7 +265,7 @@ abstract class AbstractExtensionModel extends AbstractModel
      *
      * @return self
      */
-    public function toggleActivation()
+    public function toggleActivation(): self
     {
         if ($this->is_active) {
             $this->is_active = false;
@@ -276,29 +277,31 @@ abstract class AbstractExtensionModel extends AbstractModel
     }
 
     /**
-     * Set extension entity value.
+     * Set extension value.
      *
-     * @param string $key    Key of entity value
-     * @param mixed  $value  Entity value
-     * @param bool   $silent State if setting shouldn't be tracked
+     * @param string $property Extension property
+     * @param mixed  $value  Property value
+     * @param bool   $silent Set TRUE to prevent the tracking of the change
      *
      * @return self
+     *
+     * @throws RuntimeException
      */
-    protected function set($key, $value = null, $silent = false): FW_AbstractModel
+    protected function set(string $property, $value = null, bool $silent = false): FrameworkAbstractModel
     {
-        if ('version' === $key && $this->version !== $value) {
+        if ('version' === $property && $this->version !== $value) {
             $this->oldVersion = $this->version;
         }
 
-        return parent::set($key, $value, $silent);
+        return parent::set($property, $value, $silent);
     }
 
     /**
      * Get extension path.
      *
-     * @param string $additionalPath
+     * @param string $additionalPath Additional path
      *
      * @return string
      */
-    abstract public function getPath($additionalPath = '');
+    abstract public function getPath(string $additionalPath = ''): string;
 }

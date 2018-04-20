@@ -1,9 +1,9 @@
 <?php
-
 namespace Neoflow\Alert;
 
 abstract class AbstractAlert
 {
+
     /**
      * @var string
      */
@@ -17,51 +17,37 @@ abstract class AbstractAlert
     /**
      * Constructor.
      *
-     * @param string|array $message
+     * @param string|array $messages One or multiple messages
      */
-    public function __construct($message)
+    public function __construct($messages)
     {
-        if (is_array($message)) {
-            $this->setMessages($message);
-        } else {
-            $this->addMessage($message);
-        }
+        $this->setMessages($messages);
     }
 
     /**
      * Set messages.
      *
-     * @param array $messages
+     * @param string|array $messages One or multiple messages
      *
      * @return self
      */
-    public function setMessages(array $messages)
+    public function setMessages($messages): self
     {
-        $this->messages = $messages;
+        if (is_string($messages)) {
+            $this->messages[] = $messages;
+        } else {
+            $this->messages = $messages;
+        }
 
         return $this;
     }
 
     /**
-     * Add message.
-     *
-     * @param string $message
-     *
-     * @return self
-     */
-    public function addMessage(string $message)
-    {
-        $this->messages[] = $message;
-
-        return $this;
-    }
-
-    /**
-     * Get alert type.
+     * Get type.
      *
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -71,7 +57,7 @@ abstract class AbstractAlert
      *
      * @return array
      */
-    public function getMessages()
+    public function getMessages(): array
     {
         return $this->messages;
     }
