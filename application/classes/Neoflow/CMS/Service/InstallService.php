@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
@@ -7,11 +8,9 @@ use Neoflow\CMS\Model\SettingModel;
 use Neoflow\CMS\Model\UserModel;
 use Neoflow\Framework\Handler\Logging\Logger;
 use Neoflow\Framework\Persistence\Database;
-use const APP_MODE;
 
 class InstallService extends AbstractService
 {
-
     /**
      * Etablish database connection, create tables and insert data.
      *
@@ -25,8 +24,10 @@ class InstallService extends AbstractService
         $database = Database::connect($config['host'], $config['dbname'], $config['username'], $config['password'], $config['charset']);
         $this->app()->set('database', $database);
 
-        // Alter database with charset
-        $this->database()->exec('ALTER DATABASE `' . $config['dbname'] . '` CHARACTER SET ' . strtolower($config['charset']));
+        // Alter database to user defined charset
+        if ($this->database()->hasGrants(['ALTER'])) {
+            $this->database()->exec('ALTER DATABASE `'.$config['dbname'].'` CHARACTER SET '.strtolower($config['charset']));
+        }
 
         // Create tables
         $createSqlFilePath = $this->config()->getPath('/installation/tables.sql');
@@ -35,7 +36,6 @@ class InstallService extends AbstractService
         // Get SQL to insert data into tables
         $insertSqlFilePath = $this->config()->getPath('/installation/data.sql');
         $this->database()->executeFile($insertSqlFilePath);
-
 
         return $this;
     }
