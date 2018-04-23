@@ -18,7 +18,7 @@ return [
         'username' => '',
         'password' => '',
         'dbname' => '',
-        'charset' => 'UTF8',
+        'charset' => 'UTF8mb4',
     ],
     'cache' => [
         'type' => 'auto',

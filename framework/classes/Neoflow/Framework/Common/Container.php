@@ -329,15 +329,15 @@ class Container implements IteratorAggregate, Countable, ArrayAccess
      */
     public function __call($key, $arguments)
     {
-        if (0 === strpos($key, 'set')) {
+        if (0 === mb_strpos($key, 'set')) {
             if (!isset($arguments[0])) {
                 $arguments[] = [];
             }
-            $key = strtolower(str_replace(['set', 'set_'], '', $key));
+            $key = mb_strtolower(str_replace(['set', 'set_'], '', $key));
 
             return $this->set($key, $arguments[0]);
-        } elseif (0 === strpos($key, 'get')) {
-            $key = strtolower(str_replace(['get', 'get_'], '', $key));
+        } elseif (0 === mb_strpos($key, 'get')) {
+            $key = mb_strtolower(str_replace(['get', 'get_'], '', $key));
 
             return $this->get($key);
         }

@@ -12,7 +12,7 @@
  */
 function starts_with(string $haystack, string $needle): string
 {
-    $length = strlen($needle);
+    $length = mb_strlen($needle);
 
-    return substr($haystack, 0, $length) === $needle;
+    return mb_substr($haystack, 0, $length) === $needle;
 }

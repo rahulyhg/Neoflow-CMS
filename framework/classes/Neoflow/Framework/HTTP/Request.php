@@ -85,7 +85,7 @@ class Request
      */
     public function isHttpMethod(string $method): bool
     {
-        return $this->getHttpMethod() === strtoupper($method);
+        return $this->getHttpMethod() === mb_strtoupper($method);
     }
 
     /**
@@ -109,7 +109,7 @@ class Request
      */
     public function getHttpMethod(): string
     {
-        return strtoupper($_SERVER['REQUEST_METHOD']);
+        return mb_strtoupper($_SERVER['REQUEST_METHOD']);
     }
 
     /**
@@ -119,7 +119,7 @@ class Request
      */
     public function getHttpLanguage(): string
     {
-        return substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+        return mb_substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
     }
 
     /**
@@ -151,7 +151,7 @@ class Request
     {
         $urlPath = $this->getUrlPath(true);
 
-        if (preg_match('/\/([a-z]{2})(\/|\?|$)/', substr($urlPath, 0, 4), $languageMatches)) {
+        if (preg_match('/\/([a-z]{2})(\/|\?|$)/', mb_substr($urlPath, 0, 4), $languageMatches)) {
             return $languageMatches[1];
         }
 

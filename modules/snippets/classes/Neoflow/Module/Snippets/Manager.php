@@ -1,11 +1,11 @@
 <?php
-
 namespace Neoflow\Module\Snippets;
 
 use Neoflow\CMS\Manager\AbstractModuleManager;
 
 class Manager extends AbstractModuleManager
 {
+
     /**
      * Install Snippets module.
      *
@@ -58,21 +58,21 @@ class Manager extends AbstractModuleManager
         $content = $response->getContent();
 
         $response->setContent(preg_replace_callback('/\[\[([\w\d]+)\??(.*)\]\]/i', function ($matches) {
-            $snippet = Model::findByColumn('placeholder', $matches[1]);
+                $snippet = Model::findByColumn('placeholder', $matches[1]);
 
-            if ($snippet) {
-                $parameters = [];
-                if (isset($matches[2])) {
-                    parse_str($matches[2], $parameters);
+                if ($snippet) {
+                    $parameters = [];
+                    if (isset($matches[2])) {
+                        mb_parse_str($matches[2], $parameters);
+                    }
+
+                    $code = $snippet->executeCode($parameters);
+
+                    return $code;
                 }
 
-                $code = $snippet->executeCode($parameters);
-
-                return $code;
-            }
-
-            return '';
-        }, $content));
+                return '';
+            }, $content));
 
         return true;
     }

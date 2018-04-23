@@ -35,7 +35,7 @@ function convert_php2js($value, bool $braces = true, array $exclude = []): strin
         }
 
         return $result;
-    } elseif (0 === strpos($value, 'function(')) {
+    } elseif (0 === mb_strpos($value, 'function(')) {
         return $value;
     }
 

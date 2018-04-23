@@ -126,10 +126,10 @@ class Translator
     protected function detectLanguageCode(): string
     {
         // Get language code from HTTP header
-        $httpLanguageCode = strtolower($this->app()->get('request')->getHttpLanguage());
+        $httpLanguageCode = mb_strtolower($this->app()->get('request')->getHttpLanguage());
 
         // Get language code from uri
-        $uriLanguageCode = strtolower($this->app()->get('request')->getUrlLanguage());
+        $uriLanguageCode = mb_strtolower($this->app()->get('request')->getUrlLanguage());
 
         // Get language code from session
         $sessionLanguageCode = $this->session()->get('_LANGUAGE_CODE');

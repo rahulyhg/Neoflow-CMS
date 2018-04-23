@@ -138,7 +138,7 @@ class Router
                 $routeMethods = explode('|', $route[1]);
                 $routeUrlPath = $route[2];
 
-                if ($routeUrlPath && ('any' === strtolower($routeMethods[0]) || strtolower($routeMethods[0]) === strtolower($httpMethod))) {
+                if ($routeUrlPath && ('any' === mb_strtolower($routeMethods[0]) || mb_strtolower($routeMethods[0]) === mb_strtolower($httpMethod))) {
                     // Get args of routeUrl
                     $routeUrlArgs = $this->getRouteUrlArgs($routeUrlPath);
 

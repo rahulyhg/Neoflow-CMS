@@ -32,7 +32,7 @@ abstract class AbstractObject
     {
         $reflect = new ReflectionClass($this);
 
-        return strtolower($reflect->getShortName());
+        return mb_strtolower($reflect->getShortName());
     }
 
     /**

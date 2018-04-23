@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Module\Sitemap;
 
 use DOMDocument;
@@ -13,6 +12,7 @@ use SimpleXMLElement;
 
 class Service extends AbstractService
 {
+
     /**
      * @var Model\SettingModel
      */
@@ -149,7 +149,7 @@ class Service extends AbstractService
 
         $xmlOutput = $xml->asXML();
 
-        if (strlen($xmlOutput) > 10485760) {
+        if (mb_strlen($xmlOutput) > 10485760) {
             throw new LengthException('Sitemap size is larger than 10MB');
         }
 

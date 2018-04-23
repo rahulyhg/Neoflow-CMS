@@ -12,7 +12,7 @@
  */
 function ends_with(string $haystack, string $needle): string
 {
-    $length = strlen($needle);
+    $length = mb_strlen($needle);
 
-    return 0 === $length || (substr($haystack, -$length) === $needle);
+    return 0 === $length || (mb_substr($haystack, -$length) === $needle);
 }

@@ -50,7 +50,7 @@ class Logger
     public function __construct()
     {
         $logConfig = $this->config()->get('logger');
-        $this->loglevelThreshold = strtoupper($logConfig->get('level'));
+        $this->loglevelThreshold = mb_strtoupper($logConfig->get('level'));
 
         $this->logfileFolderPath = $this->config()->getLogsPath();
         if (!is_dir($this->logfileFolderPath)) {

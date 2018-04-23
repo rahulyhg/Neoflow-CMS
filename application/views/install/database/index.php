@@ -60,7 +60,7 @@
                         <div class="col-sm-9">
                             <input id="inputCharset" class="form-control" name="database[charset]" type="text" value="<?= $database['charset']; ?>" />
                             <small class="form-text text-muted">
-                                <?= translate('It is recommended to use UTF8 as a charset'); ?>
+                                <?= translate('It is recommended to use UTF8mb4 as a charset'); ?>
                             </small>
                         </div>
                     </div>

@@ -110,7 +110,7 @@ class Database extends PDO
      *
      * @return self
      */
-    public static function connect(string $host, string $dbname, string $username = '', string $password = '', string $charset = 'UTF8', array $options = []): self
+    public static function connect(string $host, string $dbname, string $username = '', string $password = '', string $charset = 'UTF8mb4', array $options = []): self
     {
         // Define DSN string
         $dsn = 'mysql:host=' . $host . ';dbname=' . $dbname . ';charset=' . $charset;

@@ -323,7 +323,7 @@ class ImageFile extends File
      */
     protected function fileExtensionToImageType($fileExtension)
     {
-        switch (strtolower($fileExtension)) {
+        switch (mb_strtolower($fileExtension)) {
             case 'jpeg':
             case 'jpg':
                 return IMAGETYPE_JPEG;

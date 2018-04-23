@@ -13,7 +13,7 @@ function is_valid_path(string $path, string $basePath = ''): bool
     $realPath = realpath($path);
 
     if ($realPath && '' !== $basePath) {
-        return 0 === strpos($realPath, $basePath);
+        return 0 === mb_strpos($realPath, $basePath);
     }
 
     return (bool) $realPath;

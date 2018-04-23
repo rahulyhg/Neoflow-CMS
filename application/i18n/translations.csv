@@ -264,7 +264,7 @@ Installed;Installed;Installiert
 Internal server error;Internal server error;Interner Serverfehler
 Invalid;Invalid;Ungültig
 It is recommended to use the automatically recognized URL, unless the website is operated behind a gateway for example.;It is recommended to use the automatically recognized URL, unless the website is operated behind a gateway for example.;Es wird empfohlen die automatisch erkannte URL zu verwenden, ausser die Webseite wird zum Beispiel hinter einem Gateway betrieben.
-It is recommended to use UTF8 as a charset;It is recommended to use UTF8 as a charset;Es wird empfohlen UTF8 als Charset zu verwenden
+It is recommended to use UTF8mb4 as a charset;It is recommended to use UTF8mb4 as a charset;Es wird empfohlen UTF8mb4 als Charset zu verwenden
 Item;Item|Items;Element|Elemente
 Item is active and visible;Item is active and visible;Element ist aktiv und sichtbar
 Key;Key|Keys;Schlüssel

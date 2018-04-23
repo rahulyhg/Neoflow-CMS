@@ -156,7 +156,7 @@ class App extends Container
         if (defined($service->getReflection()->getName() . '::NAME')) {
             $name = $service->getReflection()->getName()::NAME;
         } elseif (0 === mb_strlen($name)) {
-            $name = str_replace('service', '', strtolower($service->getReflection()->getShortName()));
+            $name = str_replace('service', '', mb_strtolower($service->getReflection()->getShortName()));
         }
 
         $this->get('services')->set($name, $service);

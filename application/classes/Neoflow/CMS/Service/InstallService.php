@@ -25,6 +25,9 @@ class InstallService extends AbstractService
         $database = Database::connect($config['host'], $config['dbname'], $config['username'], $config['password'], $config['charset']);
         $this->app()->set('database', $database);
 
+        // Alter database with charset
+        $this->database()->exec('ALTER DATABASE `' . $config['dbname'] . '` CHARACTER SET ' . strtolower($config['charset']));
+
         // Create tables
         $createSqlFilePath = $this->config()->getPath('/installation/tables.sql');
         $this->database()->executeFile($createSqlFilePath);
@@ -32,6 +35,7 @@ class InstallService extends AbstractService
         // Get SQL to insert data into tables
         $insertSqlFilePath = $this->config()->getPath('/installation/data.sql');
         $this->database()->executeFile($insertSqlFilePath);
+
 
         return $this;
     }
