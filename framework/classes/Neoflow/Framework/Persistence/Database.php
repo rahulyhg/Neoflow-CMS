@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\Persistence;
 
 use Exception;
@@ -7,7 +8,6 @@ use PDO;
 
 class Database extends PDO
 {
-
     /**
      * Traits.
      */
@@ -52,7 +52,7 @@ class Database extends PDO
 
         $this->logger()->debug('Database query executed', [
             'Query' => $query,
-            'Result' => $result . ' rows affected',
+            'Result' => $result.' rows affected',
         ]);
 
         $this->countUpExecutedQueries();
@@ -89,7 +89,7 @@ class Database extends PDO
     public function hasTable(string $table): bool
     {
         try {
-            $result = $this->query('SELECT 1 FROM `' . $this->quote($table) . '` LIMIT 1');
+            $result = $this->query('SELECT 1 FROM `'.$this->quote($table).'` LIMIT 1');
         } catch (Exception $e) {
             return false;
         }
@@ -113,7 +113,7 @@ class Database extends PDO
     public static function connect(string $host, string $dbname, string $username = '', string $password = '', string $charset = 'UTF8mb4', array $options = []): self
     {
         // Define DSN string
-        $dsn = 'mysql:host=' . $host . ';dbname=' . $dbname . ';charset=' . $charset;
+        $dsn = 'mysql:host='.$host.';dbname='.$dbname.';charset='.$charset;
 
         // Create database connection
         return new self($dsn, $username, $password, $options + [
@@ -121,5 +121,51 @@ class Database extends PDO
             self::ATTR_ERRMODE => self::ERRMODE_EXCEPTION,
             self::ATTR_STRINGIFY_FETCHES => false,
         ]);
+    }
+
+    /**
+     * Check whether current database user as grants.
+     *
+     * @param array $grants List of grants (e.g. SELECT or ALTER)
+     *
+     * @return bool
+     */
+    public function hasGrants(array $grants): bool
+    {
+        $currentUserGrants = $this->getGrants();
+
+        foreach ($currentUserGrants as $currentUserGrant) {
+            $currentUserGrant = mb_strtoupper($currentUserGrant);
+
+            if (false !== mb_strpos($currentUserGrant, 'ALL PRIVILEGES')) {
+                return true;
+            }
+
+            $result = true;
+            foreach ($grants as $grant) {
+                if (false === mb_strpos($currentUserGrant, mb_strtoupper($grant))) {
+                    $result = false;
+                    break;
+                }
+            }
+
+            if ($result) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Get grants of current database user.
+     *
+     * @return array
+     */
+    public function getGrants(): array
+    {
+        $statement = $this->database()->query('SHOW GRANTS FOR CURRENT_USER');
+
+        return $statement->fetchAll(self::FETCH_COLUMN);
     }
 }
