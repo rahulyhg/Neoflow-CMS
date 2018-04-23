@@ -1,14 +1,15 @@
 <?php
+
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
 use Neoflow\Framework\ORM\EntityCollection;
 use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Framework\ORM\Repository;
+use Neoflow\Framework\Core\AbstractModel as FrameworkAbstractModel;
 
 class NavitemModel extends AbstractModel
 {
-
     /**
      * @var string
      */
@@ -24,7 +25,7 @@ class NavitemModel extends AbstractModel
      */
     public static $properties = ['navitem_id', 'title', 'page_id',
         'parent_navitem_id', 'navigation_id', 'language_id',
-        'position', 'is_active',];
+        'position', 'is_active', ];
 
     /**
      * Get repository to fetch child navitems.
@@ -48,6 +49,7 @@ class NavitemModel extends AbstractModel
         if ($page) {
             return $page;
         }
+
         return null;
     }
 
@@ -109,7 +111,7 @@ class NavitemModel extends AbstractModel
             $this->position = 1;
             $navigation = $this->navigation()->fetch();
             $lastNavitem = $navigation->navitems()
-                ->where('parent_navitem_id', '=', $this->parent_navitem_id)
+                ->where('parent_navitem_id', '=', $this->get('parent_navitem_id', null))
                 ->where('language_id', '=', $this->language_id)
                 ->orderByDesc('position')
                 ->fetch();
@@ -123,7 +125,7 @@ class NavitemModel extends AbstractModel
             // Resave page to get URL updated when navitem is from main navigation
             if (1 == $this->navigation_id) {
                 // Set startpage for first page when navitem is part of pagetree navigation
-                if (1 == $this->position && !$this->exists('parent_navitem_id')) {
+                if (1 == $this->position && !$this->parent_navitem_id) {
                     PageModel::repo()
                         ->where('is_startpage', '=', true)
                         ->where('page_id', '!=', $page->id())
@@ -138,6 +140,7 @@ class NavitemModel extends AbstractModel
                 }
 
                 $page->save();
+                $page->saveUrl();
             }
 
             // Delete cached navigation trees
@@ -191,8 +194,8 @@ class NavitemModel extends AbstractModel
                     ->orderByAsc('position')
                     ->fetchAll()
                     ->map(function ($navitem) {
-                    return $navitem->id();
-                });
+                        return $navitem->id();
+                    });
 
                 if ($navitem->id()) {
                     $forbiddenNavitemIds[] = $navitem->id();
@@ -207,6 +210,25 @@ class NavitemModel extends AbstractModel
             ->set('page_id', 'Page');
 
         return (bool) $validator->validate();
+    }
+
+    /**
+     * Set navigation item value.
+     *
+     * @param string $property Navigation item property
+     * @param mixed  $value    Navigation item value
+     * @param bool   $silent   Set TRUE to prevent the tracking of the change
+     *
+     * @return self
+     */
+    protected function set(string $property, $value = null, bool $silent = false): FrameworkAbstractModel
+    {
+        // Clean parent navigation item id to null
+        if ('parent_navitem_id' === $property && !$value) {
+            $value = null;
+        }
+
+        return parent::set($property, $value, $silent);
     }
 
     /**

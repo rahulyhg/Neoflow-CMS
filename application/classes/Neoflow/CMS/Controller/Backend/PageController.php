@@ -112,7 +112,7 @@ class PageController extends BackendController
             if ($page && $page->validate() && $page->save() && $page->saveUrl()) {
                 $this->view->setSuccessAlert(translate('Successfully created'));
             } else {
-                throw new RuntimeException('Creating user failed');
+                throw new RuntimeException('Creating page failed');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Create failed'), $ex->getErrors()]);

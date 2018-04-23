@@ -1,13 +1,12 @@
 <?php
 
-use Neoflow\Framework\Core\AbstractModel;
-use Neoflow\Framework\ORM\Repository;
-
 namespace Neoflow\CMS\Model;
+
+use Neoflow\CMS\Core\AbstractModel;
+use Neoflow\Framework\ORM\Repository;
 
 class PageRoleModel extends AbstractModel
 {
-
     /**
      * @var string
      */
