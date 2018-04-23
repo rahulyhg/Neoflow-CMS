@@ -1,19 +1,18 @@
 <?php
+
 namespace Neoflow\Validation;
 
 use InvalidArgumentException;
 use ReflectionFunction;
-use ReflectionMethod;
 
 class Validator
 {
-
     /**
      * App trait.
      */
     use \Neoflow\Framework\AppTrait;
 
-/**
+    /**
      * Rule trait.
      */
     use RuleTrait;
@@ -96,18 +95,18 @@ class Validator
      * Callback.
      *
      * @param callable $callback     Validation callback
-     * @param string         $message      Rule message
-     * @param array          $callbackArgs Callback arguments
+     * @param string   $message      Rule message
+     * @param array    $callbackArgs Callback arguments
      *
      * @return Validator
      *
      * @throws InvalidArgumentException
      */
-    public function callback(callable $callback, string $message = '', array$callbackArgs = []): self
+    public function callback(callable $callback, string $message = '', array $callbackArgs = []): self
     {
         if (is_callable($callback)) {
             // Generate generic and unique rule name
-            $name = 'callback_' . sha1(uniqid('', true));
+            $name = 'callback_'.sha1(uniqid('', true));
 
             // Set callback rule
             $this->setRule($name, function ($value) use ($callback, $callbackArgs) {
@@ -115,6 +114,7 @@ class Validator
                 array_unshift($callbackArgs, $value);
 
                 $reflection = new ReflectionFunction($callback);
+
                 return $reflection->invokeArgs($callbackArgs);
             }, $message);
         } else {
@@ -162,7 +162,7 @@ class Validator
                     // Reset rules
                     $this->rules = [];
 
-                    return false;
+                    return $this;
                 }
             }
         }
@@ -197,6 +197,7 @@ class Validator
         if (isset($this->errors[$key])) {
             return $this->errors[$key];
         }
+
         return null;
     }
 
@@ -290,10 +291,10 @@ class Validator
     /**
      * Set rule.
      *
-     * @param string  $rule     Name of rule
+     * @param string   $rule     Name of rule
      * @param callable $function Rule function
-     * @param string  $message  Rule message
-     * @param array   $args     Arguments for anonymous rule function
+     * @param string   $message  Rule message
+     * @param array    $args     Arguments for anonymous rule function
      *
      * @return self
      *
