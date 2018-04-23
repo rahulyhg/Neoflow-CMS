@@ -26,7 +26,7 @@ The Neoflow CMS is currently in development. But the first prerelease is planned
 1. Download the update package.
 2. Upload and install the update package in the backend under maintenance
 
-If you have trouble to upload the update package then change the upload settings of your PHP installation to 10MB.
+If you have trouble to upload the update package, then change the upload settings of your PHP installation to 10MB.
 ```
 upload_max_filesize = 10M
 post_max_size = 10M
