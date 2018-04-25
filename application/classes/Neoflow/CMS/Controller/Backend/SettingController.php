@@ -89,8 +89,8 @@ class SettingController extends BackendController
                 $settings = SettingModel::updateById([
                         'website_title' => $postData->get('website_title'),
                         'website_description' => $postData->get('website_description'),
-                        'keywords' => $postData->get('keywords') ? implode(',', $postData->get('keywords')) : '',
-                        'author' => $postData->get('author'),
+                        'website_keywords' => $postData->get('website_keywords') ? implode(',', $postData->get('website_keywords')) : '',
+                        'website_author' => $postData->get('website_author'),
                         'default_language_id' => $postData->get('default_language_id'),
                         'sender_emailaddress' => $postData->get('sender_emailaddress'),
                         'timezone' => $postData->get('timezone'),

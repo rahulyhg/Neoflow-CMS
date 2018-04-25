@@ -41,7 +41,7 @@ class BackendView extends AbstractView
         $this->engine()->addMetaTagProperties([
             'name' => 'robots',
             'content' => 'noindex',
-        ]);
+            ], 'robots');
 
         parent::__construct();
     }

@@ -221,7 +221,7 @@ class NavitemModel extends AbstractModel
      *
      * @return self
      */
-    protected function set(string $property, $value = null, bool $silent = false): FrameworkAbstractModel
+    public function set(string $property, $value = null, bool $silent = false): FrameworkAbstractModel
     {
         // Clean parent navigation item id to null
         if ('parent_navitem_id' === $property && !$value) {

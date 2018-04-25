@@ -227,7 +227,7 @@ abstract class AbstractModel
      *
      * @throws RuntimeException
      */
-    protected function set(string $property, $value = null, bool $silent = false): self
+    public function set(string $property, $value = null, bool $silent = false): self
     {
         if ($this->isReadOnly()) {
             throw new RuntimeException('Model entity is read only and cannot set value');
@@ -254,7 +254,7 @@ abstract class AbstractModel
      *
      * @return bool
      */
-    protected function exists($property): bool
+    public function exists($property): bool
     {
         return isset($this->data[$property]);
     }
@@ -267,7 +267,7 @@ abstract class AbstractModel
      *
      * @return mixed
      */
-    protected function get(string $property, $default = null)
+    public function get(string $property, $default = null)
     {
         if ($this->exists($property)) {
             return $this->data[$property];

@@ -287,7 +287,7 @@ abstract class AbstractExtensionModel extends AbstractModel
      *
      * @throws RuntimeException
      */
-    protected function set(string $property, $value = null, bool $silent = false): FrameworkAbstractModel
+    public function set(string $property, $value = null, bool $silent = false): FrameworkAbstractModel
     {
         if ('version' === $property && $this->version !== $value) {
             $this->oldVersion = $this->version;

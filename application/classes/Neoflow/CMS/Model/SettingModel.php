@@ -30,7 +30,7 @@ class SettingModel extends AbstractModel
      * @var array
      */
     public static $properties = ['setting_id', 'website_title', 'website_description',
-        'keywords', 'author', 'theme_id', 'login_attempts', 'session_lifetime',
+        'website_keywords', 'website_author', 'theme_id', 'login_attempts', 'session_lifetime',
         'backend_theme_id', 'default_language_id', 'show_debugbar',
         'sender_emailaddress', 'session_name', 'allowed_file_extensions',
         'show_error_details', 'custom_css', 'custom_js',
@@ -97,14 +97,14 @@ class SettingModel extends AbstractModel
     }
 
     /**
-     * Get keywords
+     * Get website keywords
      *
      * @return array
      */
-    public function getKeywords(): array
+    public function getWebsiteKeywords(): array
     {
-        if ($this->keywords) {
-            return explode(',', $this->keywords);
+        if ($this->website_keywords) {
+            return explode(',', $this->website_keywords);
         }
 
         return [];
@@ -187,12 +187,12 @@ class SettingModel extends AbstractModel
             ->set('website_description', 'Website description');
 
         $validator
-            ->maxlength(255)
-            ->set('keywords', 'Keyword', [], true);
+            ->maxlength(250)
+            ->set('website_keywords', 'Website keyword', [], true);
 
         $validator
             ->maxlength(50)
-            ->set('author', 'Author');
+            ->set('website_author', 'Website author');
 
         $validator
             ->integer()

@@ -24,16 +24,16 @@
                             <textarea name="website_description" class="form-control vresize" maxlength="150" id="textareaWebsiteDescription" rows="3"><?= $setting->website_description; ?></textarea>
                         </div>
                     </div>
-                    <div class="form-group row <?= has_validation_error('keywords', 'has-danger'); ?>">
-                        <label for="selectKeywords" class="col-sm-3 col-form-label">
-                            <?= translate('Keyword', [], true); ?>
+                    <div class="form-group row <?= has_validation_error('website_keywords', 'has-danger'); ?>">
+                        <label for="selectWebsiteKeywords" class="col-sm-3 col-form-label">
+                            <?= translate('Website keyword', [], true); ?>
                         </label>
                         <div class="col-sm-9">
-                            <select class="form-control select2" data-tags="true" name="keywords[]" multiple id="selectKeywords">
-                                <?php foreach ($setting->getKeywords() as $keyword) {
+                            <select class="form-control select2" data-tags="true" name="website_keywords[]" multiple id="selectWebsiteKeywords">
+                                <?php foreach ($setting->getWebsiteKeywords() as $websiteKeyword) {
 
                                     ?>
-                                    <option value="<?= $keyword ?>" selected><?= $keyword; ?></option>
+                                    <option value="<?= $websiteKeyword ?>" selected><?= $websiteKeyword; ?></option>
                                     <?php
                                 }
 
@@ -41,12 +41,12 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group row <?= has_validation_error('author', 'has-danger'); ?>">
-                        <label for="inputAuthor" class="col-sm-3 col-form-label">
+                    <div class="form-group row <?= has_validation_error('website_author', 'has-danger'); ?>">
+                        <label for="inputWebsiteAuthor" class="col-sm-3 col-form-label">
                             <?= translate('Author'); ?>
                         </label>
                         <div class="col-sm-9">
-                            <input id="inputAuthor" type="text" value="<?= $setting->author; ?>" class="form-control" name="author" maxlength="50" />
+                            <input id="inputWebsiteAuthor" type="text" value="<?= $setting->website_author; ?>" class="form-control" name="website_author" maxlength="50" />
                         </div>
                     </div>
 

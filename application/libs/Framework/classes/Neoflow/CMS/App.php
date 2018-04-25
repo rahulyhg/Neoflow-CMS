@@ -83,11 +83,11 @@ class App extends FrameworkApp
                 ], 'description')
             ->addMetaTagProperties([
                 'name' => 'keywords',
-                'content' => $this->get('settings')->keywords,
+                'content' => $this->get('settings')->website_keywords,
                 ], 'keywords')
             ->addMetaTagProperties([
                 'name' => 'author',
-                'content' => $this->get('settings')->author,
+                'content' => $this->get('settings')->website_author,
                 ], 'author');
 
         // Fetch and set CMS modules

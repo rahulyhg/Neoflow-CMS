@@ -15,7 +15,7 @@
                 <form class="form-horizontal" method="post" action="<?= generate_url('install_website_create'); ?>">
                     <div class="form-group row <?= has_validation_error('website_title', 'has-danger'); ?>">
                         <label for="inputWebsiteTitle" class="col-sm-3 col-form-label">
-                            <?= translate('Title'); ?>
+                            <?= translate('Title'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input id="inputWebsiteTitle" type="text" required="" value="<?= $setting->website_title; ?>" class="form-control" name="website_title" maxlength="50" minlength="3" />
@@ -31,9 +31,18 @@
                         </div>
                     </div>
 
+                    <div class="form-group row <?= has_validation_error('website_author', 'has-danger'); ?>">
+                        <label for="inputWebsiteAuthor" class="col-sm-3 col-form-label">
+                            <?= translate('Author'); ?> *
+                        </label>
+                        <div class="col-sm-9">
+                            <input id="inputWebsiteAuthor" type="text" required="" value="<?= $setting->website_author; ?>" class="form-control" name="website_author" maxlength="50" minlength="3" />
+                        </div>
+                    </div>
+
                     <div class="form-group row <?= has_validation_error('sender_emailaddress', 'has-danger'); ?>">
                         <label for="inputSenderEmailaddress" class="col-sm-3 col-form-label">
-                            <?= translate('Email address'); ?>
+                            <?= translate('Email address'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input id="inputSenderEmailaddress" required="" type="email" value="<?= $setting->sender_emailaddress; ?>" class="form-control" name="sender_emailaddress" maxlength="100" />
@@ -52,10 +61,11 @@
                         <div class="col-sm-9">
                             <select class="form-control select2" name="default_language_id" id="selectDefaultLanguage">
                                 <?php foreach ($languages as $language) {
-    ?>
+
+                                    ?>
                                     <option value="<?= $language->id(); ?>"  <?= ($language->id() == $activeLanguage->id() ? 'selected' : ''); ?>><?= translate($language->title); ?></option>
-                                <?php
-}
+                                    <?php
+                                }
 
                                 ?>
                             </select>
@@ -69,10 +79,12 @@
                         <div class="col-sm-9">
                             <select class="form-control select2" name="language_ids[]" multiple id="selectLanguages">
                                 <?php foreach ($languages as $language) {
+
                                     ?>
                                     <option value="<?= $language->id(); ?>"  <?= ($language->id() == $activeLanguage->id() ? 'selected' : ''); ?>><?= translate($language->title); ?></option>
-                                <?php
-                                } ?>
+                                <?php }
+
+                                ?>
                             </select>
                         </div>
                     </div>
@@ -84,16 +96,20 @@
                         <div class="col-sm-9">
                             <select class="form-control select2" name="timezone" id="selectTimezone" data-minimumResultsForSearch="1">
                                 <?php foreach (get_timezones() as $region => $timezones) {
+
                                     ?>
                                     <optgroup label="<?= $region; ?>">
                                         <?php foreach ($timezones as $timezone => $title) {
-                                        ?>
+
+                                            ?>
                                             <option value="<?= $timezone; ?>" <?= ($setting->timezone === $timezone ? 'selected' : ''); ?>><?= $title; ?></option>
-                                        <?php
-                                    } ?>
+                                        <?php }
+
+                                        ?>
                                     </optgroup>
-                                <?php
-                                } ?>
+                                <?php }
+
+                                ?>
                             </select>
                             <script>
                                 document.getElementById('selectTimezone').value = Intl.DateTimeFormat().resolvedOptions().timeZone;

@@ -88,7 +88,7 @@ class NavigationModel extends AbstractModel
      *
      * @throws RuntimeException
      */
-    protected function set(string $property, $value = null, bool $silent = false): FrameworkAbstractModel
+    public function set(string $property, $value = null, bool $silent = false): FrameworkAbstractModel
     {
         if ('navigation_key' === $property) {
             $value = slugify($value);

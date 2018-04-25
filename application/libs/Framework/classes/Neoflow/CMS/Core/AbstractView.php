@@ -39,7 +39,8 @@ abstract class AbstractView extends FrameworkAbstractView
             $this->set('alerts', $this->session()->getFlash('alerts'));
         }
 
-        $this->setWebsiteTitle($this->settings()->website_title);
+        $websiteTitle = $this->settings()->get('website_title', '');
+        $this->setWebsiteTitle($websiteTitle);
 
         $cacheKey = 'directories_' . $this->theme->folder_name;
         if ($this->cache()->exists($cacheKey)) {

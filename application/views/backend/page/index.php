@@ -7,26 +7,30 @@
             </h4>
 
             <?php if (count($languages) > 1) {
-    ?>
+
+                ?>
                 <ul class="nav nav-tabs nav-fill">
                     <?php foreach ($languages as $language) {
-        ?>
+
+                        ?>
                         <li class="nav-item">
                             <a class="nav-link<?= ($language->id() === $activeLanguage->id() ? ' active' : ''); ?>" href="<?= generate_url('backend_page_index', ['language_id' => $language->id()]); ?>">
                         <?= $language->renderFlagIcon(); ?>  <span class="d-none d-sm-inline-block"><?= translate($language->title); ?></span>
                             </a>
                         </li>
-                    <?php
-    } ?>
-                </ul>
-                    <?php
-}
+                    <?php }
 
-                ?>
+                ?> 
+                </ul>
+                <?php
+            }
+
+            ?>
 
             <div class="card-body">
-<?php if ($navitems->count()) {
-                    ?>
+                    <?php if ($navitems->count()) {
+
+                        ?>
                     <div class="nestable" data-save-url="<?= generate_url('backend_page_reorder'); ?>">
                     <?= $view->renderNavitemNestable($navitems); ?>
                     </div>
@@ -35,10 +39,11 @@
                     </ul>
                     <?php
                 } else {
+
                     ?>
                     <p class="text-center text-muted"><?= translate('No results found'); ?></p>
     <?php
-                }
+}
 
 ?>
             </div>
@@ -49,7 +54,7 @@
 
         <div class="card">
             <h4 class="card-header">
-                            <?= translate('Create page'); ?>
+<?= translate('Create page'); ?>
             </h4>
             <div class="card-body">
                 <form method="post" action="<?= generate_url('backend_page_create'); ?>">
@@ -65,7 +70,7 @@
 
                     <div class="form-group row <?= has_validation_error('parent_navitem_id', 'has-danger'); ?>">
                         <label for="selectPage" class="col-sm-3 col-form-label">
-<?= translate('Top page'); ?>
+                                <?= translate('Top page'); ?>
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control select2" name="parent_navitem_id" id="selectPage">

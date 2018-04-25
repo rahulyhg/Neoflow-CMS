@@ -8,7 +8,6 @@ use Neoflow\Framework\ORM\EntityCollection;
 use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Framework\ORM\Repository;
 use Neoflow\Validation\ValidationException;
-use RuntimeException;
 use function normalize_url;
 use function slugify;
 use function translate;
@@ -246,6 +245,32 @@ class PageModel extends AbstractModel
     }
 
     /**
+     * Get author user.
+     *
+     * @return AuthorUser|null
+     */
+    public function getAuthorUser()
+    {
+        $authorUser = $this->authorUser()->fetch();
+
+        if ($authorUser) {
+            return $authorUser;
+        }
+
+        return null;
+    }
+
+    /**
+     * Get repository to fetch author user.
+     *
+     * @return Repository
+     */
+    public function authorUser(): Repository
+    {
+        return $this->belongsTo('\\Neoflow\\CMS\\Model\\UserModel', 'author_user_id');
+    }
+
+    /**
      * Save page.
      *
      * @param bool $preventCacheClearing Prevent that the cached database results will get deleted
@@ -457,13 +482,23 @@ class PageModel extends AbstractModel
         if ($this->description) {
             $this->engine()->addMetaTagProperties([
                 'name' => 'description',
-                'content' => $this->description], 'description');
+                'content' => $this->description
+                ], 'description');
         }
 
         if ($this->keywords) {
             $this->engine()->addMetaTagProperties([
                 'name' => 'keywords',
-                'content' => $this->keywords], 'keywords');
+                'content' => $this->keywords
+                ], 'keywords');
+        }
+
+        $authorUser = $this->getAuthorUser();
+        if ($authorUser) {
+            $this->engine()->addMetaTagProperties([
+                'name' => 'author',
+                'content' => $authorUser->getFullname()
+                ], 'author');
         }
 
         $view->setTitle($this->title);

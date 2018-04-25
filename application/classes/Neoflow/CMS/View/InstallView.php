@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\View;
 
 use Neoflow\CMS\Core\AbstractView;
@@ -7,6 +6,7 @@ use Neoflow\CMS\Model\ThemeModel;
 
 class InstallView extends AbstractView
 {
+
     /**
      * Constructor.
      */
@@ -21,7 +21,7 @@ class InstallView extends AbstractView
         $this->engine()->addMetaTagProperties([
             'name' => 'robots',
             'content' => 'noindex',
-        ]);
+            ], 'robots');
 
         parent::__construct();
     }
