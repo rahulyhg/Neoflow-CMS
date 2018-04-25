@@ -267,7 +267,7 @@ abstract class AbstractModel
      *
      * @return mixed
      */
-    protected function get(string $property, $default = '')
+    protected function get(string $property, $default = null)
     {
         if ($this->exists($property)) {
             return $this->data[$property];
