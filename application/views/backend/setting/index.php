@@ -50,12 +50,12 @@
                         </div>
                     </div>
 
-                    <div class="form-group row <?= has_validation_error('sender_emailaddress', 'has-danger'); ?>">
+                    <div class="form-group row <?= has_validation_error('website_emailaddress', 'has-danger'); ?>">
                         <label for="inputSenderEmailaddress" class="col-sm-3 col-form-label">
                             <?= translate('Email address'); ?>
                         </label>
                         <div class="col-sm-9">
-                            <input id="inputSenderEmailaddress" required="" type="email" value="<?= $setting->sender_emailaddress; ?>" class="form-control" name="sender_emailaddress" maxlength="100" />
+                            <input id="inputSenderEmailaddress" required="" type="email" value="<?= $setting->website_emailaddress; ?>" class="form-control" name="website_emailaddress" maxlength="100" />
                         </div>
                     </div>
 

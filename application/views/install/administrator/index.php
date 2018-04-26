@@ -15,10 +15,10 @@
                 <form method="post" action="<?= generate_url('install_administrator_create'); ?>">
                     <div class="form-group row <?= has_validation_error('email', 'has-danger'); ?>">
                         <label for="inputEmail" class="col-sm-3 col-form-label">
-                            <?= translate('Email address'); ?>
+                            <?= translate('Email address'); ?> *
                         </label>
                         <div class="col-sm-9">
-                            <input id="inputEmail" value="<?= $user->email; ?>" type="email" required class="form-control" name="email" />
+                            <input id="inputEmail" value="<?= $user->email; ?>" required type="email" required class="form-control" name="email" />
                         </div>
                     </div>
                     <div class="form-group row <?= has_validation_error('firstname', 'has-danger'); ?>">
@@ -39,10 +39,10 @@
                     </div>
                     <div class="form-group row <?= has_validation_error('password', 'has-danger'); ?>">
                         <label for="inputPassword" class="col-sm-3 col-form-label">
-                            <?= translate('Password'); ?>
+                            <?= translate('Password'); ?> *
                         </label>
                         <div class="col-sm-9">
-                            <input id="inputPassword" type="password" class="form-control" name="password"  />
+                            <input id="inputPassword" type="password" required class="form-control" name="password"  />
 
                             <small class="form-text text-muted">
                                 <?= translate('The password must be at least 8 characters long and contain a special character or a number'); ?>
@@ -51,10 +51,10 @@
                     </div>
                     <div class="form-group row <?= has_validation_error('password2', 'has-danger'); ?>">
                         <label for="inputConfirmPassword" class="col-sm-3 col-form-label">
-                            <?= translate('Confirm password'); ?>
+                            <?= translate('Confirm password'); ?> *
                         </label>
                         <div class="col-sm-9">
-                            <input id="inputConfirmPassword" type="password" class="form-control" name="confirmPassword"  />
+                            <input id="inputConfirmPassword" type="password" required class="form-control" name="confirmPassword"  />
                         </div>
                     </div>
                     <div class="form-group row">
@@ -65,6 +65,10 @@
                                 </span>
                                 <?= translate('Save'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
                 </form>

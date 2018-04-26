@@ -9,8 +9,8 @@ use Neoflow\Framework\HTTP\Responsing\Response;
 use Neoflow\Validation\ValidationException;
 use Throwable;
 
-class WebsiteController extends InstallController
-{
+class WebsiteController extends InstallController {
+
     /**
      * Index action.
      *
@@ -28,9 +28,9 @@ class WebsiteController extends InstallController
         }
 
         return $this->render('install/website/index', [
-                'setting' => $settings,
-                'languages' => LanguageModel::findAll(),
-                'activeLanguage' => $this->translator()->getActiveLanguage(),
+                    'setting' => $settings,
+                    'languages' => LanguageModel::findAll(),
+                    'activeLanguage' => $this->translator()->getActiveLanguage(),
         ]);
     }
 
@@ -47,13 +47,12 @@ class WebsiteController extends InstallController
         try {
             // Update settings
             $settings = SettingModel::updateById([
-                    'website_title' => $postData->get('website_title'),
-                    'website_description' => $postData->get('website_description'),
-                    'default_language_id' => $postData->get('default_language_id'),
-                    'sender_emailaddress' => $postData->get('sender_emailaddress'),
-                    'timezone' => $postData->get('timezone'),
-                    'language_ids' => $postData->get('language_ids') ?: [],
-                    ], 1);
+                        'website_title' => $postData->get('website_title'),
+                        'default_language_id' => $postData->get('default_language_id'),
+                        'website_emailaddress' => $postData->get('website_emailaddress'),
+                        'timezone' => $postData->get('timezone'),
+                        'language_ids' => $postData->get('language_ids', []),
+                            ], 1);
 
             // Validate and save settings
             if ($settings->validate() && $settings->save()) {
@@ -89,4 +88,5 @@ class WebsiteController extends InstallController
 
         return parent::preHook();
     }
+
 }

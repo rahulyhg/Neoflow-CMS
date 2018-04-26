@@ -22,32 +22,14 @@
                         </div>
                     </div>
 
-                    <div class="form-group row <?= has_validation_error('website_description', 'has-danger'); ?>">
-                        <label for="textareaWebsiteDescription" class="col-sm-3 col-form-label">
-                            <?= translate('Description'); ?>
-                        </label>
-                        <div class="col-sm-9">
-                            <textarea name="website_description" class="form-control vresize" maxlength="150" id="textareaWebsiteDescription" rows="3"><?= $setting->website_description; ?></textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-group row <?= has_validation_error('website_author', 'has-danger'); ?>">
-                        <label for="inputWebsiteAuthor" class="col-sm-3 col-form-label">
-                            <?= translate('Author'); ?> *
-                        </label>
-                        <div class="col-sm-9">
-                            <input id="inputWebsiteAuthor" type="text" required value="<?= $setting->website_author; ?>" class="form-control" name="website_author" maxlength="50" minlength="3" />
-                        </div>
-                    </div>
-
-                    <div class="form-group row <?= has_validation_error('sender_emailaddress', 'has-danger'); ?>">
+                    <div class="form-group row <?= has_validation_error('website_emailaddress', 'has-danger'); ?>">
                         <label for="inputSenderEmailaddress" class="col-sm-3 col-form-label">
                             <?= translate('Email address'); ?> *
                         </label>
                         <div class="col-sm-9">
-                            <input id="inputSenderEmailaddress" required type="email" value="<?= $setting->sender_emailaddress; ?>" class="form-control" name="sender_emailaddress" maxlength="100" />
+                            <input id="inputSenderEmailaddress" required type="email" value="<?= $setting->website_emailaddress; ?>" class="form-control" name="website_emailaddress" maxlength="100" />
                             <small class="form-text text-muted">
-                                <?= translate('General e-mailaddress of the website (eg. info@yourdomain.tld)'); ?>
+                                <?= translate('E-mail address of the website. Used as the default sender of emails.'); ?>
                             </small>
                         </div>
                     </div>
@@ -61,12 +43,10 @@
                         <div class="col-sm-9">
                             <select class="form-control select2" name="default_language_id" id="selectDefaultLanguage">
                                 <?php foreach ($languages as $language) {
-
                                     ?>
                                     <option value="<?= $language->id(); ?>"  <?= ($language->id() == $activeLanguage->id() ? 'selected' : ''); ?>><?= translate($language->title); ?></option>
                                     <?php
                                 }
-
                                 ?>
                             </select>
                         </div>
@@ -79,15 +59,13 @@
                         <div class="col-sm-9">
                             <select class="form-control select2" name="language_ids[]" multiple id="selectActiveLanguages">
                                 <?php foreach ($languages as $language) {
-
                                     ?>
                                     <option value="<?= $language->id(); ?>"  <?= ($language->id() == $activeLanguage->id() ? 'selected' : ''); ?>><?= translate($language->title); ?></option>
                                 <?php }
-
                                 ?>
                             </select>
                             <small class="form-text text-muted">
-                                <?= translate('Supported languages of the website. But activate only the languages you want to create pages for.'); ?>
+                                <?= translate('Supported languages of the website. Each language requires separate pages.'); ?>
                             </small>
                         </div>
                     </div>
@@ -99,19 +77,15 @@
                         <div class="col-sm-9">
                             <select class="form-control select2" name="timezone" id="selectTimezone" data-minimumResultsForSearch="1">
                                 <?php foreach (get_timezones() as $region => $timezones) {
-
                                     ?>
                                     <optgroup label="<?= $region; ?>">
                                         <?php foreach ($timezones as $timezone => $title) {
-
                                             ?>
                                             <option value="<?= $timezone; ?>" <?= ($setting->timezone === $timezone ? 'selected' : ''); ?>><?= $title; ?></option>
                                         <?php }
-
                                         ?>
                                     </optgroup>
                                 <?php }
-
                                 ?>
                             </select>
                             <script>

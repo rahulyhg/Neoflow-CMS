@@ -228,7 +228,7 @@ Frontend;Frontend;Frontend
 Frontend authorization;Frontend authorization;Frontend-Berechtigung
 Frontend route;Frontend route;Frontend-Route
 Frontend theme;Frontend theme;Frontend-Theme
-General e-mailaddress of the website (eg. info@yourdomain.tld);General e-mailaddress of the website (eg. info@yourdomain.tld);Generelle E-Mailadresse der Webseite (zB. info@yourdomain.tld)
+E-mail address of the website. Used as the default sender of emails.;E-mail address of the website. Used as the default sender of emails.;E-Mailadresse der Webseite. Wird als standardmässiger Absender von E-Mails verwendet.
 General setting;General setting|General settings;Allgemeine Einstellung|Allgemeine Einstellungen
 German;German;Deutsch
 Hidden;Hidden;Versteckt
@@ -464,7 +464,8 @@ Successfully uninstalled;Successfully uninstalled;Erfolgreich deinstalliert
 Successfully updated;Successfully updated;Erfolgreich aktualisiert
 Successfully uploaded;Successfully uploaded;Erfolgreich hochgeladen
 Active language;Active language|Active languages;Aktive Sprache|Aktive Sprachen
-Supported languages of the website. But activate only the languages you want to create pages for.;Supported languages of the website. Bit activate only the languages you want to create pages for.;Unterstützte Sprachen der Webseite. Aktiviere aber nur die Sprachen für die du Seiten erstellen willst.
+Author of the website (e.g. webmaster).;Author of the website (e.g. webmaster).;Autor der Webseite (zB. Webmaster)
+Supported languages of the website. Each language requires separate pages.;Supported languages of the website. Each language requires separate pages.;Unterstützte Sprachen der Webseiten. Jede Sprache benötigt separate Seiten.
 The CMS is already up to date;The CMS is already up to date;Das CMS ist bereits auf dem neuesten Stand
 "The existing file "{0}" is not accessible and cannot be overwritten";The existing file "{0}" is not accessible and cannot be overwritten";Die vorhandene Datei "{0}" ist nicht zugänglich und kann nicht überschrieben werden"
 The extension ({0}) is already up to date;The extension ({0}) is already up to date;Die Erweiterung ({0}) ist bereits auf dem neuesten Stand

@@ -142,7 +142,7 @@ class InstallService extends AbstractService
      */
     public function settingStatus(): bool
     {
-        return $this->app()->get('database') && '' !== $this->settings()->website_title && '' !== $this->settings()->sender_emailaddress;
+        return $this->app()->get('database') && '' !== $this->settings()->website_title && '' !== $this->settings()->website_emailaddress;
     }
 
     /**
