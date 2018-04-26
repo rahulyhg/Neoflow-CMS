@@ -87,7 +87,7 @@
                                 ?>
                             </select>
                             <small class="form-text text-muted">
-                                <?= translate('Supported languages of the website. Activate only the languages you want to create pages for.'); ?>
+                                <?= translate('Supported languages of the website. But activate only the languages you want to create pages for.'); ?>
                             </small>
                         </div>
                     </div>
