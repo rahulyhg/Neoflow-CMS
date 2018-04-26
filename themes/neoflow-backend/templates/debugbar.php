@@ -8,7 +8,6 @@ if ('DummyCache' === $cacheName) {
 }
 
 $executionTime = round(\Neoflow\CMS\App::instance()->getExecutionTime(), 3);
-
 ?>
 
 <div id="debugbar">
