@@ -13,7 +13,7 @@
     "url": "https://github.com/Neoflow/Neoflow-CMS.git"
   },
   "devDependencies": {
-    "autoprefixer": "^8.2.0",
+    "autoprefixer": "^8.3.0",
     "css-mqpacker": "^6.0.2",
     "cssnano": "^3.10.0",
     "gulp": "^3.9.1",
@@ -22,7 +22,7 @@
     "gulp-postcss": "^7.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.6.1",
-    "gulp-sass": "^3.2.1",
+    "gulp-sass": "^4.0.1",
     "gulp-strip-comments": "^2.5.2",
     "gulp-strip-css-comments": "^2.0.0",
     "gulp-uglify-es": "^1.0.1",

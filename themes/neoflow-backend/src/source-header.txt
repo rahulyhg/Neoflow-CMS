@@ -10,7 +10,7 @@
  *   jQuery 3.2.1 | (c) jQuery Foundation | jquery.org/license
  *   Bootstrap 4.0.0 | (c) The Bootstrap Authors | MIT
  *   Popper.js 1.12.0 | (c) Federico Zivolo | MIT
- *   Select2 4.0.4 | (c) Kevin Brown, Igor Vaynberg, and Select2 contributors | MIT
+ *   Select2 4.0.6-rc.1 | (c) Kevin Brown, Igor Vaynberg, and Select2 contributors | MIT
  *   Nestable 1.0.0 | (c) David Bushell and Neoflow | MIT
  *   DataTables 1.10.16 | (c) SpryMedia Ltd | MIT
  *   Nicescroll 3.7.6 | (c) InuYaksa | MIT
