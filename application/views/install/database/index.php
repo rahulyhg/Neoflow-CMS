@@ -19,7 +19,7 @@
 
                     <div class="form-group row">
                         <label for="inputHost" class="col-sm-3 col-form-label">
-                            <?= translate('Host'); ?>
+                            <?= translate('Host'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input id="inputHost" required class="form-control" name="database[host]" type="text" value="<?= $database['host']; ?>" />
@@ -28,7 +28,7 @@
 
                     <div class="form-group row">
                         <label for="inputDbName" class="col-sm-3 col-form-label">
-                            <?= translate('Database name'); ?>
+                            <?= translate('Database name'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input id="inputDbName" required class="form-control" name="database[dbname]" type="text" value="<?= $database['dbname']; ?>" />
@@ -37,10 +37,10 @@
 
                     <div class="form-group row">
                         <label for="inputUsername" class="col-sm-3 col-form-label">
-                            <?= translate('Username'); ?>
+                            <?= translate('Username'); ?> *
                         </label>
                         <div class="col-sm-9">
-                            <input id="inputUsername" class="form-control" name="database[username]" type="text" value="<?= $database['username']; ?>" />
+                            <input id="inputUsername" required class="form-control" name="database[username]" type="text" value="<?= $database['username']; ?>" />
                         </div>
                     </div>
 
@@ -55,15 +55,16 @@
 
                     <div class="form-group row">
                         <label for="inputCharset" class="col-sm-3 col-form-label">
-                            <?= translate('Charset'); ?>
+                            <?= translate('Charset'); ?> *
                         </label>
                         <div class="col-sm-9">
-                            <input id="inputCharset" class="form-control" name="database[charset]" type="text" value="<?= $database['charset']; ?>" />
+                            <input id="inputCharset" class="form-control" name="database[charset]" required type="text" value="<?= $database['charset']; ?>" />
                             <small class="form-text text-muted">
                                 <?= translate('It is recommended to use UTF8mb4 as a charset'); ?>
                             </small>
                         </div>
                     </div>
+
 
                     <div class="form-group row">
                         <div class="col-sm-9 offset-sm-3">
@@ -73,6 +74,10 @@
                                 </span>
                                 <?= translate('Install'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
 

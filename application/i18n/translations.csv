@@ -7,6 +7,7 @@
 {0} is required;{0} is required;{0} wird benötigt
 Yes;Yes;Ja
 No;No;Nein
+Required field;Required field|Required fields;Pflichtfeld|Pflichtfelder
 {0} must be at least {1} characters or longer;{0} must be at least {1} characters or longer;{0} muss mindestens {1} Zeichen oder länger sein
 {0} must be before {1};{0} must be before {1};{0} muss früher sein als {1}
 {0} must be between {1} and {2};{0} must be between {1} and {2};{0} muss zwischen {1} und {2} sein
@@ -462,7 +463,8 @@ Successfully searched;Successfully searched;Erfolgreich gesucht
 Successfully uninstalled;Successfully uninstalled;Erfolgreich deinstalliert
 Successfully updated;Successfully updated;Erfolgreich aktualisiert
 Successfully uploaded;Successfully uploaded;Erfolgreich hochgeladen
-Supported language;Supported language|Supported languages;Unterstützte Sprache|Unterstützte Sprachen
+Active language;Active language|Active languages;Aktive Sprache|Aktive Sprachen
+Supported languages of the website. But activate only the languages you want to create pages for.;Supported languages of the website. Bit activate only the languages you want to create pages for.;Unterstützte Sprachen der Webseite. Aktiviere aber nur die Sprachen für die du Seiten erstellen willst.
 The CMS is already up to date;The CMS is already up to date;Das CMS ist bereits auf dem neuesten Stand
 "The existing file "{0}" is not accessible and cannot be overwritten";The existing file "{0}" is not accessible and cannot be overwritten";Die vorhandene Datei "{0}" ist nicht zugänglich und kann nicht überschrieben werden"
 The extension ({0}) is already up to date;The extension ({0}) is already up to date;Die Erweiterung ({0}) ist bereits auf dem neuesten Stand

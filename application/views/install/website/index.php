@@ -18,7 +18,7 @@
                             <?= translate('Title'); ?> *
                         </label>
                         <div class="col-sm-9">
-                            <input id="inputWebsiteTitle" type="text" required="" value="<?= $setting->website_title; ?>" class="form-control" name="website_title" maxlength="50" minlength="3" />
+                            <input id="inputWebsiteTitle" type="text" required value="<?= $setting->website_title; ?>" class="form-control" name="website_title" maxlength="50" minlength="3" />
                         </div>
                     </div>
 
@@ -36,7 +36,7 @@
                             <?= translate('Author'); ?> *
                         </label>
                         <div class="col-sm-9">
-                            <input id="inputWebsiteAuthor" type="text" required="" value="<?= $setting->website_author; ?>" class="form-control" name="website_author" maxlength="50" minlength="3" />
+                            <input id="inputWebsiteAuthor" type="text" required value="<?= $setting->website_author; ?>" class="form-control" name="website_author" maxlength="50" minlength="3" />
                         </div>
                     </div>
 
@@ -45,7 +45,7 @@
                             <?= translate('Email address'); ?> *
                         </label>
                         <div class="col-sm-9">
-                            <input id="inputSenderEmailaddress" required="" type="email" value="<?= $setting->sender_emailaddress; ?>" class="form-control" name="sender_emailaddress" maxlength="100" />
+                            <input id="inputSenderEmailaddress" required type="email" value="<?= $setting->sender_emailaddress; ?>" class="form-control" name="sender_emailaddress" maxlength="100" />
                             <small class="form-text text-muted">
                                 <?= translate('General e-mailaddress of the website (eg. info@yourdomain.tld)'); ?>
                             </small>
@@ -73,11 +73,11 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="selectLanguages" class="col-sm-3 col-form-label">
-                            <?= translate('Supported language', [], true); ?>
+                        <label for="selectActiveLanguages" class="col-sm-3 col-form-label">
+                            <?= translate('Language', [], true); ?>
                         </label>
                         <div class="col-sm-9">
-                            <select class="form-control select2" name="language_ids[]" multiple id="selectLanguages">
+                            <select class="form-control select2" name="language_ids[]" multiple id="selectActiveLanguages">
                                 <?php foreach ($languages as $language) {
 
                                     ?>
@@ -86,6 +86,9 @@
 
                                 ?>
                             </select>
+                            <small class="form-text text-muted">
+                                <?= translate('Supported languages of the website. Activate only the languages you want to create pages for.'); ?>
+                            </small>
                         </div>
                     </div>
 
@@ -125,6 +128,10 @@
                                 </span>
                                 <?= translate('Create'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
 

@@ -81,7 +81,7 @@
 
                     <div class="form-group row">
                         <label for="selectLanguages" class="col-sm-3 col-form-label">
-                            <?= translate('Supported language', [], true); ?>
+                            <?= translate('Active language', [], true); ?>
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control select2" name="language_ids[]" multiple id="selectLanguages">
