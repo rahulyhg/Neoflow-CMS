@@ -3,7 +3,7 @@ INSERT INTO `roles` VALUES(1, 'Administrator', 'Role with all permissions.');
 INSERT INTO `permissions` VALUES(1, 'manage_pages', 'Page', 'Manage pages and page content');
 INSERT INTO `permissions` VALUES(2, 'manage_navigations', 'Navigation', 'Manage navigations');
 INSERT INTO `permissions` VALUES(3, 'manage_modules', 'Module', 'Manage modules');
-INSERT INTO `permissions` VALUES(4, 'manage_templates', 'Theme', 'Manage themes');
+INSERT INTO `permissions` VALUES(4, 'manage_themes', 'Theme', 'Manage themes');
 INSERT INTO `permissions` VALUES(5, 'manage_media', 'Media', 'Manage media files and folders');
 INSERT INTO `permissions` VALUES(6, 'settings', 'Setting', 'Update website settings');
 INSERT INTO `permissions` VALUES(7, 'manage_users', 'User', 'Manage user accounts');
