@@ -309,7 +309,7 @@ Manage themes;Manage themes;Themes verwalten
 Manage user accounts;Manage user accounts;Benutzerkonten verwalten
 Manager class;Manager class;Manager-Klasse
 Manager Class;Manager Class;Manager Klasse
-Maximum uploadable file size: {0}MB;Maximum uploadable file size: {0}MB;Maximal hochladbare Dateigrösse: {0}MB
+Uploadable file size (defined in php.ini): max. {0}MB;Uploadable file size (defined in php.ini): max. {0}MB;Hochladbare Dateigrösse (gemäss php.ini): max. {0}MB
 Media;Media;Medien
 Message;Message|Messages;Nachricht|Nachrichten
 Minute;Minute|Minutes;Minute|Minuten

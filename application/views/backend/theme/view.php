@@ -64,7 +64,7 @@
                             <input type="file" name="file" data-allowed-File-Extensions="zip" data-allowed-File-Size="<?= ((int) ini_get('upload_max_filesize')) * 1024 * 1024; ?>" id="inputUpdatePackage" required class="form-control" />
                             <ul class="list-unstyled form-text text-muted small mb-0">
                                 <li>
-                                    <?= translate('Maximum uploadable file size: {0}MB', [(int) ini_get('upload_max_filesize')]); ?>
+                                    <?= translate('Uploadable file size (defined in php.ini): max. {0}MB', [(int) ini_get('upload_max_filesize')]); ?>
                                 </li>
                                 <li>
                                     <?= translate('Allowed file extensions: {0}', ['zip']); ?>
