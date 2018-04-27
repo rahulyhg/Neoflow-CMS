@@ -2,7 +2,9 @@
 Module-based content management system with a user friendly interface, based on a perfect optimized MVC framework.
 
 ## Current state
-The Neoflow CMS is currently in development. But the first prerelease is planned for the comming few months (~march 2018)
+The Neoflow CMS is currently in development. But the first prerelease is already released.
+
+Please visit the [project board](https://github.com/Neoflow/Neoflow-CMS/projects) for more information about the roadmap of the next changes.
 
 ## Requirements
  * About 20 MB disk space
@@ -26,7 +28,7 @@ The Neoflow CMS is currently in development. But the first prerelease is planned
 1. Download the update package.
 2. Upload and install the update package in the backend under maintenance
 
-If you have trouble to upload the update package, then change the upload settings of your PHP installation to 10MB.
+If you have troubles uploading the update package, you have to increase the maximum file size for uploads in the PHP configuration (php.ini) to at least 10MB.
 ```
 upload_max_filesize = 10M
 post_max_size = 10M
