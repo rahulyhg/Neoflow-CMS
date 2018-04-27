@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -13,6 +12,7 @@ use RuntimeException;
 
 class UserController extends BackendController
 {
+
     /**
      * Constructor.
      *
@@ -97,8 +97,8 @@ class UserController extends BackendController
         if ($user) {
             // Set title and breadcrumb
             $this->view
-                ->setTitle($user->getFullname())
-                ->setSubtitle('ID: '.$user->id())
+                ->setTitle($user->lastname ? $user->getFullname() : $user->email)
+                ->setSubtitle('ID: ' . $user->id())
                 ->addBreadcrumb(translate('User', [], true), generate_url('backend_user_index'));
 
             // Set back url
@@ -110,7 +110,7 @@ class UserController extends BackendController
             ]);
         }
 
-        throw new RuntimeException('User not found (ID: '.$this->args['id'].')');
+        throw new RuntimeException('User not found (ID: ' . $this->args['id'] . ')');
     }
 
     /**
@@ -138,7 +138,7 @@ class UserController extends BackendController
             if ($user && $user->validate() && $user->save()) {
                 $this->view->setSuccessAlert(translate('Successfully updated'));
             } else {
-                throw new RuntimeException('Updating user failed (ID: '.$postData->get('user_id').')');
+                throw new RuntimeException('Updating user failed (ID: ' . $postData->get('user_id') . ')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
@@ -169,7 +169,7 @@ class UserController extends BackendController
             if ($user->validateNewPassword() && $user->save()) {
                 $this->view->setSuccessAlert(translate('Password successfully updated'));
             } else {
-                throw new RuntimeException('Updating password of user failed (ID: '.$postData->get('user_id').')');
+                throw new RuntimeException('Updating password of user failed (ID: ' . $postData->get('user_id') . ')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert($ex->getErrors());
@@ -196,7 +196,7 @@ class UserController extends BackendController
 
             return $this->redirectToRoute('backend_user_index');
         }
-        throw new RuntimeException('Deleting user failed (ID: '.$this->args['id'].')');
+        throw new RuntimeException('Deleting user failed (ID: ' . $this->args['id'] . ')');
     }
 
     /**
