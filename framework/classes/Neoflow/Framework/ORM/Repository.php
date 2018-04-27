@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\ORM;
 
 use Neoflow\Framework\AppTrait;
@@ -14,7 +15,6 @@ use RuntimeException;
 
 class Repository
 {
-
     /**
      * Load app.
      */
@@ -71,7 +71,7 @@ class Repository
 
             return $this;
         }
-        throw new RuntimeException('Model class "' . $modelClassName . '" not found');
+        throw new RuntimeException('Model class "'.$modelClassName.'" not found');
     }
 
     /**
@@ -275,7 +275,7 @@ class Repository
     /**
      * Add raw WHERE condition.
      *
-     * @param string $condition Condition query
+     * @param string $condition  Condition query
      * @param array  $parameters Condition parameters
      *
      * @return self
@@ -290,8 +290,8 @@ class Repository
     /**
      * Add WHERE condition.
      *
-     * @param string $property Property
-     * @param string $operator Where condition operator
+     * @param string $property  Property
+     * @param string $operator  Where condition operator
      * @param mixed  $parameter Condition parameter
      *
      * @return self
@@ -340,7 +340,7 @@ class Repository
             return $entityCollection->set($collection->toArray());
 
             $this->logger()->debug('Entity collection fetched', [
-                'Result' => $entityCollection->count() . ' model entities collected',
+                'Result' => $entityCollection->count().' model entities collected',
             ]);
         }
 
@@ -411,7 +411,7 @@ class Repository
             return $modelClassName::$tableName;
         }
 
-        throw new RuntimeException('Model class "' . $modelClassName . '" not found');
+        throw new RuntimeException('Model class "'.$modelClassName.'" not found');
     }
 
     /**
@@ -433,7 +433,7 @@ class Repository
             return $modelClassName::$collectionClassName;
         }
 
-        throw new RuntimeException('Model class "' . $modelClassName . '" not found');
+        throw new RuntimeException('Model class "'.$modelClassName.'" not found');
     }
 
     /**
@@ -455,7 +455,7 @@ class Repository
             return $modelClassName::$primaryKey;
         }
 
-        throw new RuntimeException('Model class "' . $modelClassName . '" not found');
+        throw new RuntimeException('Model class "'.$modelClassName.'" not found');
     }
 
     /**

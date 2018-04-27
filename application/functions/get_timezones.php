@@ -27,7 +27,7 @@ function get_timezones(): array
             date_default_timezone_set($timezone);
 
             $title = str_replace(['/', '_', 'St '], [', ', ' ', 'St. '], mb_substr($timezone, mb_strpos($timezone, '/') + 1));
-            $result[$region][$timezone] = '(GMT ' . date('P') . ') ' . $title;
+            $result[$region][$timezone] = '(GMT '.date('P').') '.$title;
         }
         array_multisort($result[$region]);
     }

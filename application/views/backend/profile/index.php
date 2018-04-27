@@ -11,7 +11,7 @@
 
                     <div class="form-group row <?= has_validation_error('email', 'has-danger'); ?>">
                         <label for="inputEmail" class="col-sm-3 col-form-label">
-                            <?= translate('Email address'); ?>
+                            <?= translate('Email address'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input id="inputEmail" value="<?= $user->email; ?>" type="email" required class="form-control" name="email" />
@@ -41,6 +41,10 @@
                                 </span>
                                 <?= translate('Save'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
                 </form>
@@ -60,7 +64,7 @@
 
                     <div class="form-group row <?= has_validation_error('password', 'has-danger'); ?>">
                         <label for="inputNewPassword" class="col-sm-3 col-lg-4 col-form-label">
-                            <?= translate('New password'); ?>
+                            <?= translate('New password'); ?> *
                         </label>
                         <div class="col-sm-9 col-lg-8">
                             <input id="inputNewPassword" minlength="8" type="password" required class="form-control" name="newPassword" />
@@ -86,6 +90,10 @@
                                 </span>
                                 <?= translate('Save'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
                 </form>

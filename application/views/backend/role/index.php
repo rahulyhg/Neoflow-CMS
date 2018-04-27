@@ -55,7 +55,7 @@
                                 </a>
                             </td>
                         </tr>
-                    <?php
+                        <?php
 }
 
                     ?>
@@ -75,7 +75,7 @@
                 <form method="post" action="<?= generate_url('backend_role_create'); ?>">
                     <div class="form-group row <?= has_validation_error('title', 'has-danger'); ?>">
                         <label for="inputTitle" class="col-sm-3 col-form-label">
-                            <?= translate('Title'); ?>
+                            <?= translate('Title'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input type="text" name="title" id="inputTitle" maxlength="20" required class="form-control" />
@@ -96,7 +96,7 @@
                             <?= translate('Permission', [], true); ?>
                         </label>
                         <div class="col-sm-9">
-                            <select required multiple class="form-control select2" name="permission_ids[]" id="selectPermissions" data-placeholder="">
+                            <select multiple class="form-control" name="permission_ids[]" id="selectPermissions" data-placeholder="">
                                 <?php
                                 foreach ($permissions as $permission) {
                                     ?>
@@ -118,6 +118,10 @@
                                 </span>
                                 <?= translate('Save'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
                 </form>

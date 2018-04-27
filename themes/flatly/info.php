@@ -1,4 +1,5 @@
 <?php
+
 // Theme info
 return [
     'name' => 'Flatly',

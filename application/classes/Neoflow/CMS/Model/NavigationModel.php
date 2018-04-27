@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -9,7 +10,6 @@ use Neoflow\Framework\ORM\Repository;
 
 class NavigationModel extends AbstractModel
 {
-
     /**
      * @var string
      */
@@ -81,8 +81,8 @@ class NavigationModel extends AbstractModel
      * Set navigation value.
      *
      * @param string $property Navigation property
-     * @param mixed  $value  Property value
-     * @param bool   $silent Set TRUE to prevent the tracking of the change
+     * @param mixed  $value    Property value
+     * @param bool   $silent   Set TRUE to prevent the tracking of the change
      *
      * @return self
      *

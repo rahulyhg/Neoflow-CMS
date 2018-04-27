@@ -6,7 +6,7 @@ use Neoflow\Framework\App;
 /**
  * Format timestamp.
  *
- * @param int  $timestamp Timestamp
+ * @param int  $timestamp      Timestamp
  * @param bool $formatWithTime Set FALSE to format without time
  *
  * @return string

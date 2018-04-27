@@ -79,7 +79,7 @@
                                 </a>
                             </td>
                         </tr>
-                    <?php
+                        <?php
                     }
 
                     ?>
@@ -109,7 +109,7 @@
                 <form method="post" enctype="multipart/form-data" action="<?= generate_url('backend_module_install'); ?>">
                     <div class="form-group row">
                         <label for="inputPackage" class="col-sm-3 col-form-label">
-                            <?= translate('Package'); ?>
+                            <?= translate('Package'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input type="file" name="package" data-allowed-File-Extensions="zip" data-allowed-File-Size="<?= ((int) ini_get('upload_max_filesize')) * 1024 * 1024; ?>" id="inputPackage" required class="form-control" />
@@ -131,6 +131,10 @@
                                 </span>
                                 <?= translate('Upload'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span> 
                         </div>
                     </div>
                 </form>

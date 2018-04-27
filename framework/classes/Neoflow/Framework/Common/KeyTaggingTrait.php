@@ -1,9 +1,9 @@
 <?php
+
 namespace Neoflow\Framework\Common;
 
 trait KeyTaggingTrait
 {
-
     /**
      * @var array
      */
@@ -13,7 +13,7 @@ trait KeyTaggingTrait
      * Map key to tags.
      *
      * @param array  $tags Tags to map key with
-     * @param string $key Key for tag mapping
+     * @param string $key  Key for tag mapping
      *
      * @return self
      */

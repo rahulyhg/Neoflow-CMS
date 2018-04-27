@@ -43,13 +43,12 @@
                             <?= translate('Default language'); ?>
                         </label>
                         <div class="col-sm-8">
-                            <select class="form-control select2" name="default_language_id" id="selectDefaultLanguage">
+                            <select class="form-control" name="default_language_id" id="selectDefaultLanguage">
                                 <?php foreach ($languages as $language) {
-
-                                    ?>
+    ?>
                                     <option value="<?= $language->id(); ?>"  <?= ($language->id() == $activeLanguage->id() ? 'selected' : ''); ?>><?= translate($language->title); ?></option>
                                     <?php
-                                }
+}
 
                                 ?>
                             </select>
@@ -61,12 +60,12 @@
                             <?= translate('Language', [], true); ?>
                         </label>
                         <div class="col-sm-8">
-                            <select class="form-control select2" name="language_ids[]" multiple id="selectActiveLanguages">
+                            <select class="form-control" name="language_ids[]" multiple id="selectActiveLanguages">
                                 <?php foreach ($languages as $language) {
-
                                     ?>
                                     <option value="<?= $language->id(); ?>"  <?= ($language->id() == $activeLanguage->id() ? 'selected' : ''); ?>><?= translate($language->title); ?></option>
-                                <?php }
+                                <?php
+                                }
 
                                 ?>
                             </select>
@@ -81,20 +80,18 @@
                             <?= translate('Timezone'); ?>
                         </label>
                         <div class="col-sm-8">
-                            <select class="form-control select2" name="timezone" id="selectTimezone" data-minimumResultsForSearch="1">
+                            <select class="form-control" name="timezone" id="selectTimezone" data-minimumResultsForSearch="1">
                                 <?php foreach (get_timezones() as $region => $timezones) {
-
                                     ?>
                                     <optgroup label="<?= $region; ?>">
                                         <?php foreach ($timezones as $timezone => $title) {
-
-                                            ?>
-                                            <option value="<?= $timezone; ?>" <?= ($setting->timezone === $timezone ? 'selected' : ''); ?>><?= $title; ?></option>
-                                        <?php }
-
                                         ?>
+                                            <option value="<?= $timezone; ?>" <?= ($setting->timezone === $timezone ? 'selected' : ''); ?>><?= $title; ?></option>
+                                        <?php
+                                    } ?>
                                     </optgroup>
-                                <?php }
+                                <?php
+                                }
 
                                 ?>
                             </select>

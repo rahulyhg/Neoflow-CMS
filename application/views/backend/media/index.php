@@ -95,7 +95,7 @@
                     <p class="text-center text-muted"><?= translate('No folders and files found'); ?></p>
                     <small class="text-muted"><?= translate('Path'); ?>: <?= $path; ?></small>
                 </div>
-            <?php
+                <?php
     }
 
             ?>
@@ -113,7 +113,7 @@
                     <input type="hidden" value="<?= $relativeFolderPath; ?>" name="dir" />
                     <div class="form-group row">
                         <label for="inputFiles" class="col-sm-3 col-form-label">
-                            <?= translate('File', [], true); ?>
+                            <?= translate('File', [], true); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input type="file" multiple="" name="files[]" data-allowed-File-Extensions="<?= $view->settings()->allowed_file_extensions; ?>" data-allowed-File-Size="<?= ((int) ini_get('upload_max_filesize')) * 1024 * 1024; ?>" id="inputFiles" required class="form-control" />
@@ -147,6 +147,10 @@
                                 </span>
                                 <?= translate('Upload'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
                 </form>
@@ -162,7 +166,7 @@
                     <input type="hidden" value="<?= $relativeFolderPath; ?>" name="dir" />
                     <div class="form-group row">
                         <label for="inputName" class="col-sm-3 col-form-label">
-                            <?= translate('Name'); ?>
+                            <?= translate('Name'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input type="text" name="name" minlength="1" maxlength="50" id="inputName" required class="form-control" />
@@ -176,6 +180,10 @@
                                 </span>
                                 <?= translate('Save'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
                 </form>

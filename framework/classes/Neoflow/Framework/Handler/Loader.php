@@ -1,9 +1,9 @@
 <?php
+
 namespace Neoflow\Framework\Handler;
 
 class Loader
 {
-
     /**
      * @var array
      */
@@ -19,12 +19,12 @@ class Loader
     public function loadLibraries(array $basePaths): self
     {
         foreach ($basePaths as $basePath) {
-            $paths = array_filter(glob($basePath . '/[!_]*'), 'is_dir');
+            $paths = array_filter(glob($basePath.'/[!_]*'), 'is_dir');
 
             foreach ($paths as $path) {
                 $this
-                    ->loadFunctionsFromDirectory($path . '/functions')
-                    ->addClassDirectory($path . '/classes');
+                    ->loadFunctionsFromDirectory($path.'/functions')
+                    ->addClassDirectory($path.'/classes');
             }
         }
 
@@ -56,7 +56,7 @@ class Loader
      */
     public function loadFunctionsFromDirectory(string $functionDirectory): self
     {
-        foreach (glob($functionDirectory . '/*.php') as $functionFilePath) {
+        foreach (glob($functionDirectory.'/*.php') as $functionFilePath) {
             require_once $functionFilePath;
         }
 
@@ -73,7 +73,7 @@ class Loader
     public function loadClassFile(string $className): bool
     {
         foreach ($this->classDirectories as $classDirectory) {
-            $classFilePath = normalize_path($classDirectory . DIRECTORY_SEPARATOR . $className . '.php');
+            $classFilePath = normalize_path($classDirectory.DIRECTORY_SEPARATOR.$className.'.php');
             if (is_file($classFilePath)) {
                 require_once $classFilePath;
 

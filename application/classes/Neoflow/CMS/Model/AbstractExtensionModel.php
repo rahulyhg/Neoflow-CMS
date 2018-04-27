@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -12,7 +13,6 @@ use function translate;
 
 abstract class AbstractExtensionModel extends AbstractModel
 {
-
     /**
      * @var string
      */
@@ -113,7 +113,7 @@ abstract class AbstractExtensionModel extends AbstractModel
         $info = $this->fetchInfoFile($infoFilePath);
         $this->setData($info);
 
-        return ($this->validate() && $this->save());
+        return $this->validate() && $this->save();
     }
 
     /**
@@ -129,7 +129,7 @@ abstract class AbstractExtensionModel extends AbstractModel
     protected function unpack(File $extensionPackageFile, bool $delete = true): Folder
     {
         // Create temporary update folder
-        $extensionFolderPath = $this->config()->getTempPath('/extension_' . uniqid());
+        $extensionFolderPath = $this->config()->getTempPath('/extension_'.uniqid());
         $extensionFolder = Folder::create($extensionFolderPath);
 
         // Extract package
@@ -280,8 +280,8 @@ abstract class AbstractExtensionModel extends AbstractModel
      * Set extension value.
      *
      * @param string $property Extension property
-     * @param mixed  $value  Property value
-     * @param bool   $silent Set TRUE to prevent the tracking of the change
+     * @param mixed  $value    Property value
+     * @param bool   $silent   Set TRUE to prevent the tracking of the change
      *
      * @return self
      *

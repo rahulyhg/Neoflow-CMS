@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\Handler;
 
 use InvalidArgumentException;
@@ -8,7 +9,6 @@ use RuntimeException;
 
 class Engine
 {
-
     /**
      * App trait.
      */
@@ -60,13 +60,15 @@ class Engine
      * Start buffering block.
      *
      * @param string $key Block key
+     *
      * @return self
+     *
      * @throws RuntimeException
      */
     public function startBlock(string $key): self
     {
         if (in_array($key, $this->openBlocks)) {
-            throw new RuntimeException('Block has already started (Key: ' . $key . ')');
+            throw new RuntimeException('Block has already started (Key: '.$key.')');
         }
         $this->openBlocks[] = $key;
         ob_start();
@@ -79,6 +81,7 @@ class Engine
      * Stop buffering block.
      *
      * @return self
+     *
      * @throws OutOfRangeException
      */
     public function stopBlock(): self
@@ -109,7 +112,7 @@ class Engine
         $result = '';
         if ($this->hasBlock($key)) {
             foreach ($this->blocks[$key] as $block) {
-                $result .= $preSeparator . $block . $postSeparator;
+                $result .= $preSeparator.$block.$postSeparator;
             }
 
             return $result;
@@ -261,21 +264,21 @@ class Engine
             // Search and replace placeholders
             foreach ($parameters as $key => $value) {
                 if (is_string($value) || is_integer($value)) {
-                    $output = str_replace('[' . $key . ']', $value, $output);
+                    $output = str_replace('['.$key.']', $value, $output);
                 }
             }
 
             return $output;
         }
-        throw new OutOfRangeException('File "' . $filePath . '" not found');
+        throw new OutOfRangeException('File "'.$filePath.'" not found');
     }
 
     /**
      * Add resource URL.
      *
-     * @param string $url Ressource URL
+     * @param string $url  Ressource URL
      * @param string $type Resource type (css or javascript)
-     * @param string $key Group key
+     * @param string $key  Group key
      *
      * @return self
      *
@@ -336,7 +339,7 @@ class Engine
      * Get resource URLs.
      *
      * @param string $type Resource type (css or javascript)
-     * @param string $key Group key
+     * @param string $key  Group key
      *
      * @return array
      *
@@ -393,9 +396,9 @@ class Engine
     /**
      * Render resource URLs.
      *
-     * @param string $type Resource type (css or javascript)
+     * @param string $type     Resource type (css or javascript)
      * @param string $template Resource template
-     * @param string $key Group key
+     * @param string $key      Group key
      *
      * @return string
      */
@@ -404,7 +407,7 @@ class Engine
         $output = '';
         $urls = $this->getResourceUrls($type, $key);
         foreach ($urls as $url) {
-            $output .= sprintf($template, $url) . PHP_EOL;
+            $output .= sprintf($template, $url).PHP_EOL;
         }
 
         return $output;
@@ -450,8 +453,8 @@ class Engine
      * Add source.
      *
      * @param string $source Source code
-     * @param string $type Source type (css or javascript)
-     * @param string $key Group key
+     * @param string $type   Source type (css or javascript)
+     * @param string $key    Group key
      *
      * @return self
      *
@@ -471,7 +474,7 @@ class Engine
      * Add Javascript source.
      *
      * @param string $source Javascript source
-     * @param string $key Group key
+     * @param string $key    Group key
      *
      * @return self
      */
@@ -484,7 +487,7 @@ class Engine
      * Add CSS source.
      *
      * @param string $source CSS source
-     * @param string $key Group key
+     * @param string $key    Group key
      *
      * @return self
      */
@@ -497,7 +500,7 @@ class Engine
      * Get sources.
      *
      * @param string $type Source type (css or javascript)
-     * @param string $key Group key
+     * @param string $key  Group key
      *
      * @return array
      *
@@ -542,9 +545,9 @@ class Engine
     /**
      * Render source.
      *
-     * @param string $type Source code type (css or javascript)
+     * @param string $type     Source code type (css or javascript)
      * @param string $template Source template
-     * @param string $key Group key
+     * @param string $key      Group key
      *
      * @return string
      */
@@ -552,7 +555,7 @@ class Engine
     {
         $source = implode(PHP_EOL, $this->getSource($type, $key));
         if ($source) {
-            return sprintf($template, $source) . PHP_EOL;
+            return sprintf($template, $source).PHP_EOL;
         }
 
         return '';
@@ -567,7 +570,7 @@ class Engine
      */
     public function renderJavascript(string $key = 'default'): string
     {
-        return $this->renderSource('javascript', '<script>' . PHP_EOL . '%s' . PHP_EOL . '</script>', $key);
+        return $this->renderSource('javascript', '<script>'.PHP_EOL.'%s'.PHP_EOL.'</script>', $key);
     }
 
     /**
@@ -579,7 +582,7 @@ class Engine
      */
     public function renderCss(string $key = 'default'): string
     {
-        return $this->renderSource('css', '<style>' . PHP_EOL . '%s' . PHP_EOL . '</style>', $key);
+        return $this->renderSource('css', '<style>'.PHP_EOL.'%s'.PHP_EOL.'</style>', $key);
     }
 
     /**
@@ -701,11 +704,11 @@ class Engine
         $tags = $this->getTagProperties($type, $key);
         foreach ($tags as $tag) {
             $properties = array_filter(array_map(function ($value, $key) {
-                    if (is_string($key)) {
-                        return $key . '="' . $value . '"';
-                    }
-                }, $tag, array_keys($tag)));
-            $output .= sprintf($template, implode(' ', $properties)) . PHP_EOL;
+                if (is_string($key)) {
+                    return $key.'="'.$value.'"';
+                }
+            }, $tag, array_keys($tag)));
+            $output .= sprintf($template, implode(' ', $properties)).PHP_EOL;
         }
 
         return $output;

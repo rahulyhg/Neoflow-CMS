@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\Common;
 
 use ArrayAccess;
@@ -10,7 +11,6 @@ use JsonSerializable;
 
 class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSerializable
 {
-
     /**
      * The items contained in the collection.
      *
@@ -93,15 +93,15 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
      * Filter collection items where are matching.
      *
      * @param string $property Item property
-     * @param mixed $value Property value
+     * @param mixed  $value    Property value
      *
      * @return self
      */
     public function where(string $property, $value): self
     {
         return $this->filter(function ($item) use ($property, $value) {
-                return $item->{$property} == $value;
-            });
+            return $item->{$property} == $value;
+        });
     }
 
     /**
@@ -164,15 +164,15 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
      * Filter collection items where are not matching.
      *
      * @param string $property Item property
-     * @param mixed $value Property value
+     * @param mixed  $value    Property value
      *
      * @return self
      */
     public function whereNot(string $property, $value): self
     {
         return $this->filter(function ($item) use ($property, $value) {
-                return $item->{$property} != $value;
-            });
+            return $item->{$property} != $value;
+        });
     }
 
     /**
@@ -267,7 +267,7 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     /**
      * Join collection items to a string.
      *
-     * @param callable $callback Implode callback
+     * @param callable $callback  Implode callback
      * @param string   $seperator String seperator
      *
      * @return string
@@ -383,9 +383,7 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
      * Set item, implements ArrayAccess.
      *
      * @param mixed $offset Offset
-     * @param mixed $item Collection item
-     *
-     * @return void
+     * @param mixed $item   Collection item
      */
     public function offsetSet($offset, $item)
     {
@@ -400,8 +398,6 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
      * Unset/delete item by offset, implements ArrayAccess.
      *
      * @param mixed $offset Offset
-     *
-     * @return void
      */
     public function offsetUnset($offset): void
     {
@@ -450,7 +446,8 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     }
 
     /**
-     * Serialize collection
+     * Serialize collection.
+     *
      * @return string
      */
     public function jsonSerialize(): string

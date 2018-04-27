@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\Common;
 
 use ArrayAccess;
@@ -9,7 +10,6 @@ use RuntimeException;
 
 class Container implements IteratorAggregate, Countable, ArrayAccess
 {
-
     /**
      * @var array container data
      */
@@ -236,8 +236,8 @@ class Container implements IteratorAggregate, Countable, ArrayAccess
     /**
      * Get data value.
      *
-     * @param string $key Key of data value
-     * @param mixed $default Default return value when key doesn't exists
+     * @param string $key     Key of data value
+     * @param mixed  $default Default return value when key doesn't exists
      *
      * @return mixed
      */
@@ -373,8 +373,6 @@ class Container implements IteratorAggregate, Countable, ArrayAccess
      * Set value, implements ArrayAccess.
      *
      * @param mixed $offset Offset
-     *
-     * @return void
      */
     public function offsetSet($offset, $value): void
     {
@@ -385,8 +383,6 @@ class Container implements IteratorAggregate, Countable, ArrayAccess
      * Unset/delete value by offset, implements ArrayAccess.
      *
      * @param mixed $offset Offset
-     *
-     * @return void
      */
     public function offsetUnset($offset): void
     {

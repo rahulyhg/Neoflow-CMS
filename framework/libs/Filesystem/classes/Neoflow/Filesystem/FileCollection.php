@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Filesystem;
 
 /**
@@ -7,9 +8,9 @@ namespace Neoflow\Filesystem;
  */
 class FileCollection extends Collection
 {
-
     /**
      * Sort files by size.
+     *
      * @param string $order Order (ASC or DESC)
      *
      * @return self

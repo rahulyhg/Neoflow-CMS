@@ -1,4 +1,5 @@
 <?php
+
 return [
     'app' => [
         'url' => '',
@@ -7,7 +8,7 @@ return [
             'en', 'de', 'fr',
         ],
         'email' => '',
-        'timezone' => date_default_timezone_get()
+        'timezone' => date_default_timezone_get(),
     ],
     'session' => [
         'name' => ini_get('session.name'),

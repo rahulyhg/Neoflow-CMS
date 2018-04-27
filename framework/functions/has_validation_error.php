@@ -5,9 +5,9 @@ use Neoflow\Framework\App;
 /**
  * Check whether validation error exists.
  *
- * @param string $key Optional validation key
- * @param mixed  $returnValue Return value
- * @param mixed        $returnFailedValue Return value when no validation errors
+ * @param string $key               Optional validation key
+ * @param mixed  $returnValue       Return value
+ * @param mixed  $returnFailedValue Return value when no validation errors
  *
  * @return mixed
  */

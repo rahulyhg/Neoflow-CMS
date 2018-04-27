@@ -27,7 +27,8 @@
                 </a>
             </li>
 
-            <?php if (has_permission('manage_pages') || has_permission('manage_navigations') || has_permission('manage_blocks')) { ?>
+            <?php if (has_permission('manage_pages') || has_permission('manage_navigations') || has_permission('manage_blocks')) {
+    ?>
                 <li class="nav-item<?= is_current_route(['backend_navigation*', 'backend_page*', 'backend_section*', 'pmod_*', 'backend_navitem*', 'backend_block*'], ' active'); ?>">
                     <a href="#content-menu" class="nav-link nav-link-collapse<?= is_current_route(['backend_navigation*', 'backend_page*', 'backend_section*', 'pmod_*', 'backend_navitem*', 'backend_block*'], '', ' collapsed'); ?>" data-toggle="collapse">
                         <span class="nav-link-icon">
@@ -39,8 +40,7 @@
                     </a>
                     <ul id="content-menu" class="sidenav-second-level collapse<?= is_current_route(['backend_navigation*', 'backend_page*', 'backend_section*', 'pmod_*', 'backend_navitem*', 'backend_block*'], ' show'); ?>">
                         <?php if (has_permission('manage_pages')) {
-
-                            ?>
+        ?>
                             <li class="nav-item<?= is_current_route(['backend_page*', 'backend_section*', 'pmod*'], ' active'); ?>">
                                 <a class="nav-link" href="<?= generate_url('backend_page_index'); ?>">
                                     <span class="nav-link-text">
@@ -49,10 +49,9 @@
                                 </a>
                             </li>
                             <?php
-                        }
-                        if (has_permission('manage_navigations')) {
-
-                            ?>
+    }
+    if (has_permission('manage_navigations')) {
+        ?>
                             <li class="nav-item<?= is_current_route(['backend_navigation*', 'backend_navitem*'], ' active'); ?>">
                                 <a class="nav-link" href="<?= generate_url('backend_navigation_index'); ?>">
                                     <span class="nav-link-text">
@@ -61,10 +60,9 @@
                                 </a>
                             </li>
                             <?php
-                        }
-                        if (has_permission('manage_blocks')) {
-
-                            ?>
+    }
+    if (has_permission('manage_blocks')) {
+        ?>
                             <li class="nav-item<?= is_current_route(['backend_block*'], ' active'); ?>">
                                 <a class="nav-link" href="<?= generate_url('backend_block_index'); ?>">
                                     <span class="nav-link-text">
@@ -72,15 +70,13 @@
                                     </span>
                                 </a>
                             </li>
-                        <?php }
-
-                        ?>
+                        <?php
+    } ?>
                     </ul>
                 </li>
                 <?php
-            }
+}
             if (has_permission('manage_modules') || has_permission('manage_templates')) {
-
                 ?>
                 <li class="nav-item<?= is_current_route(['backend_module*', 'backend_theme*'], ' active'); ?>">
                     <a href="#extension-menu" class="nav-link nav-link-collapse<?= is_current_route(['backend_module*', 'backend_theme*'], '', ' collapsed'); ?>" data-toggle="collapse">
@@ -93,8 +89,7 @@
                     </a>
                     <ul id="extension-menu" class="sidenav-second-level collapse<?= is_current_route(['backend_module*', 'backend_theme*'], ' show'); ?>">
                         <?php if (has_permission('manage_modules')) {
-
-                            ?>
+                    ?>
                             <li class="nav-item<?= is_current_route(['backend_module*'], ' active'); ?>">
                                 <a class="nav-link" href="<?= generate_url('backend_module_index'); ?>">
                                     <span class="nav-link-text">
@@ -103,10 +98,9 @@
                                 </a>
                             </li>
                             <?php
-                        }
-                        if (has_permission('manage_templates')) {
-
-                            ?>
+                }
+                if (has_permission('manage_templates')) {
+                    ?>
                             <li class="nav-item<?= is_current_route(['backend_theme*'], ' active'); ?>">
                                 <a class="nav-link" href="<?= generate_url('backend_theme_index'); ?>">
                                     <span class="nav-link-text">
@@ -114,15 +108,13 @@
                                     </span>
                                 </a>
                             </li>
-                        <?php }
-
-                        ?>
+                        <?php
+                } ?>
                     </ul>
                 </li>
                 <?php
             }
             if (has_permission('manage_media')) {
-
                 ?>
                 <li class="nav-item<?= is_current_route(['backend_media*'], ' active'); ?>">
                     <a class="nav-link" href="<?= generate_url('backend_media_index'); ?>">
@@ -137,7 +129,6 @@
                 <?php
             }
             if (has_permission('settings')) {
-
                 ?>
                 <li class="nav-item<?= is_current_route(['backend_setting*'], ' active'); ?>">
                     <a class="nav-link" href="<?= generate_url('backend_setting_index'); ?>">
@@ -152,7 +143,6 @@
                 <?php
             }
             if (has_permission('manage_users') || has_permission('manage_roles')) {
-
                 ?>
 
                 <li class="nav-item<?= is_current_route(['backend_user*', 'backend_role*'], ' active'); ?>">
@@ -166,8 +156,7 @@
                     </a>
                     <ul id="account-menu" class="sidenav-second-level collapse<?= is_current_route(['backend_user*', 'backend_role*'], ' show'); ?>">
                         <?php if (has_permission('manage_users')) {
-
-                            ?>
+                    ?>
                             <li class="nav-item<?= is_current_route('backend_user*', ' active'); ?>">
                                 <a class="nav-link" href="<?= generate_url('backend_user_index'); ?>">
                                     <span class="nav-link-text">
@@ -176,10 +165,9 @@
                                 </a>
                             </li>
                             <?php
-                        }
-                        if (has_permission('manage_roles')) {
-
-                            ?>
+                }
+                if (has_permission('manage_roles')) {
+                    ?>
                             <li class="nav-item<?= is_current_route('backend_role*', ' active'); ?>">
                                 <a class="nav-link" href="<?= generate_url('backend_role_index'); ?>">
                                     <span class="nav-link-text">
@@ -187,15 +175,13 @@
                                     </span>
                                 </a>
                             </li>
-                        <?php }
-
-                        ?>
+                        <?php
+                } ?>
                     </ul>
                 </li>
                 <?php
             }
             if (has_permission('run_tools')) {
-
                 ?>
                 <li class="nav-item<?= is_current_route(['backend_tool*', 'tmod_*'], ' active'); ?>">
                     <a class="nav-link" href="<?= generate_url('backend_tool_index'); ?>">
@@ -210,7 +196,6 @@
                 <?php
             }
             if (has_permission('maintenance')) {
-
                 ?>
                 <li class="nav-item<?= is_current_route('backend_maintenance*', ' active'); ?>">
                     <a class="nav-link" href="<?= generate_url('backend_maintenance_index'); ?>">
@@ -238,7 +223,7 @@
                 <?= translate('Logged in as {0}', [$view->getService('auth')->getUser()->getFullname()]); ?>
             </li>
             <li>
-                <?= translate('Session timeout in {0}', ['<span class="timer" id="sessionTimer" data-timeout-callback="showReloginModal()" data-time="' . $view->config()->get('session')->get('lifetime') . '">' . gmdate('H:i:s', $view->config()->get('session')->get('lifetime')) . '</span>'], true, false); ?>
+                <?= translate('Session timeout in {0}', ['<span class="timer" id="sessionTimer" data-timeout-callback="showReloginModal()" data-time="'.$view->config()->get('session')->get('lifetime').'">'.gmdate('H:i:s', $view->config()->get('session')->get('lifetime')).'</span>'], true, false); ?>
             </li>
             <li>
                 <?= translate('Page loaded in {0} seconds', [round($view->getExecutionTime(), 3)]); ?>

@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
@@ -6,7 +7,6 @@ use Neoflow\Mailer\Mail;
 
 class MailService extends AbstractService
 {
-
     /**
      * Create mail.
      *

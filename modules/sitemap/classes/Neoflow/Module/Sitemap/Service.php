@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Module\Sitemap;
 
 use DOMDocument;
@@ -12,7 +13,6 @@ use SimpleXMLElement;
 
 class Service extends AbstractService
 {
-
     /**
      * @var Model\SettingModel
      */

@@ -3,7 +3,7 @@
 /**
  * Recursively filter an array.
  *
- * @param array    $array Array
+ * @param array    $array    Array
  * @param callable $callback Filter callback
  *
  * @return array

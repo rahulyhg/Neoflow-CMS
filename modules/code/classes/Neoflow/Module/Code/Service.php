@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Module\Code;
 
 use ErrorException;
@@ -7,7 +8,6 @@ use RuntimeException;
 
 class Service extends AbstractService
 {
-
     /**
      * @var string
      */
@@ -46,7 +46,7 @@ class Service extends AbstractService
     /**
      * Execute code.
      *
-     * @param string $code Executable PHP code
+     * @param string $code       Executable PHP code
      * @param array  $parameters Parameters for PHP code
      *
      * @return mixed
@@ -58,7 +58,7 @@ class Service extends AbstractService
         }, E_ALL);
 
         // Execute code
-        $result = @eval('return (function() use ($parameters) {extract($parameters);' . $code . '})();');
+        $result = @eval('return (function() use ($parameters) {extract($parameters);'.$code.'})();');
 
         // Reset error handler
         $this->app()->registerErrorHandler();

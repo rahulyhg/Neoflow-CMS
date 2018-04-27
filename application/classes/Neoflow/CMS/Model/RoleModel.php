@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -9,7 +10,6 @@ use function translate;
 
 class RoleModel extends AbstractModel
 {
-
     /**
      * @var string
      */

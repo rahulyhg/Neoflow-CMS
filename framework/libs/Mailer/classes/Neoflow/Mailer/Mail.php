@@ -1,9 +1,9 @@
 <?php
+
 namespace Neoflow\Mailer;
 
 class Mail
 {
-
     /**
      * @var array
      */
@@ -87,7 +87,7 @@ class Mail
     /**
      * Add header.
      *
-     * @param string $key Email header key
+     * @param string $key   Email header key
      * @param string $value Email header value
      *
      * @return self
@@ -138,7 +138,7 @@ class Mail
      */
     public function setMessage($message): self
     {
-        $this->message = '<html><body>' . nl2br($message) . '</body></html>';
+        $this->message = '<html><body>'.nl2br($message).'</body></html>';
 
         return $this;
     }
@@ -172,7 +172,7 @@ class Mail
 
         // Implode header to string
         $headers = array_map(function ($key, $value) {
-            return $key . ': ' . $value;
+            return $key.': '.$value;
         }, array_keys($this->headers), $this->headers);
 
         return mail(implode(',', $this->to), $this->subject, $this->message, implode("\r\n", $headers));

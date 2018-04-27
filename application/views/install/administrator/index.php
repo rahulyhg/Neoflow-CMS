@@ -54,10 +54,10 @@
                     </div>
                     <div class="form-group row <?= has_validation_error('password2', 'has-danger'); ?>">
                         <label for="inputConfirmPassword" class="col-sm-4 col-form-label">
-                            <?= translate('Confirm password'); ?> *
+                            <?= translate('Confirm password'); ?>
                         </label>
                         <div class="col-sm-8">
-                            <input id="inputConfirmPassword" type="password" required class="form-control" name="confirmPassword"  />
+                            <input id="inputConfirmPassword" type="password" class="form-control" name="confirmPassword"  />
                         </div>
                     </div>
                     <div class="form-group row">
@@ -77,17 +77,8 @@
                 </form>
 
             </div>
-
-
-
-
         </div>
-
-
     </div>
-
-
-
 </div>
 <?php
 $engine->stopBlock();

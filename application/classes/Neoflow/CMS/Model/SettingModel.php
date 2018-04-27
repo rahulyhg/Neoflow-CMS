@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -10,7 +11,6 @@ use function random_string;
 
 class SettingModel extends AbstractModel
 {
-
     /**
      * @var string
      */
@@ -53,7 +53,8 @@ class SettingModel extends AbstractModel
     }
 
     /**
-     * Overwrite config
+     * Overwrite config.
+     *
      * @return self
      */
     public function overwriteConfig(): self
@@ -61,12 +62,12 @@ class SettingModel extends AbstractModel
         $this->config()->get('app')->setData([
             'email' => $this->website_emailaddress,
             'timezone' => $this->timezone,
-            'languages' => $this->getLanguageCodes()
+            'languages' => $this->getLanguageCodes(),
         ]);
 
         $this->config()->set('session', [
             'lifetime' => (int) $this->session_lifetime,
-            'name' => $this->session_name
+            'name' => $this->session_name,
         ]);
 
         return $this;
@@ -97,7 +98,7 @@ class SettingModel extends AbstractModel
     }
 
     /**
-     * Get website keywords
+     * Get website keywords.
      *
      * @return array
      */
@@ -111,19 +112,20 @@ class SettingModel extends AbstractModel
     }
 
     /**
-     * Set settings value
+     * Set settings value.
      *
      * @param string $property Settings property
-     * @param mixed  $value  Settings value
-     * @param bool   $silent Set TRUE to prevent the tracking of the change
+     * @param mixed  $value    Settings value
+     * @param bool   $silent   Set TRUE to prevent the tracking of the change
      *
      * @return self
      */
     public function set(string $property, $value = null, bool $silent = false): FrameworkAbstractModel
     {
-        if ($property === 'website_keywords' && is_array($value)) {
+        if ('website_keywords' === $property && is_array($value)) {
             $value = implode(',', $value);
         }
+
         return parent::set($property, $value, $silent);
     }
 
@@ -138,6 +140,7 @@ class SettingModel extends AbstractModel
         if ($theme) {
             return $theme;
         }
+
         return null;
     }
 
@@ -152,6 +155,7 @@ class SettingModel extends AbstractModel
         if ($theme) {
             return $theme;
         }
+
         return null;
     }
 
@@ -235,14 +239,15 @@ class SettingModel extends AbstractModel
     }
 
     /**
-     * Save properties  to config
+     * Save properties  to config.
+     *
      * @return bool
      */
     public function saveToConfig(): bool
     {
         $this->config()->set('session', [
             'name' => $this->session_name,
-            'lifetime' => $this->session_lifetime
+            'lifetime' => $this->session_lifetime,
         ]);
 
         $this->config()->get('app')->setData([

@@ -13,7 +13,7 @@
 
                     <div class="form-group row <?= has_validation_error('title', 'has-danger'); ?>">
                         <label for="inputTitle" class="col-sm-3 col-form-label">
-                            <?= translate('Title'); ?>
+                            <?= translate('Title'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input id="inputTitle" value="<?= $page->title; ?>" type="text" required class="form-control" name="title" maxlength="50" minlength="3" />
@@ -31,7 +31,7 @@
                                         <?php
                                         $parentPage = $page->getParentPage();
                                         if ($parentPage) {
-                                            echo $parentPage->getRelativeUrl(false, false, true) . '/';
+                                            echo $parentPage->getRelativeUrl(false, false, true).'/';
                                         } else {
                                             echo '/';
                                         }
@@ -43,11 +43,10 @@
                             </div>
 
                             <?php if ($urlMessage) {
-
-                                ?>
+                                            ?>
                                 <small class="form-text text-danger"><?= $urlMessage; ?></small>
                                 <?php
-                            }
+                                        }
 
                             ?>
                         </div>
@@ -67,13 +66,12 @@
                             <?= translate('Keyword', [], true); ?>
                         </label>
                         <div class="col-sm-9">
-                            <select class="form-control select2" data-tags="true" name="keywords[]" multiple id="selectKeywords">
+                            <select class="form-control" data-token-separators="[',']" data-tags="true" name="keywords[]" multiple id="selectKeywords">
                                 <?php foreach ($page->getKeywords() as $keyword) {
-
-                                    ?>
-                                    <option value="<?= $keyword ?>" selected><?= $keyword; ?></option>
+                                ?>
+                                    <option value="<?= $keyword; ?>" selected><?= $keyword; ?></option>
                                     <?php
-                                }
+                            }
 
                                 ?>
                             </select>
@@ -86,13 +84,13 @@
                             <?= translate('Author'); ?>
                         </label>
                         <div class="col-sm-9">
-                            <select data-placeholder="<?= $view->settings()->website_author; ?>" class="form-control select2" name="author_user_id" id="selectAuthor">
-                                <?php if ($view->settings()->website_author) { ?>
+                            <select data-placeholder="<?= $view->settings()->website_author; ?>" class="form-control" name="author_user_id" id="selectAuthor">
+                                <?php if ($view->settings()->website_author) {
+                                    ?>
                                     <option value="0"><?= $view->settings()->website_author; ?></option>
                                     <?php
                                 }
                                 foreach ($users as $user) {
-
                                     ?>
                                     <option value="<?= $user->id(); ?>" <?= ($user->id() == $page->author_user_id ? 'selected' : ''); ?>><?= $user->getFullname(); ?></option>
                                     <?php
@@ -129,7 +127,7 @@
                             <?= translate('Top page'); ?>
                         </label>
                         <div class="col-sm-9">
-                            <select data-placeholder="<?= translate('None'); ?>" class="form-control select2" name="parent_navitem_id" id="selectPage">
+                            <select data-placeholder="<?= translate('None'); ?>" class="form-control" name="parent_navitem_id" id="selectPage">
                                 <option value="0"><?= translate('None'); ?></option>
                                 <?= $view->renderNavitemOptions($navitems, 0, [$pageNavitem->parent_navitem_id], [$pageNavitem->id()]); ?>
                             </select>
@@ -153,10 +151,9 @@
                             <?= translate('Authorized role', [], true); ?>
                         </label>
                         <div class="col-sm-9">
-                            <select data-placeholder="<?= translate('All roles'); ?>" class="form-control select2" name="role_ids[]" multiple id="selectRoles">
+                            <select data-placeholder="<?= translate('All roles'); ?>" class="form-control" name="role_ids[]" multiple id="selectRoles">
                                 <?php
                                 foreach ($roles as $role) {
-
                                     ?>
                                     <option value="<?= $role->id(); ?>" <?= (in_array($role->id(), $page->getRoles()->mapValue('role_id')) ? 'selected' : ''); ?>><?= $role->title; ?></option>
                                     <?php
@@ -186,6 +183,10 @@
                                 </span>
                                 <?= translate('Save'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
 

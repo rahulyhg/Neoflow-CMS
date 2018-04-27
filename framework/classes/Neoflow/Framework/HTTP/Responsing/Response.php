@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\HTTP\Responsing;
 
 use DateTime;
@@ -7,7 +8,6 @@ use Neoflow\Framework\AppTrait;
 
 class Response
 {
-
     /**
      * App trait.
      */
@@ -46,10 +46,10 @@ class Response
     /**
      * Set cookie value.
      *
-     * @param string $key Cookie key
-     * @param mixed  $value Cookie value
+     * @param string $key    Cookie key
+     * @param mixed  $value  Cookie value
      * @param string $expire Expiration token
-     * @param mixed  $path Cookie path
+     * @param mixed  $path   Cookie path
      * @param mixed  $domain Valid cookie domain
      * @param bool   $secure Set TRUE to allow only secure access
      *
@@ -70,8 +70,8 @@ class Response
     /**
      * Delete cookie value.
      *
-     * @param string $key Cookie key
-     * @param mixed  $path Cookie path
+     * @param string $key    Cookie key
+     * @param mixed  $path   Cookie path
      * @param mixed  $domain Valid cookie domain
      *
      * @return bool
@@ -83,8 +83,6 @@ class Response
 
     /**
      * Send HTTP header.
-     *
-     * @return void
      */
     protected function sendHeader(): void
     {
@@ -128,7 +126,7 @@ class Response
 
             return $this;
         }
-        throw new InvalidArgumentException('HTTP status code "' . $statusCode . '" is not valid');
+        throw new InvalidArgumentException('HTTP status code "'.$statusCode.'" is not valid');
     }
 
     /**

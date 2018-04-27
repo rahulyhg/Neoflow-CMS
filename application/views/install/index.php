@@ -26,7 +26,7 @@
 
                     <div class="form-group row">
                         <label for="inputUrl" class="col-sm-3 col-form-label">
-                            <?= translate('Base URL'); ?>
+                            <?= translate('Base URL'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input id="inputUrl" required class="form-control" type="url" name="url" value="<?= $url; ?>" />
@@ -44,6 +44,10 @@
                                     <i class="fa fa-cog"></i>
                                 </span>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
 

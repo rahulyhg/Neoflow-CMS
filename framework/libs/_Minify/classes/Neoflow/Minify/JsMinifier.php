@@ -1,9 +1,9 @@
 <?php
+
 namespace Neoflow\Minify;
 
 class JsMinifier extends AbstractMinifier
 {
-
     /**
      * Minify Javascript code.
      *

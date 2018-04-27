@@ -1,15 +1,15 @@
 <?php
+
 namespace Neoflow\Framework\Persistence\Querying;
 
 use InvalidArgumentException;
 
 trait WhereTrait
 {
-
     /**
      * Add raw WHERE condition.
      *
-     * @param string $condition Condition
+     * @param string $condition  Condition
      * @param array  $parameters Parameters
      *
      * @return self
@@ -22,8 +22,8 @@ trait WhereTrait
     /**
      * Add where condition.
      *
-     * @param string $column Columm name
-     * @param string $operator Where condition operator
+     * @param string $column    Columm name
+     * @param string $operator  Where condition operator
      * @param mixed  $parameter Condition parameter
      *
      * @return self
@@ -41,7 +41,7 @@ trait WhereTrait
                 }
             } elseif (is_array($parameter)) {
                 if (count($parameter) > 1) {
-                    return $this->addStatement('WHERE', $this->quoteIdentifier($column) . ' IN (' . implode(',', array_fill(0, count($parameter), '?')) . ')', $parameter);
+                    return $this->addStatement('WHERE', $this->quoteIdentifier($column).' IN ('.implode(',', array_fill(0, count($parameter), '?')).')', $parameter);
                 } elseif (1 === count($parameter)) {
                     $parameter = array_values($parameter)[0];
                 } else {
@@ -49,8 +49,8 @@ trait WhereTrait
                 }
             }
 
-            return $this->addStatement('WHERE', $this->quoteIdentifier($column) . ' ' . $operator . ' ?', [$parameter]);
+            return $this->addStatement('WHERE', $this->quoteIdentifier($column).' '.$operator.' ?', [$parameter]);
         }
-        throw new InvalidArgumentException('WHERE condition operator "' . $operator . '" is invalid');
+        throw new InvalidArgumentException('WHERE condition operator "'.$operator.'" is invalid');
     }
 }

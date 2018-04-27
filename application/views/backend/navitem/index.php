@@ -79,7 +79,7 @@ if (1 !== $navigation->id()) {
                                 <?= translate('Page'); ?>
                             </label>
                             <div class="col-sm-9">
-                                <select class="form-control select2" name="page_id" id="selectPage">
+                                <select class="form-control" name="page_id" id="selectPage">
                                     <?= $view->renderNavitemOptions($pageNavitems, 0, [], [], 'page_id'); ?>
                                 </select>
                             </div>
@@ -90,7 +90,7 @@ if (1 !== $navigation->id()) {
                                 <?= translate('Top item'); ?>
                             </label>
                             <div class="col-sm-9">
-                                <select class="form-control select2" name="parent_navitem_id" id="selectParentNavitem">
+                                <select class="form-control" name="parent_navitem_id" id="selectParentNavitem">
                                     <option value=""><?= translate('None'); ?></option>
                                     <?= $view->renderNavitemOptions($navitems); ?>
                                 </select>

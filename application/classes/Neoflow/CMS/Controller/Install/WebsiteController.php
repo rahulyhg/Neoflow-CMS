@@ -9,8 +9,8 @@ use Neoflow\Framework\HTTP\Responsing\Response;
 use Neoflow\Validation\ValidationException;
 use Throwable;
 
-class WebsiteController extends InstallController {
-
+class WebsiteController extends InstallController
+{
     /**
      * Index action.
      *
@@ -88,5 +88,4 @@ class WebsiteController extends InstallController {
 
         return parent::preHook();
     }
-
 }

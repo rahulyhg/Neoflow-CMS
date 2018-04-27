@@ -5,9 +5,9 @@ use Neoflow\CMS\App;
 /**
  * Check whether route is current.
  *
- * @param mixed $keys Route keys
- * @param mixed        $returnValue Return value
- * @param mixed        $returnFailedValue Return value when not current
+ * @param mixed $keys              Route keys
+ * @param mixed $returnValue       Return value
+ * @param mixed $returnFailedValue Return value when not current
  *
  * @return mixed
  */

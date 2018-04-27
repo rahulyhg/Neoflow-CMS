@@ -13,7 +13,7 @@
 
                     <div class="form-group row">
                         <label for="inputName" class="col-sm-3 col-form-label">
-                            <?= translate('Name'); ?>
+                            <?= translate('Name'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input type="text" name="name" minlength="1" value="<?= $currentFolder->getName(); ?>"  maxlength="50" id="inputName" required class="form-control" />
@@ -27,6 +27,10 @@
                                 </span>
                                 <?= translate('Save'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
                 </form>

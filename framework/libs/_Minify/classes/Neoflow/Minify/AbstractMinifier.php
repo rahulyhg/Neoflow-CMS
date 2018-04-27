@@ -1,11 +1,11 @@
 <?php
+
 namespace Neoflow\Minify;
 
 use InvalidArgumentException;
 
 abstract class AbstractMinifier
 {
-
     /**
      * @var string
      */
@@ -23,7 +23,7 @@ abstract class AbstractMinifier
     public function addCode(string $code): self
     {
         if (is_string($code)) {
-            $this->code .= $code . PHP_EOL . PHP_EOL;
+            $this->code .= $code.PHP_EOL.PHP_EOL;
 
             return $this;
         }

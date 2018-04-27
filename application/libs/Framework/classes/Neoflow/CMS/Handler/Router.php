@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Handler;
 
 use Neoflow\CMS\AppTrait;
@@ -8,7 +9,6 @@ use Neoflow\Framework\HTTP\Responsing\Response;
 
 class Router extends FrameworkRouter
 {
-
     /**
      * App trait.
      */
@@ -49,7 +49,7 @@ class Router extends FrameworkRouter
     /**
      * Check whether current URL is a valid install URL path.
      *
-     * @return boolean
+     * @return bool
      */
     protected function isInstallUrlPaths(): bool
     {

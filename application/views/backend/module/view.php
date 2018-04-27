@@ -61,37 +61,31 @@
 
                         <h4><?= translate('Required module', [], true); ?></h4>
                         <?php if (count($requiredModules)) {
-
-                            ?>
+    ?>
                             <ul>
                                 <?php foreach ($requiredModules as $requiredModuleIdentifier => $requiredModule) {
-
-                                    ?>
+        ?>
                                     <li>
                                         <?php if ($requiredModule) {
-
-                                            ?>
+            ?>
                                             <a href="<?= generate_url('backend_module_view', ['id' => $requiredModule->id()]); ?>"><?= $requiredModule->name; ?></a><span class="text-success"><i class="fa fa-fw fa-check"></i></span>
-                                                <?php
-                                            } else {
-
-                                                ?>
-                                        <?= $requiredModuleIdentifier; ?><span class="text-danger"><i class="fa fa-fw fa-times"></i></span>
-                                        <?php }
-
-                                    ?>
+                                            <?php
+        } else {
+            ?>
+                                                <?= $requiredModuleIdentifier; ?><span class="text-danger"><i class="fa fa-fw fa-times"></i></span>
+                                            <?php
+        } ?>
                                     </li>
-                                <?php }
-
-                            ?>
+                                <?php
+    } ?>
                             </ul>
 
-    <?php
+                            <?php
 } else {
-    echo translate('None');
-}
+        echo translate('None');
+    }
 
-?>
+                        ?>
                     </div>
                 </div>
 
@@ -103,7 +97,7 @@
 
         <div class="card">
             <h4 class="card-header">
-<?= translate('Update module'); ?>
+                <?= translate('Update module'); ?>
             </h4>
             <div class="card-body">
                 <p><?= translate('Please upload the latest update as a ZIP file to start the installation.'); ?></p>
@@ -111,16 +105,16 @@
                     <input value="<?= $module->id(); ?>" type="hidden" name="module_id" />
                     <div class="form-group row">
                         <label for="inputUpdatePackage" class="col-sm-3 col-form-label">
-                                    <?= translate('Package'); ?>
+                            <?= translate('Package'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input type="file" name="file" data-allowed-File-Extensions="zip" data-allowed-File-Size="<?= ((int) ini_get('upload_max_filesize')) * 1024 * 1024; ?>" id="inputUpdatePackage" required class="form-control" />
                             <ul class="list-unstyled form-text text-muted small mb-0">
                                 <li>
-<?= translate('Maximum uploadable file size: {0}MB', [(int) ini_get('upload_max_filesize')]); ?>
+                                    <?= translate('Maximum uploadable file size: {0}MB', [(int) ini_get('upload_max_filesize')]); ?>
                                 </li>
                                 <li>
-<?= translate('Allowed file extensions: {0}', ['zip']); ?>
+                                    <?= translate('Allowed file extensions: {0}', ['zip']); ?>
                                 </li>
                             </ul>
                         </div>
@@ -132,8 +126,12 @@
                                 <span class="btn-icon">
                                     <i class="fa fa-save"></i>
                                 </span>
-<?= translate('Install'); ?>
+                                <?= translate('Install'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
                 </form>
@@ -143,7 +141,7 @@
 
         <div class="card">
             <h4 class="card-header">
-<?= translate('Reload module'); ?>
+                <?= translate('Reload module'); ?>
             </h4>
             <div class="card-body">
 
@@ -152,7 +150,7 @@
                     <span class="btn-icon">
                         <i class="fa fa-sync"></i>
                     </span>
-<?= translate('Reload'); ?>
+                    <?= translate('Reload'); ?>
                 </a>
 
             </div>

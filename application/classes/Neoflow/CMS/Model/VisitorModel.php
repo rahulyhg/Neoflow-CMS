@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Model;
 
 use DateTime;
@@ -9,7 +10,6 @@ use Neoflow\Framework\ORM\Repository;
 
 class VisitorModel extends AbstractModel
 {
-
     /**
      * @var string
      */

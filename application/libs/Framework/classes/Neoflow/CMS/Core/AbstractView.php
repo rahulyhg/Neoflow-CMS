@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Core;
 
 use Neoflow\CMS\AppTrait;
@@ -13,7 +14,6 @@ use RuntimeException;
 
 abstract class AbstractView extends FrameworkAbstractView
 {
-
     /**
      * App trait.
      */
@@ -42,7 +42,7 @@ abstract class AbstractView extends FrameworkAbstractView
         $websiteTitle = $this->settings()->get('website_title', '');
         $this->setWebsiteTitle($websiteTitle);
 
-        $cacheKey = 'directories_' . $this->theme->folder_name;
+        $cacheKey = 'directories_'.$this->theme->folder_name;
         if ($this->cache()->exists($cacheKey)) {
             // Fetch template and view file directories from cache
             $viewDirectories = $this->cache()->fetch($cacheKey);

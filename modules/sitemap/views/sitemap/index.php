@@ -11,7 +11,7 @@
                 <form method="post" action="<?= generate_url('tmod_sitemap_backend_update_settings'); ?>" class="form-horizontal">
                     <div class="form-group row <?= has_validation_error('default_changefreq', 'has-error'); ?>">
                         <label for="selectDefaultChangefreq" class="col-sm-3 col-form-label">
-                            <?= translate('Change frequency'); ?>
+                            <?= translate('Change frequency'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <select id="selectDefaultChangefreq" class="form-control" name="default_changefreq">
@@ -20,7 +20,7 @@
                                     <option <?= ($changeFrequency === $settings->default_changefreq ? 'selected' : ''); ?> value="<?= $changeFrequency; ?>">
                                         <?= translate($changeFrequency); ?>
                                     </option>
-                                <?php
+                                    <?php
 }
 
                                 ?>
@@ -33,10 +33,10 @@
 
                     <div class="form-group row <?= has_validation_error('default_priority', 'has-error'); ?>">
                         <label for="inputDefaultPriority" class="col-sm-3 col-form-label">
-                            <?= translate('Priority'); ?>
+                            <?= translate('Priority'); ?> *
                         </label>
                         <div class="col-sm-9">
-                            <input value="<?= $settings->default_priority; ?>" maxlenght="5" id="inputDefaultPriority" type="text" class="form-control" required name="default_priority" maxlength="20" />
+                            <input value="<?= $settings->default_priority; ?>" id="inputDefaultPriority" type="text" class="form-control" required name="default_priority" maxlength="20" />
                             <small class="form-text text-muted">
                                 <?= translate('Applies to URLs that are registered without priority.'); ?>
                             </small>
@@ -47,16 +47,16 @@
 
                     <div class="form-group row <?= has_validation_error('default_changefreq', 'has-error'); ?>">
                         <label for="selectSitemapLifetime" class="col-sm-3 col-form-label">
-                            <?= translate('Sitemap lifetime'); ?>
+                            <?= translate('Sitemap lifetime'); ?> *
                         </label>
                         <div class="col-sm-9">
-                            <select id="selectDefaultChangefreq" class="form-control" name="sitemap_lifetime">
+                            <select id="selectSitemapLifetime" class="form-control" name="sitemap_lifetime">
                                 <?php foreach ($sitemapLifetimes as $key => $value) {
                                     ?>
                                     <option <?= ($key === (int) $settings->sitemap_lifetime ? 'selected' : ''); ?> value="<?= $key; ?>">
                                         <?= translate($value); ?>
                                     </option>
-                                <?php
+                                    <?php
                                 }
 
                                 ?>
@@ -85,6 +85,10 @@
                                 </span>
                                 <?= translate('Save'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
                 </form>
@@ -113,7 +117,7 @@
                         ?>
                         <li><?= translate('Status'); ?>: <?= translate('Unavailable'); ?></li>
                         <li><?= translate('Last creation'); ?>: <?= translate('Unavailable'); ?></li>
-                    <?php
+                        <?php
                     }
 
                     ?>
@@ -134,7 +138,7 @@
                         </span>
                         <?= translate('Delete'); ?>
                     </a>
-                <?php
+                    <?php
                     }
 
                 ?>

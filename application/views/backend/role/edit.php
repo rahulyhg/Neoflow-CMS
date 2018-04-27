@@ -12,7 +12,7 @@
 
                     <div class="form-group row <?= has_validation_error('title', 'has-danger'); ?>">
                         <label for="inputTitle" class="col-sm-3 col-form-label">
-                            <?= translate('Title'); ?>
+                            <?= translate('Title'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input id="inputTitle" value="<?= $role->title; ?>" type="text" required class="form-control" name="title" maxlength="20" />
@@ -33,13 +33,14 @@
                             <?= translate('Permission', [], true); ?>
                         </label>
                         <div class="col-sm-9">
-                            <select required multiple class="form-control select2" name="permission_ids[]" id="selectPermissions" data-placeholder="">
+                            <select multiple class="form-control" name="permission_ids[]" id="selectPermissions" data-placeholder="">
                                 <?php
                                 foreach ($permissions as $permission) {
                                     ?>
                                     <option value="<?= $permission->id(); ?>" <?= (in_array($permission->id(), $role->permission_ids) ? 'selected' : ''); ?> data-description="<?= translate($permission->description, [], true); ?>" ><?= translate($permission->title, [], true); ?></option>
                                     <?php
                                 }
+
                                 ?>
                             </select>
                         </div>
@@ -53,6 +54,10 @@
                                 </span>
                                 <?= translate('Save'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
 

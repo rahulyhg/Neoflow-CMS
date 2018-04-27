@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -6,7 +7,6 @@ use Neoflow\Framework\ORM\Repository;
 
 class PermissionModel extends AbstractModel
 {
-
     /**
      * @var string
      */

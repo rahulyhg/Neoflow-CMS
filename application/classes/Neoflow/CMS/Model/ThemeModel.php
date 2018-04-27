@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Model;
 
 use Neoflow\Framework\ORM\EntityValidator;
@@ -6,7 +7,6 @@ use Neoflow\Validation\ValidationException;
 
 class ThemeModel extends AbstractExtensionModel
 {
-
     /**
      * @var string
      */
@@ -50,7 +50,7 @@ class ThemeModel extends AbstractExtensionModel
     {
         return $this
                 ->config()
-                ->getThemesUrl('/' . $this->folder_name . '/' . $additionalUrlPath);
+                ->getThemesUrl('/'.$this->folder_name.'/'.$additionalUrlPath);
     }
 
     /**
@@ -64,7 +64,7 @@ class ThemeModel extends AbstractExtensionModel
     {
         return $this
                 ->config()
-                ->getThemesPath('/' . $this->folder_name . '/' . $additionalPath);
+                ->getThemesPath('/'.$this->folder_name.'/'.$additionalPath);
     }
 
     /**

@@ -55,7 +55,7 @@
                             <?= translate('Parameter', [], true); ?>
                         </label>
                         <div class="col-sm-9">
-                            <select class="form-control select2" data-tags="true" name="parameters[]" multiple id="inputParameters">
+                            <select class="form-control" data-tags="true" name="parameters[]" multiple id="inputParameters">
                                 <?php foreach ($snippet->getParameters() as $parameter) {
     ?>
                                     <option value="<?= $parameter; ?>" selected><?= $parameter; ?></option>

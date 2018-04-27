@@ -58,7 +58,7 @@
                     <input value="<?= $theme->id(); ?>" type="hidden" name="theme_id" />
                     <div class="form-group row">
                         <label for="inputUpdatePackage" class="col-sm-3 col-form-label">
-                            <?= translate('Package'); ?>
+                            <?= translate('Package'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input type="file" name="file" data-allowed-File-Extensions="zip" data-allowed-File-Size="<?= ((int) ini_get('upload_max_filesize')) * 1024 * 1024; ?>" id="inputUpdatePackage" required class="form-control" />
@@ -81,6 +81,10 @@
                                 </span>
                                 <?= translate('Install'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
                 </form>

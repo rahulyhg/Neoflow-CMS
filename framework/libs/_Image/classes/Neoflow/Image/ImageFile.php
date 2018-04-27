@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Image;
 
 use Neoflow\Filesystem\File;
@@ -6,7 +7,6 @@ use Neoflow\Image\Exception\ImageFileException;
 
 class ImageFile extends File
 {
-
     /**
      * Image resource.
      *
@@ -44,7 +44,7 @@ class ImageFile extends File
 
                     break;
                 default:
-                    throw new ImageFileException('Cannot load image file path, because "' . $this->path . '" is not a valid PNG, GIF, BMP or JPEG-based image.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
+                    throw new ImageFileException('Cannot load image file path, because "'.$this->path.'" is not a valid PNG, GIF, BMP or JPEG-based image.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
             }
             $this->fixOrientation();
         }
@@ -81,7 +81,7 @@ class ImageFile extends File
             if ($memoryUsage + $memoryNeeded > $memoryLimit) {
                 $newMemoryLimit = ($memoryLimit + ceil($memoryUsage + $memoryNeeded - $memoryLimit)) / $MB;
 
-                return (bool) @ini_set('memory_limit', $newMemoryLimit . 'M');
+                return (bool) @ini_set('memory_limit', $newMemoryLimit.'M');
             }
         }
 
@@ -143,7 +143,7 @@ class ImageFile extends File
         if ($this->createImageFile($newFilePath, $imageType, $quality)) {
             return new static($newFilePath);
         }
-        throw new ImageFileException('Saving image file to file path "' . $newFilePath . '" failed', ImageFileException::NOT_WRITEABLE);
+        throw new ImageFileException('Saving image file to file path "'.$newFilePath.'" failed', ImageFileException::NOT_WRITEABLE);
     }
 
     /**
@@ -304,12 +304,12 @@ class ImageFile extends File
                     image2wbmp($this->image, $imageFilePath, round(255 / 100 * $compression));
                     break;
                 default:
-                    throw new ImageFileException('Image type "' . $imageType . '" is not supported.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
+                    throw new ImageFileException('Image type "'.$imageType.'" is not supported.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
             }
 
             return true;
         }
-        throw new ImageFileException('Cannot create image file, because the image file path "' . $imageFilePath . '" already exist.', ImageFileException::ALREADY_EXIST);
+        throw new ImageFileException('Cannot create image file, because the image file path "'.$imageFilePath.'" already exist.', ImageFileException::ALREADY_EXIST);
     }
 
     /**
@@ -334,7 +334,7 @@ class ImageFile extends File
             case 'bmp':
                 return IMAGETYPE_BMP;
             default:
-                throw new ImageFileException('File extension "' . $fileExtension . '" is not supported as image type.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
+                throw new ImageFileException('File extension "'.$fileExtension.'" is not supported as image type.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
         }
     }
 

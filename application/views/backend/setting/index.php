@@ -10,7 +10,7 @@
                     <input type="hidden" value="general" name="type" />
                     <div class="form-group row <?= has_validation_error('website_title', 'has-danger'); ?>">
                         <label for="inputWebsiteTitle" class="col-sm-3 col-form-label">
-                            <?= translate('Website title'); ?>
+                            <?= translate('Website title'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input id="inputWebsiteTitle" type="text" required value="<?= $setting->website_title; ?>" class="form-control" name="website_title" maxlength="50" minlength="3" />
@@ -29,13 +29,12 @@
                             <?= translate('Website keyword', [], true); ?>
                         </label>
                         <div class="col-sm-9">
-                            <select class="form-control select2" data-token-separators="[',']" data-tags="true" name="website_keywords[]" multiple id="selectWebsiteKeywords">
+                            <select class="form-control" data-token-separators="[',']" data-tags="true" name="website_keywords[]" multiple id="selectWebsiteKeywords">
                                 <?php foreach ($setting->getWebsiteKeywords() as $websiteKeyword) {
-
-                                    ?>
-                                    <option value="<?= $websiteKeyword ?>" selected><?= $websiteKeyword; ?></option>
+    ?>
+                                    <option value="<?= $websiteKeyword; ?>" selected><?= $websiteKeyword; ?></option>
                                     <?php
-                                }
+}
 
                                 ?>
                             </select>
@@ -54,7 +53,7 @@
 
                     <div class="form-group row <?= has_validation_error('website_emailaddress', 'has-danger'); ?>">
                         <label for="inputSenderEmailaddress" class="col-sm-3 col-form-label">
-                            <?= translate('Email address'); ?>
+                            <?= translate('Email address'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input id="inputSenderEmailaddress" required="" type="email" value="<?= $setting->website_emailaddress; ?>" class="form-control" name="website_emailaddress" maxlength="100" />
@@ -68,12 +67,11 @@
 
                     <div class="form-group row">
                         <label for="selectDefaultLanguage" class="col-sm-3 col-form-label">
-                            <?= translate('Default language'); ?>
+                            <?= translate('Default language'); ?> *
                         </label>
                         <div class="col-sm-9">
-                            <select class="form-control select2" name="default_language_id" id="selectDefaultLanguage">
+                            <select id="selectDefaultLanguage" class="form-control" name="default_language_id">
                                 <?php foreach ($languages as $language) {
-
                                     ?>
                                     <option value="<?= $language->id(); ?>"  <?= ($language->id() == $setting->default_language_id ? 'selected' : ''); ?>><?= translate($language->title); ?></option>
                                     <?php
@@ -89,9 +87,8 @@
                             <?= translate('Language', [], true); ?>
                         </label>
                         <div class="col-sm-9">
-                            <select class="form-control select2" name="language_ids[]" multiple id="selectLanguages">
+                            <select class="form-control" name="language_ids[]" multiple id="selectLanguages">
                                 <?php foreach ($languages as $language) {
-
                                     ?>
                                     <option value="<?= $language->id(); ?>"  <?= (in_array($language->id(), $setting->language_ids) ? 'selected' : ''); ?>><?= translate($language->title); ?></option>
                                     <?php
@@ -107,21 +104,18 @@
 
                     <div class="form-group row">
                         <label for="selectTimezone" class="col-sm-3 col-form-label">
-                            <?= translate('Timezone'); ?>
+                            <?= translate('Timezone'); ?> *
                         </label>
                         <div class="col-sm-9">
-                            <select class="form-control select2" name="timezone" id="selectTimezone" data-minimumResultsForSearch="1">
+                            <select class="form-control" name="timezone" id="selectTimezone" data-minimumResultsForSearch="1">
                                 <?php foreach (get_timezones() as $region => $timezones) {
-
                                     ?>
                                     <optgroup label="<?= $region; ?>">
                                         <?php foreach ($timezones as $timezone => $title) {
-
-                                            ?>
-                                            <option value="<?= $timezone; ?>" <?= ($setting->timezone === $timezone ? 'selected' : ''); ?>><?= $title; ?></option>
-                                        <?php }
-
                                         ?>
+                                            <option value="<?= $timezone; ?>" <?= ($setting->timezone === $timezone ? 'selected' : ''); ?>><?= $title; ?></option>
+                                        <?php
+                                    } ?>
                                     </optgroup>
                                     <?php
                                 }
@@ -139,9 +133,8 @@
                             <?= translate('Allowed file extension', [], true); ?>
                         </label>
                         <div class="col-sm-9">
-                            <select class="form-control select2" data-tags="true" name="allowed_file_extensions[]" multiple id="inputAllowedFileExtensions">
+                            <select class="form-control" data-tags="true" name="allowed_file_extensions[]" multiple id="inputAllowedFileExtensions">
                                 <?php foreach ($setting->getAllowedFileExtensions() as $allowedFileExtension) {
-
                                     ?>
                                     <option value="<?= $allowedFileExtension; ?>" selected><?= $allowedFileExtension; ?></option>
                                     <?php
@@ -160,6 +153,10 @@
                                 </span>
                                 <?= translate('Save'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
 
@@ -177,19 +174,19 @@
                     <input type="hidden" value="security" name="type" />
                     <div class="form-group row <?= has_validation_error('login_attempts', 'has-danger'); ?>">
                         <label for="inputLoginAttempts" class="col-sm-3 col-form-label">
-                            <?= translate('Login attempt', [], true); ?>
+                            <?= translate('Login attempt', [], true); ?> *
                         </label>
                         <div class="col-sm-9">
-                            <input id="inputLoginAttempts" type="number" min="3" value="<?= $setting->login_attempts; ?>" class="form-control" name="login_attempts" />
+                            <input id="inputLoginAttempts" required type="number" min="3" value="<?= $setting->login_attempts; ?>" class="form-control" name="login_attempts" />
                         </div>
                     </div>
                     <div class="form-group row <?= has_validation_error('session_lifetime', 'has-danger'); ?>">
                         <label for="inputSessionLifetime" class="col-sm-3 col-form-label">
-                            <?= translate('Session lifetime'); ?>
+                            <?= translate('Session lifetime'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <input id="inputSessionLifetime" type="number" min="300" value="<?= $setting->session_lifetime; ?>" class="form-control" name="session_lifetime" />
+                                <input id="inputSessionLifetime" required type="number" min="300" value="<?= $setting->session_lifetime; ?>" class="form-control" name="session_lifetime" />
                                 <div class="input-group-append">
                                     <span class="input-group-text">
                                         <?= translate('Second', [], true); ?>
@@ -219,6 +216,10 @@
                                 </span>
                                 <?= translate('Save'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
 
@@ -239,14 +240,13 @@
                     <input type="hidden" value="theme" name="type" />
                     <div class="form-group row">
                         <label for="selectTheme" class="col-sm-3 col-form-label">
-                            <?= translate('Theme'); ?>
+                            <?= translate('Theme'); ?> *
                         </label>
                         <div class="col-sm-9">
-                            <select class="form-control select2" name="theme_id" id="selectTheme">
+                            <select class="form-control" name="theme_id" id="selectTheme">
                                 <?php
                                 foreach ($themes as $theme) {
                                     if ('frontend' === $theme->type) {
-
                                         ?>
                                         <option value="<?= $theme->id(); ?>"  <?= ($setting->theme_id = $theme->id() ? 'selected' : ''); ?>><?= $theme->name; ?></option>
                                         <?php
@@ -267,7 +267,6 @@
                             if (Neoflow\CMS\App::instance()->hasService('code')) {
                                 echo Neoflow\CMS\App::instance()->getService('code')->renderEditor('custom_css', 'textareaCustomCss', $setting->custom_css, '150px', ['mode' => 'text/css']);
                             } else {
-
                                 ?>
                                 <textarea name="custom_css" class="form-control vresize" id="textareaFrontendCss" rows="5"><?= $setting->custom_css; ?></textarea>
 
@@ -297,7 +296,6 @@
                             if (Neoflow\CMS\App::instance()->hasService('code')) {
                                 echo Neoflow\CMS\App::instance()->getService('code')->renderEditor('custom_js', 'textareaCustomJs', $setting->custom_js, '150px', ['mode' => 'text/javascript']);
                             } else {
-
                                 ?>
                                 <textarea name="custom_js" class="form-control vresize" id="textareaCustomJs" rows="5"><?= $setting->custom_js; ?></textarea>
 
@@ -322,14 +320,13 @@
 
                     <div class="form-group row">
                         <label for="selectBackendTheme" class="col-sm-3 col-form-label">
-                            <?= translate('Backend theme'); ?>
+                            <?= translate('Backend theme'); ?> *
                         </label>
                         <div class="col-sm-9">
-                            <select class="form-control select2" name="backend_theme_id" id="selectBackendTheme">
+                            <select class="form-control" name="backend_theme_id" id="selectBackendTheme">
                                 <?php
                                 foreach ($themes as $theme) {
                                     if ('backend' === $theme->type) {
-
                                         ?>
                                         <option value="<?= $theme->id(); ?>"  <?= ($setting->theme_id = $theme->id() ? 'selected' : ''); ?>><?= $theme->name; ?></option>
                                         <?php
@@ -368,6 +365,10 @@
                                 </span>
                                 <?= translate('Save'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
 

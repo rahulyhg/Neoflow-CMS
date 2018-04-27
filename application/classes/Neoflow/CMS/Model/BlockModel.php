@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -10,7 +11,6 @@ use function translate;
 
 class BlockModel extends AbstractModel
 {
-
     /**
      * @var string
      */
@@ -40,8 +40,8 @@ class BlockModel extends AbstractModel
      * Set block value.
      *
      * @param string $property Block property
-     * @param mixed  $value  Property value
-     * @param bool   $silent Set TRUE to prevent the tracking of the change
+     * @param mixed  $value    Property value
+     * @param bool   $silent   Set TRUE to prevent the tracking of the change
      *
      * @return self
      *

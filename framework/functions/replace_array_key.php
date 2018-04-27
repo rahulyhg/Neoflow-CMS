@@ -4,12 +4,12 @@
  * Replace key in one- or multidimensional array.
  *
  * @param array  $subject Array
- * @param string $newKey New key
- * @param string $oldKey Old key
+ * @param string $newKey  New key
+ * @param string $oldKey  Old key
  *
  * @see https://stackoverflow.com/a/35214048/2338829
- * @return array
  *
+ * @return array
  */
 function replace_array_key(array $subject, string $newKey, string $oldKey): array
 {

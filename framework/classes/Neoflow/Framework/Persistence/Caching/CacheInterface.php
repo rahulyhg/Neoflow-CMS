@@ -1,9 +1,9 @@
 <?php
+
 namespace Neoflow\Framework\Persistence\Caching;
 
 interface CacheInterface
 {
-
     /**
      * Fetch cache value.
      *
@@ -16,9 +16,9 @@ interface CacheInterface
     /**
      * Store cache value.
      *
-     * @param string $key Cache key
+     * @param string $key  Cache key
      * @param mixed  $data Cache data
-     * @param int    $ttl Cache lifetime
+     * @param int    $ttl  Cache lifetime
      * @param array  $tags Cache tags
      *
      * @return bool

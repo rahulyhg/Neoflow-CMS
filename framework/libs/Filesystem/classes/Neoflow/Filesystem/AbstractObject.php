@@ -1,11 +1,11 @@
 <?php
+
 namespace Neoflow\Filesystem;
 
 use ReflectionClass;
 
 abstract class AbstractObject
 {
-
     /**
      * Filesystem object path.
      *

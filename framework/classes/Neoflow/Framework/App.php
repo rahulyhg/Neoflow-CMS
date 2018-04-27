@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework;
 
 use ErrorException;
@@ -24,7 +25,6 @@ use Throwable;
 
 class App extends Container
 {
-
     /**
      * @var App
      */
@@ -153,7 +153,7 @@ class App extends Container
      */
     public function registerService(AbstractService $service, string $name = ''): self
     {
-        if (defined($service->getReflection()->getName() . '::NAME')) {
+        if (defined($service->getReflection()->getName().'::NAME')) {
             $name = $service->getReflection()->getName()::NAME;
         } elseif (0 === mb_strlen($name)) {
             $name = str_replace('service', '', mb_strtolower($service->getReflection()->getShortName()));
@@ -178,7 +178,7 @@ class App extends Container
         if ($this->hasService($name)) {
             return $this->get('services')->get($name);
         }
-        throw new OutOfRangeException('Service "' . $name . '" not found');
+        throw new OutOfRangeException('Service "'.$name.'" not found');
     }
 
     /**
@@ -274,11 +274,11 @@ class App extends Container
                             </head>
                             <body>
                                 <h1>Fatal server error</h1>
-                                <h2>' . get_class($ex) . ': ' . $ex->getMessage() . ' on line ' . $ex->getLine() . '</h2>
+                                <h2>'.get_class($ex).': '.$ex->getMessage().' on line '.$ex->getLine().'</h2>
                                 <hr />
-                                <p><small>' . get_exception_trace($ex, true, true) . '</small></p>
+                                <p><small>'.get_exception_trace($ex, true, true).'</small></p>
                                 <hr />
-                                <p>' . date('c') . '</p>
+                                <p>'.date('c').'</p>
                             </body>
                         </html>');
     }

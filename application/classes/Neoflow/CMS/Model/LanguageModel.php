@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -6,7 +7,6 @@ use Neoflow\Framework\ORM\Repository;
 
 class LanguageModel extends AbstractModel
 {
-
     /**
      * @var string
      */
@@ -49,6 +49,6 @@ class LanguageModel extends AbstractModel
      */
     public function renderFlagIcon(): string
     {
-        return '<i class="flag-icon flag-icon-' . $this->flag_code . '"></i>';
+        return '<i class="flag-icon flag-icon-'.$this->flag_code.'"></i>';
     }
 }

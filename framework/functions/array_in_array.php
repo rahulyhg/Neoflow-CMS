@@ -3,7 +3,7 @@
 /**
  * Check whether array is in array.
  *
- * @param array $needle Array to find
+ * @param array $needle   Array to find
  * @param array $haystack Array to search in
  *
  * @return bool

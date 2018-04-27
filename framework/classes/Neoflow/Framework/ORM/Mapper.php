@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\ORM;
 
 use InvalidArgumentException;
@@ -8,7 +9,6 @@ use RuntimeException;
 
 class Mapper
 {
-
     /**
      * @var Repository
      */
@@ -25,9 +25,9 @@ class Mapper
     /**
      * Manage one-to-one and one-to-many relations where the foreign key is on the base model entity.
      *
-     * @param AbstractModel  $entity Model entity
-     * @param string $associatedModelClassName Associated model class name
-     * @param string $foreignKeyName Foreign key name
+     * @param AbstractModel $entity                   Model entity
+     * @param string        $associatedModelClassName Associated model class name
+     * @param string        $foreignKeyName           Foreign key name
      *
      * @return Repository
      */
@@ -48,9 +48,9 @@ class Mapper
     /**
      * Manage one-to-many relations where the foreign key is on the associated model entity.
      *
-     * @param AbstractModel  $entity Model entity
-     * @param string $associatedModelClassName Associated model class name
-     * @param string $foreignKeyName Foreign key name
+     * @param AbstractModel $entity                   Model entity
+     * @param string        $associatedModelClassName Associated model class name
+     * @param string        $foreignKeyName           Foreign key name
      *
      * @return Repository
      */
@@ -92,11 +92,11 @@ class Mapper
     /**
      * Manage many-to-many relations trought join model.
      *
-     * @param AbstractModel  $entity Model entity
-     * @param string $associatedModelClassName Associated model class name
-     * @param string $joinModelClassName Join model class name
-     * @param string $foreignKeyToBaseModel Foreign key to the base model
-     * @param string $foreignKeyToAssociatedModel Foreign key to the associated model
+     * @param AbstractModel $entity                      Model entity
+     * @param string        $associatedModelClassName    Associated model class name
+     * @param string        $joinModelClassName          Join model class name
+     * @param string        $foreignKeyToBaseModel       Foreign key to the base model
+     * @param string        $foreignKeyToAssociatedModel Foreign key to the associated model
      *
      * @return Repository
      */
@@ -113,8 +113,8 @@ class Mapper
         $this->repo
             ->forModel($associatedModelClassName)
             ->getQuery()
-            ->innerJoin($joinTableName, $associatedTableName . '.' . $associatedPrimaryKey . ' = ' . $joinTableName . '.' . $foreignKeyToAssociatedModel)
-            ->where($joinTableName . '.' . $foreignKeyToBaseModel, '=', $entity->id());
+            ->innerJoin($joinTableName, $associatedTableName.'.'.$associatedPrimaryKey.' = '.$joinTableName.'.'.$foreignKeyToAssociatedModel)
+            ->where($joinTableName.'.'.$foreignKeyToBaseModel, '=', $entity->id());
 
         // Return entity repository
         return $this->repo;
@@ -135,7 +135,7 @@ class Mapper
             return $modelClassName::$tableName;
         }
 
-        throw new RuntimeException('Model class ' . $modelClassName . ' not found');
+        throw new RuntimeException('Model class '.$modelClassName.' not found');
     }
 
     /**
@@ -153,6 +153,6 @@ class Mapper
             return $modelClassName::$primaryKey;
         }
 
-        throw new RuntimeException('Model class "' . $modelClassName . '" not found');
+        throw new RuntimeException('Model class "'.$modelClassName.'" not found');
     }
 }

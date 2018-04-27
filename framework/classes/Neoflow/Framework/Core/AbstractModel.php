@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\Core;
 
 use InvalidArgumentException;
@@ -12,7 +13,6 @@ use RuntimeException;
 
 abstract class AbstractModel
 {
-
     /**
      * App trait.
      */
@@ -220,8 +220,8 @@ abstract class AbstractModel
      * Set model entity value.
      *
      * @param string $property Entity property
-     * @param mixed  $value  Property value
-     * @param bool   $silent Set TRUE to prevent the tracking of the change
+     * @param mixed  $value    Property value
+     * @param bool   $silent   Set TRUE to prevent the tracking of the change
      *
      * @return self
      *
@@ -263,7 +263,7 @@ abstract class AbstractModel
      * Get model entity value.
      *
      * @param string $property Entity property
-     * @param mixed $default Default return value when key doesn't exists
+     * @param mixed  $default  Default return value when key doesn't exists
      *
      * @return mixed
      */
@@ -372,8 +372,8 @@ abstract class AbstractModel
     /**
      * Set data of model entity.
      *
-     * @param array $data Entity data
-     * @param bool   $silent Set TRUE to prevent the tracking of the change
+     * @param array $data   Entity data
+     * @param bool  $silent Set TRUE to prevent the tracking of the change
      *
      * @return self
      */
@@ -404,7 +404,7 @@ abstract class AbstractModel
 
             return $entity;
         }
-        throw new InvalidArgumentException('Model entity not found (ID: ' . $id . ')');
+        throw new InvalidArgumentException('Model entity not found (ID: '.$id.')');
     }
 
     /**
@@ -476,7 +476,7 @@ abstract class AbstractModel
      * Manage one-to-one and one-to-many relations where the foreign key is on the base model entity.
      *
      * @param string $associatedModelClassName Associated model class name
-     * @param string $foreignKeyName Foreign key name
+     * @param string $foreignKeyName           Foreign key name
      *
      * @return Repository
      */
@@ -489,7 +489,7 @@ abstract class AbstractModel
      * Manage one-to-one relation where the foreign key is on the associated model entity.
      *
      * @param string $associatedModelClassName Associated model class name
-     * @param string $foreignKeyName Foreign key name
+     * @param string $foreignKeyName           Foreign key name
      *
      * @return Repository
      */
@@ -502,7 +502,7 @@ abstract class AbstractModel
      * Manage one-to-many relations where the foreign key is on the associated model entity.
      *
      * @param string $associatedModelClassName Associated model class name
-     * @param string $foreignKeyName Foreign key name
+     * @param string $foreignKeyName           Foreign key name
      *
      * @return Repository
      */
@@ -514,9 +514,9 @@ abstract class AbstractModel
     /**
      * Manage many-to-many relations trought join model.
      *
-     * @param string $associatedModelClassName Associated model class name
-     * @param string $joinModelClassName Join model class name
-     * @param string $foreignKeyToBaseModel Foreign key to the base model
+     * @param string $associatedModelClassName    Associated model class name
+     * @param string $joinModelClassName          Join model class name
+     * @param string $foreignKeyToBaseModel       Foreign key to the base model
      * @param string $foreignKeyToAssociatedModel Foreign key to the associated model
      *
      * @return Repository

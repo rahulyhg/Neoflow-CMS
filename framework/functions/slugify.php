@@ -3,10 +3,11 @@
 /**
  * Slugify string.
  *
- * @param string $text Text
+ * @param string $text      Text
  * @param string $separator Separator and placeholder
  *
  * @see https://github.com/keyvanakbary/slugifier
+ *
  * @return string
  */
 function slugify(string $text, string $separator = '-'): string

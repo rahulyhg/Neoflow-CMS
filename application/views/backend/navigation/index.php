@@ -13,10 +13,10 @@
                     <thead>
                         <tr>
                             <th data-priority="0" data-order="true">
-    <?= translate('Title'); ?>
+                                <?= translate('Title'); ?>
                             </th>
                             <th  data-priority="1">
-    <?= translate('Key'); ?>
+                                <?= translate('Key'); ?>
                             </th>
                             <th data-orderable="false" data-filterable="false" data-priority="0"></th>
                         </tr>
@@ -27,11 +27,11 @@
                             <tr>
                                 <td class="nowrap">
                                     <a href="<?= generate_url('backend_navitem_index', ['id' => $navigation->id()]); ?>" <?= (1 === $navigation->id() ? 'class="disabled"' : ''); ?>  title="<?= translate('Manage items'); ?>">
-        <?= (1 === $navigation->id() ? translate($navigation->title) : $navigation->title); ?>
+                                        <?= (1 === $navigation->id() ? translate($navigation->title) : $navigation->title); ?>
                                     </a>
                                 </td>
                                 <td>
-        <?= $navigation->navigation_key; ?>
+                                    <?= $navigation->navigation_key; ?>
                                 </td>
                                 <td class="text-right nowrap">
 
@@ -39,7 +39,7 @@
                                         <span class="btn-icon">
                                             <i class="fa fa-th-list"></i>
                                         </span>
-        <?= translate('Item', [], true); ?>
+                                        <?= translate('Item', [], true); ?>
                                     </a>
                                     <a href="<?= generate_url('backend_navigation_edit', ['id' => $navigation->id()]); ?>" class="btn btn-outline-light btn-sm d-none d-xl-inline-block <?= (1 === $navigation->id() ? 'disabled' : ''); ?>" title="<?= translate('Edit navigation'); ?>">
                                         <i class="fa fa-fw fa-pencil-alt"></i>
@@ -49,21 +49,21 @@
                                     </a>
                                 </td>
                             </tr>
-        <?php
+                        <?php
     } ?>
                     </tbody>
                 </table>
 
-    <?php
+                <?php
 } else {
         ?>
                 <div class="card-body">
                     <p class="text-center text-muted"><?= translate('No results found'); ?></p>
                 </div>
-    <?php
+                <?php
     }
 
-?>
+            ?>
 
         </div>
     </div>
@@ -71,13 +71,13 @@
 
         <div class="card">
             <h4 class="card-header">
-                            <?= translate('Create navigation'); ?>
+                <?= translate('Create navigation'); ?>
             </h4>
             <div class="card-body">
                 <form method="post" action="<?= generate_url('backend_navigation_create'); ?>">
                     <div class="form-group row">
                         <label for="inputTitle" class="col-sm-3 col-form-label">
-<?= translate('Title'); ?>
+                            <?= translate('Title'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input id="inputTitle" type="text" required class="form-control" name="title" maxlength="50" minlength="3" />
@@ -85,7 +85,7 @@
                     </div>
                     <div class="form-group row">
                         <label for="inputNavigationKey" class="col-sm-3 col-form-label">
-<?= translate('Key'); ?>
+                            <?= translate('Key'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input id="inputNavigationKey" type="text" required class="form-control" name="navigation_key" maxlength="50" minlength="3" />
@@ -97,8 +97,12 @@
                                 <span class="btn-icon">
                                     <i class="fa fa-save"></i>
                                 </span>
-<?= translate('Save'); ?>
-                            </button>
+                                <?= translate('Save'); ?>
+                            </button> 
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
                 </form>
@@ -107,7 +111,7 @@
 
         <div class="card">
             <h4 class="card-header">
-<?= translate('Load navigation', [], true); ?>
+                <?= translate('Load navigation', [], true); ?>
             </h4>
             <div class="card-body">
 
@@ -117,7 +121,7 @@
                     <span class="btn-icon">
                         <i class="fa fa-sync"></i>
                     </span>
-<?= translate('Load'); ?>
+                    <?= translate('Load'); ?>
                 </a>
 
             </div>

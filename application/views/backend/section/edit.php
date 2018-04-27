@@ -13,10 +13,10 @@
                     <input value="<?= $section->id(); ?>" type="hidden" name="section_id" />
                     <div class="form-group row <?= has_validation_error('block_key', 'has-danger'); ?>">
                         <label for="selectBlock" class="col-sm-3 col-form-label">
-                            <?= translate('Block'); ?>
+                            <?= translate('Block'); ?> *
                         </label>
                         <div class="col-sm-9">
-                            <select required class="form-control select2" name="block_id" id="selectBlock" data-placeholder="">
+                            <select class="form-control" name="block_id" id="selectBlock" data-placeholder="">
                                 <?php if (null === $section->block_id) {
     ?>
                                     <option value="0"><?= translate('Not specified'); ?></option>
@@ -25,10 +25,10 @@
                                 foreach ($blocks as $block) {
                                     ?>
                                     <option value="<?= $block->id(); ?>" <?= ($section->block_id == $block->id() ? 'selected' : ''); ?> ><?= $block->title; ?></option>
-    <?php
+                                    <?php
                                 }
 
-?>
+                                ?>
                             </select>
                         </div>
                     </div>
@@ -49,8 +49,12 @@
                                 <span class="btn-icon">
                                     <i class="fa fa-save"></i>
                                 </span>
-<?= translate('Save'); ?>
-                            </button>
+                                <?= translate('Save'); ?>
+                            </button> 
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
                 </form>

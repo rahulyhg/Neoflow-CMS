@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\HTTP;
 
 use Neoflow\Framework\AppTrait;
@@ -6,7 +7,6 @@ use RuntimeException;
 
 class Session
 {
-
     /**
      * App trait.
      */

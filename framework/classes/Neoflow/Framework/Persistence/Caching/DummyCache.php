@@ -1,9 +1,9 @@
 <?php
+
 namespace Neoflow\Framework\Persistence\Caching;
 
 class DummyCache extends AbstractCache
 {
-
     /**
      * Fetch cache value.
      *
@@ -19,9 +19,9 @@ class DummyCache extends AbstractCache
     /**
      * Store cache value.
      *
-     * @param string $key Cache key
+     * @param string $key  Cache key
      * @param mixed  $data Cache data
-     * @param int    $ttl Cache lifetime
+     * @param int    $ttl  Cache lifetime
      * @param array  $tags Cache tags
      *
      * @return bool

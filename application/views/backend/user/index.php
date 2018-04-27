@@ -26,8 +26,7 @@
                 </thead>
                 <tbody>
                     <?php foreach ($users as $user) {
-
-                        ?>
+    ?>
                         <tr>
                             <td>
                                 <a href="<?= generate_url('backend_user_edit', ['id' => $user->id()]); ?>" title="<?= translate('Edit user'); ?>">
@@ -51,7 +50,7 @@
                             </td>
                         </tr>
                         <?php
-                    }
+}
 
                     ?>
                 </tbody>
@@ -70,7 +69,7 @@
                 <form method="post" action="<?= generate_url('backend_user_create'); ?>">
                     <div class="form-group row <?= has_validation_error('email', 'has-danger'); ?>">
                         <label for="inputTitle" class="col-sm-3 col-form-label">
-                            <?= translate('Email address'); ?>
+                            <?= translate('Email address'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input type="email" name="email" id="inputTitle" required class="form-control" />
@@ -91,7 +90,7 @@
                         <div class="col-sm-9">
                             <input id="inputLastname" type="text" class="form-control" name="lastname" maxlength="50" />
                         </div>
-                    </div> 
+                    </div>
                     <div class="form-group row <?= has_validation_error('password', 'has-danger'); ?>">
                         <label for="inputPassword" class="col-sm-3 col-form-label">
                             <?= translate('Password'); ?>
@@ -114,13 +113,12 @@
                     </div>
                     <div class="form-group row <?= has_validation_error('role_id', 'has-danger'); ?>">
                         <label for="selectRole" class="col-sm-3 col-form-label">
-                            <?= translate('Role'); ?>
+                            <?= translate('Role'); ?> *
                         </label>
                         <div class="col-sm-9">
-                            <select required class="form-control select2" name="role_id" id="selectRole">
+                            <select class="form-control" name="role_id" id="selectRole">
                                 <?php
                                 foreach ($roles as $role) {
-
                                     ?>
                                     <option value="<?= $role->id(); ?>"><?= $role->title; ?></option>
                                     <?php
@@ -138,6 +136,10 @@
                                 </span>
                                 <?= translate('Save'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
                 </form>

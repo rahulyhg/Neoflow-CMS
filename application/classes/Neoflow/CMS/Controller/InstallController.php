@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Controller;
 
 use Neoflow\CMS\Core\AbstractController;
@@ -10,7 +11,6 @@ use RuntimeException;
 
 class InstallController extends AbstractController
 {
-
     /**
      * Constructor.
      *
@@ -78,7 +78,6 @@ class InstallController extends AbstractController
      */
     public function preHook(): Response
     {
-
         // Redirect to frontend when install folder is removed
         $installationPath = $this->config()->getPath('/installation');
         if (!is_dir($installationPath)) {

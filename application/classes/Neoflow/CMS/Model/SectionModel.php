@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -9,7 +10,6 @@ use RuntimeException;
 
 class SectionModel extends AbstractModel
 {
-
     /**
      * @var string
      */
@@ -24,7 +24,7 @@ class SectionModel extends AbstractModel
      * @var array
      */
     public static $properties = ['section_id', 'page_id', 'module_id',
-        'position', 'block_id', 'is_active',];
+        'position', 'block_id', 'is_active', ];
 
     /**
      * Get repository to fetch page.
@@ -37,7 +37,7 @@ class SectionModel extends AbstractModel
     }
 
     /**
-     * Render section (based on page module)
+     * Render section (based on page module).
      *
      * @param FrontendView $view Frontend view
      *
@@ -54,7 +54,7 @@ class SectionModel extends AbstractModel
             $routing = [];
             if ($this->app()->get('module_url')) {
                 // Define URL params
-                $urlPath = '{url:' . $module->identifier . '}' . $this->app()->get('module_url');
+                $urlPath = '{url:'.$module->identifier.'}'.$this->app()->get('module_url');
                 $httpMethod = $this->request()->getHttpMethod();
 
                 // Get routing
@@ -149,6 +149,7 @@ class SectionModel extends AbstractModel
         if ($module && $module->getManager()->remove($this)) {
             return parent::delete();
         }
+
         return false;
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
@@ -11,11 +12,10 @@ use function translate;
 
 class AuthService extends AbstractService
 {
-
     /**
      * Authenticate and authorize user by email address and password.
      *
-     * @param string $email User email address
+     * @param string $email    User email address
      * @param string $password User password
      *
      * @return bool
@@ -64,7 +64,7 @@ class AuthService extends AbstractService
     /**
      * Create reset key for user.
      *
-     * @param string $email User email address
+     * @param string $email    User email address
      * @param bool   $sendMail Set FALSE to prevent sending an email with password reset link
      *
      * @return bool
@@ -149,7 +149,7 @@ class AuthService extends AbstractService
                 throw new AuthException(translate('Too much login attempts than allowed. Your user account is locked.'));
             }
 
-            $user->failed_logins += 1;
+            ++$user->failed_logins;
             $user->save(true);
 
             throw new AuthException(translate('Login failed. You have {0} login attempts until your user account get locked.', [$this->settings()->login_attempts - $user->failed_logins]));

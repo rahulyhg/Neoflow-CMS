@@ -1,4 +1,5 @@
 <?php
+
 return [
     'version' => '1.0.0-a2',
     'for' => [
@@ -10,6 +11,6 @@ return [
         'dummy' => 'dummy.zip',
     ],
     'themes' => [
-        'flatly' => 'flatly.zip'
+        'flatly' => 'flatly.zip',
     ],
 ];

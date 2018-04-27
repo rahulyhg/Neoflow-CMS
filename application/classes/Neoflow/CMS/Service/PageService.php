@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
@@ -7,7 +8,6 @@ use Neoflow\CMS\Model\PageModel;
 
 class PageService extends AbstractService
 {
-
     /**
      * Get all parent pages.
      *

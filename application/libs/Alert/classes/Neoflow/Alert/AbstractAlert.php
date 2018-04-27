@@ -1,9 +1,9 @@
 <?php
+
 namespace Neoflow\Alert;
 
 abstract class AbstractAlert
 {
-
     /**
      * @var string
      */

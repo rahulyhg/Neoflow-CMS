@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS;
 
 use Neoflow\CMS\Handler\Config;
@@ -21,7 +22,6 @@ use Throwable;
 
 class App extends FrameworkApp
 {
-
     /**
      * Publish application.
      *
@@ -242,7 +242,6 @@ class App extends FrameworkApp
     {
         // Fetch only when database connection is etablished
         if ($this->get('database')) {
-
             // Fetch CMS settings
             $settings = SettingModel::findById(1);
             if ($settings) {

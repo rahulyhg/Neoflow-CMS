@@ -1,11 +1,11 @@
 <?php
+
 namespace Neoflow\Framework\ORM;
 
 use Neoflow\Framework\Common\Collection;
 
 class EntityCollection extends Collection
 {
-
     /**
      * Load app.
      */
@@ -47,7 +47,7 @@ class EntityCollection extends Collection
     /**
      * Join collection values to a string.
      *
-     * @param string $property Entity property
+     * @param string $property  Entity property
      * @param string $seperator Implode seperator
      *
      * @return string

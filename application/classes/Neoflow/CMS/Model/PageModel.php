@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -15,7 +16,6 @@ use function translate;
 
 class PageModel extends AbstractModel
 {
-
     /**
      * @var string
      */
@@ -32,7 +32,7 @@ class PageModel extends AbstractModel
     public static $properties = ['page_id', 'title', 'slug',
         'description', 'keywords', 'is_active', 'is_restricted', 'author_user_id',
         'only_logged_in_users', 'language_id', 'url', 'has_custom_slug', 'is_startpage',
-        'created_when', 'modified_when',];
+        'created_when', 'modified_when', ];
 
     /**
      * Get repository to fetch sections.
@@ -82,7 +82,7 @@ class PageModel extends AbstractModel
     }
 
     /**
-     * Get keywords
+     * Get keywords.
      *
      * @return array
      */
@@ -96,19 +96,20 @@ class PageModel extends AbstractModel
     }
 
     /**
-     * Set page value
+     * Set page value.
      *
      * @param string $property Page property
-     * @param mixed  $value  Page value
-     * @param bool   $silent Set TRUE to prevent the tracking of the change
+     * @param mixed  $value    Page value
+     * @param bool   $silent   Set TRUE to prevent the tracking of the change
      *
      * @return self
      */
     public function set(string $property, $value = null, bool $silent = false): FrameworkAbstractModel
     {
-        if ($property === 'keywords' && is_array($value)) {
+        if ('keywords' === $property && is_array($value)) {
             $value = implode(',', $value);
         }
+
         return parent::set($property, $value, $silent);
     }
 
@@ -167,7 +168,7 @@ class PageModel extends AbstractModel
 
         $numberOfLanguages = count($this->config()->get('app')->get('languages'));
         if ($withLanguageCode && $numberOfLanguages > 1) {
-            $relativeUrl .= '/' . $this->language()->fetch()->code . '/';
+            $relativeUrl .= '/'.$this->language()->fetch()->code.'/';
         }
 
         if ($forStartpage || !$this->is_startpage) {
@@ -258,6 +259,7 @@ class PageModel extends AbstractModel
         if ($navitem) {
             return $navitem;
         }
+
         return null;
     }
 
@@ -395,8 +397,8 @@ class PageModel extends AbstractModel
         $this->url = '/';
         if ($parentPages->count() > 0) {
             $this->url .= $parentPages->implode(function ($page) {
-                    return $page->slug;
-                }, '/') . '/';
+                return $page->slug;
+            }, '/').'/';
         }
         $this->url .= $this->slug;
 
@@ -493,7 +495,7 @@ class PageModel extends AbstractModel
     }
 
     /**
-     * Render page (based on sections and page modules)
+     * Render page (based on sections and page modules).
      *
      * @param FrontendView $view Frontend view
      *
@@ -514,14 +516,14 @@ class PageModel extends AbstractModel
         if ($this->description) {
             $this->engine()->addMetaTagProperties([
                 'name' => 'description',
-                'content' => $this->description
+                'content' => $this->description,
                 ], 'description');
         }
 
         if ($this->keywords) {
             $this->engine()->addMetaTagProperties([
                 'name' => 'keywords',
-                'content' => $this->keywords
+                'content' => $this->keywords,
                 ], 'keywords');
         }
 
@@ -529,7 +531,7 @@ class PageModel extends AbstractModel
         if ($authorUser) {
             $this->engine()->addMetaTagProperties([
                 'name' => 'author',
-                'content' => $authorUser->getFullname()
+                'content' => $authorUser->getFullname(),
                 ], 'author');
         }
 
@@ -549,7 +551,7 @@ class PageModel extends AbstractModel
                     'section' => $section->setReadOnly(),
                     'page' => $this->setReadOnly(),
                     'block' => $block->setReadOnly(),
-                ]) . PHP_EOL;
+                ]).PHP_EOL;
 
             // Add content to output
             $output .= $content;
@@ -557,7 +559,7 @@ class PageModel extends AbstractModel
             // Add content to the block
             if ($block) {
                 $view->engine()->addContentToBlock('sections', $content);
-                $view->engine()->addContentToBlock('section_' . $block->block_key, $content);
+                $view->engine()->addContentToBlock('section_'.$block->block_key, $content);
             }
         }
 

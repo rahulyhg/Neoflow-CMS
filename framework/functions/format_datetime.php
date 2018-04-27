@@ -5,8 +5,8 @@ use Neoflow\Framework\App;
 /**
  * Format DateTime object.
  *
- * @param DateTime $dateTime Datetime object
- * @param bool $formatWithTime Set FALSE to format without time
+ * @param DateTime $dateTime       Datetime object
+ * @param bool     $formatWithTime Set FALSE to format without time
  *
  * @return string
  */

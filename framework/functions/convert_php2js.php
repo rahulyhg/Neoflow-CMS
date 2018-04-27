@@ -16,22 +16,22 @@ function convert_php2js($value, bool $braces = true, array $exclude = []): strin
     } elseif (is_bool($value)) {
         return $value ? 'true' : 'false';
     } elseif (is_assoc($value)) {
-        $result = implode(',' . PHP_EOL, array_map(function ($value, $key) use ($exclude) {
-                if (!in_array($key, $exclude)) {
-                    return $key . ': ' . convert_php2js($value);
-                }
-            }, $value, array_keys($value)));
+        $result = implode(','.PHP_EOL, array_map(function ($value, $key) use ($exclude) {
+            if (!in_array($key, $exclude)) {
+                return $key.': '.convert_php2js($value);
+            }
+        }, $value, array_keys($value)));
         if ($braces) {
-            return '{' . $result . '}';
+            return '{'.$result.'}';
         }
 
         return $result;
     } elseif (is_array($value)) {
         $result = implode(', ', array_map(function ($value) {
-                return convert_php2js($value);
-            }, $value));
+            return convert_php2js($value);
+        }, $value));
         if ($braces) {
-            return '[' . $result . ']';
+            return '['.$result.']';
         }
 
         return $result;
@@ -39,5 +39,5 @@ function convert_php2js($value, bool $braces = true, array $exclude = []): strin
         return $value;
     }
 
-    return '\'' . (string) $value . '\'';
+    return '\''.(string) $value.'\'';
 }

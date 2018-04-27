@@ -11,7 +11,7 @@
 
                     <div class="form-group row">
                         <label for="inputTitle" class="col-sm-3 col-form-label">
-                            <?= translate('Title'); ?>
+                            <?= translate('Title'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input id="inputTitle" type="text" required class="form-control" name="title" maxlength="50" minlength="3" value="<?= $block->title; ?>" />
@@ -19,7 +19,7 @@
                     </div>
                     <div class="form-group row">
                         <label for="inputNavigationKey" class="col-sm-3 col-form-label">
-                            <?= translate('Key'); ?>
+                            <?= translate('Key'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input id="inputNavigationKey" type="text" required class="form-control" name="block_key" maxlength="50" minlength="3" value="<?= $block->block_key; ?>" />
@@ -33,6 +33,10 @@
                                 </span>
                                 <?= translate('Save'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
                 </form>

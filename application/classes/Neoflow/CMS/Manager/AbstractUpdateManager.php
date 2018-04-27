@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Manager;
 
 use Neoflow\CMS\AppTrait;
@@ -7,7 +8,6 @@ use Neoflow\Filesystem\Folder;
 
 abstract class AbstractUpdateManager
 {
-
     /**
      * App trait.
      */
@@ -67,7 +67,7 @@ abstract class AbstractUpdateManager
     {
         // Backup config
         $configFilePath = $this->config()->getPath('/config.php');
-        File::load($configFilePath)->rename('config-backup-' . date('d-m-Y') . '.php');
+        File::load($configFilePath)->rename('config-backup-'.date('d-m-Y').'.php');
 
         // Get config
         $config = $this->config();

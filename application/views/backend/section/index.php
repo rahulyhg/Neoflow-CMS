@@ -85,7 +85,7 @@
                     </ul>
                 </div>
             </div>
-        <?php
+            <?php
         }
 
         ?>
@@ -102,15 +102,15 @@
 
                     <div class="form-group row <?= has_validation_error('block_key', 'has-danger'); ?>">
                         <label for="selectBlock" class="col-sm-3 col-form-label">
-                            <?= translate('Block'); ?>
+                            <?= translate('Block'); ?> *
                         </label>
                         <div class="col-sm-9">
-                            <select required class="form-control select2" name="block_id" id="selectBlock" data-placeholder="">
+                            <select class="form-control" name="block_id" id="selectBlock" data-placeholder="">
                                 <?php
                                 foreach ($blocks as $block) {
                                     ?>
                                     <option value="<?= $block->id(); ?>"><?= $block->title; ?></option>
-                                <?php
+                                    <?php
                                 }
 
                                 ?>
@@ -120,10 +120,10 @@
 
                     <div class="form-group row <?= has_validation_error('module_id', 'has-danger'); ?>">
                         <label for="selectModule" class="col-sm-3 col-form-label">
-                            <?= translate('Module'); ?>
+                            <?= translate('Module'); ?> *
                         </label>
                         <div class="col-sm-9">
-                            <select required="" class="form-control select2" name="module_id" id="selectModule" data-placeholder="">
+                            <select class="form-control" name="module_id" id="selectModule" data-placeholder="">
                                 <?php
                                 foreach ($modules as $module) {
                                     ?>
@@ -154,6 +154,10 @@
                                 </span>
                                 <?= translate('Save'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
                 </form>

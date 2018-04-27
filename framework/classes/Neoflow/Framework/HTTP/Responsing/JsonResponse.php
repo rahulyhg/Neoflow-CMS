@@ -1,11 +1,11 @@
 <?php
+
 namespace Neoflow\Framework\HTTP\Responsing;
 
 use InvalidArgumentException;
 
 class JsonResponse extends Response
 {
-
     /**
      * Constructor.
      *

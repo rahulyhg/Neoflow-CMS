@@ -1,11 +1,12 @@
 <?php
+
 namespace Neoflow\Minify;
 
 class CssMinifier extends AbstractMinifier
 {
-
     /**
      * Minify CSS code.
+     *
      * @return self
      */
     public function minify(): AbstractMinifier

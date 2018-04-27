@@ -18,7 +18,7 @@ if (1 !== $navigation->id()) {
 
                     <div class="form-group row">
                         <label for="inputTitle" class="col-sm-3 col-form-label">
-                            <?= translate('Title'); ?>
+                            <?= translate('Title'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input id="inputTitle" type="text" required class="form-control" name="title" maxlength="50" minlength="3" value="<?= $navitem->title; ?>" />
@@ -30,7 +30,7 @@ if (1 !== $navigation->id()) {
                             <?= translate('Page'); ?>
                         </label>
                         <div class="col-sm-9">
-                            <select <?= (1 == $navitem->navigation_id ? 'disabled' : ''); ?> class="form-control select2" name="page_id" id="selectPage">
+                            <select <?= (1 == $navitem->navigation_id ? 'disabled' : ''); ?> class="form-control" name="page_id" id="selectPage">
                                 <?= $view->renderNavitemOptions($pageNavitems, 0, [$navitem->page_id], [], 'page_id'); ?>
                             </select>
                         </div>
@@ -41,7 +41,7 @@ if (1 !== $navigation->id()) {
                             <?= translate('Top item'); ?>
                         </label>
                         <div class="col-sm-9">
-                            <select class="form-control select2" name="parent_navitem_id" id="selectParentNavitem">
+                            <select class="form-control" name="parent_navitem_id" id="selectParentNavitem">
                                 <option value=""><?= translate('None'); ?></option>
                                 <?= $view->renderNavitemOptions($navitems, 0, [$navitem->parent_navitem_id], [$navitem->id()]); ?>
                             </select>
@@ -58,7 +58,6 @@ if (1 !== $navigation->id()) {
                         </div>
                     </div>
 
-
                     <div class="form-group row">
                         <div class="offset-sm-3 col-sm-9">
                             <button type="submit" class="btn btn-primary btn-icon-left">
@@ -67,6 +66,10 @@ if (1 !== $navigation->id()) {
                                 </span>
                                 <?= translate('Save'); ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true); ?>
+                            </span>
                         </div>
                     </div>
 
