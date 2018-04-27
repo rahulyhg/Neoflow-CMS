@@ -44,6 +44,7 @@
                             <select <?= (1 === $user->id() ? 'disabled' : ''); ?>  required class="form-control select2" name="role_id" id="selectRole" data-placeholder="">
                                 <?php
                                 foreach ($roles as $role) {
+
                                     ?>
                                     <option value="<?= $role->id(); ?>" <?= ($role->id() == $user->role_id ? 'selected' : ''); ?>><?= $role->title; ?></option>
                                     <?php
@@ -87,7 +88,7 @@
                             <input id="inputNewPassword" minlength="8" type="password" required class="form-control" name="newPassword" />
 
                             <span class="form-text small text-muted">
-                                <?= translate('The password must be at least 8 characters long and contain a special character or a number'); ?>
+                                <?= translate('The password must be at least 8 characters long and contain a special character or a number.'); ?>
                             </span>
                         </div>
                     </div>

@@ -26,7 +26,8 @@
                 </thead>
                 <tbody>
                     <?php foreach ($users as $user) {
-    ?>
+
+                        ?>
                         <tr>
                             <td>
                                 <a href="<?= generate_url('backend_user_edit', ['id' => $user->id()]); ?>" title="<?= translate('Edit user'); ?>">
@@ -49,8 +50,8 @@
                                 </a>
                             </td>
                         </tr>
-                    <?php
-}
+                        <?php
+                    }
 
                     ?>
                 </tbody>
@@ -90,7 +91,7 @@
                         <div class="col-sm-9">
                             <input id="inputLastname" type="text" class="form-control" name="lastname" maxlength="50" />
                         </div>
-                    </div>
+                    </div> 
                     <div class="form-group row <?= has_validation_error('password', 'has-danger'); ?>">
                         <label for="inputPassword" class="col-sm-3 col-form-label">
                             <?= translate('Password'); ?>
@@ -99,7 +100,7 @@
                             <input id="inputPassword" type="password" class="form-control" name="password"  />
 
                             <small class="form-text text-muted">
-                                <?= translate('The password must be at least 8 characters long and contain a special character or a number'); ?>
+                                <?= translate('The password must be at least 8 characters long and contain a special character or a number.'); ?>
                             </small>
                         </div>
                     </div>
@@ -119,6 +120,7 @@
                             <select required class="form-control select2" name="role_id" id="selectRole">
                                 <?php
                                 foreach ($roles as $role) {
+
                                     ?>
                                     <option value="<?= $role->id(); ?>"><?= $role->title; ?></option>
                                     <?php
