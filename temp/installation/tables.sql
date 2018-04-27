@@ -197,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   `login_attempts` int(11) NOT NULL DEFAULT 10,
   `session_lifetime` int(11) NOT NULL DEFAULT 1800,
   `show_debugbar` tinyint(1) NOT NULL DEFAULT 0,
-  `website_emailaddress` varchar(100) NOT NULL,
+  `emailaddress` varchar(100) NOT NULL,
   `session_name` varchar(50) NOT NULL,
   `allowed_file_extensions` varchar(250) NOT NULL,
   `show_error_details` tinyint(1) NOT NULL DEFAULT 0,

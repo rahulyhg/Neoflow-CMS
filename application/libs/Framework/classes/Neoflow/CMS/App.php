@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS;
 
 use Neoflow\CMS\Handler\Config;
@@ -7,7 +6,6 @@ use Neoflow\CMS\Handler\Router;
 use Neoflow\CMS\Handler\Translator;
 use Neoflow\CMS\Model\ModuleModel;
 use Neoflow\CMS\Model\SettingModel;
-use Neoflow\CMS\Model\VisitorModel;
 use Neoflow\Framework\App as FrameworkApp;
 use Neoflow\Framework\Handler\Engine;
 use Neoflow\Framework\Handler\Loader;
@@ -19,9 +17,11 @@ use Neoflow\Framework\ORM\EntityCollection;
 use Neoflow\Framework\Persistence\Database;
 use RuntimeException;
 use Throwable;
+use function request_url;
 
 class App extends FrameworkApp
 {
+
     /**
      * Publish application.
      *
@@ -111,54 +111,9 @@ class App extends FrameworkApp
         });
         $this->get('logger')->info('CMS modules initialized');
 
-        // Update visitor stats
-        $this->updateVisitorStats();
-
         $this->get('logger')->info('Application created');
 
         return $this;
-    }
-
-    /**
-     * Update visitor stats.
-     *
-     * @return bool
-     */
-    protected function updateVisitorStats(): bool
-    {
-        // Update visitor stats only when database connection is etablished
-        if ($this->get('database')) {
-            // Get user agent
-            $userAgent = $this->get('request')->getHttpUserAgent();
-
-            if (0 === preg_match('/crawler|bot|spider/i', $userAgent)) {
-                $ipAddress = $this->getRemoteAddress();
-
-                $user = $this->getService('auth')->getUser();
-
-                $sessionLifetime = (int) self::instance()->get('settings')->session_lifetime;
-
-                $visitor = Model\VisitorModel::repo()
-                    ->caching(false)
-                    ->where('ip_address', '=', $ipAddress)
-                    ->where('user_agent', '=', $userAgent)
-                    ->where('last_activity', '>', microtime(true) - $sessionLifetime)
-                    ->fetch();
-
-                if (!$visitor) {
-                    $visitor = new VisitorModel();
-                }
-
-                $visitor->ip_address = $ipAddress;
-                $visitor->last_activity = microtime(true);
-                $visitor->user_id = $user ? $user->id() : null;
-                $visitor->user_agent = $userAgent;
-
-                return $visitor->save(true);
-            }
-        }
-
-        return false;
     }
 
     /**

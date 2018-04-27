@@ -1,5 +1,4 @@
 <?php
-
 return [
     'app' => [
         'url' => '',
@@ -42,7 +41,6 @@ return [
         '\Neoflow\CMS\Service\SectionService',
         '\Neoflow\CMS\Service\AuthService',
         '\Neoflow\CMS\Service\PageService',
-        '\Neoflow\CMS\Service\StatsService',
         '\Neoflow\CMS\Service\UploadService',
         '\Neoflow\CMS\Service\FilesystemService',
         '\Neoflow\CMS\Service\ValidationService',

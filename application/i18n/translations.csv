@@ -311,6 +311,7 @@ Manager class;Manager class;Manager-Klasse
 Manager Class;Manager Class;Manager Klasse
 Uploadable file size (defined in php.ini): max. {0}MB;Uploadable file size (defined in php.ini): max. {0}MB;Hochladbare Dateigrösse (gemäss php.ini): max. {0}MB
 Media;Media;Medien
+System information;System information;Systeminformation|Systeminformationen
 Message;Message|Messages;Nachricht|Nachrichten
 Minute;Minute|Minutes;Minute|Minuten
 Module;Module|Modules;Modul|Module
@@ -335,6 +336,8 @@ Only cached navigation trees;Only cached navigation trees;Nur zwischengespeicher
 Only cached system configurations;Only cached system configurations;Nur zwischengespeicherte Systemkonfigurationen
 Only logfiles older than {0} days;Only logfiles older than {0} days;Nur Protokolldateien älter als {0} Tage
 Open folder;Open folder;Ordner öffnen
+PHP extensions;PHP extensions;PHP Erweiterungen
+PHP settings;PHP settings;PHP Einstellungen
 or;or;oder
 Overwrite existing files with same name;Overwrite existing files with same name;Bestehende Dateien mit demselben Namen überschreiben
 Package;Package|Packages;Paket|Pakete
@@ -403,7 +406,6 @@ Reset failed;Reset failed;Zurücksetzen fehlgeschlagen
 Reset folder permissions;Reset folder permissions;Ordnerberechtigungen zurücksetzen
 Reset folder permissions message;The folder permissions can only be reseted on Unix-based operation systems.;Die Ordnerberechtigungen können nur auf Unix-basierten Betriebssystemen zurückgesetzt werden.
 Reset password;Reset password;Passwort zurücksetzen
-Reset visitor stats;Reset visitor stats;Besucherstatistik zurücksetzen
 Reseted;Reseted;Zurückgesetzt
 Restricted;Restricted;Beschränkt
 Role;Role|Roles;Rolle|Rollen
@@ -495,7 +497,6 @@ Too much login attempts than allowed. Your user account is locked.;Too much logi
 Tool;Tool|Tools;Tool|Tools
 Top item;Top item|Top items;Oberstes Element|Oberste Elemente
 Top page;Top page;Oberste Seite
-Total visitors;Total visitors;Total Besucher
 Type;Type|Types;Typ|Typen
 Unauthorized;Unauthorized;Unberechtigt
 Unavailable;Unavailable;Nicht verfügbar
@@ -536,10 +537,6 @@ Show module;Show module;Modul anzeigen
 Show theme;Show theme;Theme anzeigen
 Visibility;Visibility;Sichtbarkeit
 Visible;Visible;Sichtbar
-Visitor stats;Visitor stats;Besucherstatistik|Besucherstatistiken
-Visitors (this month);Visitors (this month);Besucher (diesen Monat)
-Visitors (today);Visitors (today);Besucher (heute)
-Visitors online;Visitors online;Besucher online
 Website;Website|Websites;Webseite|Webseiten
 Website author;Website author;Webseiten-Autor
 Website description;Website description;Webseiten-Beschreibung

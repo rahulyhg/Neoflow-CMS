@@ -24,12 +24,12 @@
 
                     <hr />
 
-                    <div class="form-group row <?= has_validation_error('website_emailaddress', 'has-danger'); ?>">
+                    <div class="form-group row <?= has_validation_error('emailaddress', 'has-danger'); ?>">
                         <label for="inputSenderEmailaddress" class="col-sm-4 col-form-label">
                             <?= translate('Email address'); ?> *
                         </label>
                         <div class="col-sm-8">
-                            <input id="inputSenderEmailaddress" required type="email" value="<?= $setting->website_emailaddress; ?>" class="form-control" name="website_emailaddress" maxlength="100" />
+                            <input id="inputSenderEmailaddress" required type="email" value="<?= $setting->emailaddress; ?>" class="form-control" name="emailaddress" maxlength="100" />
                             <small class="form-text text-muted">
                                 <?= translate('Default sender of emails from the website.'); ?>
                             </small>

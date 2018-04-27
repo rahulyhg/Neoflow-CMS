@@ -92,7 +92,7 @@ class SettingController extends BackendController
                         'website_keywords' => $postData->get('website_keywords') ? implode(',', $postData->get('website_keywords')) : '',
                         'website_author' => $postData->get('website_author'),
                         'default_language_id' => $postData->get('default_language_id'),
-                        'website_emailaddress' => $postData->get('website_emailaddress'),
+                        'emailaddress' => $postData->get('emailaddress'),
                         'timezone' => $postData->get('timezone'),
                         'language_ids' => $postData->get('language_ids') ?: [],
                         'allowed_file_extensions' => $postData->get('allowed_file_extensions') ? implode(',', $postData->get('allowed_file_extensions')) : '',

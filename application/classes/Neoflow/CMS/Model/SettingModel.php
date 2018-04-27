@@ -32,7 +32,7 @@ class SettingModel extends AbstractModel
     public static $properties = ['setting_id', 'website_title', 'website_description',
         'website_keywords', 'website_author', 'theme_id', 'login_attempts', 'session_lifetime',
         'backend_theme_id', 'default_language_id', 'show_debugbar',
-        'website_emailaddress', 'session_name', 'allowed_file_extensions',
+        'emailaddress', 'session_name', 'allowed_file_extensions',
         'show_error_details', 'custom_css', 'custom_js',
         'show_custom_js', 'show_custom_css', 'timezone',
     ];
@@ -60,7 +60,7 @@ class SettingModel extends AbstractModel
     public function overwriteConfig(): self
     {
         $this->config()->get('app')->setData([
-            'email' => $this->website_emailaddress,
+            'email' => $this->emailaddress,
             'timezone' => $this->timezone,
             'languages' => $this->getLanguageCodes(),
         ]);
@@ -229,7 +229,7 @@ class SettingModel extends AbstractModel
             ->required()
             ->email()
             ->maxLength(100)
-            ->set('website_emailaddress', 'E-Mailaddress');
+            ->set('emailaddress', 'E-Mailaddress');
 
         $validator
             ->maxlength(50)
@@ -252,7 +252,7 @@ class SettingModel extends AbstractModel
 
         $this->config()->get('app')->setData([
             'timezone' => $this->timezone,
-            'email' => $this->website_emailaddress,
+            'email' => $this->emailaddress,
             'languages' => $this->getLanguageCodes(),
         ]);
 

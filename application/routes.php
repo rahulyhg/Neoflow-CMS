@@ -1,5 +1,4 @@
 <?php
-
 return [
 // Frontend routes
     [
@@ -194,7 +193,6 @@ return [
             ['clear_cache', 'post', '/backend/maintenance/cache/cear', 'Maintenance@clearCache'],
             ['install_update', 'post', '/backend/maintenance/update/install', 'Maintenance@installUpdate'],
             ['delete_logfiles', 'post', '/backend/maintenance/logfiles/delete', 'Maintenance@deleteLogfiles'],
-            ['reset_visitor_stats', 'get', '/backend/maintenance/visitor-stats/reset', 'Maintenance@resetVisitorStats'],
             ['reset_folder_permissions', 'get', '/backend/maintenance/folder-permissions/reset', 'Maintenance@resetFolderPermissions'],
         ],
         'namespace' => '\\Neoflow\\CMS\\Controller\\Backend\\',

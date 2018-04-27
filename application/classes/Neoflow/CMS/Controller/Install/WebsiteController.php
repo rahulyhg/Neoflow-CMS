@@ -49,7 +49,7 @@ class WebsiteController extends InstallController
             $settings = SettingModel::updateById([
                         'website_title' => $postData->get('website_title'),
                         'default_language_id' => $postData->get('default_language_id'),
-                        'website_emailaddress' => $postData->get('website_emailaddress'),
+                        'emailaddress' => $postData->get('emailaddress'),
                         'timezone' => $postData->get('timezone'),
                         'language_ids' => $postData->get('language_ids', []),
                             ], 1);

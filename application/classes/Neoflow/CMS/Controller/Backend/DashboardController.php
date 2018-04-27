@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -8,6 +7,7 @@ use Neoflow\Framework\HTTP\Responsing\Response;
 
 class DashboardController extends BackendController
 {
+
     /**
      * Constructor.
      *
@@ -29,15 +29,8 @@ class DashboardController extends BackendController
      */
     public function indexAction(): Response
     {
-        $visitorStats = [
-            'current' => $this->getService('stats')->getNumberOfCurrentVisitors(),
-            'today' => $this->getService('stats')->getNumberOfVisitorsToday(),
-            'month' => $this->getService('stats')->getNumberOfVisitorsThisMonth(),
-            'total' => $this->getService('stats')->getTotalNumberOfVisitors(),
-        ];
-
         return $this->render('backend/dashboard/index', [
-                'visitorStats' => $visitorStats,
+                'phpinfo' => phpinfo2array('phpinfo')
         ]);
     }
 }
