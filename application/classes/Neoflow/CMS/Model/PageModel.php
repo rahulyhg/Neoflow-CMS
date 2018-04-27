@@ -3,6 +3,7 @@ namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
 use Neoflow\CMS\View\FrontendView;
+use Neoflow\Framework\Core\AbstractModel as FrameworkAbstractModel;
 use Neoflow\Framework\HTTP\Exception\NotFoundException;
 use Neoflow\Framework\ORM\EntityCollection;
 use Neoflow\Framework\ORM\EntityValidator;
@@ -78,6 +79,37 @@ class PageModel extends AbstractModel
         }
 
         return false;
+    }
+
+    /**
+     * Get keywords
+     *
+     * @return array
+     */
+    public function getKeywords(): array
+    {
+        if ($this->keywords) {
+            return explode(',', $this->keywords);
+        }
+
+        return [];
+    }
+
+    /**
+     * Set page value
+     *
+     * @param string $property Page property
+     * @param mixed  $value  Page value
+     * @param bool   $silent Set TRUE to prevent the tracking of the change
+     *
+     * @return self
+     */
+    public function set(string $property, $value = null, bool $silent = false): FrameworkAbstractModel
+    {
+        if ($property === 'keywords' && is_array($value)) {
+            $value = implode(',', $value);
+        }
+        return parent::set($property, $value, $silent);
     }
 
     /**

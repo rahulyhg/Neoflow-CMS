@@ -63,12 +63,22 @@
                     </div>
 
                     <div class="form-group row <?= has_validation_error('keywords', 'has-danger'); ?>">
-                        <label for="inputKeywords" class="col-sm-3 col-form-label">
+                        <label for="selectKeywords" class="col-sm-3 col-form-label">
                             <?= translate('Keyword', [], true); ?>
                         </label>
                         <div class="col-sm-9">
-                            <input id="inputKeywords" value="<?= $page->keywords; ?>" type="text" class="form-control" name="keywords" maxlength="255" />
+                            <select class="form-control select2" data-tags="true" name="keywords[]" multiple id="selectKeywords">
+                                <?php foreach ($page->getKeywords() as $keyword) {
+
+                                    ?>
+                                    <option value="<?= $keyword ?>" selected><?= $keyword; ?></option>
+                                    <?php
+                                }
+
+                                ?>
+                            </select>
                         </div>
+
                     </div>
 
                     <div class="form-group row">
@@ -79,7 +89,7 @@
                             <select data-placeholder="<?= $view->settings()->website_author; ?>" class="form-control select2" name="author_user_id" id="selectAuthor">
                                 <?php if ($view->settings()->website_author) { ?>
                                     <option value="0"><?= $view->settings()->website_author; ?></option>
-                                <?php
+                                    <?php
                                 }
                                 foreach ($users as $user) {
 
@@ -107,7 +117,7 @@
 
                     <div class="form-group row <?= has_validation_error('navigation_title', 'has-danger'); ?>">
                         <label for="inputNavigationTitle" class="col-sm-3 col-form-label">
-<?= translate('Navigation title'); ?>
+                            <?= translate('Navigation title'); ?>
                         </label>
                         <div class="col-sm-9">
                             <input id="inputNavigationTitle" value="<?= $pageNavitem->title; ?>" type="text" class="form-control" name="navigation_title" maxlength="50" />
@@ -116,12 +126,12 @@
 
                     <div class="form-group row">
                         <label for="selectPage" class="col-sm-3 col-form-label">
-<?= translate('Top page'); ?>
+                            <?= translate('Top page'); ?>
                         </label>
                         <div class="col-sm-9">
                             <select data-placeholder="<?= translate('None'); ?>" class="form-control select2" name="parent_navitem_id" id="selectPage">
                                 <option value="0"><?= translate('None'); ?></option>
-<?= $view->renderNavitemOptions($navitems, 0, [$pageNavitem->parent_navitem_id], [$pageNavitem->id()]); ?>
+                                <?= $view->renderNavitemOptions($navitems, 0, [$pageNavitem->parent_navitem_id], [$pageNavitem->id()]); ?>
                             </select>
                         </div>
                     </div>
@@ -140,7 +150,7 @@
 
                     <div class="form-group row">
                         <label for="selectRoles" class="col-sm-3 col-form-label">
-<?= translate('Authorized role', [], true); ?>
+                            <?= translate('Authorized role', [], true); ?>
                         </label>
                         <div class="col-sm-9">
                             <select data-placeholder="<?= translate('All roles'); ?>" class="form-control select2" name="role_ids[]" multiple id="selectRoles">
@@ -174,7 +184,7 @@
                                 <span class="btn-icon">
                                     <i class="fa fa-save"></i>
                                 </span>
-<?= translate('Save'); ?>
+                                <?= translate('Save'); ?>
                             </button>
                         </div>
                     </div>

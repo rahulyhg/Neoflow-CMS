@@ -29,7 +29,7 @@
                         <div class="col-sm-9">
                             <input id="inputSenderEmailaddress" required type="email" value="<?= $setting->website_emailaddress; ?>" class="form-control" name="website_emailaddress" maxlength="100" />
                             <small class="form-text text-muted">
-                                <?= translate('E-mail address of the website. Used as the default sender of emails.'); ?>
+                                <?= translate('Default sender of emails from the website.'); ?>
                             </small>
                         </div>
                     </div>
@@ -43,10 +43,12 @@
                         <div class="col-sm-9">
                             <select class="form-control select2" name="default_language_id" id="selectDefaultLanguage">
                                 <?php foreach ($languages as $language) {
+
                                     ?>
                                     <option value="<?= $language->id(); ?>"  <?= ($language->id() == $activeLanguage->id() ? 'selected' : ''); ?>><?= translate($language->title); ?></option>
                                     <?php
                                 }
+
                                 ?>
                             </select>
                         </div>
@@ -59,9 +61,11 @@
                         <div class="col-sm-9">
                             <select class="form-control select2" name="language_ids[]" multiple id="selectActiveLanguages">
                                 <?php foreach ($languages as $language) {
+
                                     ?>
                                     <option value="<?= $language->id(); ?>"  <?= ($language->id() == $activeLanguage->id() ? 'selected' : ''); ?>><?= translate($language->title); ?></option>
                                 <?php }
+
                                 ?>
                             </select>
                             <small class="form-text text-muted">
@@ -77,15 +81,19 @@
                         <div class="col-sm-9">
                             <select class="form-control select2" name="timezone" id="selectTimezone" data-minimumResultsForSearch="1">
                                 <?php foreach (get_timezones() as $region => $timezones) {
+
                                     ?>
                                     <optgroup label="<?= $region; ?>">
                                         <?php foreach ($timezones as $timezone => $title) {
+
                                             ?>
                                             <option value="<?= $timezone; ?>" <?= ($setting->timezone === $timezone ? 'selected' : ''); ?>><?= $title; ?></option>
                                         <?php }
+
                                         ?>
                                     </optgroup>
                                 <?php }
+
                                 ?>
                             </select>
                             <script>

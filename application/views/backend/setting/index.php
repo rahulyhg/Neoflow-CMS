@@ -10,7 +10,7 @@
                     <input type="hidden" value="general" name="type" />
                     <div class="form-group row <?= has_validation_error('website_title', 'has-danger'); ?>">
                         <label for="inputWebsiteTitle" class="col-sm-3 col-form-label">
-                            <?= translate('Title'); ?>
+                            <?= translate('Website title'); ?>
                         </label>
                         <div class="col-sm-9">
                             <input id="inputWebsiteTitle" type="text" required value="<?= $setting->website_title; ?>" class="form-control" name="website_title" maxlength="50" minlength="3" />
@@ -18,7 +18,7 @@
                     </div>
                     <div class="form-group row <?= has_validation_error('website_description', 'has-danger'); ?>">
                         <label for="textareaWebsiteDescription" class="col-sm-3 col-form-label">
-                            <?= translate('Description'); ?>
+                            <?= translate('Website description'); ?>
                         </label>
                         <div class="col-sm-9">
                             <textarea name="website_description" class="form-control vresize" maxlength="150" id="textareaWebsiteDescription" rows="3"><?= $setting->website_description; ?></textarea>
@@ -29,7 +29,7 @@
                             <?= translate('Website keyword', [], true); ?>
                         </label>
                         <div class="col-sm-9">
-                            <select class="form-control select2" data-tags="true" name="website_keywords[]" multiple id="selectWebsiteKeywords">
+                            <select class="form-control select2" data-token-separators="[',']" data-tags="true" name="website_keywords[]" multiple id="selectWebsiteKeywords">
                                 <?php foreach ($setting->getWebsiteKeywords() as $websiteKeyword) {
 
                                     ?>
@@ -43,12 +43,14 @@
                     </div>
                     <div class="form-group row <?= has_validation_error('website_author', 'has-danger'); ?>">
                         <label for="inputWebsiteAuthor" class="col-sm-3 col-form-label">
-                            <?= translate('Author'); ?>
+                            <?= translate('Website author'); ?>
                         </label>
                         <div class="col-sm-9">
                             <input id="inputWebsiteAuthor" type="text" value="<?= $setting->website_author; ?>" class="form-control" name="website_author" maxlength="50" />
                         </div>
                     </div>
+
+                    <hr />
 
                     <div class="form-group row <?= has_validation_error('website_emailaddress', 'has-danger'); ?>">
                         <label for="inputSenderEmailaddress" class="col-sm-3 col-form-label">
@@ -56,6 +58,9 @@
                         </label>
                         <div class="col-sm-9">
                             <input id="inputSenderEmailaddress" required="" type="email" value="<?= $setting->website_emailaddress; ?>" class="form-control" name="website_emailaddress" maxlength="100" />
+                            <small class="form-text text-muted">
+                                <?= translate('Default sender of emails from the website.'); ?>
+                            </small>
                         </div>
                     </div>
 
@@ -81,7 +86,7 @@
 
                     <div class="form-group row">
                         <label for="selectLanguages" class="col-sm-3 col-form-label">
-                            <?= translate('Active language', [], true); ?>
+                            <?= translate('Language', [], true); ?>
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control select2" name="language_ids[]" multiple id="selectLanguages">
@@ -94,6 +99,9 @@
 
                                 ?>
                             </select>
+                            <small class="form-text text-muted">
+                                <?= translate('Supported languages of the website. Each language requires separate pages.'); ?>
+                            </small>
                         </div>
                     </div>
 

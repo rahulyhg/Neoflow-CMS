@@ -2,11 +2,11 @@
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
+use Neoflow\Framework\Core\AbstractModel as FrameworkAbstractModel;
 use Neoflow\Framework\ORM\EntityCollection;
 use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Framework\ORM\Repository;
-use RuntimeException;
-use Neoflow\Framework\Core\AbstractModel as FrameworkAbstractModel;
+use function random_string;
 
 class SettingModel extends AbstractModel
 {
@@ -111,6 +111,23 @@ class SettingModel extends AbstractModel
     }
 
     /**
+     * Set settings value
+     *
+     * @param string $property Settings property
+     * @param mixed  $value  Settings value
+     * @param bool   $silent Set TRUE to prevent the tracking of the change
+     *
+     * @return self
+     */
+    public function set(string $property, $value = null, bool $silent = false): FrameworkAbstractModel
+    {
+        if ($property === 'website_keywords' && is_array($value)) {
+            $value = implode(',', $value);
+        }
+        return parent::set($property, $value, $silent);
+    }
+
+    /**
      * Get frontend theme.
      *
      * @return ThemeModel|null
@@ -188,7 +205,7 @@ class SettingModel extends AbstractModel
 
         $validator
             ->maxlength(250)
-            ->set('website_keywords', 'Website keyword', [], true);
+            ->set('website_keywords', translate('Website keyword', [], true));
 
         $validator
             ->maxlength(50)
@@ -197,7 +214,7 @@ class SettingModel extends AbstractModel
         $validator
             ->integer()
             ->min(3)
-            ->set('login_attempts', 'Login attempt', [], true);
+            ->set('login_attempts', translate('Login attempt', [], true));
 
         $validator
             ->integer()
