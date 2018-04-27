@@ -8,8 +8,8 @@ use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Framework\ORM\Repository;
 use RuntimeException;
 
-class SectionModel extends AbstractModel
-{
+class SectionModel extends AbstractModel {
+
     /**
      * @var string
      */
@@ -24,7 +24,7 @@ class SectionModel extends AbstractModel
      * @var array
      */
     public static $properties = ['section_id', 'page_id', 'module_id',
-        'position', 'block_id', 'is_active', ];
+        'position', 'block_id', 'is_active',];
 
     /**
      * Get repository to fetch page.
@@ -54,7 +54,7 @@ class SectionModel extends AbstractModel
             $routing = [];
             if ($this->app()->get('module_url')) {
                 // Define URL params
-                $urlPath = '{url:'.$module->identifier.'}'.$this->app()->get('module_url');
+                $urlPath = '{url:' . $module->identifier . '}' . $this->app()->get('module_url');
                 $httpMethod = $this->request()->getHttpMethod();
 
                 // Get routing
@@ -91,6 +91,22 @@ class SectionModel extends AbstractModel
     }
 
     /**
+     * Get module.
+     *
+     * @return ModuleModel|null
+     */
+    public function getModule()
+    {
+        $module = $this->module()->fetch();
+
+        if ($module) {
+            return $module;
+        }
+
+        return null;
+    }
+
+    /**
      * Get repository to fetch block.
      *
      * @return Repository
@@ -98,6 +114,22 @@ class SectionModel extends AbstractModel
     public function block(): Repository
     {
         return $this->belongsTo('\\Neoflow\\CMS\\Model\\BlockModel', 'block_id');
+    }
+
+    /**
+     * Get block.
+     *
+     * @return BlockModel|null
+     */
+    public function getBlock()
+    {
+        $block = $this->block()->fetch();
+
+        if ($block) {
+            return $block;
+        }
+
+        return null;
     }
 
     /**
@@ -116,9 +148,11 @@ class SectionModel extends AbstractModel
         if (!$this->position) {
             $this->position = 1;
             $page = $this->page()->fetch();
-            $lastSection = $page->sections()
-                ->orderByDesc('position')
-                ->fetch();
+            if ($page) {
+                $lastSection = $page->sections()
+                        ->orderByDesc('position')
+                        ->fetch();
+            }
 
             if ($lastSection) {
                 $this->position = $lastSection->position + 1;
@@ -163,8 +197,8 @@ class SectionModel extends AbstractModel
         $validator = new EntityValidator($this);
 
         $validator
-            ->required()
-            ->set('module_id', 'Module');
+                ->required()
+                ->set('module_id', 'Module');
 
         return (bool) $validator->validate();
     }
@@ -184,4 +218,5 @@ class SectionModel extends AbstractModel
 
         return $this;
     }
+
 }

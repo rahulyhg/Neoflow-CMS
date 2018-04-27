@@ -18,16 +18,15 @@
                         <div class="col-sm-9">
                             <select class="form-control" name="block_id" id="selectBlock" data-placeholder="">
                                 <?php if (null === $section->block_id) {
-    ?>
+                                    ?>
                                     <option value="0"><?= translate('Not specified'); ?></option>
                                     <?php
-}
+                                }
                                 foreach ($blocks as $block) {
                                     ?>
                                     <option value="<?= $block->id(); ?>" <?= ($section->block_id == $block->id() ? 'selected' : ''); ?> ><?= $block->title; ?></option>
                                     <?php
                                 }
-
                                 ?>
                             </select>
                         </div>
@@ -50,7 +49,7 @@
                                     <i class="fa fa-save"></i>
                                 </span>
                                 <?= translate('Save'); ?>
-                            </button> 
+                            </button>
 
                             <span class="small float-right">
                                 * = <?= translate('Required field', [], true); ?>

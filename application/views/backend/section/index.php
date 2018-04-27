@@ -9,7 +9,7 @@
                 ?>
                 <div class="card">
                     <h4 class="card-header">
-                        <?= translate('Sections'); ?> <small><?= translate('Block').': '.$block->title; ?></small>
+                        <?= translate('Sections'); ?> <small><?= translate('Block') . ': ' . $block->title; ?></small>
                     </h4>
                     <div class="card-body">
                         <div class="nestable sections" data-group="0" data-id="<?= $block->id(); ?>" data-max-depth="1" data-save-url="<?= generate_url('backend_section_reorder'); ?>">
@@ -28,24 +28,21 @@
                 <?php
             }
         } else {
-            $sectionsWithBlock = $sections->whereNot('block_id', null); ?>
+            $sectionsWithBlock = $sections->whereNot('block_id', null);
+            ?>
             <div class="card">
                 <h4 class="card-header">
                     <?= translate('Sections'); ?>
                 </h4>
                 <div class="card-body">
 
-                    <?php if ($sectionsWithBlock->count() > 0) {
-                ?>
+                    <?php if ($sectionsWithBlock->count() > 0) { ?>
                         <div class="nestable sections" data-group="2" data-max-depth="1" data-save-url="<?= generate_url('backend_section_reorder'); ?>">
                             <?= $view->renderSectionNestable($sectionsWithBlock, true); ?>
                         </div>
-                        <?php
-            } else {
-                ?>
+                    <?php } else { ?>
                         <p class="text-center text-muted"><?= translate('No results found'); ?></p>
-                    <?php
-            } ?>
+                    <?php } ?>
                     <ul class="list-inline small">
                         <li class="list-inline-item">
                             <i class="fa fa-toggle-on"></i> = <?= translate('Enabled'); ?>
@@ -66,7 +63,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">
-                        <?= translate('Sections'); ?> <small><?= translate('Block').': '.translate('Not specified'); ?></small>
+                        <?= translate('Sections'); ?> <small><?= translate('Block') . ': ' . translate('Not specified'); ?></small>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -87,7 +84,6 @@
             </div>
             <?php
         }
-
         ?>
     </div>
     <div class="col-xl-5">
@@ -112,7 +108,6 @@
                                     <option value="<?= $block->id(); ?>"><?= $block->title; ?></option>
                                     <?php
                                 }
-
                                 ?>
                             </select>
                         </div>
@@ -130,7 +125,6 @@
                                     <option value="<?= $module->id(); ?>"><?= $module->name; ?></option>
                                     <?php
                                 }
-
                                 ?>
                             </select>
                         </div>

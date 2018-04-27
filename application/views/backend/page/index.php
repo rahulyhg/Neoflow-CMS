@@ -6,41 +6,29 @@
                 <?= translate('All pages'); ?>
             </h4>
 
-            <?php if (count($languages) > 1) {
-    ?>
+            <?php if (count($languages) > 1) { ?>
                 <ul class="nav nav-tabs nav-fill">
-                    <?php foreach ($languages as $language) {
-        ?>
+                    <?php foreach ($languages as $language) { ?>
                         <li class="nav-item">
                             <a class="nav-link<?= ($language->id() === $activeLanguage->id() ? ' active' : ''); ?>" href="<?= generate_url('backend_page_index', ['language_id' => $language->id()]); ?>">
                                 <?= $language->renderFlagIcon(); ?>  <span class="d-none d-sm-inline-block"><?= translate($language->title); ?></span>
                             </a>
                         </li>
-                    <?php
-    } ?>
+                    <?php } ?>
                 </ul>
-                <?php
-}
-
-            ?>
+            <?php } ?>
 
             <div class="card-body">
-                <?php if ($navitems->count()) {
-                ?>
+                <?php if ($navitems->count()) { ?>
                     <div class="nestable" data-save-url="<?= generate_url('backend_page_reorder'); ?>">
                         <?= $view->renderNavitemNestable($navitems); ?>
                     </div>
                     <ul class="list-inline small">
                         <li><i class="fa fa-lock"></i> = <?= translate('Accessible only for authorized users'); ?></li>
                     </ul>
-                    <?php
-            } else {
-                ?>
+                <?php } else { ?>
                     <p class="text-center text-muted"><?= translate('No results found'); ?></p>
-                    <?php
-            }
-
-                ?>
+                <?php } ?>
             </div>
         </div>
 
@@ -84,6 +72,44 @@
                             </div>
                         </div>
                     </div>
+
+                    <hr />
+
+
+                    <div class="form-group row <?= has_validation_error('module_id', 'has-danger'); ?>">
+                        <label for="selectModule" class="col-sm-3 col-form-label">
+                            <?= translate('Module'); ?> *
+                        </label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="module_id" id="selectModule" data-placeholder="">
+                                <?php
+                                foreach ($modules as $module) {
+                                    ?>
+                                    <option value="<?= $module->id(); ?>"><?= $module->name; ?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row <?= has_validation_error('block_key', 'has-danger'); ?>">
+                        <label for="selectBlock" class="col-sm-3 col-form-label">
+                            <?= translate('Block'); ?> *
+                        </label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="block_id" id="selectBlock" data-placeholder="">
+                                <?php
+                                foreach ($blocks as $block) {
+                                    ?>
+                                    <option value="<?= $block->id(); ?>"><?= $block->title; ?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group row">
                         <div class="offset-sm-3 col-sm-9">
                             <button type="submit" class="btn btn-primary btn-icon-left">
