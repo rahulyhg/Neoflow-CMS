@@ -36,7 +36,6 @@ A folder with the name "{0}" already exists;A folder with the name "{0}" already
 Access;Access;Zugriff
 Accessible only for authorized users;Accessible only for authorized users;Nur für autorisierte Benutzer zugänglich
 Account;Account|Accounts;Konto|Konten
-Active language;Active language|Active languages;Aktive Sprache|Aktive Sprachen
 Add;Add;Hinzufügen
 Add failed;Add failed;Hinzufügen fehlgeschlagen
 Add image;Add image|Add images;Bild hinzufügen|Bilder hinzufügen
@@ -228,7 +227,7 @@ Frontend;Frontend;Frontend
 Frontend authorization;Frontend authorization;Frontend-Berechtigung
 Frontend route;Frontend route;Frontend-Route
 Frontend theme;Frontend theme;Frontend-Theme
-E-mail address of the website. Used as the default sender of emails.;E-mail address of the website. Used as the default sender of emails.;E-Mailadresse der Webseite. Wird als standardmässiger Absender von E-Mails verwendet.
+Default sender of emails from the website.;Default sender of emails from the website.;Standardmässiger Absender von E-Mails der Webseite.
 General setting;General setting|General settings;Allgemeine Einstellung|Allgemeine Einstellungen
 German;German;Deutsch
 Hidden;Hidden;Versteckt
