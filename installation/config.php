@@ -2,7 +2,7 @@
 return [
     'app' => [
         'url' => '',
-        'version' => '1.0.0-a1',
+        'version' => '1.0.0-a2',
         'languages' => [
             'en', 'de', 'fr',
         ],
