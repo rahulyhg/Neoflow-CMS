@@ -18,11 +18,8 @@ function showCustomModal(selector, callback) {
 
     // Set content and show modal
     setTimeout(function () {
-
         callback($customModal);
-
         $customModal.modal('show');
-
     }, transitionTime);
 
     return $customModal;
