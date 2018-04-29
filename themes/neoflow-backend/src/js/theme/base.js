@@ -15,11 +15,13 @@ $.fn.preventDefaultClickBehaviour = function () {
 // Prevent default click behaviour for disabled anchors
 $('a[disabled]').preventDefaultClickBehaviour();
 
-$('.regexomat[data-regex]').on('input', function () {
-    var $this = $(this),
-            regexRule = $this.data('regex'),
-            value = $this.val();
+// Custom regex to allow only values based on the rule for input fields
+$('.regexomat[data-regex]')
+        .on('input', function () {
+            var $this = $(this),
+                    regexRule = $this.data('regex'),
+                    value = $this.val();
 
-    value = value.replace(new RegExp(regexRule), '');
-    $this.val(value);
-});
+            value = value.replace(new RegExp(regexRule), '');
+            $this.val(value);
+        });
