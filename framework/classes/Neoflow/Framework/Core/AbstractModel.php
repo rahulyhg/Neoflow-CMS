@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\Core;
 
 use InvalidArgumentException;
@@ -13,6 +12,7 @@ use RuntimeException;
 
 abstract class AbstractModel
 {
+
     /**
      * App trait.
      */
@@ -404,7 +404,7 @@ abstract class AbstractModel
 
             return $entity;
         }
-        throw new InvalidArgumentException('Model entity not found (ID: '.$id.')');
+        throw new InvalidArgumentException('Model entity not found (ID: ' . $id . ')');
     }
 
     /**
@@ -614,14 +614,15 @@ abstract class AbstractModel
     /**
      * Delete all model entities by column.
      *
-     * @param string $column
-     * @param mixed  $value
+     * @param string $column Calumn name
+     * @param mixed  $value  Filter value
+     * @param string $operator  Where condition operator
      *
      * @return bool
      */
-    public static function deleteAllByColumn(string $column, $value): bool
+    public static function deleteAllByColumn(string $column, $value, string $operator = '='): bool
     {
-        return static::findAllByColumn($column, $value)->delete();
+        return static::findAllByColumn($column, $value, $operator)->delete();
     }
 
     /**
@@ -639,15 +640,16 @@ abstract class AbstractModel
     /**
      * Find model entity by column.
      *
-     * @param string $column
-     * @param mixed  $value
+     * @param string $column Calumn name
+     * @param mixed  $value  Filter value
+     * @param string $operator  Where condition operator
      *
      * @return static|null
      */
-    public static function findByColumn(string $column, $value)
+    public static function findByColumn(string $column, $value, string $operator = '=')
     {
         return static::repo()
-                ->where($column, '=', $value)
+                ->where($column, $operator, $value)
                 ->fetch();
     }
 
@@ -666,13 +668,14 @@ abstract class AbstractModel
      *
      * @param string $column Calumn name
      * @param mixed  $value  Filter value
+     * @param string $operator  Where condition operator
      *
      * @return EntityCollection
      */
-    public static function findAllByColumn(string $column, $value): EntityCollection
+    public static function findAllByColumn(string $column, $value, string $operator = '='): EntityCollection
     {
         return static::repo()
-                ->where($column, '=', $value)
+                ->where($column, $operator, $value)
                 ->fetchAll();
     }
 
@@ -680,14 +683,15 @@ abstract class AbstractModel
      * Find all model entities by multiple columns.
      *
      * @param array $columns Column names with filter values (as array with name => value)
+     * @param string $operator  Where condition operator
      *
      * @return EntityCollection
      */
-    public static function findAllByColumns(array $columns): EntityCollection
+    public static function findAllByColumns(array $columns, string $operator = '='): EntityCollection
     {
         $repo = static::repo();
         foreach ($columns as $column => $value) {
-            $repo->where($column, '=', $value);
+            $repo->where($column, $operator, $value);
         }
 
         return $repo->fetchAll();
