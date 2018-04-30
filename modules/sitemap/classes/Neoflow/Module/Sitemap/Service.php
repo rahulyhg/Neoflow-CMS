@@ -36,8 +36,6 @@ class Service extends AbstractService
      * @param string $priority
      *
      * @return self
-     *
-     * @throws InvalidArgumentException
      */
     public function register(string $location, int $lastModified = null, string $changeFrequency = null, float $priority = null): self
     {
