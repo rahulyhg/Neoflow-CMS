@@ -35,7 +35,7 @@ class Service extends AbstractService
      * @param string $changeFrequency
      * @param string $priority
      *
-     * @return Service
+     * @return self
      *
      * @throws InvalidArgumentException
      */
