@@ -2,11 +2,11 @@
 namespace Neoflow\Module\Sitemap;
 
 use DOMDocument;
-use InvalidArgumentException;
 use LengthException;
 use Neoflow\CMS\Core\AbstractService;
 use Neoflow\CMS\Model\PageModel;
 use Neoflow\Module\Sitemap\Model\SettingModel;
+use Neoflow\Module\Sitemap\Model\UrlModel;
 use RuntimeException;
 use SimpleXMLElement;
 
@@ -30,10 +30,12 @@ class Service extends AbstractService
     /**
      * Register url.
      *
-     * @param string $location
-     * @param int    $lastModified
-     * @param string $changeFrequency
-     * @param string $priority
+     * @param string $location URL (of page)
+     * @param int    $lastModified Last modified timestamp (of page)
+     * @param string $changeFrequency Change frequency of URL (page content)
+     * @param string $priority Priority of URL
+     *
+     * @see https://www.sitemaps.org/de/protocol.html
      *
      * @return self
      */
@@ -55,13 +57,13 @@ class Service extends AbstractService
     /**
      * Unregister URL by location.
      *
-     * @param string $location
+     * @param string $location URL (of page)
      *
      * @return bool
      */
     public function unregister(string $location): bool
     {
-        return Model::deleteByLoc($location);
+        return UrlModel::deleteByLoc($location);
     }
 
     /**
@@ -99,7 +101,7 @@ class Service extends AbstractService
      */
     public function generate(): string
     {
-        $urls = Model\UrlModel::findAll();
+        $urls = UrlModel::findAll();
 
         // Get pages of each active language
         $languages = $this->settings()->getLanguages();
@@ -162,8 +164,6 @@ class Service extends AbstractService
     /**
      * Generate sitemap as file.
      *
-     * @param string $filePath
-     *
      * @return bool
      */
     public function generateAsFile(): bool
@@ -180,7 +180,7 @@ class Service extends AbstractService
      *
      * @return SettingModel
      */
-    public function getSettings(): Model\SettingModel
+    public function getSettings(): SettingModel
     {
         return $this->settings;
     }
