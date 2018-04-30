@@ -135,6 +135,10 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
      */
     public function addMultiple(array $items): self
     {
+        foreach ($items as $item) {
+            $this->validate($item);
+        }
+
         $this->items = array_merge($this->items, $items);
 
         return $this;
