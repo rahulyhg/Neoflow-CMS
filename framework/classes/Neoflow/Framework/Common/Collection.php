@@ -116,17 +116,12 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
      *
      * @param mixed $item Collection item
      *
-     * @throws InvalidArgumentException
-     *
      * @return self
      */
     public function add($item): self
     {
-        if ($this->validate($item)) {
-            $this->items[] = $item;
-        } else {
-            throw new InvalidArgumentException('Item is not valid and has to a object of ' . static::$className);
-        }
+        $this->validate($item);
+        $this->items[] = $item;
 
         return $this;
     }
@@ -164,17 +159,13 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
      *
      * @param mixed $item Collection item
      *
-     * @throws InvalidArgumentException
-     *
      * @return self
      */
     public function addFirst($item): self
     {
-        if ($this->validate($item)) {
-            array_unshift($this->items, $item);
-        } else {
-            throw new InvalidArgumentException('Item is not valid and has to a object of ' . static::$className);
-        }
+        $this->validate($item);
+
+        array_unshift($this->items, $item);
 
         return $this;
     }
@@ -355,20 +346,15 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
      *
      * @param array $items List of items
      *
-     * @throws InvalidArgumentException
-     *
      * @return self
      */
     public function set(array $items): self
     {
-        $this->items = [];
         foreach ($items as $item) {
-            if ($this->validate($item)) {
-                $this->items[] = $item;
-            } else {
-                throw new InvalidArgumentException('Item is not valid and has to a object of ' . static::$className);
-            }
+            $this->validate($item);
         }
+
+        $this->items = $items;
 
         return $this;
     }
@@ -378,15 +364,17 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
      *
      * @param mixed $item Collection item
      *
-     * @return bool
+     * @throw InvalidArgumentException
+     *
+     * @return self
      */
-    protected function validate($item): bool
+    protected function validate($item): self
     {
         if (static::$className && !is_a($item, static::$className)) {
-            return false;
+            throw new InvalidArgumentException('Collection item is not valid and has to be an instance of "' . static::$className . '"');
         }
 
-        return true;
+        return $this;
     }
 
     /**
