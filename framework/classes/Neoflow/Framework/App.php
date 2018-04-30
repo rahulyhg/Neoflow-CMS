@@ -113,7 +113,7 @@ class App extends Container
     /**
      * Publish application, send response and end script.
      */
-    public function publish(): void
+    public function publish()
     {
         if (!$this->exists('response')) {
             $this->set('response', new Response());
@@ -196,7 +196,7 @@ class App extends Container
     /**
      * Register error handler.
      */
-    public function registerErrorHandler(): void
+    public function registerErrorHandler()
     {
         set_error_handler([$this, 'errorHandler'], E_ALL);
         register_shutdown_function([$this, 'shutdownFunction']);
@@ -246,7 +246,7 @@ class App extends Container
      *
      * @throws ErrorException
      */
-    public function errorHandler(int $code, string $message, string $file, int $line): void
+    public function errorHandler(int $code, string $message, string $file, int $line)
     {
         $ex = new ErrorException($message, $code, E_ERROR, $file, $line);
         $this->exceptionHandler($ex);
@@ -258,7 +258,7 @@ class App extends Container
      *
      * @param Throwable $ex Throwable instance (mostly exceptions)
      */
-    public function exceptionHandler(Throwable $ex): void
+    public function exceptionHandler(Throwable $ex)
     {
         while (ob_get_level() > 0) {
             ob_end_clean();
@@ -288,7 +288,7 @@ class App extends Container
      *
      * @throws ErrorException
      */
-    public function shutdownFunction(): void
+    public function shutdownFunction()
     {
         $error = error_get_last();
         if (E_ERROR === $error['type']) {

@@ -121,7 +121,7 @@ class App extends FrameworkApp
      *
      * @param Throwable $ex Throwable instance (mostly exceptions)
      */
-    public function exceptionHandler(Throwable $ex): void
+    public function exceptionHandler(Throwable $ex)
     {
         while (ob_get_level() > 0) {
             ob_end_clean();

@@ -84,7 +84,7 @@ class Response
     /**
      * Send HTTP header.
      */
-    protected function sendHeader(): void
+    protected function sendHeader()
     {
         if ($this->statusCode) {
             http_response_code($this->statusCode);
@@ -166,7 +166,7 @@ class Response
     /**
      * Send content as echo.
      */
-    protected function sendContent(): void
+    protected function sendContent()
     {
         echo $this->content;
     }
@@ -174,7 +174,7 @@ class Response
     /**
      * Send response.
      */
-    public function send(): void
+    public function send()
     {
         if (!$this->isSent) {
             $this->sendHeader();

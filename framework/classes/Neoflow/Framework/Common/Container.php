@@ -374,7 +374,7 @@ class Container implements IteratorAggregate, Countable, ArrayAccess
      *
      * @param mixed $offset Offset
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         $this->set($offset, $value);
     }
@@ -384,7 +384,7 @@ class Container implements IteratorAggregate, Countable, ArrayAccess
      *
      * @param mixed $offset Offset
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         $this->delete($offset);
     }

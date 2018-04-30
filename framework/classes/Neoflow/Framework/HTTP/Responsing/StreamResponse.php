@@ -29,7 +29,7 @@ class StreamResponse extends Response
     /**
      * Stream response.
      */
-    public function stream(): void
+    public function stream()
     {
         $this->sendHeader();
         fpassthru($this->filePointer);
@@ -40,7 +40,7 @@ class StreamResponse extends Response
     /**
      * Send response.
      */
-    public function send(): void
+    public function send()
     {
         $this->stream();
     }

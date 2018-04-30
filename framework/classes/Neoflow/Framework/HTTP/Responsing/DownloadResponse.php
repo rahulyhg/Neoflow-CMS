@@ -50,7 +50,7 @@ class DownloadResponse extends Response
     /**
      * Send download resonse.
      */
-    public function sendFile(): void
+    public function sendFile()
     {
         $this->sendHeader();
         readfile($this->file->getPath());
@@ -61,7 +61,7 @@ class DownloadResponse extends Response
     /**
      * Send response.
      */
-    public function send(): void
+    public function send()
     {
         $this->sendFile();
     }

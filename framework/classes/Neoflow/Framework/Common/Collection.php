@@ -399,7 +399,7 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
      *
      * @param mixed $offset Offset
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->items[$offset]);
     }
