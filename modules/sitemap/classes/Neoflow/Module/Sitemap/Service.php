@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Module\Sitemap;
 
 use DOMDocument;
@@ -13,6 +12,7 @@ use SimpleXMLElement;
 
 class Service extends AbstractService
 {
+
     /**
      * @var Model\SettingModel
      */
@@ -41,7 +41,7 @@ class Service extends AbstractService
      */
     public function register(string $location, int $lastModified = null, string $changeFrequency = null, float $priority = null): self
     {
-        $url = Model::create([
+        $url = Model\UrlModel::create([
                 'loc' => $location,
                 'lastmod' => date('Y-m-d\TH:i:sP', $lastModified ?: time()),
                 'changefreq' => $changeFrequency ?: $this->settings->default_changefreq,
