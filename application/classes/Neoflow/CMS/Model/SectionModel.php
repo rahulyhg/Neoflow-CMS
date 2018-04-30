@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -8,7 +7,8 @@ use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Framework\ORM\Repository;
 use RuntimeException;
 
-class SectionModel extends AbstractModel {
+class SectionModel extends AbstractModel
+{
 
     /**
      * @var string
@@ -34,6 +34,22 @@ class SectionModel extends AbstractModel {
     public function page(): Repository
     {
         return $this->belongsTo('\\Neoflow\\CMS\\Model\\PageModel', 'page_id');
+    }
+
+    /**
+     * Get page.
+     *
+     * @return PageModel|null
+     */
+    public function getPage()
+    {
+        $page = $this->page()->fetch();
+
+        if ($page) {
+            return $page;
+        }
+
+        return null;
     }
 
     /**
@@ -150,8 +166,8 @@ class SectionModel extends AbstractModel {
             $page = $this->page()->fetch();
             if ($page) {
                 $lastSection = $page->sections()
-                        ->orderByDesc('position')
-                        ->fetch();
+                    ->orderByDesc('position')
+                    ->fetch();
             }
 
             if ($lastSection) {
@@ -197,8 +213,8 @@ class SectionModel extends AbstractModel {
         $validator = new EntityValidator($this);
 
         $validator
-                ->required()
-                ->set('module_id', 'Module');
+            ->required()
+            ->set('module_id', 'Module');
 
         return (bool) $validator->validate();
     }
@@ -218,5 +234,4 @@ class SectionModel extends AbstractModel {
 
         return $this;
     }
-
 }
