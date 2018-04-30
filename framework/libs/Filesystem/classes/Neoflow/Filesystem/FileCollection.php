@@ -9,6 +9,13 @@ namespace Neoflow\Filesystem;
 class FileCollection extends Collection
 {
     /**
+     * Collection item type.
+     *
+     * @var string
+     */
+    protected static $className = '\\Neoflow\\Filesystem\\File';
+
+    /**
      * Sort files by size.
      *
      * @param string $order Order (ASC or DESC)

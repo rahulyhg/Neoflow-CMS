@@ -12,6 +12,13 @@ class EntityCollection extends Collection
     use \Neoflow\Framework\AppTrait;
 
     /**
+     * Collection item type.
+     *
+     * @var string
+     */
+    protected static $className = '\\Neoflow\\Framework\\Core\\AbstractModel';
+
+    /**
      * Delete model entities in collection.
      *
      * @return bool

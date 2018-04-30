@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\Common;
 
 use ArrayAccess;
@@ -11,6 +10,14 @@ use JsonSerializable;
 
 class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSerializable
 {
+
+    /**
+     * Collection item type.
+     *
+     * @var string
+     */
+    protected static $className = '';
+
     /**
      * The items contained in the collection.
      *
@@ -25,7 +32,7 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
      */
     public function __construct(array $items = [])
     {
-        $this->items = $items;
+        $this->set($items);
     }
 
     /**
@@ -100,8 +107,8 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     public function where(string $property, $value): self
     {
         return $this->filter(function ($item) use ($property, $value) {
-            return $item->{$property} == $value;
-        });
+                return $item->{$property} == $value;
+            });
     }
 
     /**
@@ -109,11 +116,17 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
      *
      * @param mixed $item Collection item
      *
+     * @throws InvalidArgumentException
+     *
      * @return self
      */
     public function add($item): self
     {
-        $this->items[] = $item;
+        if ($this->validate($item)) {
+            $this->items[] = $item;
+        } else {
+            throw new InvalidArgumentException('Item is not valid and has to a object of ' . static::$className);
+        }
 
         return $this;
     }
@@ -151,11 +164,17 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
      *
      * @param mixed $item Collection item
      *
+     * @throws InvalidArgumentException
+     *
      * @return self
      */
     public function addFirst($item): self
     {
-        array_unshift($this->items, $item);
+        if ($this->validate($item)) {
+            array_unshift($this->items, $item);
+        } else {
+            throw new InvalidArgumentException('Item is not valid and has to a object of ' . static::$className);
+        }
 
         return $this;
     }
@@ -171,8 +190,8 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     public function whereNot(string $property, $value): self
     {
         return $this->filter(function ($item) use ($property, $value) {
-            return $item->{$property} != $value;
-        });
+                return $item->{$property} != $value;
+            });
     }
 
     /**
@@ -332,17 +351,42 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     }
 
     /**
-     * Set an array of items to the collection.
+     * Set a list of items to the collection.
      *
-     * @param array $items
+     * @param array $items List of items
+     *
+     * @throws InvalidArgumentException
      *
      * @return self
      */
     public function set(array $items): self
     {
-        $this->items = $items;
+        $this->items = [];
+        foreach ($items as $item) {
+            if ($this->validate($item)) {
+                $this->items[] = $item;
+            } else {
+                throw new InvalidArgumentException('Item is not valid and has to a object of ' . static::$className);
+            }
+        }
 
         return $this;
+    }
+
+    /**
+     * Validate item.
+     *
+     * @param mixed $item Collection item
+     *
+     * @return bool
+     */
+    protected function validate($item): bool
+    {
+        if (static::$className && !is_a($item, static::$className)) {
+            return false;
+        }
+
+        return true;
     }
 
     /**

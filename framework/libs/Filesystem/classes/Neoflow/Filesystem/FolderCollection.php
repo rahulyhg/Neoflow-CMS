@@ -8,4 +8,10 @@ namespace Neoflow\Filesystem;
  */
 class FolderCollection extends Collection
 {
+    /**
+     * Collection item type.
+     *
+     * @var string
+     */
+    protected static $className = '\\Neoflow\\Filesystem\\Folder';
 }
