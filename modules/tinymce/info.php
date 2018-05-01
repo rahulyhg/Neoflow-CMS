@@ -1,5 +1,4 @@
 <?php
-
 // Module info
 return [
     'name' => 'TinyMCE',
@@ -8,7 +7,7 @@ return [
     'description' => 'HTML text editor, designed to simplify website content creation. Extends the WYSIWYG editor module.',
     'version' => '4.7.1',
     'author' => 'Jonathan Nessier <jonathan.nessier@neoflow.ch>',
-    'copyright' => 'Copyright (c) 2016-2018 Jonathan Nessier, Neoflow.ch',
+    'copyright' => 'Copyright (c) Jonathan Nessier, Neoflow.ch',
     'license' => 'MIT',
     'type' => 'library',
     'folder_name' => 'tinymce',

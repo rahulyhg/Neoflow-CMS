@@ -7,7 +7,7 @@ return [
     'description' => 'Datetimepicker, datepicker or timepicker dropdown to your forms.',
     'version' => '1.3.4',
     'author' => 'Jonathan Nessier <jonathan.nessier@neoflow.ch>',
-    'copyright' => 'Copyright (c) 2017-2018 Jonathan Nessier, Neoflow.ch',
+    'copyright' => 'Copyright (c) Jonathan Nessier, Neoflow.ch',
     'license' => 'MIT',
     'type' => 'library',
     'folder_name' => 'datetimepicker',
