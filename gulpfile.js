@@ -113,7 +113,7 @@ gulp.task('update:_createModuleZipPackages', function () {
 
     // Define folder names of core modules
     var coreModuleFolders = [
-        'code', 'datetimepicker', 'dummy', 'sitemap', 'snippets', 'wysiwyg'
+        'code', 'datetimepicker', 'dummy', 'sitemap', 'snippets', 'wysiwyg', 'search'
     ];
 
     // Add folder names of changed modules

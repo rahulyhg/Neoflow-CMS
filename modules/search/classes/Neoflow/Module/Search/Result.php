@@ -59,4 +59,28 @@ class Result
     {
         return $this->description;
     }
+
+    /**
+     * Get focused description
+     * @param string $query Search query
+     * @param int $range Focus range (number of chars left and right of found search query in description)
+     * @return string
+     */
+    public function getFocusedDescription(string $query, int $range = 50, string $prefix = '...', string $postfix = '...'): string
+    {
+        $description = strip_tags($this->description);
+
+        $start = max(mb_stripos($description, $query) - $range, 0);
+        $length = mb_strlen($query) + ($range * 2);
+
+        if ($start === 0) {
+            $prefix = '';
+        }
+
+        if ($length >= mb_strlen($description)) {
+            $postfix = '';
+        }
+
+        return $prefix . trim(mb_substr($description, $start, $length)) . $postfix;
+    }
 }

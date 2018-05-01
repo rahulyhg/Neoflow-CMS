@@ -1,12 +1,12 @@
 <?php
 namespace Neoflow\Module\Search;
 
-interface ModelInterface
+interface ModelSearchInterface
 {
 
     /**
      * Search for results
-     * @param string $query
+     * @param string $query Seach query string
      *
      * @return Results
      */

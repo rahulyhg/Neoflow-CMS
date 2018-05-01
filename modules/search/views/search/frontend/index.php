@@ -20,7 +20,7 @@
                     <a href="<?= $result->getUrl() ?>"><?= $result->getTitle() ?></a>
                 </p>
                 <p>
-                    <?= str_replace($query, '<strong>' . $query . '</strong>', $result->getDescription()) ?>
+                    <?= preg_replace("/(" . $query . ")/i", "<strong>$1</strong>", $result->getFocusedDescription($query)); ?>
                 </p>
             </li>
         <?php } ?>

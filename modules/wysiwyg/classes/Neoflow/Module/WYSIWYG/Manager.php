@@ -1,13 +1,14 @@
 <?php
-
 namespace Neoflow\Module\WYSIWYG;
 
-use Neoflow\CMS\Model\SectionModel;
 use Neoflow\CMS\Manager\AbstractPageModuleManager;
+use Neoflow\CMS\Model\SectionModel;
 use Neoflow\Filesystem\Folder;
+use Neoflow\Module\Search\Model\EntityModel;
 
 class Manager extends AbstractPageModuleManager
 {
+
     /**
      * Add WYSWYG module to section.
      *
@@ -17,7 +18,7 @@ class Manager extends AbstractPageModuleManager
      */
     public function add(SectionModel $section): bool
     {
-        $mediaPath = $this->config()->getMediaPath('/modules/wysiwyg/section-'.$section->id());
+        $mediaPath = $this->config()->getMediaPath('/modules/wysiwyg/section-' . $section->id());
         if (!is_dir($mediaPath)) {
             Folder::create($mediaPath);
         }
@@ -38,7 +39,7 @@ class Manager extends AbstractPageModuleManager
      */
     public function remove(SectionModel $section): bool
     {
-        $mediaPath = $this->config()->getMediaPath('/modules/wysiwyg/section-'.$section->id());
+        $mediaPath = $this->config()->getMediaPath('/modules/wysiwyg/section-' . $section->id());
         if (is_dir($mediaPath)) {
             Folder::unlink($mediaPath);
         }
@@ -112,6 +113,13 @@ class Manager extends AbstractPageModuleManager
      */
     public function update(): bool
     {
+        if ($this->module->oldVersion === '1.0') {
+            $entity = new EntityModel();
+            $entity->entity_class = '\\Neoflow\\Module\\WYSIWYG\\Model';
+            //    $entity->validate();
+            $entity->save();
+        }
+
         return true;
     }
 }

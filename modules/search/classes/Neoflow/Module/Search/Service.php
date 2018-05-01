@@ -32,7 +32,7 @@ class Service extends AbstractService
     public function register(string $entityClassName): self
     {
         $entity = EntityModel::create([
-                'entity_class' => $entityClassName
+                'entity_class' => $entityClassName,
         ]);
 
         $entity->validate();
@@ -63,33 +63,22 @@ class Service extends AbstractService
         return $this->settings;
     }
 
-    public function search($query)
+    /**
+     * Search results.
+     *
+     * @param string $query Search query string
+     *
+     * @return Results
+     */
+    public function search(string $query): Results
     {
         $results = new Results();
 
         $entities = EntityModel::findAll();
         foreach ($entities as $entity) {
-            $entityResults = $entity::search($query);
-            $results->addMultiple($entityResults);
+            $entityResults = $entity->entity_class::search($query);
+            $results->addMultiple($entityResults->toArray());
         }
-
-        $wysiwygs = \Neoflow\Module\WYSIWYG\Model::findAllByColumn('content', '%' . $query . '%', 'LIKE');
-
-        foreach ($wysiwygs as $wysiwyg) {
-            $page = $wysiwyg->getSection()->getPage();
-            $content = strip_tags($wysiwyg->content);
-
-            $position = mb_strpos($content, $query) - 3;
-            if ($position < 0) {
-                $position = 0;
-            }
-            $length = mb_strlen($query) + (3 * 2);
-
-            $content = mb_substr($content, $position, $length);
-
-            $results->add(new Result($page->getUrl(), $page->title, $content));
-        }
-
 
         return $results;
     }

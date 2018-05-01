@@ -4,8 +4,11 @@ namespace Neoflow\Module\WYSIWYG;
 use Neoflow\CMS\Core\AbstractModel;
 use Neoflow\CMS\Model\SectionModel;
 use Neoflow\Framework\ORM\Repository;
+use Neoflow\Module\Search\ModelSearchInterface;
+use Neoflow\Module\Search\Result;
+use Neoflow\Module\Search\Results;
 
-class Model extends AbstractModel
+class Model extends AbstractModel implements ModelSearchInterface
 {
 
     /**
@@ -47,5 +50,34 @@ class Model extends AbstractModel
         }
 
         return null;
+    }
+
+    /**
+     * Search for results
+     * @param string $query Seach query string
+     *
+     * @return Results
+     */
+    public static function search(string $query): Results
+    {
+        $wysiwygs = static::findAllByColumns([
+                'content' => '%' . $query . '%',
+                ], 'LIKE');
+
+        $results = new Results();
+
+        foreach ($wysiwygs as $wysiwyg) {
+            $section = $wysiwyg->getSection();
+            if ($section) {
+                $page = $section->getPage();
+                if ($page) {
+                    $quality = 50 + (substr_count(strip_tags($wysiwyg->content), $query));
+                    $result = new Result($page->getUrl(), $page->title, $wysiwyg->content, $quality);
+                    $results->add($result);
+                }
+            }
+        }
+
+        return $results;
     }
 }
