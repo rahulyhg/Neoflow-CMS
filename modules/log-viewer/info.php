@@ -1,14 +1,16 @@
 <?php
-
 // Module info
 return [
     'name' => 'Log Viewer',
     'identifier' => 'log-viewer',
     'dependencies' => '',
     'description' => 'User-friendly and simple viewer for in-depth analysis of log files.',
-    'version' => '1.0',
+    'version' => '1.0.1',
+    'for' => [
+        '1.0',
+    ],
     'author' => 'Jonathan Nessier <jonathan.nessier@neoflow.ch>',
-    'copyright' => 'Copyright (c) 2017 Jonathan Nessier, Neoflow.ch',
+    'copyright' => 'Copyright (c) 2018 Jonathan Nessier, Neoflow.ch',
     'license' => 'MIT',
     'type' => 'tool',
     'folder_name' => 'log-viewer',
