@@ -5,5 +5,3 @@ ALTER TABLE `settings` CHANGE `sender_emailaddress` `emailaddress` VARCHAR(100) 
 DROP `visitors`;
 
 UPDATE `permissions` SET `permission_key` = 'manage_themes' WHERE `permissions`.`permission_id` = 4;
-
-UPDATE `modules` SET `is_core` = '1' WHERE `modules`.`identifier` = 'search';

@@ -13,4 +13,5 @@ return [
     'folder_name' => 'search',
     'manager_class' => '\\Neoflow\\Module\\Search\\Manager',
     'backend_route' => 'tmod_search_backend_index',
+    'is_core' => true
 ];

@@ -17,4 +17,5 @@ return [
     'manager_class' => '\\Neoflow\\Module\\WYSIWYG\\Manager',
     'backend_route' => 'pmod_wysiwyg_backend_index',
     'frontend_route' => 'pmod_wysiwyg_frontend',
+    'is_core' => true
 ];

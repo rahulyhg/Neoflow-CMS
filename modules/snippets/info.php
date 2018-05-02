@@ -16,4 +16,5 @@ return [
     'folder_name' => 'snippets',
     'manager_class' => '\\Neoflow\\Module\\Snippets\\Manager',
     'backend_route' => 'tmod_snippets_backend_index',
+    'is_core' => true
 ];

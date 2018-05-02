@@ -16,4 +16,5 @@ return [
     'folder_name' => 'sitemap',
     'manager_class' => '\\Neoflow\\Module\\Sitemap\\Manager',
     'backend_route' => 'tmod_sitemap_backend_index',
+    'is_core' => true
 ];
