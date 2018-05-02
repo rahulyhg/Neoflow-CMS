@@ -3,7 +3,7 @@
 use Neoflow\CMS\App;
 
 // PHP version check
-if (version_compare(PHP_VERSION, '7.0', '<')) {
+if (version_compare(PHP_VERSION, '7.1', '<')) {
     die('PHP 7 or newer required.');
 }
 
