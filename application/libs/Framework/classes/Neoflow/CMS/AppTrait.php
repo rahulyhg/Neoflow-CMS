@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS;
 
 use Neoflow\CMS\Handler\Config;
@@ -17,6 +16,7 @@ use Neoflow\Framework\ORM\EntityCollection;
  */
 trait AppTrait
 {
+
     use FrameworkAppTrait;
 
     /**
@@ -30,7 +30,7 @@ trait AppTrait
     }
 
     /**
-     * Get actived modules.
+     * Get active modules.
      *
      * @return EntityCollection
      */
