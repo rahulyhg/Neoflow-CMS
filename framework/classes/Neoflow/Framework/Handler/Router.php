@@ -435,7 +435,7 @@ class Router
         if ($languageCode) {
             $routeUrlPath = '/'.$languageCode.$routeUrlPath;
         } elseif (count($this->config()->get('app')->get('languages')) > 1) {
-            $routeUrlPath = '/'.$this->translator()->getActiveLanguageCode().$routeUrlPath;
+            $routeUrlPath = '/'.$this->translator()->getCurrentLanguageCode().$routeUrlPath;
         }
 
         $parameters = array_filter($parameters);

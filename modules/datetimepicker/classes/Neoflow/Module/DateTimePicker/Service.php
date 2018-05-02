@@ -35,7 +35,7 @@ class Service extends AbstractService
             ->addJavascriptUrl($this->module->getUrl('statics/jquery.datetimepicker.full.min.js'))
             ->addJavascript('
                 (function() {
-                    $.datetimepicker.setLocale("'.$this->translator()->getActiveLanguageCode().'");
+                    $.datetimepicker.setLocale("'.$this->translator()->getCurrentLanguageCode().'");
                 })();
             ');
     }

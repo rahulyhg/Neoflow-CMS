@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<?= $view->translator()->getActiveLanguageCode(); ?>">
+<html lang="<?= $view->translator()->getCurrentLanguageCode(); ?>">
     <head>
         <title>
             <?= $view->getTitle(); ?> | <?= $view->getWebsiteTitle(); ?>
@@ -105,7 +105,7 @@
         <script>
             var URL = '<?= $view->config()->getUrl(); ?>',
                     THEME_URL = '<?= $view->getThemeUrl(); ?>',
-                    LANGUAGE_CODE = '<?= $view->translator()->getActiveLanguageCode(); ?>';
+                    LANGUAGE_CODE = '<?= $view->translator()->getCurrentLanguageCode(); ?>';
         </script>
 
         <!-- Theme Javascript -->

@@ -36,7 +36,7 @@ $executionTime = round(\Neoflow\CMS\App::instance()->getExecutionTime(), 3);
                 <div class="col-sm-5">
                     <h4>Language</h4>
                     <ul class="list-inline">
-                        <li class="list-inline-item">Language: <small><?= $view->translator()->getActiveLanguageCode(); ?></small></li>
+                        <li class="list-inline-item">Language: <small><?= $view->translator()->getCurrentLanguageCode(); ?></small></li>
                         <li class="list-inline-item">Date format: <small><?= $view->translator()->getDateFormat(); ?></small></li>
                         <li class="list-inline-item">Default language: <small><?= $view->translator()->getDefaultLanguageCode(); ?></small></li>
                         <li class="list-inline-item">Fallback language: <small><?= $view->translator()->getFallbackLanguageCode(); ?></small></li>

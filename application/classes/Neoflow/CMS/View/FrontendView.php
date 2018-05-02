@@ -133,7 +133,7 @@ class FrontendView extends AbstractView
         } else {
             $navigation = NavigationModel::findByColumn('navigation_key', $navigationKey);
             if ($navigation) {
-                $navigationTree = $navigation->getNavigationTree($startLevel, $maxLevel, true, $this->translator()->getActiveLanguage()->id());
+                $navigationTree = $navigation->getNavigationTree($startLevel, $maxLevel, true, $this->translator()->getCurrentLanguage()->id());
 
                 // Store navigation tree to cache
                 $this->cache()->store($cacheKey, $navigationTree, 0, ['system-configurations', 'navigation-trees']);

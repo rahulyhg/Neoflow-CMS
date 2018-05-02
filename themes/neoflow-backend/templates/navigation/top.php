@@ -14,13 +14,13 @@
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                         <span class="nav-link-icon">
-                            <?= $view->translator()->getActiveLanguage()->renderFlagIcon(); ?>
+                            <?= $view->translator()->getCurrentLanguage()->renderFlagIcon(); ?>
                         </span>
                     </a>
                     <div class="dropdown-menu">
                         <?php foreach ($view->settings()->getLanguages() as $language) {
             ?>
-                            <a class="dropdown-item<?= ($language->code === $view->translator()->getActiveLanguageCode() ? ' active' : ''); ?>" href="<?= generate_url('', [], $_GET, $language->code); ?>">
+                            <a class="dropdown-item<?= ($language->code === $view->translator()->getCurrentLanguageCode() ? ' active' : ''); ?>" href="<?= generate_url('', [], $_GET, $language->code); ?>">
                                 <?= $language->renderFlagIcon(); ?>
                             </a>
                         <?php

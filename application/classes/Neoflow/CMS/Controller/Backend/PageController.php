@@ -61,7 +61,7 @@ class PageController extends BackendController {
                 ->orderByAsc('title')
                 ->fetchAll();
 
-        // Get active language
+        // Get current language
         $language_id = $this->request()->getGet('language_id');
         if (!$language_id) {
             if ($this->session()->has('language_id')) {

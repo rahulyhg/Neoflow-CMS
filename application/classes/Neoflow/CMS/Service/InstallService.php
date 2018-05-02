@@ -65,7 +65,7 @@ class InstallService extends AbstractService
         }
 
         // Get language
-        $language = $this->translator()->getActiveLanguage();
+        $language = $this->translator()->getCurrentLanguage();
 
         // Update language settings
         $settings->default_language_id = $language->id();

@@ -30,7 +30,7 @@ class WebsiteController extends InstallController
         return $this->render('install/website/index', [
                     'setting' => $settings,
                     'languages' => LanguageModel::findAll(),
-                    'activeLanguage' => $this->translator()->getActiveLanguage(),
+                    'activeLanguage' => $this->translator()->getCurrentLanguage(),
         ]);
     }
 

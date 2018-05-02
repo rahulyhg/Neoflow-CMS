@@ -75,11 +75,11 @@ class Translator extends FrameworkTranslator
     }
 
     /**
-     * Get active language.
+     * Get current language.
      *
      * @return LanguageModel
      */
-    public function getActiveLanguage(): LanguageModel
+    public function getCurrentLanguage(): LanguageModel
     {
         $activeLanguage = $this->settings()->getLanguages()->where('code', $this->languageCode)->first();
         if ($activeLanguage) {
@@ -90,13 +90,13 @@ class Translator extends FrameworkTranslator
     }
 
     /**
-     * Get active language code.
+     * Get current language code.
      *
      * @return string
      */
-    public function getActiveLanguageCode(): string
+    public function getCurrentLanguageCode(): string
     {
-        // Get active language code from database if connection is etablished
+        // Get current language code from database if connection is etablished
         if ($this->app()->get('database')) {
             $activeLanguage = $this->settings()->getLanguages()->where('code', $this->languageCode)->first();
             if ($activeLanguage) {

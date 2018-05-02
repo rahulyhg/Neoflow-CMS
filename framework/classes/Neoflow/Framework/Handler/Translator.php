@@ -161,11 +161,11 @@ class Translator
     }
 
     /**
-     * Get active language code.
+     * Get current language code.
      *
      * @return string
      */
-    public function getActiveLanguageCode(): string
+    public function getCurrentLanguageCode(): string
     {
         return $this->languageCode;
     }

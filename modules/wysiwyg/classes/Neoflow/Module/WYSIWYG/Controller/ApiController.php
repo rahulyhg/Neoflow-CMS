@@ -128,7 +128,7 @@ class ApiController extends AbstractPageModuleController
                 ];
             }
         } else {
-            $result = $navigation->getNavigationTree(0, 5, false, $this->translator()->getActiveLanguage()->id());
+            $result = $navigation->getNavigationTree(0, 5, false, $this->translator()->getCurrentLanguage()->id());
         }
 
         $result = array_map('array_filter_recursive', replace_array_key(replace_array_key($result, 'value', 'url'), 'menu', 'children'));

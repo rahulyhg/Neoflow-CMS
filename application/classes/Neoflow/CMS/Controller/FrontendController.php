@@ -37,7 +37,7 @@ class FrontendController extends AbstractController
         if (isset($this->args['url'])) {
             $page = PageModel::repo()
                 ->where('url', '=', $this->args['url'])
-                ->where('language_id', '=', $this->translator()->getActiveLanguage()->id())
+                ->where('language_id', '=', $this->translator()->getCurrentLanguage()->id())
                 ->fetch();
 
             if ($page && $page->is_startpage && mb_strlen($this->args['url']) > 1) {
@@ -46,7 +46,7 @@ class FrontendController extends AbstractController
         } else {
             $page = PageModel::repo()
                 ->where('is_startpage', '=', true)
-                ->where('language_id', '=', $this->translator()->getActiveLanguage()->id())
+                ->where('language_id', '=', $this->translator()->getCurrentLanguage()->id())
                 ->fetch();
         }
 

@@ -52,7 +52,7 @@ class Service extends WysiwygService
     {
         $this->module = $module;
 
-        $this->options['language'] = $this->translator()->getActiveLanguageCode();
+        $this->options['language'] = $this->translator()->getCurrentLanguageCode();
 
         $this->options['link_list'] = generate_url('pmod_wysiwyg_backend_api_pages');
 
