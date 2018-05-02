@@ -74,10 +74,14 @@ class Service extends AbstractService
     {
         $results = new Results();
 
+        $query = str_replace(['*', ' '], '%', $query);
+
         $entities = EntityModel::findAll();
         foreach ($entities as $entity) {
-            $entityResults = $entity->entity_class::search($query);
-            $results->addMultiple($entityResults->toArray());
+            if (class_exists($entity->entity_class)) {
+                $entityResults = $entity->entity_class::search($query);
+                $results->addMultiple($entityResults->toArray());
+            }
         }
 
         return $results;

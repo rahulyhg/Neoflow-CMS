@@ -116,7 +116,7 @@ class Manager extends AbstractPageModuleManager
         if ($this->module->oldVersion === '1.0') {
             $entity = new EntityModel();
             $entity->entity_class = '\\Neoflow\\Module\\WYSIWYG\\Model';
-            //    $entity->validate();
+            $entity->validate();
             $entity->save();
         }
 

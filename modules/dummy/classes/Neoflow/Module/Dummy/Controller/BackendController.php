@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Module\Dummy\Controller;
 
 use Neoflow\CMS\Controller\Backend\AbstractToolModuleController;
@@ -8,6 +7,7 @@ use Neoflow\Framework\HTTP\Responsing\Response;
 
 class BackendController extends AbstractToolModuleController
 {
+
     /**
      * Constructor.
      *
@@ -18,7 +18,7 @@ class BackendController extends AbstractToolModuleController
     {
         parent::__construct($view, $args);
 
-        $this->view->setTitle(translate('Dummy'));
+        $this->view->setTitle('Dummy');
     }
 
     /**

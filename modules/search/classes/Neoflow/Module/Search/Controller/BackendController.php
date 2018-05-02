@@ -23,7 +23,7 @@ class BackendController extends AbstractToolModuleController
     {
         parent::__construct($view, $args);
 
-        $this->view->setTitle(translate('Search'));
+        $this->view->setTitle('Search');
     }
 
     /**
@@ -35,7 +35,7 @@ class BackendController extends AbstractToolModuleController
     {
         $settings = SettingModel::findById(1);
 
-        return $this->render('/search/index', [
+        return $this->render('/search/backend/index', [
                 'settings' => $settings,
         ]);
     }

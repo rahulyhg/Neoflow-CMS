@@ -39,7 +39,7 @@ class EntityModel extends AbstractModel
             }, 'The entity class must exist')
             ->callback(function($value) {
                 $interfaces = class_implements(new $value());
-                return in_array('\\Neoflow\\Module\\Search\\ModelSearchInterface', $interfaces);
+                return in_array('Neoflow\\Module\\Search\\ModelSearchInterface', $interfaces);
             }, 'The entity class has to implement the model search interface')
             ->set('entity_class');
 

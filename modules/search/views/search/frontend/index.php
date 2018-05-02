@@ -1,7 +1,7 @@
 <form class="mb-3">
     <div class="form-row">
         <div class="col-sm-8 col-md-10">
-            <input type="text" name="query" value="<?= $query ?>" class="form-control mb-2 mb-sm-0">
+            <input type="text" name="q" value="<?= $query ?>" class="form-control mb-2 mb-sm-0">
         </div>
         <div clasS="col-sm-4 col-md-2">
             <button type="submit" class="btn btn-primary btn-block">

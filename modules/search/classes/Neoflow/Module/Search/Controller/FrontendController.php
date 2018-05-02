@@ -4,6 +4,8 @@ namespace Neoflow\Module\Search\Controller;
 use Neoflow\CMS\Controller\FrontendController as CmsFrontendController;
 use Neoflow\CMS\View\FrontendView;
 use Neoflow\Framework\HTTP\Responsing\Response;
+use Neoflow\Module\Search\Model\SettingModel;
+use Neoflow\Module\Search\Results;
 use function translate;
 
 class FrontendController extends CmsFrontendController
@@ -23,9 +25,9 @@ class FrontendController extends CmsFrontendController
      */
     public function indexAction(): Response
     {
-        $query = $this->request()->getGet('query');
+        $query = $this->request()->getGet('q');
 
-        $results = new \Neoflow\Module\Search\Results();
+        $results = new Results();
 
         if ($query) {
             $this->view->setTitle(translate('Search results for "{0}"', [$query]));

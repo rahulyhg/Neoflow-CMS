@@ -2,12 +2,13 @@
 namespace Neoflow\Module\Search;
 
 use Neoflow\CMS\Manager\AbstractModuleManager;
+use Neoflow\Module\Sitemap\Model\SettingModel;
 
 class Manager extends AbstractModuleManager
 {
 
     /**
-     * Install Search module.
+     * Install module.
      *
      * @return bool
      */
@@ -30,11 +31,13 @@ class Manager extends AbstractModuleManager
                                 PRIMARY KEY (`setting_id`));')
             ->execute();
 
-        return true;
+        $setting = SettingModel::create([]);
+
+        return $setting->save();
     }
 
     /**
-     * Uninstall Search module.
+     * Uninstall module.
      *
      * @return bool
      */
@@ -58,7 +61,7 @@ class Manager extends AbstractModuleManager
     }
 
     /**
-     * Initialize Search module.
+     * Initialize module.
      *
      * @return bool
      */
@@ -74,7 +77,7 @@ class Manager extends AbstractModuleManager
     }
 
     /**
-     * Update Search module.
+     * Update module.
      *
      * @return bool
      */

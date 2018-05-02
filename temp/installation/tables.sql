@@ -46,6 +46,19 @@ CREATE TABLE IF NOT EXISTS `mod_code` (
   PRIMARY KEY (`code_id`)
 ) ENGINE=InnoDB;
 
+DROP TABLE IF EXISTS `mod_search_settings`;
+CREATE TABLE `mod_search_settings` (
+  `setting_id` INT NOT NULL AUTO_INCREMENT,
+PRIMARY KEY (`setting_id`)
+) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS `mod_search_entities`;
+CREATE TABLE `mod_search_entities` (
+  `entity_id` INT NOT NULL AUTO_INCREMENT,
+  `entity_class` VARCHAR(255) NOT NULL,
+PRIMARY KEY (`entity_id`)
+) ENGINE=InnoDB;
+
 DROP TABLE IF EXISTS `mod_sitemap_settings`;
 CREATE TABLE IF NOT EXISTS `mod_sitemap_settings` (
   `setting_id` int(11) NOT NULL AUTO_INCREMENT,
