@@ -136,14 +136,14 @@ gulp.task('update:_createModuleZipPackages', function () {
 
     // Zip only core and changed modules
     return moduleFolders.map(function (moduleFolder) {
-        //  if (coreModuleFolders.indexOf(moduleFolder) > -1) {
-        console.log('Create ' + moduleFolder + '.zip');
-        return gulp
-                .src(path.join('./modules', moduleFolder) + '/**')
-                .pipe(zip(moduleFolder + '.zip'))
-                .pipe(gulp.dest('./temp/update/modules'));
-        // }
-        //  return false;
+        if (coreModuleFolders.indexOf(moduleFolder) > -1) {
+            console.log('Create ' + moduleFolder + '.zip');
+            return gulp
+                    .src(path.join('./modules', moduleFolder) + '/**')
+                    .pipe(zip(moduleFolder + '.zip'))
+                    .pipe(gulp.dest('./temp/update/modules'));
+        }
+        return false;
     });
 
 });

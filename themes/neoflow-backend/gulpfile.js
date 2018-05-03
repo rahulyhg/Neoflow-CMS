@@ -12,10 +12,12 @@ var stripCssComments = require('gulp-strip-css-comments');
 var postcss = require('gulp-postcss');
 var runSequence = require('run-sequence');
 var pjson = require('./package.json');
+
 var sourceHeader = fs
         .readFileSync('./src/source-header.txt', 'utf8')
         .replace('{VERSION}', pjson.version)
         .replace('{YEAR}', new Date().getFullYear());
+
 gulp.task('scss:build', function () {
     return gulp.src('./src/sass/**/*.scss')
             .pipe(sass({
@@ -26,6 +28,7 @@ gulp.task('scss:build', function () {
             }))
             .pipe(gulp.dest('./src/css'));
 });
+
 gulp.task('css:build', function () {
     return gulp.src(['./src/css/*.css'])
             .pipe(postcss([
@@ -37,6 +40,7 @@ gulp.task('css:build', function () {
             .pipe(injectString.after('@charset "UTF-8";', '\n' + sourceHeader))
             .pipe(gulp.dest('./css'));
 });
+
 gulp.task('css:minify', function () {
     return gulp.src(['./css/*.css', '!./css/*.min.css'])
             .pipe(postcss([
@@ -51,6 +55,7 @@ gulp.task('css:minify', function () {
             }))
             .pipe(gulp.dest('./css'));
 });
+
 gulp.task('js:build', function () {
     return gulp.src([
         './src/js/vendor/jquery.min.js',
@@ -87,6 +92,7 @@ gulp.task('js:build', function () {
             .pipe(injectString.prepend(sourceHeader + '\n'))
             .pipe(gulp.dest('./js'));
 });
+
 gulp.task('js:minify', function () {
     return gulp.src(['./js/script.js'])
             .pipe(uglify().on('error', util.log))
@@ -94,15 +100,19 @@ gulp.task('js:minify', function () {
             .pipe(injectString.prepend(sourceHeader + '\n'))
             .pipe(gulp.dest('./js'));
 });
+
 gulp.task('css:rebuild', function () {
     runSequence('scss:build', 'css:build', 'css:minify');
 });
+
 gulp.task('js:rebuild', function () {
     runSequence('js:build', 'js:minify');
 });
+
 gulp.task('src:rebuild', function () {
     runSequence('js:rebuild', 'css:rebuild');
 });
+
 gulp.task('src:watch', function () {
     gulp.watch(['./src/sass/**/*.scss'], function () {
         runSequence('scss:build', 'css:build', 'css:minify');
