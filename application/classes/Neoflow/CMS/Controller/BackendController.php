@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Controller;
 
 use Neoflow\CMS\Core\AbstractController;
@@ -8,6 +7,7 @@ use Neoflow\Framework\HTTP\Responsing\Response;
 
 class BackendController extends AbstractController
 {
+
     /**
      * @var array
      */
@@ -24,6 +24,9 @@ class BackendController extends AbstractController
         if (!$view) {
             $view = new BackendView();
         }
+
+        // Set website area
+        $this->app()->set('area', 'backend');
 
         parent::__construct($view, $args);
     }

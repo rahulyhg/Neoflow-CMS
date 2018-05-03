@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Controller;
 
 use Neoflow\CMS\Core\AbstractController;
@@ -12,6 +11,7 @@ use Neoflow\Framework\HTTP\Responsing\Response;
 
 class FrontendController extends AbstractController
 {
+
     /**
      * Constructor.
      *
@@ -23,6 +23,9 @@ class FrontendController extends AbstractController
         if (!$view) {
             $view = new FrontendView();
         }
+
+        // Set website area
+        $this->app()->set('area', 'frontend');
 
         parent::__construct($view, $args);
     }
@@ -67,7 +70,7 @@ class FrontendController extends AbstractController
             throw new ForbiddenException();
         } elseif (isset($this->args['url']) && (count(explode('/', $this->args['url'])) > 1)) {
             // Define URL paths
-            $moduleUrlPath = mb_substr($this->args['url'], mb_strrpos($this->args['url'], '/')).$this->app()->get('module_url');
+            $moduleUrlPath = mb_substr($this->args['url'], mb_strrpos($this->args['url'], '/')) . $this->app()->get('module_url');
             $pageUrlPath = mb_substr($this->args['url'], 0, mb_strrpos($this->args['url'], '/'));
 
             // Set URL paths as app params

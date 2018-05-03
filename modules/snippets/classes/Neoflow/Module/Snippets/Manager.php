@@ -1,11 +1,11 @@
 <?php
-
 namespace Neoflow\Module\Snippets;
 
 use Neoflow\CMS\Manager\AbstractModuleManager;
 
 class Manager extends AbstractModuleManager
 {
+
     /**
      * Install Snippets module.
      *
@@ -53,26 +53,32 @@ class Manager extends AbstractModuleManager
      */
     public function execute(): bool
     {
-        $response = $this->app()->get('response');
+        if ($this->app()->get('area') === 'frontend') {
+            $response = $this->app()->get('response');
 
-        $content = $response->getContent();
+            if ($response) {
+                $content = preg_replace_callback('/\[\[([\w\d]+)\??(.*)\]\]/i', function ($matches) {
+                    $snippet = Model::findByColumn('placeholder', $matches[1]);
 
-        $response->setContent(preg_replace_callback('/\[\[([\w\d]+)\??(.*)\]\]/i', function ($matches) {
-            $snippet = Model::findByColumn('placeholder', $matches[1]);
+                    if ($snippet) {
+                        $parameters = [];
+                        if (isset($matches[2])) {
+                            mb_parse_str($matches[2], $parameters);
+                        }
 
-            if ($snippet) {
-                $parameters = [];
-                if (isset($matches[2])) {
-                    mb_parse_str($matches[2], $parameters);
-                }
+                        $code = $snippet->executeCode($parameters);
 
-                $code = $snippet->executeCode($parameters);
+                        return $code;
+                    }
 
-                return $code;
+                    return '';
+                }, $response->getContent());
+
+                $response->setContent($content);
+            } else {
+                return false;
             }
-
-            return '';
-        }, $content));
+        }
 
         return true;
     }

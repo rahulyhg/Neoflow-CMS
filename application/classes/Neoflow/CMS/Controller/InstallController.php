@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Controller;
 
 use Neoflow\CMS\Core\AbstractController;
@@ -11,6 +10,7 @@ use RuntimeException;
 
 class InstallController extends AbstractController
 {
+
     /**
      * Constructor.
      *
@@ -27,6 +27,9 @@ class InstallController extends AbstractController
         }
 
         parent::__construct($view, $args);
+
+        // Set website area
+        $this->app()->set('area', 'install');
 
         // Set title and website title
         $this->view
