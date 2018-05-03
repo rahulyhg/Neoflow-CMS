@@ -2,7 +2,7 @@
 namespace Neoflow\Module\Search;
 
 use Neoflow\CMS\Manager\AbstractModuleManager;
-use Neoflow\Module\Sitemap\Model\SettingModel;
+use Neoflow\Module\Search\Model\SettingModel;
 
 class Manager extends AbstractModuleManager
 {
@@ -27,11 +27,15 @@ class Manager extends AbstractModuleManager
         $this
             ->database()
             ->prepare('CREATE TABLE `mod_search_settings` (
-                                    `setting_id` INT NOT NULL AUTO_INCREMENT,
+                                    `url_path` VARCHAR(200) NOT NULL DEFAULT "/search" ,
+                                    `is_active` tinyint(1) NOT NULL DEFAULT 1,
                                 PRIMARY KEY (`setting_id`));')
             ->execute();
 
-        $setting = SettingModel::create([]);
+        $setting = SettingModel::create([
+                'url_path' => '/search',
+                'is_active' => true
+        ]);
 
         return $setting->save();
     }
@@ -72,6 +76,18 @@ class Manager extends AbstractModuleManager
 
         // Register service
         $this->app()->registerService($service, 'search');
+
+        // Get search settings
+        $settings = SettingModel::findById(1);
+
+        // Check whether search page is active and accessible
+        if ($settings->is_active) {
+
+            // Add custom url path as route
+            $this->router()->addRoutes([
+                ['tmod_search_frontend_index', 'get', $settings->url_path, '\\Neoflow\\Module\\Search\\Controller\\Frontend@index']
+            ]);
+        }
 
         return true;
     }

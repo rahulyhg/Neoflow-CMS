@@ -2,6 +2,7 @@
 namespace Neoflow\Module\Search\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
+use Neoflow\Framework\ORM\EntityValidator;
 
 class SettingModel extends AbstractModel
 {
@@ -9,7 +10,7 @@ class SettingModel extends AbstractModel
     /**
      * @var string
      */
-    public static $tableName = 'mod_sitemap_settings';
+    public static $tableName = 'mod_search_settings';
 
     /**
      * @var string
@@ -19,6 +20,39 @@ class SettingModel extends AbstractModel
     /**
      * @var array
      */
-    public static $properties = ['setting_id'];
+    public static $properties = [
+        'setting_id',
+        'url_path',
+        'is_active'
+    ];
 
+    /**
+     * Get search page url
+     * @return string
+     */
+    public function getSearchPageUrl(): string
+    {
+        return $this->config()->getUrl($this->url_path);
+    }
+
+    /**
+     * Validate settings
+     * @return bool
+     */
+    public function validate(): bool
+    {
+        $validator = new EntityValidator($this);
+
+        $validator
+            ->required()
+            ->minLength(3)
+            ->maxLength(200)
+            ->callback(function($value, $router) {
+                $route = $router->getRoutingByUrl($value);
+                return (!isset($route['route'][0]) || $route['route'][0] === 'frontend_index');
+            }, 'The URL is already in use.', [$this->router()])
+            ->set('url_path');
+
+        return (bool) $validator->validate();
+    }
 }

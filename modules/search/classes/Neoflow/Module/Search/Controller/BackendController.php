@@ -3,8 +3,10 @@ namespace Neoflow\Module\Search\Controller;
 
 use Neoflow\CMS\Controller\Backend\AbstractToolModuleController;
 use Neoflow\CMS\View\BackendView;
+use Neoflow\Framework\HTTP\Responsing\RedirectResponse;
 use Neoflow\Framework\HTTP\Responsing\Response;
-use Neoflow\Module\Sitemap\Model\SettingModel;
+use Neoflow\Module\Search\Model\SettingModel;
+use Neoflow\Validation\ValidationException;
 use RuntimeException;
 use function translate;
 
@@ -12,18 +14,26 @@ class BackendController extends AbstractToolModuleController
 {
 
     /**
+     * @var SettingModel
+     */
+    protected $settings;
+
+    /**
      * Constructor.
      *
      * @param BackendView $view
      * @param array       $args
-     *
-     * @throws RuntimeException
      */
     public function __construct(BackendView $view = null, array $args = [])
     {
         parent::__construct($view, $args);
 
-        $this->view->setTitle('Search');
+        $this->settings = SettingModel::findById(1);
+
+
+        $this->view
+            ->setTitle('Search')
+            ->setPreviewUrl($this->settings->getSearchPageUrl());
     }
 
     /**
@@ -33,10 +43,39 @@ class BackendController extends AbstractToolModuleController
      */
     public function indexAction(): Response
     {
-        $settings = SettingModel::findById(1);
-
         return $this->render('/search/backend/index', [
-                'settings' => $settings,
+                'settings' => $this->settings,
         ]);
+    }
+
+    /**
+     * Update action.
+     *
+     * @return RedirectResponse
+     *
+     * @throws RuntimeException
+     */
+    public function updateAction(): RedirectResponse
+    {
+        // Get post data
+        $postData = $this->request()->getPostData();
+
+        try {
+            $this->settings->update([
+                'url_path' => $postData->get('url_path'),
+                'is_active' => $postData->get('is_active'),
+            ]);
+
+            // Validate and save settings
+            if ($this->settings->validate() && $this->settings->save()) {
+                $this->view->setSuccessAlert(translate('Successfully updated'));
+            } else {
+                throw new RuntimeException('Update settings failed (ID: 1)');
+            }
+        } catch (ValidationException $ex) {
+            $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
+        }
+
+        return $this->redirectToRoute('tmod_search_backend_index');
     }
 }

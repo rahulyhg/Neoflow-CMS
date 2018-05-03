@@ -111,6 +111,9 @@ class App extends FrameworkApp
         });
         $this->get('logger')->info('CMS modules initialized');
 
+        // Add frontend index route
+        $this->get('router')->addRoutes(['frontend_index', 'any', '/(url:uri)', '\\Neoflow\\CMS\\Controller\\Frontend@index']);
+
         $this->get('logger')->info('Application created');
 
         return $this;
