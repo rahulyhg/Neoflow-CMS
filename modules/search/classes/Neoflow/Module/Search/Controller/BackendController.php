@@ -30,10 +30,11 @@ class BackendController extends AbstractToolModuleController
 
         $this->settings = SettingModel::findById(1);
 
+        $this->view->setTitle('Search');
 
-        $this->view
-            ->setTitle('Search')
-            ->setPreviewUrl($this->settings->getSearchPageUrl());
+        if ($this->settings->is_active) {
+            $this->view->setPreviewUrl($this->settings->getSearchPageUrl());
+        }
     }
 
     /**
