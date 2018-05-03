@@ -58,5 +58,7 @@ INSERT INTO `mod_sitemap_settings` VALUES(1, 'monthly', '1', 72, 1);
 
 INSERT INTO `mod_search_entities` VALUES (1, '\\Neoflow\\Module\\WYSIWYG\\Model');
 
+INSERT INTO `mod_search_settings` VALUES (1, '/search', 1);
+
 INSERT INTO `mod_snippets` VALUES(1, 'Dummy', 'return \'Just a snippet\';', 'dummy', 'Dummy snippet....', '');
 INSERT INTO `mod_snippets` VALUES(2, 'Google Analytics', 'return \'<script>\r\n	(function (i, s, o, g, r, a, m) {\r\n		i[\"GoogleAnalyticsObject\"] = r;\r\n		i[r] = i[r] || function () {\r\n			(i[r].q = i[r].q || []).push(arguments)\r\n		}, i[r].l = 1 * new Date();\r\n		a = s.createElement(o),\r\n				m = s.getElementsByTagName(o)[0];\r\n		a.async = 1;\r\n		a.src = g;\r\n		m.parentNode.insertBefore(a, m);\r\n	})(window, document, \"script\", \"https://www.google-analytics.com/analytics.js\", \"ga\");\r\n\r\n	ga(\"create\", \"\' . $id . \'\", \"auto\");\r\n	ga(\"send\", \"pageview\");\r\n</script>\';', 'GoogleAnalytics', 'Creates the JavaScript code for Google Analytics based on an custom ID which passed by a parameter.', 'id');

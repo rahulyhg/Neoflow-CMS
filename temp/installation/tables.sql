@@ -49,6 +49,8 @@ CREATE TABLE IF NOT EXISTS `mod_code` (
 DROP TABLE IF EXISTS `mod_search_settings`;
 CREATE TABLE `mod_search_settings` (
   `setting_id` INT NOT NULL AUTO_INCREMENT,
+  `url_path` VARCHAR(200) NOT NULL DEFAULT "/search" ,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
 PRIMARY KEY (`setting_id`)
 ) ENGINE=InnoDB;
 
