@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\Core;
 
 use Neoflow\Framework\AppTrait;
@@ -10,6 +9,7 @@ use function normalize_path;
 
 abstract class AbstractView extends Container
 {
+
     /**
      * App trait.
      */
@@ -61,7 +61,7 @@ abstract class AbstractView extends Container
      */
     public function getThemeUrl(string $additionalUrlPath = ''): string
     {
-        return $this->config()->getUrl('/theme/'.$additionalUrlPath);
+        return $this->config()->getUrl('/theme/' . $additionalUrlPath);
     }
 
     /**
@@ -73,7 +73,7 @@ abstract class AbstractView extends Container
      */
     protected function getThemePath(string $uri = ''): string
     {
-        return $this->config()->getPath('/theme/'.$uri);
+        return $this->config()->getPath('/theme/' . $uri);
     }
 
     /**
@@ -103,7 +103,7 @@ abstract class AbstractView extends Container
 
             return $content;
         }
-        throw new OutOfRangeException('View file "'.$viewFile.'" not found');
+        throw new OutOfRangeException('View file "' . $viewFile . '" not found');
     }
 
     /**
@@ -130,7 +130,7 @@ abstract class AbstractView extends Container
 
             return $output;
         }
-        throw new OutOfRangeException('Template file "'.$templateFile.'" not found');
+        throw new OutOfRangeException('Template file "' . $templateFile . '" not found');
     }
 
     /**
@@ -144,18 +144,18 @@ abstract class AbstractView extends Container
     protected function getFilePath(string $file, array $directories): string
     {
         if (!is_file($file)) {
-            $cacheKey = sha1($file.':'.implode('|', $directories));
+            $cacheKey = sha1($file . ':' . implode('|', $directories));
             if ($this->cache()->exists($cacheKey)) {
                 return $this->cache()->fetch($cacheKey);
             } else {
                 foreach ($directories as $directory) {
                     $filePaths = array_map(function ($extension) use ($directory, $file) {
-                        return $directory.DIRECTORY_SEPARATOR.$file.$extension;
+                        return $directory . DIRECTORY_SEPARATOR . $file . $extension;
                     }, ['', '.php', '.html', '.htm']);
 
                     foreach ($filePaths as $filePath) {
                         if (is_file($filePath)) {
-                            $this->cache()->store($cacheKey, $filePath, 0, ['system-configurations']);
+                            $this->cache()->store($cacheKey, $filePath, 0, ['cms_core', 'cms_view', 'cms_views', 'cms_templates']);
 
                             return $filePath;
                         }
@@ -179,9 +179,9 @@ abstract class AbstractView extends Container
     public function renderTheme(string $themeFile = 'index'): string
     {
         $themeFilePaths = [
-            $this->getThemePath(DIRECTORY_SEPARATOR.$themeFile),
-            $this->getThemePath(DIRECTORY_SEPARATOR.$themeFile.'.php'),
-            $this->getThemePath(DIRECTORY_SEPARATOR.$themeFile.'.html'),
+            $this->getThemePath(DIRECTORY_SEPARATOR . $themeFile),
+            $this->getThemePath(DIRECTORY_SEPARATOR . $themeFile . '.php'),
+            $this->getThemePath(DIRECTORY_SEPARATOR . $themeFile . '.html'),
         ];
 
         $parameters = [

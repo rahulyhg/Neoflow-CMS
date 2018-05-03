@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Framework\Persistence\Querying;
 
 use Neoflow\Framework\Persistence\Statement;
@@ -10,6 +9,7 @@ use Neoflow\Framework\Persistence\Statement;
  */
 class DeleteQuery extends AbstractQuery
 {
+
     /**
      * WHERE query trait.
      */
@@ -102,7 +102,7 @@ class DeleteQuery extends AbstractQuery
 
         $statement = $this->executeQuery();
         if (!$this->preventCacheClearing) {
-            $this->cache()->deleteByTag('database-results');
+            $this->cache()->deleteByTag('db_results');
         }
 
         return $statement;

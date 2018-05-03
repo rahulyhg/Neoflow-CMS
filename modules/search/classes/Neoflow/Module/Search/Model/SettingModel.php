@@ -55,4 +55,20 @@ class SettingModel extends AbstractModel
 
         return (bool) $validator->validate();
     }
+
+    /**
+     * Save settings
+     *
+     * @param bool $preventCacheClearing Prevent that the cached database results will get deleted
+     *
+     * @return bool
+     */
+    public function save(bool $preventCacheClearing = false): bool
+    {
+        // Delete cached routes
+        if (parent::save($preventCacheClearing)) {
+            return $this->cache()->deleteByTag('cms_router');
+        }
+        return false;
+    }
 }

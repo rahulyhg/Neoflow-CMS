@@ -6,6 +6,7 @@
 {0} is not a valid date like {1};{0} is not a valid date like {1};{0} ist kein gültiges Datum wie {1}
 {0} is required;{0} is required;{0} wird benötigt
 Yes;Yes;Ja
+URL path;URL path|URL paths;URL-Pfad|URL-Pfade
 No;No;Nein
 Required field;Required field|Required fields;Pflichtfeld|Pflichtfelder
 {0} must be at least {1} characters or longer;{0} must be at least {1} characters or longer;{0} muss mindestens {1} Zeichen oder länger sein
@@ -48,7 +49,7 @@ Advanced settings;Advanced settings;Erweiterterte Einstellungen
 Advanced settings description;Advanced settings (e.g. database connection or log level) can be configured in a config file, which can only be edited with a text editor.;Erweiterte Einstellungen (z.B. Datenbankverbindung oder der Log-Level) können in der Konfigurationsdatei konfiguriert werden, die aber nur mit einem Texteditor bearbeitet werden kann.
 All;All;Alle
 All blocks;All blocks;Alle Blöcke
-All cached data;All cached data;Alle zwischengespeicherten Daten
+All data;All data;Alle Daten
 All files;All files;Alle Dateien
 All logfiles (except the file of today);All logfiles (except the file of today);Alle Protokolldateien (ausser die Datei von heute)
 All modules;All modules;Alle Module
@@ -331,9 +332,8 @@ None;None;Keine
 Not found;Not found;Nicht gefunden
 Not specified;Not specified;Nicht spezifiziert
 Note;Note|Notes;Hinweis|Hinweise
-Only cached database results;Only cached database results;Nur zwischengespeicherte Datenbank-Resultate
-Only cached navigation trees;Only cached navigation trees;Nur zwischengespeicherte Seitenbäume
-Only cached system configurations;Only cached system configurations;Nur zwischengespeicherte Systemkonfigurationen
+Only database results;Only database results;Nur Datenbank-Resultate
+Only CMS data;Only CMS data;Nur CMS-Daten
 Only logfiles older than {0} days;Only logfiles older than {0} days;Nur Protokolldateien älter als {0} Tage
 Open folder;Open folder;Ordner öffnen
 PHP extensions;PHP extensions;PHP Erweiterungen

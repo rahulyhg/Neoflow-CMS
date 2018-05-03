@@ -70,7 +70,7 @@ abstract class AbstractView extends FrameworkAbstractView
                 'view' => $this->viewDirectories,
                 'template' => $this->templateDirectories,
             ];
-            $this->cache()->store($cacheKey, $viewDirectories, 0, ['system-configurations']);
+            $this->cache()->store($cacheKey, $viewDirectories, 0, ['cms_core', 'cms_view', 'cms_views', 'cms_templates']);
         }
 
         $this->logger()->info('View created', [

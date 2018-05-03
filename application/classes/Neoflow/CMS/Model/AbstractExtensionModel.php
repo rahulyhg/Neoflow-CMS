@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -13,6 +12,7 @@ use function translate;
 
 abstract class AbstractExtensionModel extends AbstractModel
 {
+
     /**
      * @var string
      */
@@ -37,7 +37,7 @@ abstract class AbstractExtensionModel extends AbstractModel
             }
 
             // Delete system config cache
-            $this->cache()->deleteByTag('system-configurations');
+            $this->cache()->deleteByTag('cms_core', 'cms_extensions');
 
             return true;
         }
@@ -129,7 +129,7 @@ abstract class AbstractExtensionModel extends AbstractModel
     protected function unpack(File $extensionPackageFile, bool $delete = true): Folder
     {
         // Create temporary update folder
-        $extensionFolderPath = $this->config()->getTempPath('/extension_'.uniqid());
+        $extensionFolderPath = $this->config()->getTempPath('/extension_' . uniqid());
         $extensionFolder = Folder::create($extensionFolderPath);
 
         // Extract package
@@ -255,7 +255,7 @@ abstract class AbstractExtensionModel extends AbstractModel
     public function save(bool $preventCacheClearing = false): bool
     {
         // Delete cms cache first
-        $this->cache()->deleteByTag('system-configurations');
+        $this->cache()->deleteByTag('cms_core', 'cms_extensions');
 
         return parent::save($preventCacheClearing);
     }

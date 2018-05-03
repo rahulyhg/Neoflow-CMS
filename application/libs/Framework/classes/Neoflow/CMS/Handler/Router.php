@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Handler;
 
 use Neoflow\CMS\AppTrait;
@@ -9,6 +8,7 @@ use Neoflow\Framework\HTTP\Responsing\Response;
 
 class Router extends FrameworkRouter
 {
+
     /**
      * App trait.
      */
@@ -36,11 +36,8 @@ class Router extends FrameworkRouter
             $routeFilePath = $this->config()->getApplicationPath('/routes.php');
             $this->loadRouteFile($routeFilePath);
 
-            // Add frontend index route to the end of the array
-            $this->addRoutes(['frontend_index', 'any', '/(url:uri)', 'Frontend@index'], '\\Neoflow\\CMS\\Controller\\');
-
             // Store routes to cache
-            $this->cache()->store('routes', $this->routes, 0, ['system-configurations']);
+            $this->cache()->store('routes', $this->routes, 0, ['cms_core', 'cms_router', 'cms_routes']);
         }
 
         $this->logger()->debug('Router created');

@@ -68,7 +68,7 @@ class Translator extends FrameworkTranslator
                 'dateFormat' => $this->dateFormat,
                 'dateTimeFormat' => $this->dateTimeFormat,
                 'fallbackDateFormat' => $this->fallbackDateFormat,
-                'fallbackDateTimeFormat' => $this->fallbackDateTimeFormat,], 0, ['system-configurations']);
+                'fallbackDateTimeFormat' => $this->fallbackDateTimeFormat,], 0, ['cms_core', 'cms_translator', 'cms_translations']);
         }
 
         return $this;
