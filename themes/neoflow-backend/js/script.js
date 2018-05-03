@@ -8,7 +8,7 @@
  *   Roboto Condensed | (c) Christian Robertson and Google | Apache License 2.0
  *   Font Awesome 4.7.0 by @davegandy | fontawesome.io/license
  *   jQuery 3.2.1 | (c) jQuery Foundation | jquery.org/license
- *   Bootstrap 4.1.0 | (c) The Bootstrap Authors | MIT
+ *   Bootstrap 4.1.1 | (c) The Bootstrap Authors | MIT
  *   Popper.js 1.12.0 | (c) Federico Zivolo | MIT
  *   Select2 4.0.5 | (c) Kevin Brown, Igor Vaynberg, and Select2 contributors | MIT
  *   Nestable 1.0.0 | (c) David Bushell and Neoflow | MIT
@@ -671,15 +671,15 @@ $.fn.preventDefaultClickBehaviour = function () {
 
 $('a[disabled]').preventDefaultClickBehaviour();
 
-$('.regexomat[data-regex]').on('input', function () {
-    var $this = $(this),
-            regexRule = $this.data('regex'),
-            value = $this.val();
+$('.regexomat[data-regex]')
+        .on('input', function () {
+            var $this = $(this),
+                    regexRule = $this.data('regex'),
+                    value = $this.val();
 
-    value = value.replace(new RegExp(regexRule), '');
-    $this.val(value);
-});
-
+            value = value.replace(new RegExp(regexRule), '');
+            $this.val(value);
+        });
 
 (function () {
 
@@ -1218,11 +1218,8 @@ function showCustomModal(selector, callback) {
     }
 
     setTimeout(function () {
-
         callback($customModal);
-
         $customModal.modal('show');
-
     }, transitionTime);
 
     return $customModal;
