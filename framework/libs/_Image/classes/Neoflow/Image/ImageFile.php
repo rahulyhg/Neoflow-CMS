@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\Image;
 
 use Neoflow\Filesystem\File;
@@ -7,49 +6,31 @@ use Neoflow\Image\Exception\ImageFileException;
 
 class ImageFile extends File
 {
+
     /**
      * Image resource.
      *
-     * @var type
+     * @var resource
      */
     protected $image;
 
     /**
-     * Load file path and image.
+     * Load image file
      *
-     * @param string $filePath Image file path
+     * @param string $path Image file path
      *
-     * @return self
+     * @return static
      *
      * @throws ImageFileException
      */
-    public function load(string $filePath): self
+    public static function load(string $path): \Neoflow\Filesystem\AbstractObject
     {
-        if (parent::load($filePath)) {
-            switch ($this->getType()) {
-                case IMAGETYPE_JPEG:
-                    $this->setRequiredMemory();
-                    $this->image = imagecreatefromjpeg($this->path);
-                    break;
-                case IMAGETYPE_PNG:
-                    $this->image = imagecreatefrompng($this->path);
-
-                    break;
-                case IMAGETYPE_GIF:
-                    $this->image = imagecreatefromgif($this->path);
-
-                    break;
-                case IMAGETYPE_BMP:
-                    $this->image = imagecreatefromwbmp($this->path);
-
-                    break;
-                default:
-                    throw new ImageFileException('Cannot load image file path, because "'.$this->path.'" is not a valid PNG, GIF, BMP or JPEG-based image.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
-            }
-            $this->fixOrientation();
+        $imageFile = parent::load($path);
+        if ($imageFile) {
+            $imageFile->loadFromPath();
         }
 
-        return $this;
+        return $imageFile;
     }
 
     /**
@@ -59,17 +40,81 @@ class ImageFile extends File
      */
     public function getType(): int
     {
-        return @getimagesize($this->path)[2];
+        $info = $this->getInfo();
+        return (int) $info[2];
     }
 
     /**
-     * Support method: Set required memory.
+     * Get image info (based on getimagesize function)
+     * @return array
+     */
+    public function getInfo(): array
+    {
+        return getimagesize($this->path);
+    }
+
+    /**
+     * Get image width.
      *
      * @return int
      */
+    public function getWidth(): int
+    {
+        $info = $this->getInfo();
+        return (int) $info[0];
+    }
+
+    /**
+     * Get image height.
+     *
+     * @return int
+     */
+    public function getHeight(): int
+    {
+        $info = $this->getInfo();
+        return (int) $info[1];
+    }
+
+    /**
+     * Load image resource from image file path
+     * @return self
+     * @throws ImageFileException
+     */
+    protected function loadFromPath(): self
+    {
+        switch ($this->getType()) {
+            case IMAGETYPE_JPEG:
+                $this->setRequiredMemory();
+                $this->image = imagecreatefromjpeg($this->path);
+                break;
+            case IMAGETYPE_PNG:
+                $this->image = imagecreatefrompng($this->path);
+
+                break;
+            case IMAGETYPE_GIF:
+                $this->image = imagecreatefromgif($this->path);
+
+                break;
+            case IMAGETYPE_BMP:
+                $this->image = imagecreatefromwbmp($this->path);
+
+                break;
+            default:
+                throw new ImageFileException('Cannot load image file path, because "' . $this->path . '" is not a valid PNG, GIF, BMP or JPEG-based image.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
+        }
+        $this->fixOrientation();
+
+        return $this;
+    }
+
+    /**
+     * Calculate and set required memory.
+     *
+     * @return bool
+     */
     protected function setRequiredMemory(): bool
     {
-        $imageInfo = @getimagesize($this->path);
+        $imageInfo = $this->getInfo();
         if (is_array($imageInfo)) {
             $MB = pow(1024, 2);
             $K64 = pow(2, 16);
@@ -81,31 +126,11 @@ class ImageFile extends File
             if ($memoryUsage + $memoryNeeded > $memoryLimit) {
                 $newMemoryLimit = ($memoryLimit + ceil($memoryUsage + $memoryNeeded - $memoryLimit)) / $MB;
 
-                return (bool) @ini_set('memory_limit', $newMemoryLimit.'M');
+                return (bool) @ini_set('memory_limit', $newMemoryLimit . 'M');
             }
         }
 
         return false;
-    }
-
-    /**
-     * Get image width.
-     *
-     * @return int
-     */
-    public function getWidth(): int
-    {
-        return imagesx($this->image);
-    }
-
-    /**
-     * Get image height.
-     *
-     * @return int
-     */
-    public function getHeight(): int
-    {
-        return imagesy($this->image);
     }
 
     /**
@@ -143,13 +168,13 @@ class ImageFile extends File
         if ($this->createImageFile($newFilePath, $imageType, $quality)) {
             return new static($newFilePath);
         }
-        throw new ImageFileException('Saving image file to file path "'.$newFilePath.'" failed', ImageFileException::NOT_WRITEABLE);
+        throw new ImageFileException('Saving image file to file path "' . $newFilePath . '" failed', ImageFileException::NOT_WRITEABLE);
     }
 
     /**
      * Resize image to height.
      *
-     * @param int $height
+     * @param int $height New height
      *
      * @return self
      */
@@ -165,7 +190,7 @@ class ImageFile extends File
     /**
      * Resize image to width.
      *
-     * @param int $width Image resize
+     * @param int $width New width
      *
      * @return self
      */
@@ -181,7 +206,7 @@ class ImageFile extends File
     /**
      * Scale image.
      *
-     * @param int $scale Scale size
+     * @param int $scale New scale size
      *
      * @return self
      */
@@ -196,48 +221,33 @@ class ImageFile extends File
     /**
      * Resize image to height and width.
      *
-     * @param int $newWidth  New image width
-     * @param int $newHeight New image height
+     * @param int $width  New width
+     * @param int $height New height
      *
      * @return self
      */
-    public function resize(int $newWidth, int $newHeight): self
+    public function resize(int $width, int $height): self
     {
-        $newImage = $this->createNewImage($newWidth, $newHeight);
+        $image = $this->createNewImage($width, $height);
 
-        imagecopyresampled($newImage, $this->image, 0, 0, 0, 0, $newWidth, $newHeight, $this->getWidth(), $this->getHeight());
+        imagecopyresampled($image, $this->image, 0, 0, 0, 0, $width, $height, $this->getWidth(), $this->getHeight());
 
-        $this->image = $newImage;
+        $this->image = $image;
 
         return $this;
     }
 
     /**
-     * Create new image.
-     *
-     * @param int $newWidth  New image width
-     * @param int $newHeight New image height
-     *
-     * @return resource
-     */
-    protected function createNewImage(int $newWidth, int $newHeight): resource
-    {
-        $newImage = imagecreatetruecolor($newWidth, $newHeight);
-
-        return $this->preserveTransparency($newImage);
-    }
-
-    /**
      * Resize image to best fitting width and height (proportional).
      *
-     * @param int $newWidth  New image width
-     * @param int $newHeight New image height
+     * @param int $width  New width
+     * @param int $height New height
      *
      * @return self
      */
-    public function resizeBestFit($newWidth, $newHeight)
+    public function resizeBestFit(int $width, int $height): self
     {
-        $ratio = min($newWidth / $this->getWidth(), $newHeight / $this->getHeight());
+        $ratio = min($width / $this->getWidth(), $height / $this->getHeight());
 
         return $this->resize($this->getWidth() * $ratio, $this->getHeight() * $ratio);
     }
@@ -245,41 +255,41 @@ class ImageFile extends File
     /**
      * Crop image to exact height and width (proportional).
      *
-     * @param int $newWidth  New image width
-     * @param int $newHeight New image height
+     * @param int $width  New width
+     * @param int $height New height
      *
      * @return self
      */
-    public function crop($newWidth, $newHeight)
+    public function crop($width, $height)
     {
-        $ratio = $this->getWidth() / $this->getHeight();
-        $newRatio = $newWidth / $newHeight;
+        $srcRatio = $this->getWidth() / $this->getHeight();
+        $ratio = $width / $height;
 
-        if ($ratio >= $newRatio) {
-            $height = $this->getHeight();
-            $width = ceil(($height * $newWidth) / $newHeight);
-            $xCoordinate = ceil(($this->getWidth() - $width) / 2);
+        if ($srcRatio >= $ratio) {
+            $srcHeight = $this->getHeight();
+            $srcWidth = ceil(($srcHeight * $width) / $height);
+            $xCoordinate = ceil(($this->getWidth() - $srcWidth) / 2);
             $yCoordinate = 0;
         } else {
-            $width = $this->getWidth();
-            $height = ceil(($width * $newHeight) / $newWidth);
-            $yCoordinate = ceil(($this->getHeight() - $height) / 2);
+            $srcWidth = $this->getWidth();
+            $srcHeight = ceil(($srcWidth * $height) / $width);
+            $yCoordinate = ceil(($this->getHeight() - $srcHeight) / 2);
             $xCoordinate = 0;
         }
 
-        $newImage = $this->createNewImage($newWidth, $newHeight);
-        imagecopyresampled($newImage, $this->image, 0, 0, $xCoordinate, $yCoordinate, $newWidth, $newHeight, $width, $height);
+        $image = $this->createNewImage($width, $height);
+        imagecopyresampled($image, $this->image, 0, 0, $xCoordinate, $yCoordinate, $width, $height, $srcWidth, $srcHeight);
 
-        $this->image = $newImage;
+        $this->image = $image;
 
         return $this;
     }
 
     /**
-     * Support method: Create image file.
+     * Create image file.
      *
-     * @param string $imageFilePath File path of image
-     * @param int    $imageType     Type of image
+     * @param string $path Image file path
+     * @param int    $type    Image type
      * @param int    $compression   Quality rate from 1 to 100
      * @param bool   $overwrite     Set FALSE to prevent overwriting, when the a file with the image file name already exist
      *
@@ -287,41 +297,70 @@ class ImageFile extends File
      *
      * @throws ImageFileException
      */
-    protected function createImageFile($imageFilePath, $imageType, $compression = 90, $overwrite = true)
+    protected function createImageFile($path, $type, $compression = 90, $overwrite = true)
     {
-        if ($overwrite || !is_file($imageFilePath)) {
-            switch ($imageType) {
+        if ($overwrite || !is_file($path)) {
+            switch ($type) {
                 case IMAGETYPE_JPEG:
-                    imagejpeg($this->image, $imageFilePath, $compression);
+                    imagejpeg($this->image, $path, $compression);
                     break;
                 case IMAGETYPE_PNG:
-                    imagepng($this->image, $imageFilePath, round(9 / 100 * $compression));
+                    imagepng($this->image, $path, round(9 / 100 * $compression));
                     break;
                 case IMAGETYPE_GIF:
-                    imagegif($this->image, $imageFilePath);
+                    imagegif($this->image, $path);
                     break;
                 case IMAGETYPE_BMP:
-                    image2wbmp($this->image, $imageFilePath, round(255 / 100 * $compression));
+                    image2wbmp($this->image, $path, round(255 / 100 * $compression));
                     break;
                 default:
-                    throw new ImageFileException('Image type "'.$imageType.'" is not supported.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
+                    throw new ImageFileException('Image type "' . $type . '" is not supported.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
             }
 
             return true;
         }
-        throw new ImageFileException('Cannot create image file, because the image file path "'.$imageFilePath.'" already exist.', ImageFileException::ALREADY_EXIST);
+        throw new ImageFileException('Cannot create image file, because the image file path "' . $path . '" already exist.', ImageFileException::ALREADY_EXIST);
     }
 
     /**
-     * Support method: Convert file extension to image type.
+     * Create new image resource.
+     *
+     * @param int $width  Image width
+     * @param int $height Image height
+     *
+     * @return resource
+     */
+    protected function createNewImage(int $width, int $height, int $type = null): resource
+    {
+        $image = imagecreatetruecolor($width, $height);
+
+        if ($type === IMAGETYPE_PNG) {
+            imagealphablending($image, false);
+            imagesavealpha($image, true);
+        } elseif ($type === IMAGETYPE_GIF) {
+            $transparentIndex = imagecolortransparent($this->image);
+            $palletsize = imagecolorstotal($this->image);
+            if ($transparentIndex >= 0 && $transparentIndex < $palletsize) {
+                $transparentColor = imagecolorsforindex($this->image, $transparentIndex);
+                $transparentIndex = imagecolorallocate($image, $transparentColor['red'], $transparentColor['green '], $transparentColor['blue']);
+                imagefill($image, 0, 0, $transparentIndex);
+                imagecolortransparent($image, $transparentColor);
+            }
+        }
+
+        return $image
+    }
+
+    /**
+     * Convert file extension to image type.
      *
      * @param string $fileExtension
      *
-     * @return string
+     * @return int
      *
      * @throws ImageFileException
      */
-    protected function fileExtensionToImageType($fileExtension)
+    protected function fileExtensionToImageType(string $fileExtension): int
     {
         switch (mb_strtolower($fileExtension)) {
             case 'jpeg':
@@ -334,41 +373,12 @@ class ImageFile extends File
             case 'bmp':
                 return IMAGETYPE_BMP;
             default:
-                throw new ImageFileException('File extension "'.$fileExtension.'" is not supported as image type.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
+                throw new ImageFileException('File extension "' . $fileExtension . '" is not supported as image type.', ImageFileException::NOT_SUPPORTED_IMAGE_TYPE);
         }
     }
 
     /**
-     * Support method: Preserve transparency of new image resource.
-     *
-     * @param resource $newImage New image resource
-     *
-     * @return resource
-     */
-    protected function preserveTransparency($newImage)
-    {
-        switch ($this->getType()) {
-            case IMAGETYPE_GIF:
-                $transparentIndex = imagecolortransparent($this->image);
-                $palletsize = imagecolorstotal($this->image);
-                if ($transparentIndex >= 0 && $transparentIndex < $palletsize) {
-                    $transparentColor = imagecolorsforindex($this->image, $transparentIndex);
-                    $transparentIndex = imagecolorallocate($newImage, $transparentColor['red'], $transparentColor['green '], $transparentColor['blue']);
-                    imagefill($newImage, 0, 0, $transparentIndex);
-                    imagecolortransparent($newImage, $transparentColor);
-                }
-
-            // no break
-            case IMAGETYPE_PNG:
-                imagealphablending($newImage, false);
-                imagesavealpha($newImage, true);
-        }
-
-        return $newImage;
-    }
-
-    /**
-     * Support method: Fix image orientation.
+     * Fix image orientation.
      *
      * @return bool
      */
