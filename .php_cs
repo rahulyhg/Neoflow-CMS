@@ -1,4 +1,5 @@
 <?php
+
 // Define excludes
 $excludes = [
     'application/templates',

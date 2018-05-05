@@ -3,6 +3,7 @@
 nbproject/
 node_modules/
 *package-lock.json
+.idea/
 
 # Application files and folders
 temp/cache/cache_*
