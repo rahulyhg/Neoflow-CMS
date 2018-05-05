@@ -1,11 +1,13 @@
 <?php
+
 namespace Neoflow\Image;
 
+use Neoflow\Filesystem\AbstractObject;
+use Neoflow\Filesystem\Exception\FileException;
 use Neoflow\Filesystem\File;
 use Neoflow\Image\Exception\ImageFileException;
 
-class ImageFile extends File
-{
+class ImageFile extends File {
 
     /**
      * Image resource.
@@ -21,7 +23,7 @@ class ImageFile extends File
      *
      * @return static
      */
-    public static function load(string $path): \Neoflow\Filesystem\AbstractObject
+    public static function load(string $path): AbstractObject
     {
         $imageFile = new static($path);
         if ($imageFile) {
@@ -141,7 +143,7 @@ class ImageFile extends File
      * @return self
      *
      * @throws ImageFileException
-     * @throws \Neoflow\Filesystem\Exception\FileException
+     * @throws FileException
      */
     public function save(string $newFilePath = '', $imageType = null, int $quality = 90): self
     {
@@ -406,4 +408,5 @@ class ImageFile extends File
 
         return false;
     }
+
 }
