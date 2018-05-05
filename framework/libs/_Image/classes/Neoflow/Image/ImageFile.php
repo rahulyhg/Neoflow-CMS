@@ -20,14 +20,12 @@ class ImageFile extends File
      * @param string $path Image file path
      *
      * @return static
-     *
-     * @throws ImageFileException
      */
     public static function load(string $path): \Neoflow\Filesystem\AbstractObject
     {
-        $imageFile = parent::load($path);
+        $imageFile = new static($path);
         if ($imageFile) {
-            $imageFile->loadFromPath();
+            $imageFile->loadImageResource();
         }
 
         return $imageFile;
@@ -38,7 +36,7 @@ class ImageFile extends File
      *
      * @return int
      */
-    public function getType(): int
+    public function getImageType(): int
     {
         $info = $this->getInfo();
         return (int) $info[2];
@@ -80,22 +78,22 @@ class ImageFile extends File
      * @return self
      * @throws ImageFileException
      */
-    protected function loadFromPath(): self
+    public function loadImageResource(): self
     {
-        switch ($this->getType()) {
+        switch ($this->getImageType()) {
             case IMAGETYPE_JPEG:
                 $this->setRequiredMemory();
                 $this->image = imagecreatefromjpeg($this->path);
                 break;
             case IMAGETYPE_PNG:
+                $this->setRequiredMemory();
                 $this->image = imagecreatefrompng($this->path);
-
                 break;
             case IMAGETYPE_GIF:
                 $this->image = imagecreatefromgif($this->path);
-
                 break;
             case IMAGETYPE_BMP:
+                $this->setRequiredMemory();
                 $this->image = imagecreatefromwbmp($this->path);
 
                 break;
@@ -118,8 +116,8 @@ class ImageFile extends File
         if (is_array($imageInfo)) {
             $MB = pow(1024, 2);
             $K64 = pow(2, 16);
-            $TWEAKFACTOR = 2;
-            $memoryNeeded = round(($imageInfo[0] * $imageInfo[1] * $imageInfo['bits'] * $imageInfo['channels'] / 8 + $K64) * $TWEAKFACTOR);
+            $tweakFactor = 2;
+            $memoryNeeded = round(($imageInfo[0] * $imageInfo[1] * $imageInfo['bits'] * $imageInfo['channels'] / 8 + $K64) * $tweakFactor);
             $memoryUsage = memory_get_usage();
             $memoryLimit = (int) ini_get('memory_limit') * $MB;
 
@@ -136,13 +134,14 @@ class ImageFile extends File
     /**
      * Save image.
      *
-     * @param string     $newFilePath New file path
-     * @param int|string $imageType   Type or extension of image
-     * @param int        $quality     Quality rate from 1 to 100
+     * @param string $newFilePath New file path
+     * @param int|string $imageType Type or extension of image
+     * @param int $quality Quality rate from 1 to 100
      *
      * @return self
      *
      * @throws ImageFileException
+     * @throws \Neoflow\Filesystem\Exception\FileException
      */
     public function save(string $newFilePath = '', $imageType = null, int $quality = 90): self
     {
@@ -228,7 +227,7 @@ class ImageFile extends File
      */
     public function resize(int $width, int $height): self
     {
-        $image = $this->createNewImage($width, $height);
+        $image = $this->createNewImage($width, $height, $this->getImageType());
 
         imagecopyresampled($image, $this->image, 0, 0, 0, 0, $width, $height, $this->getWidth(), $this->getHeight());
 
@@ -277,7 +276,7 @@ class ImageFile extends File
             $xCoordinate = 0;
         }
 
-        $image = $this->createNewImage($width, $height);
+        $image = $this->createNewImage($width, $height, $this->getImageType());
         imagecopyresampled($image, $this->image, 0, 0, $xCoordinate, $yCoordinate, $width, $height, $srcWidth, $srcHeight);
 
         $this->image = $image;
@@ -327,10 +326,11 @@ class ImageFile extends File
      *
      * @param int $width  Image width
      * @param int $height Image height
+     * @param int $type Image type
      *
      * @return resource
      */
-    protected function createNewImage(int $width, int $height, int $type = null): resource
+    protected function createNewImage(int $width, int $height, int $type = null)
     {
         $image = imagecreatetruecolor($width, $height);
 
@@ -339,8 +339,8 @@ class ImageFile extends File
             imagesavealpha($image, true);
         } elseif ($type === IMAGETYPE_GIF) {
             $transparentIndex = imagecolortransparent($this->image);
-            $palletsize = imagecolorstotal($this->image);
-            if ($transparentIndex >= 0 && $transparentIndex < $palletsize) {
+            $palletSize = imagecolorstotal($this->image);
+            if ($transparentIndex >= 0 && $transparentIndex < $palletSize) {
                 $transparentColor = imagecolorsforindex($this->image, $transparentIndex);
                 $transparentIndex = imagecolorallocate($image, $transparentColor['red'], $transparentColor['green '], $transparentColor['blue']);
                 imagefill($image, 0, 0, $transparentIndex);
@@ -348,7 +348,7 @@ class ImageFile extends File
             }
         }
 
-        return $image
+        return $image;
     }
 
     /**
