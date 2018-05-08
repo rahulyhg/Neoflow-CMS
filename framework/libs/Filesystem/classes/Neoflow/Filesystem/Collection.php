@@ -1,11 +1,11 @@
 <?php
+
 namespace Neoflow\Filesystem;
 
 use Neoflow\Framework\Common\Collection as FrameworkCollection;
 
 class Collection extends FrameworkCollection
 {
-
     /**
      * Collection item type.
      *

@@ -121,18 +121,6 @@ class File extends AbstractObject
     }
 
     /**
-     * Clear PHP file cache.
-     *
-     * @return self
-     */
-    public function clearFileCache(): self
-    {
-        clearstatcache(true, $this->path);
-
-        return $this;
-    }
-
-    /**
      * Get the file size.
      *
      * @return int
