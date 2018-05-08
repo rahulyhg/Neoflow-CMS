@@ -7,6 +7,13 @@ use Neoflow\Filesystem\Exception\FolderException;
 class Folder extends AbstractObject
 {
     /**
+     * Filesystem object type.
+     *
+     * @var string
+     */
+    protected $objectType = 'folder';
+
+    /**
      * Constructor.
      *
      * @param string $path Folder path

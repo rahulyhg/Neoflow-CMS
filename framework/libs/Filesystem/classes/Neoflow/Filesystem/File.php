@@ -8,6 +8,13 @@ use Neoflow\Filesystem\Exception\FolderException;
 class File extends AbstractObject
 {
     /**
+     * Filesystem object type.
+     *
+     * @var string
+     */
+    protected $objectType = 'file';
+
+    /**
      * Constructor.
      *
      * @param string $path File path

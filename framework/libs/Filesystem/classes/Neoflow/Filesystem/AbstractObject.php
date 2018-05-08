@@ -2,8 +2,6 @@
 
 namespace Neoflow\Filesystem;
 
-use ReflectionClass;
-
 abstract class AbstractObject
 {
     /**
@@ -14,27 +12,22 @@ abstract class AbstractObject
     protected $path;
 
     /**
+     * Filesystem object type (file or folder).
+     *
+     * @var string
+     */
+    protected $objectType;
+
+    /**
      * Load filesystem object.
      *
      * @param string $path Path of filesystem object
      *
-     * @return static
+     * @return self
      */
     public static function load(string $path): self
     {
         return new static($path);
-    }
-
-    /**
-     * Get type of filesystem object.
-     *
-     * @return string
-     */
-    public function getType(): string
-    {
-        $reflect = new ReflectionClass($this);
-
-        return mb_strtolower($reflect->getShortName());
     }
 
     /**
@@ -44,7 +37,7 @@ abstract class AbstractObject
      */
     public function isFile(): bool
     {
-        return 'file' === $this->getType();
+        return 'file' === $this->objectType;
     }
 
     /**
@@ -54,6 +47,6 @@ abstract class AbstractObject
      */
     public function isFolder(): bool
     {
-        return 'folder' === $this->getType();
+        return 'folder' === $this->objectType;
     }
 }
