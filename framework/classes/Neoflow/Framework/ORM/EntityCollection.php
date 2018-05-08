@@ -1,11 +1,11 @@
 <?php
+
 namespace Neoflow\Framework\ORM;
 
 use Neoflow\Framework\Common\Collection;
 
 class EntityCollection extends Collection
 {
-
     /**
      * Load app.
      */

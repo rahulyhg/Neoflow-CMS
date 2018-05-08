@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\Common;
 
 use ArrayAccess;
@@ -10,7 +11,6 @@ use JsonSerializable;
 
 class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSerializable
 {
-
     /**
      * Collection item type.
      *
@@ -107,8 +107,8 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     public function where(string $property, $value): self
     {
         return $this->filter(function ($item) use ($property, $value) {
-                return $item->{$property} == $value;
-            });
+            return $item->{$property} == $value;
+        });
     }
 
     /**
@@ -185,8 +185,8 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     public function whereNot(string $property, $value): self
     {
         return $this->filter(function ($item) use ($property, $value) {
-                return $item->{$property} != $value;
-            });
+            return $item->{$property} != $value;
+        });
     }
 
     /**
@@ -375,7 +375,7 @@ class Collection implements IteratorAggregate, Countable, ArrayAccess, JsonSeria
     protected function validate($item): self
     {
         if (static::$className && !is_a($item, static::$className)) {
-            throw new InvalidArgumentException('Collection item is not valid and has to be an instance of "' . static::$className . '"');
+            throw new InvalidArgumentException('Collection item is not valid and has to be an instance of "'.static::$className.'"');
         }
 
         return $this;

@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Controller;
 
 use Neoflow\CMS\Core\AbstractController;
@@ -7,7 +8,6 @@ use Neoflow\Framework\HTTP\Responsing\Response;
 
 class BackendController extends AbstractController
 {
-
     /**
      * @var array
      */

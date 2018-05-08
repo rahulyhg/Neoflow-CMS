@@ -1,4 +1,5 @@
 <?php
+
 // Module info
 return [
     'name' => 'WYSIWYG',
@@ -7,7 +8,7 @@ return [
     'description' => 'Page module for the presentation and editing of website content.',
     'version' => '1.0.1',
     'for' => [
-        '1.0'
+        '1.0',
     ],
     'author' => 'Jonathan Nessier <jonathan.nessier@neoflow.ch>',
     'copyright' => 'Copyright (c) Jonathan Nessier, Neoflow.ch',
@@ -17,5 +18,5 @@ return [
     'manager_class' => '\\Neoflow\\Module\\WYSIWYG\\Manager',
     'backend_route' => 'pmod_wysiwyg_backend_index',
     'frontend_route' => 'pmod_wysiwyg_frontend',
-    'is_core' => true
+    'is_core' => true,
 ];

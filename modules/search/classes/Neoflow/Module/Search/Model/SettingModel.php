@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Module\Search\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -6,7 +7,6 @@ use Neoflow\Framework\ORM\EntityValidator;
 
 class SettingModel extends AbstractModel
 {
-
     /**
      * @var string
      */
@@ -23,11 +23,12 @@ class SettingModel extends AbstractModel
     public static $properties = [
         'setting_id',
         'url_path',
-        'is_active'
+        'is_active',
     ];
 
     /**
-     * Get search page url
+     * Get search page url.
+     *
      * @return string
      */
     public function getSearchPageUrl(): string
@@ -36,7 +37,8 @@ class SettingModel extends AbstractModel
     }
 
     /**
-     * Validate settings
+     * Validate settings.
+     *
      * @return bool
      */
     public function validate(): bool
@@ -47,9 +49,10 @@ class SettingModel extends AbstractModel
             ->required()
             ->minLength(3)
             ->maxLength(200)
-            ->callback(function($value, $router) {
+            ->callback(function ($value, $router) {
                 $route = $router->getRoutingByUrl($value);
-                return (!isset($route['route'][0]) || $route['route'][0] === 'frontend_index');
+
+                return !isset($route['route'][0]) || $route['route'][0] === 'frontend_index';
             }, 'The URL is already in use.', [$this->router()])
             ->set('url_path');
 
@@ -57,7 +60,7 @@ class SettingModel extends AbstractModel
     }
 
     /**
-     * Save settings
+     * Save settings.
      *
      * @param bool $preventCacheClearing Prevent that the cached database results will get deleted
      *
@@ -69,6 +72,7 @@ class SettingModel extends AbstractModel
         if (parent::save($preventCacheClearing)) {
             return $this->cache()->deleteByTag('cms_router');
         }
+
         return false;
     }
 }

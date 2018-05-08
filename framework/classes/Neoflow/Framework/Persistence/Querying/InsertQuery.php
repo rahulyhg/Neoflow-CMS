@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\Persistence\Querying;
 
 use Neoflow\Framework\Persistence\Statement;
@@ -8,7 +9,6 @@ use Neoflow\Framework\Persistence\Statement;
  */
 class InsertQuery extends AbstractQuery
 {
-
     /**
      * @var array
      */
@@ -39,7 +39,7 @@ class InsertQuery extends AbstractQuery
         $this->addStatement('INSERT INTO', $this->quoteIdentifier($table));
 
         $this->clauses['VALUES'] = function ($clauseStatement) {
-            $query = ' (' . implode(', ', $clauseStatement) . ') VALUES (' . str_repeat('?, ', count($clauseStatement) - 1) . '?) ';
+            $query = ' ('.implode(', ', $clauseStatement).') VALUES ('.str_repeat('?, ', count($clauseStatement) - 1).'?) ';
 
             return $query;
         };

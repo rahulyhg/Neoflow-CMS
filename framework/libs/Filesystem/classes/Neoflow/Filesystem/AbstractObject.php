@@ -23,7 +23,7 @@ abstract class AbstractObject
      *
      * @param string $path Path of filesystem object
      *
-     * @return self
+     * @return static
      */
     public static function load(string $path): self
     {

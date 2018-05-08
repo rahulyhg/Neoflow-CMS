@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Module\Search\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -6,7 +7,6 @@ use Neoflow\Framework\ORM\EntityValidator;
 
 class EntityModel extends AbstractModel
 {
-
     /**
      * @var string
      */
@@ -34,11 +34,12 @@ class EntityModel extends AbstractModel
         $validator
             ->required()
             ->maxLength(255)
-            ->callback(function($value) {
+            ->callback(function ($value) {
                 return class_exists($value);
             }, 'The entity class must exist')
-            ->callback(function($value) {
+            ->callback(function ($value) {
                 $interfaces = class_implements(new $value());
+
                 return in_array('Neoflow\\Module\\Search\\ModelSearchInterface', $interfaces);
             }, 'The entity class has to implement the model search interface')
             ->set('entity_class');

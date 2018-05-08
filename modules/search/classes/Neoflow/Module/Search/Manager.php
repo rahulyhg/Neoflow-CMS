@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Module\Search;
 
 use Neoflow\CMS\Manager\AbstractModuleManager;
@@ -6,7 +7,6 @@ use Neoflow\Module\Search\Model\SettingModel;
 
 class Manager extends AbstractModuleManager
 {
-
     /**
      * Install module.
      *
@@ -34,7 +34,7 @@ class Manager extends AbstractModuleManager
 
         $setting = SettingModel::create([
                 'url_path' => '/search',
-                'is_active' => true
+                'is_active' => true,
         ]);
 
         return $setting->save();
@@ -82,10 +82,9 @@ class Manager extends AbstractModuleManager
 
         // Check whether search page is active and accessible
         if ($settings->is_active) {
-
             // Add custom url path as route
             $this->router()->addRoutes([
-                ['tmod_search_frontend_index', 'get', $settings->url_path, '\\Neoflow\\Module\\Search\\Controller\\Frontend@index']
+                ['tmod_search_frontend_index', 'get', $settings->url_path, '\\Neoflow\\Module\\Search\\Controller\\Frontend@index'],
             ]);
         }
 

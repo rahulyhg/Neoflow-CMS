@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Module\Dummy\Controller;
 
 use Neoflow\CMS\Controller\Backend\AbstractToolModuleController;
@@ -7,7 +8,6 @@ use Neoflow\Framework\HTTP\Responsing\Response;
 
 class BackendController extends AbstractToolModuleController
 {
-
     /**
      * Constructor.
      *

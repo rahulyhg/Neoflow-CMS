@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS;
 
 use Neoflow\CMS\Handler\Config;
@@ -21,7 +22,6 @@ use function request_url;
 
 class App extends FrameworkApp
 {
-
     /**
      * Publish application.
      *

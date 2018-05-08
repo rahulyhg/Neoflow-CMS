@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -7,7 +8,6 @@ use Neoflow\Framework\HTTP\Responsing\Response;
 
 class DashboardController extends BackendController
 {
-
     /**
      * Constructor.
      *
@@ -30,7 +30,7 @@ class DashboardController extends BackendController
     public function indexAction(): Response
     {
         return $this->render('backend/dashboard/index', [
-                'phpinfo' => phpinfo2array('phpinfo')
+                'phpinfo' => phpinfo2array('phpinfo'),
         ]);
     }
 }

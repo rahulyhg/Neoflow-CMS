@@ -20,7 +20,7 @@ class Config extends FrameworkConfig
      * @param string $configFilePath       File path of config
      * @param array  $additionalConfigData Additional config data
      *
-     * @return self
+     * @return static
      *
      * @throws RuntimeException
      */

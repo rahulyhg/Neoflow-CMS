@@ -103,7 +103,7 @@ class App extends Container
     /**
      * Get app instance.
      *
-     * @return App
+     * @return static
      */
     public static function instance(): self
     {

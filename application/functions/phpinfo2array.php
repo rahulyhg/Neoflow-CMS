@@ -23,7 +23,7 @@ function phpinfo2array($key = null)
     };
 
     $titlePlainText = function ($input) use ($plainText) {
-        return '# ' . $plainText($input);
+        return '# '.$plainText($input);
     };
 
     ob_start();
@@ -40,12 +40,12 @@ function phpinfo2array($key = null)
     $matches = array();
 
     if (preg_match_all(
-            '#(?:<h2.*?>(?:<a.*?>)?(.*?)(?:<\/a>)?<\/h2>)|' .
-            '(?:<tr.*?><t[hd].*?>(.*?)\s*</t[hd]>(?:<t[hd].*?>' .
+            '#(?:<h2.*?>(?:<a.*?>)?(.*?)(?:<\/a>)?<\/h2>)|'.
+            '(?:<tr.*?><t[hd].*?>(.*?)\s*</t[hd]>(?:<t[hd].*?>'.
             '(.*?)\s*</t[hd]>(?:<t[hd].*?>(.*?)\s*</t[hd]>)?)?</tr>)#s', $input, $matches, PREG_SET_ORDER
         )) {
         foreach ($matches as $match) {
-            $fn = strpos($match[0], '<th') === false ? $plainText : $titlePlainText;
+            $fn = false === strpos($match[0], '<th') ? $plainText : $titlePlainText;
             if (strlen($match[1])) {
                 $phpinfo[$match[1]] = array();
             } elseif (isset($match[3])) {
@@ -62,7 +62,9 @@ function phpinfo2array($key = null)
         if (isset($phpinfo[$key])) {
             return $phpinfo[$key];
         }
+
         return false;
     }
+
     return $phpinfo;
 }

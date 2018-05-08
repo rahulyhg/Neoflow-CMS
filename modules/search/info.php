@@ -1,4 +1,5 @@
 <?php
+
 // Module info
 return [
     'name' => 'Search',
@@ -13,5 +14,5 @@ return [
     'folder_name' => 'search',
     'manager_class' => '\\Neoflow\\Module\\Search\\Manager',
     'backend_route' => 'tmod_search_backend_index',
-    'is_core' => true
+    'is_core' => true,
 ];

@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
@@ -12,7 +13,6 @@ use function translate;
 
 abstract class AbstractExtensionModel extends AbstractModel
 {
-
     /**
      * @var string
      */
@@ -129,7 +129,7 @@ abstract class AbstractExtensionModel extends AbstractModel
     protected function unpack(File $extensionPackageFile, bool $delete = true): Folder
     {
         // Create temporary update folder
-        $extensionFolderPath = $this->config()->getTempPath('/extension_' . uniqid());
+        $extensionFolderPath = $this->config()->getTempPath('/extension_'.uniqid());
         $extensionFolder = Folder::create($extensionFolderPath);
 
         // Extract package

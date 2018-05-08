@@ -1,4 +1,5 @@
 <?php
+
 $this->addTranslation([
     'Provides a dynamic search.' => 'Provides a dynamic search.',
     'The entity class must exist' => 'The entity class must exist',

@@ -23,8 +23,8 @@ use function has_permission;
 use function is_json;
 use function translate;
 
-class PageController extends BackendController {
-
+class PageController extends BackendController
+{
     /**
      * Constructor.
      *
@@ -57,7 +57,7 @@ class PageController extends BackendController {
         $defaultLanguageId = $this->settings()->getDefaultLanguage()->id();
         $languages = $this->settings()
                 ->languages()
-                ->orderByRaw('(languages.language_id = ' . $defaultLanguageId . ') DESC')
+                ->orderByRaw('(languages.language_id = '.$defaultLanguageId.') DESC')
                 ->orderByAsc('title')
                 ->fetchAll();
 
@@ -99,7 +99,7 @@ class PageController extends BackendController {
                     'activeLanguage' => $activeLanguage,
                     'navitems' => $navitems,
                     'modules' => $modules,
-                    'blocks' => $blocks
+                    'blocks' => $blocks,
         ]);
     }
 
@@ -127,7 +127,6 @@ class PageController extends BackendController {
 
             // Validate and save page
             if ($page && $page->validate() && $page->save() && $page->saveUrl()) {
-
                 // Create section
                 $section = SectionModel::create([
                             'page_id' => $page->id(),
@@ -141,6 +140,7 @@ class PageController extends BackendController {
                     $this->view->setSuccessAlert(translate('Successfully created'));
 
                     $module = $section->getModule();
+
                     return $this->redirectToRoute($module->backend_route, ['section_id' => $section->id()]);
                 } else {
                     throw new RuntimeException('Creating section failed');
@@ -175,7 +175,7 @@ class PageController extends BackendController {
             // Set title and breadcrumb
             $this->view
                     ->setTitle($page->title)
-                    ->setSubtitle('ID: ' . $page->id())
+                    ->setSubtitle('ID: '.$page->id())
                     ->addBreadcrumb(translate('Page', [], true), generate_url('backend_page_index', [
                         'language_id' => $page->language_id,
             ]));
@@ -231,7 +231,7 @@ class PageController extends BackendController {
             ]);
         }
 
-        throw new RuntimeException('Page not found (ID: ' . $this->args['id'] . ')');
+        throw new RuntimeException('Page not found (ID: '.$this->args['id'].')');
     }
 
     /**
@@ -273,7 +273,7 @@ class PageController extends BackendController {
 
             return $this->redirectToRoute('backend_page_index');
         }
-        throw new RuntimeException('Deleting page failed (ID: ' . $this->args['id'] . ')');
+        throw new RuntimeException('Deleting page failed (ID: '.$this->args['id'].')');
     }
 
     /**
@@ -308,7 +308,7 @@ class PageController extends BackendController {
             if ($page && $page->validate() && $page->save() && $page->saveUrl()) {
                 $this->view->setSuccessAlert(translate('Successfully updated'));
             } else {
-                throw new RuntimeException('Updating page failed (ID: ' . $postData->get('page_id') . ')');
+                throw new RuntimeException('Updating page failed (ID: '.$postData->get('page_id').')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
@@ -339,7 +339,7 @@ class PageController extends BackendController {
 
             return $this->redirectToRoute('backend_page_index');
         }
-        throw new RuntimeException('Toggling activation for page failed (ID: ' . $this->args['id'] . ')');
+        throw new RuntimeException('Toggling activation for page failed (ID: '.$this->args['id'].')');
     }
 
     /**
@@ -377,5 +377,4 @@ class PageController extends BackendController {
     {
         return has_permission('manage_pages');
     }
-
 }

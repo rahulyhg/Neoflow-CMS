@@ -338,7 +338,7 @@ class Folder extends AbstractObject
      *
      * @param string $path Folder path
      *
-     * @return self
+     * @return static
      *
      * @throws FolderException
      */

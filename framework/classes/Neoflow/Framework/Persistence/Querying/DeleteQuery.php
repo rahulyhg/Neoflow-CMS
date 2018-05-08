@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\Persistence\Querying;
 
 use Neoflow\Framework\Persistence\Statement;
@@ -9,7 +10,6 @@ use Neoflow\Framework\Persistence\Statement;
  */
 class DeleteQuery extends AbstractQuery
 {
-
     /**
      * WHERE query trait.
      */

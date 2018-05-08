@@ -108,7 +108,7 @@ class Database extends PDO
      * @param string $charset
      * @param array  $options
      *
-     * @return self
+     * @return static
      */
     public static function connect(string $host, string $dbname, string $username = '', string $password = '', string $charset = 'UTF8mb4', array $options = []): self
     {

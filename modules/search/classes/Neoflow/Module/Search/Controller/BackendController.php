@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Module\Search\Controller;
 
 use Neoflow\CMS\Controller\Backend\AbstractToolModuleController;
@@ -12,7 +13,6 @@ use function translate;
 
 class BackendController extends AbstractToolModuleController
 {
-
     /**
      * @var SettingModel
      */

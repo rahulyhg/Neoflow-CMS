@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Controller;
 
 use Neoflow\CMS\Core\AbstractController;
@@ -10,7 +11,6 @@ use RuntimeException;
 
 class InstallController extends AbstractController
 {
-
     /**
      * Constructor.
      *

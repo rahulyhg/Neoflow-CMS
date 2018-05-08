@@ -1,4 +1,5 @@
 <?php
+
 // Module info
 return [
     'name' => 'Snippets',
@@ -16,5 +17,5 @@ return [
     'folder_name' => 'snippets',
     'manager_class' => '\\Neoflow\\Module\\Snippets\\Manager',
     'backend_route' => 'tmod_snippets_backend_index',
-    'is_core' => true
+    'is_core' => true,
 ];

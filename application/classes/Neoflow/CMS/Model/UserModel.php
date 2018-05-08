@@ -54,7 +54,7 @@ class UserModel extends AbstractModel
      *
      * @param array $data Data of user entity
      *
-     * @return self
+     * @return static
      */
     public static function create(array $data): FrameworkAbstractModel
     {
@@ -73,7 +73,7 @@ class UserModel extends AbstractModel
      * @param array $data Data for user
      * @param int   $id   Identifier of user
      *
-     * @return self
+     * @return static
      */
     public static function updateById(array $data, int $id): FrameworkAbstractModel
     {
@@ -282,7 +282,7 @@ class UserModel extends AbstractModel
      * @param string     $confirmPassword Confirm password of user entity
      * @param string|int $id              Identifier of user entity
      *
-     * @return self
+     * @return static
      *
      * @throws RuntimeException
      */

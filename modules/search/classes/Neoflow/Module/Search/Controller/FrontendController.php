@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Module\Search\Controller;
 
 use Neoflow\CMS\Controller\FrontendController as CmsFrontendController;
@@ -9,7 +10,6 @@ use function translate;
 
 class FrontendController extends CmsFrontendController
 {
-
     public function __construct(FrontendView $view = null, array $args = array())
     {
         parent::__construct($view, $args);
@@ -36,7 +36,7 @@ class FrontendController extends CmsFrontendController
 
         return $this->render('search/frontend/index', [
                 'query' => $query,
-                'results' => $results
+                'results' => $results,
         ]);
     }
 }

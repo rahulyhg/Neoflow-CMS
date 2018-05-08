@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Module\Search;
 
 use Neoflow\CMS\Core\AbstractService;
@@ -7,7 +8,6 @@ use Neoflow\Module\Search\Model\SettingModel;
 
 class Service extends AbstractService
 {
-
     /**
      * @var SettingModel
      */

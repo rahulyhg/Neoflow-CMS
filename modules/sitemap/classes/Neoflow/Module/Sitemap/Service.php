@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Module\Sitemap;
 
 use DOMDocument;
@@ -12,7 +13,6 @@ use SimpleXMLElement;
 
 class Service extends AbstractService
 {
-
     /**
      * @var Model\SettingModel
      */
@@ -30,10 +30,10 @@ class Service extends AbstractService
     /**
      * Register url.
      *
-     * @param string $location URL (of page)
-     * @param int    $lastModified Last modified timestamp (of page)
+     * @param string $location        URL (of page)
+     * @param int    $lastModified    Last modified timestamp (of page)
      * @param string $changeFrequency Change frequency of URL (page content)
-     * @param string $priority Priority of URL
+     * @param string $priority        Priority of URL
      *
      * @see https://www.sitemaps.org/de/protocol.html
      *

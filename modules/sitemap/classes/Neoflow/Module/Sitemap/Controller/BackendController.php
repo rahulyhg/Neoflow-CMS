@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Module\Sitemap\Controller;
 
 use Neoflow\CMS\Controller\Backend\AbstractToolModuleController;
@@ -14,7 +15,6 @@ use function translate;
 
 class BackendController extends AbstractToolModuleController
 {
-
     /**
      * @var Service
      */
@@ -112,7 +112,7 @@ class BackendController extends AbstractToolModuleController
             if ($snippet && $snippet->validate() && $snippet->save()) {
                 $this->view->setSuccessAlert(translate('Successfully updated'));
             } else {
-                throw new RuntimeException('Updating snippet failed (ID: ' . $postData->get('snippet_id') . ')');
+                throw new RuntimeException('Updating snippet failed (ID: '.$postData->get('snippet_id').')');
             }
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);

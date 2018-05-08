@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\Core;
 
 use InvalidArgumentException;
@@ -12,7 +13,6 @@ use RuntimeException;
 
 abstract class AbstractModel
 {
-
     /**
      * App trait.
      */
@@ -392,7 +392,7 @@ abstract class AbstractModel
      * @param array  $data Data for model entity
      * @param string $id   Identifier of model entity
      *
-     * @return self
+     * @return static
      *
      * @throws InvalidArgumentException
      */
@@ -404,7 +404,7 @@ abstract class AbstractModel
 
             return $entity;
         }
-        throw new InvalidArgumentException('Model entity not found (ID: ' . $id . ')');
+        throw new InvalidArgumentException('Model entity not found (ID: '.$id.')');
     }
 
     /**
@@ -614,9 +614,9 @@ abstract class AbstractModel
     /**
      * Delete all model entities by column.
      *
-     * @param string $column Calumn name
-     * @param mixed  $value  Filter value
-     * @param string $operator  Where condition operator
+     * @param string $column   Calumn name
+     * @param mixed  $value    Filter value
+     * @param string $operator Where condition operator
      *
      * @return bool
      */
@@ -640,9 +640,9 @@ abstract class AbstractModel
     /**
      * Find model entity by column.
      *
-     * @param string $column Calumn name
-     * @param mixed  $value  Filter value
-     * @param string $operator  Where condition operator
+     * @param string $column   Calumn name
+     * @param mixed  $value    Filter value
+     * @param string $operator Where condition operator
      *
      * @return static|null
      */
@@ -666,9 +666,9 @@ abstract class AbstractModel
     /**
      * Find all model entities by column.
      *
-     * @param string $column Calumn name
-     * @param mixed  $value  Filter value
-     * @param string $operator  Where condition operator
+     * @param string $column   Calumn name
+     * @param mixed  $value    Filter value
+     * @param string $operator Where condition operator
      *
      * @return EntityCollection
      */
@@ -682,8 +682,8 @@ abstract class AbstractModel
     /**
      * Find all model entities by multiple columns.
      *
-     * @param array $columns Column names with filter values (as array with name => value)
-     * @param string $operator  Where condition operator
+     * @param array  $columns  Column names with filter values (as array with name => value)
+     * @param string $operator Where condition operator
      *
      * @return EntityCollection
      */

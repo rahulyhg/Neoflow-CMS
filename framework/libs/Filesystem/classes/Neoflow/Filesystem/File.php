@@ -4,6 +4,7 @@ namespace Neoflow\Filesystem;
 
 use Neoflow\Filesystem\Exception\FileException;
 use Neoflow\Filesystem\Exception\FolderException;
+use function normalize_path;
 
 class File extends AbstractObject
 {
@@ -75,7 +76,7 @@ class File extends AbstractObject
      * @param string $data      File data content
      * @param bool   $overwrite Set FALSE to prevent overwriting, when the a file with the new file path already exist
      *
-     * @return self
+     * @return static
      *
      * @throws FileException
      */

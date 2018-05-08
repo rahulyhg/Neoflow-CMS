@@ -1,11 +1,11 @@
 <?php
+
 namespace Neoflow\Module\Snippets;
 
 use Neoflow\CMS\Manager\AbstractModuleManager;
 
 class Manager extends AbstractModuleManager
 {
-
     /**
      * Install Snippets module.
      *
@@ -53,7 +53,7 @@ class Manager extends AbstractModuleManager
      */
     public function execute(): bool
     {
-        if ($this->app()->get('area') === 'frontend') {
+        if ('frontend' === $this->app()->get('area')) {
             $response = $this->app()->get('response');
 
             if ($response) {

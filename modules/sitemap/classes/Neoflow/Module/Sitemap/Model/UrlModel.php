@@ -27,7 +27,7 @@ class UrlModel extends AbstractModel
      *
      * @param string $location
      *
-     * @return type
+     * @return bool
      */
     public static function deleteByLoc(string $location): bool
     {

@@ -1,4 +1,5 @@
 <?php
+
 // Module info
 return [
     'name' => 'DateTimePicker',
@@ -12,5 +13,5 @@ return [
     'type' => 'library',
     'folder_name' => 'datetimepicker',
     'manager_class' => '\Neoflow\Module\DateTimePicker\Manager',
-    'is_core' => true
+    'is_core' => true,
 ];

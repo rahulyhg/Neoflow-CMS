@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Framework\Persistence\Querying;
 
 use Neoflow\Framework\Common\Collection;
@@ -15,7 +16,6 @@ use Neoflow\Framework\Persistence\Statement;
  */
 class SelectQuery extends AbstractQuery
 {
-
     /**
      * Query traits.
      */
@@ -205,7 +205,7 @@ class SelectQuery extends AbstractQuery
      */
     public function orderByAsc(string $column): self
     {
-        return $this->orderByRaw($this->quoteIdentifier($column) . ' ASC');
+        return $this->orderByRaw($this->quoteIdentifier($column).' ASC');
     }
 
     /**
@@ -217,7 +217,7 @@ class SelectQuery extends AbstractQuery
      */
     public function orderByDesc(string $column): self
     {
-        return $this->orderByRaw($this->quoteIdentifier($column) . ' DESC');
+        return $this->orderByRaw($this->quoteIdentifier($column).' DESC');
     }
 
     /**
@@ -405,12 +405,12 @@ class SelectQuery extends AbstractQuery
      */
     protected function generateCacheKey(string $salt = ''): string
     {
-        return sha1($salt . $this->getQuery() . ':' . implode('|', array_map(function ($parameter) {
-                    if (is_array($parameter)) {
-                        return implode('|', $parameter);
-                    }
+        return sha1($salt.$this->getQuery().':'.implode('|', array_map(function ($parameter) {
+            if (is_array($parameter)) {
+                return implode('|', $parameter);
+            }
 
-                    return $parameter;
-                }, $this->getParameters())));
+            return $parameter;
+        }, $this->getParameters())));
     }
 }

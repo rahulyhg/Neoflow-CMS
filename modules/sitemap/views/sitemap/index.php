@@ -114,7 +114,7 @@
 
                         ?>
                         <li><?= translate('Status'); ?>: <a href="<?= $sitemapFile->getUrl(); ?>" target="_blank" title="<?= translate('Show sitemap'); ?>"><?= translate('Available'); ?></a></li>
-                        <li><?= translate('Last creation'); ?>: <?= format_timestamp($sitemapFile->clearFileCache()->getModificationTime()); ?>
+                        <li><?= translate('Last creation'); ?>: <?= format_timestamp($sitemapFile->getModificationTime()); ?>
                             <?php
                         } else {
 
