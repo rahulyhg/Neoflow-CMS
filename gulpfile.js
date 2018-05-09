@@ -23,6 +23,8 @@ gulp.task('install:_createZipPackage', function () {
                 './.htaccess',
                 '!./config.php',
                 '!./package*',
+                '!./composer*',
+                '!./**/composer*',
                 '!./gulpfile.js',
                 '!./node_modules{,/**}',
                 '!./nbproject{,/**}',
@@ -64,6 +66,7 @@ gulp.task('update:_createZipPackage', function () {
                 './temp/update/**',
                 '!./temp/update/install/config.php',
                 '!./temp/update/install/package*',
+                '!./temp/update/install/composer*',
                 '!./temp/update/install/gulpfile.js',
                 '!./temp/update/install/node_modules{,/**}',
                 '!./temp/update/install/installation{,/**}',
@@ -76,6 +79,7 @@ gulp.task('update:_createZipPackage', function () {
                 '!./temp/update/install/media/modules/wysiwyg{,/**}',
                 '!./temp/update/install/themes{,/**}',
                 '!./temp/update/intall/installation{,/**}',
+                '!./temp/update/intall/tests{,/**}',
                 '!./temp/update/*.zip'
             ])
             .pipe(zip(pjson.name + '-update-' + pjson.version + '.zip'))

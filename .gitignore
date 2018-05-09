@@ -3,8 +3,10 @@
 nbproject/
 node_modules/
 *package-lock.json
+*composer.lock
 
 # Application files and folders
+vendor/
 temp/cache/cache_*
 logs/log_*
 *config.php

@@ -1,0 +1,20 @@
+{
+    "name": "neoflow-cms",
+    "description": "Module-based content management system with a user friendly interface, based on a perfect optimized MVC framework.",
+    "license": "MIT",
+    "version": "1.0.0",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Jonathan Nessier",
+            "email": "jonathan.nessier@neoflow.ch"
+        }
+    ],
+    "require": {
+        "neoflow/filesystem": "dev-master",
+        "neoflow/validation": "dev-master",
+        "neoflow/image": "dev-master",
+        "neoflow/mailer": "dev-master",
+        "neoflow/framework": "dev-master"
+    }
+}

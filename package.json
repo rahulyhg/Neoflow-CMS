@@ -1,6 +1,6 @@
 {
   "name": "neoflow-cms",
-  "version": "1.0.0-a1",
+  "version": "1.0.0-a2",
   "description": "Module-based content management system with a user friendly interface, based on a perfect optimized MVC framework.",
   "main": "index.js",
   "scripts": {
