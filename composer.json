@@ -12,10 +12,10 @@
         }
     ],
     "require": {
-        "neoflow/framework": "dev-master",
-        "neoflow/filesystem": "dev-master",
-        "neoflow/validation": "dev-master",
-        "neoflow/image": "dev-master",
-        "neoflow/mailer": "dev-master"
+        "neoflow/framework": "1.0.0",
+        "neoflow/filesystem": "1.0.0",
+        "neoflow/validation": "1.0.0",
+        "neoflow/image": "1.0.0",
+        "neoflow/mailer": "1.0.0"
     }
 }
