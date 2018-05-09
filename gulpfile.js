@@ -31,6 +31,7 @@ gulp.task('install:_createZipPackage', function () {
                 '!./robots.txt',
                 '!./sitemap.xml',
                 '!./logs/*',
+                '!./vendor/bin/*',
                 '!./temp/installation{,/**}',
                 '!./temp/update{,/**}',
                 '!./media/modules/wysiwyg/{,/**}',
