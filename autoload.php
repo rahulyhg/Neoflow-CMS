@@ -9,15 +9,12 @@ require_once APP_PATH . '/vendor/autoload.php';
 $loader = new Loader();
 $loader
     ->loadFunctionsFromDirectories([
-        // APP_PATH . '/framework/functions',
         APP_PATH . '/application/functions',
     ])
     ->addClassDirectories([
-        //  APP_PATH . '/framework/classes',
         APP_PATH . '/application/classes',
     ])
     ->loadLibraries([
-        //  APP_PATH . '/framework/libs',
         APP_PATH . '/application/libs',
     ])
     ->registerAutoload();
