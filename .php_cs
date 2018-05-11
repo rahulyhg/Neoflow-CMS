@@ -1,7 +1,7 @@
 <?php
-
 // Define excludes
 $excludes = [
+    'vendor',
     'application/templates',
     'application/views'
 ];
