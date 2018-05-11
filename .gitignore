@@ -6,23 +6,25 @@ node_modules/
 *composer.lock
 
 # Application files and folders
-vendor/
-temp/cache/cache_*
+
 logs/log_*
 *config.php
-!temp/installation/config.php
 !installation/config.php
 *config-backup-*.php
 robots.txt
 sitemap.xml
+
+temp/cache/cache_*
 !media/modules/.gitkeep
 !media/modules/wysiwyg/.gitkeep
 media/modules/wysiwyg/section-*
 media/public/*
 !media/public/.gitkeep
+update/neoflow-cms-update*.zip
 update/files/*
 !update/files/.gitkeep
 update/modules/*
 !update/modules/.gitkeep
 update/themes/*
 !update/themes/.gitkeep
+vendor/
