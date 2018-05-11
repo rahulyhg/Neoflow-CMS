@@ -4,8 +4,8 @@ return [
     'for' => [
         '1.0.0-a1',
     ],
-    'sql' => 'install.sql',
-    'files' => 'install',
+    'sql' => 'changes.sql',
+    'files' => 'files',
     'modules' => [
         'dummy' => 'dummy.zip',
     ],
