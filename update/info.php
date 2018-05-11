@@ -8,11 +8,15 @@ return [
     'files' => 'files',
     'modules' => [
         'code' => 'code.zip',
+        'codemirror' => 'codemirror.zip',
         'datetimepicker' => 'datetimepicker.zip',
         'dummy' => 'dummy.zip',
+        'log-viewer' => 'log-viewer.zip',
+        'robots' => 'robots.zip',
         'search' => 'search.zip',
         'sitemap' => 'sitemap.zip',
         'snippets' => 'snippets.zip',
+        'tinymce' => 'tinymce.zip',
         'wysiwyg' => 'wysiwyg.zip',
     ],
     'themes' => [

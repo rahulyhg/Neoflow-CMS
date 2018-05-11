@@ -1,6 +1,8 @@
 <?php
 // Define excludes
 $excludes = [
+    'update',
+    'temp',
     'vendor',
     'application/templates',
     'application/views'
