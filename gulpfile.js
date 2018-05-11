@@ -149,14 +149,14 @@ gulp.task('update:_createModuleZipPackages', function () {
 
     // Zip only core and changed modules
     return moduleFolders.map(function (moduleFolder) {
-        if (coreModuleFolders.indexOf(moduleFolder) > -1) {
-            console.log('Create ' + moduleFolder + '.zip');
-            return gulp
-                    .src(path.join('./modules', moduleFolder) + '/**')
-                    .pipe(zip(moduleFolder + '.zip'))
-                    .pipe(gulp.dest('./update/modules'));
-        }
-        return false;
+        //if (coreModuleFolders.indexOf(moduleFolder) > -1) {
+        console.log('Create ' + moduleFolder + '.zip');
+        return gulp
+                .src(path.join('./modules', moduleFolder) + '/**')
+                .pipe(zip(moduleFolder + '.zip'))
+                .pipe(gulp.dest('./update/modules'));
+        //}
+        //return false;
     });
 
 });
@@ -189,18 +189,18 @@ gulp.task('update:_createThemeZipPackages', function () {
 
     // Zip only core and changed themes
     return themeFolders.map(function (themeFolder) {
-        if (coreThemeFolders.indexOf(themeFolder) > -1) {
-            console.log('Create ' + themeFolder + '.zip');
-            return gulp
-                    .src([
-                        path.join('./themes', themeFolder) + '/**',
-                        '!./themes/*/package*',
-                        '!./themes/*/node_modules{,/**}',
-                        '!./themes/*/src{,/**}',
-                    ])
-                    .pipe(zip(themeFolder + '.zip'))
-                    .pipe(gulp.dest('./update/themes'));
-        }
-        return false;
+        //if (coreThemeFolders.indexOf(themeFolder) > -1) {
+        console.log('Create ' + themeFolder + '.zip');
+        return gulp
+                .src([
+                    path.join('./themes', themeFolder) + '/**',
+                    '!./themes/*/package*',
+                    '!./themes/*/node_modules{,/**}',
+                    '!./themes/*/src{,/**}',
+                ])
+                .pipe(zip(themeFolder + '.zip'))
+                .pipe(gulp.dest('./update/themes'));
+        //}
+        //return false;
     });
 });
