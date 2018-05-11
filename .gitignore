@@ -20,9 +20,9 @@ sitemap.xml
 media/modules/wysiwyg/section-*
 media/public/*
 !media/public/.gitkeep
-temp/update/install/*
-!temp/update/install/.gitkeep
-temp/update/modules/*
-!temp/update/modules/.gitkeep
-temp/update/themes/*
-!temp/update/themes/.gitkeep
+update/files/*
+!update/files/.gitkeep
+update/modules/*
+!update/modules/.gitkeep
+update/themes/*
+!update/themes/.gitkeep
