@@ -33,7 +33,7 @@ gulp.task('install:_createZipPackage', function () {
                 '!./logs/*',
                 '!./vendor/bin/*',
                 '!./temp/installation{,/**}',
-                '!./update{,/**}',
+                '!./temp/update{,/**}',
                 '!./media/modules/wysiwyg/{,/**}',
                 '!./themes/*/package*',
                 '!./themes/*/node_modules{,/**}',
@@ -56,7 +56,7 @@ gulp.task('install:_pullFromGit', function () {
 
 // Build update package
 gulp.task('update:release', function (callback) {
-    return runSequence('update:_getTagForGit', 'update:_checkoutFromGit', 'update:_copyVendor', 'update:_createModuleZipPackages', 'update:_createThemeZipPackages', 'update:_createZipPackage', callback);
+    return runSequence('update:_getTagForGit', 'update:_checkoutFromGit', 'update:_createModuleZipPackages', 'update:_createThemeZipPackages', 'update:_createZipPackage', callback);
 });
 
 // Create zip file for update
@@ -64,26 +64,27 @@ gulp.task('update:_createZipPackage', function () {
     console.log('Create ' + pjson.name + '-' + pjson.version + '-update.zip');
     return gulp
             .src([
-                './update/**',
-                '!./update/install/config.php',
-                '!./update/install/package*',
-                '!./update/install/composer*',
-                '!./update/install/gulpfile.js',
-                '!./update/install/node_modules{,/**}',
-                '!./update/install/installation{,/**}',
-                '!./update/install/nbproject{,/**}',
-                '!./update/install/src{,/**}',
-                '!./update/install/modules{,/**}',
-                '!./update/install/robots.txt',
-                '!./update/install/sitemap.xml',
-                '!./update/install/temp{,/**}',
-                '!./update/install/media/modules/wysiwyg{,/**}',
-                '!./update/install/themes{,/**}',
-                '!./update/install/installation{,/**}',
-                '!./update/*.zip'
+                './temp/update/**',
+                '!./temp/update/install/config.php',
+                '!./temp/update/install/package*',
+                '!./temp/update/install/composer*',
+                '!./temp/update/install/gulpfile.js',
+                '!./temp/update/install/node_modules{,/**}',
+                '!./temp/update/install/installation{,/**}',
+                '!./temp/update/install/nbproject{,/**}',
+                '!./temp/update/install/src{,/**}',
+                '!./temp/update/install/modules{,/**}',
+                '!./temp/update/install/robots.txt',
+                '!./temp/update/install/sitemap.xml',
+                '!./temp/update/install/temp{,/**}',
+                '!./temp/update/install/media/modules/wysiwyg{,/**}',
+                '!./temp/update/install/themes{,/**}',
+                '!./temp/update/intall/installation{,/**}',
+                '!./temp/update/intall/tests{,/**}',
+                '!./temp/update/*.zip'
             ])
             .pipe(zip(pjson.name + '-update-' + pjson.version + '.zip'))
-            .pipe(gulp.dest('./update/'));
+            .pipe(gulp.dest('./temp/update/'));
 });
 
 // Last commit or tag
@@ -92,7 +93,7 @@ var tag = '';
 // Show prompt to get last commit or tag for checkout
 gulp.task('update:_getTagForGit', function () {
     return gulp
-            .src('./update/install')
+            .src('./temp/update/install')
             .pipe(prompt.prompt({
                 type: 'input',
                 name: 'tag',
@@ -105,18 +106,11 @@ gulp.task('update:_getTagForGit', function () {
 // Checkout files and folders from Git based on last commit or tag
 gulp.task('update:_checkoutFromGit', function () {
     return gulp
-            .src('./update/install')
+            .src('./temp/update/install')
             .pipe(run('git checkout-index -f --prefix="<%= file.path %>/" $(git diff --name-only ' + tag + ')', {
                 usePowerShell: true,
                 verbosity: 0
             }));
-});
-
-// Copy all vendor files and folders to the update
-gulp.task('update:_copyVendor', function () {
-    return gulp
-            .src('./vendor/**/*')
-            .pipe(gulp.dest('./update/install/vendor'));
 });
 
 // Create zip file of each core module (incl. Dummy module)
@@ -128,10 +122,10 @@ gulp.task('update:_createModuleZipPackages', function () {
     ];
 
     // Add folder names of changed modules
-    fs.lstat('./update/install/modules', (err, stats) => {
+    fs.lstat('./temp/update/install/modules', (err, stats) => {
         if (stats && stats.isDirectory()) {
             coreModuleFolders.concat(fs
-                    .readdirSync('./update/install/modules')
+                    .readdirSync('./temp/update/install/modules')
                     .filter(function (file) {
                         return fs.statSync(path.join('./modules', file)).isDirectory();
                     }));
@@ -152,7 +146,7 @@ gulp.task('update:_createModuleZipPackages', function () {
             return gulp
                     .src(path.join('./modules', moduleFolder) + '/**')
                     .pipe(zip(moduleFolder + '.zip'))
-                    .pipe(gulp.dest('./update/modules'));
+                    .pipe(gulp.dest('./temp/update/modules'));
         }
         return false;
     });
@@ -168,10 +162,10 @@ gulp.task('update:_createThemeZipPackages', function () {
     ];
 
     // Add folder names of changed modules
-    fs.lstat('./update/install/themes', (err, stats) => {
+    fs.lstat('./temp/update/install/themes', (err, stats) => {
         if (stats && stats.isDirectory()) {
             coreThemeFolders.concat(fs
-                    .readdirSync('./update/install/themes')
+                    .readdirSync('./temp/update/install/themes')
                     .filter(function (file) {
                         return fs.statSync(path.join('./themes', file)).isDirectory();
                     }));
@@ -197,7 +191,7 @@ gulp.task('update:_createThemeZipPackages', function () {
                         '!./themes/*/src{,/**}',
                     ])
                     .pipe(zip(themeFolder + '.zip'))
-                    .pipe(gulp.dest('./update/themes'));
+                    .pipe(gulp.dest('./temp/update/themes'));
         }
         return false;
     });

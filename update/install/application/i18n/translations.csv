@@ -1,0 +1,553 @@
+﻿{0} has an error;{0} has an error;{0} hat einen Fehler
+{0} has to be unique;{0} has to be unique;{0} muss einzigartig sein
+{0} is an invalid email address;{0} is an invalid email address;{0} ist eine ungültige E-Mailadresse
+{0} is an invalid IP address;{0} is an invalid IP address;{0} ist eine ungültige IP-Adresse
+{0} is an invalid URL;{0} is an invalid URL;{0} ist eine ungültige URL
+{0} is not a valid date like {1};{0} is not a valid date like {1};{0} ist kein gültiges Datum wie {1}
+{0} is required;{0} is required;{0} wird benötigt
+Yes;Yes;Ja
+URL path;URL path|URL paths;URL-Pfad|URL-Pfade
+No;No;Nein
+Required field;Required field|Required fields;Pflichtfeld|Pflichtfelder
+{0} must be at least {1} characters or longer;{0} must be at least {1} characters or longer;{0} muss mindestens {1} Zeichen oder länger sein
+{0} must be before {1};{0} must be before {1};{0} muss früher sein als {1}
+{0} must be between {1} and {2};{0} must be between {1} and {2};{0} muss zwischen {1} und {2} sein
+{0} must be between {1} and {2} characters;{0} must be between {1} and {2} characters;{0} muss zwischen {1} und {2} Zeichen haben
+{0} must be exactly {1} characters in length;{0} must be exactly {1} characters in length;{0} muss die exakte Länge von {1} haben
+{0} must be greater than or equal to {1};{0} must be greater than or equal to {1};{0} muss grösser oder gleich sein wie {1}
+{0} must be later than {1};{0} must be later than {1};{0} muss später sein als {1}
+{0} must be less than or equal to {1};{0} must be less than or equal to {1};{0} muss kleiner oder gleich sein wie {1}
+{0} must be no longer than {1} characters;{0} must be no longer than {1} characters;{0} darf nicht länger als {1} Zeichen sein
+{0} must be one of {1};{0} must be one of {1};{0} muss {1} lauten
+{0} must consist of integer value;{0} must consist of integer value;{0} darf nur aus ganzen Zahlen bestehen
+{0} must consist of numbers only;{0} must consist of numbers only;{0} darf nur aus Nummern bestehen
+Core module;Core module|Core modules;Kernmodul|Kernmodule
+{0} is a core module and cannot be deleted;{0} is a core module and cannot be deleted;{0} ist ein Kernmodul und kann nicht gelöscht werden.
+{0} must consist only of digits;{0} must consist only of digits;{0} darf nur aus Ziffern bestehen
+{0} must end with "{1}";{0} must end with "{1}";{0} muss mit "{1}" enden
+{0} must have at least one letter;{0} must have at least one letter;{0} muss mindestens einen Buchstaben haben
+{0} must match {1};{0} must match {1};{0} muss gleich sein wie {1}
+{0} must not end with "{1}";{0} must not end with "{1}";{0} darf nicht mit "{1}" enden
+{0} must not match {1};{0} must not match {1};{0} darf nicht gleich sein wie {1}
+{0} must not start with "{1}";{0} must not start with "{1}";{0} darf nicht mit "{1}" beginnen
+{0} must start with "{1}";{0} must start with "{1}";{0} muss mit "{1}" beginnen
+{0} not found;{0} not found;{0} nicht gefunden
+A file with the name "{0}" already exists;A file with the name "{0}" already exists;Eine Datei mit dem Namen "{0}" existiert bereits
+A folder with the name "{0}" already exists;A folder with the name "{0}" already exists;Ein Ordner mit dem Namen "{0}" existiert bereits
+Access;Access;Zugriff
+Accessible only for authorized users;Accessible only for authorized users;Nur für autorisierte Benutzer zugänglich
+Account;Account|Accounts;Konto|Konten
+Add;Add;Hinzufügen
+Add failed;Add failed;Hinzufügen fehlgeschlagen
+Add image;Add image|Add images;Bild hinzufügen|Bilder hinzufügen
+Add link;Add link|Add lins;Link hinzufügen|Links hinzufügen
+Added;Added;Hinzugefügt
+Additional backend functions;Additional backend functions;Zusätzliche, administrative Backend-Funktionen
+Administration;Administration;Administration
+Administrator successfully created;Administrator successfully created;Administrator erfolgreich erstellt
+Advanced settings;Advanced settings;Erweiterterte Einstellungen
+Advanced settings description;Advanced settings (e.g. database connection or log level) can be configured in a config file, which can only be edited with a text editor.;Erweiterte Einstellungen (z.B. Datenbankverbindung oder der Log-Level) können in der Konfigurationsdatei konfiguriert werden, die aber nur mit einem Texteditor bearbeitet werden kann.
+All;All;Alle
+All blocks;All blocks;Alle Blöcke
+All data;All data;Alle Daten
+All files;All files;Alle Dateien
+All (except the file of today);All (except the file of today);Alle (ausser die Datei von heute)
+All modules;All modules;Alle Module
+All navigations;All navigations;Alle Navigationen
+All pages;All pages;Alle Seiten
+All required modules are available;All required modules are available;Alle erforderlichen Module sind vorhanden
+All roles;All roles;Alle Rollen
+All sections;All sections;Alle Abschnitte
+All themes;All themes;Alle Themes
+All tools;All tools;Alle Tools
+All users;All users;Alle Benutzer
+Allowed file extension;Allowed file extension|Allowed file extensions;Erlaubte Dateiendung|Erlaubte Dateiendungen
+Allowed file extensions: {0};Allowed file extensions: {0};Erlaubte Dateiendungen: {0}
+An error has occurred;An error has occurred;Ein Fehler ist aufgetreten
+and;and;und
+Are you sure you want to delete it?;Are you sure you want to delete it?;Bist du sicher dass du es löschen willst?
+Are you sure you want to delete this element all of its subelements?;Are you sure you want to delete this element all of its subelements?;Bist du sicher dass du dieses Element und alle Unterlemente löschen willst?
+Are you sure you want to delete this page and all of its subpages?;Are you sure you want to delete this page and all of its subpages?;Bist du sicher dass du diese Seite und alle Unterseiten löschen willst?
+Are you sure you want to delete this section and all of its content?;Are you sure you want to delete this section and all of its content?;Bist du sicher dass du diesen Abschnitt und den Inhalt löschen willst?
+Are you sure you want to disable it?;Are you sure you want to disable it?;Bist du sicher dass du es deaktivieren willst?
+Are you sure you want to enable it?;Are you sure you want to enable it?;Bist du sicher dass du es aktivieren willst?
+Are you sure you want to hide it?;Are you sure you want to hide it?;Bist du sicher dass du es verstecken willst?
+Are you sure you want to load the blocks of the current frontend theme and maybe rename or even delete the existing blocks?;Are you sure you want to load the blocks of the current frontend theme and maybe rename or even delete the existing blocks?;Bist du sicher dass du die Blöcke des aktuellen Frontend-Themes laden willst und die vorhandenen Blöcke vielleicht umbenannt oder sogar gelöscht werden?
+Are you sure you want to load the navigations of the current frontend theme and maybe rename or even delete the existing navigations?;Are you sure you want to load the navigations of the current frontend theme and maybe rename or even delete the existing navigations?;Bist du sicher dass du die Navigationen des aktuellen Frontend-Themes laden willst und die vorhandenen Navigationen vielleicht umbenannt oder sogar gelöscht werden?
+Are you sure you want to make it visible?;Are you sure you want to make it visible?;Bist du sicher dass du es sichtbar machen willst?
+Are you sure you want to reload all modules?;Are you sure you want to reload all modules?;Bist du sicher dass du alle Module neu laden willst?
+Are you sure you want to reload all themes?;Are you sure you want to reload all themes?;Bist du sicher dass du alle Themes neu laden willst?
+Are you sure you want to reload it?;Are you sure you want to reload it?;Bist du sicher dass du es neu laden willst?
+Are you sure you want to uninstall it?;Are you sure you want to uninstall it?;Bist du sicher dass du es deinstallieren willst?
+Are you sure?;Are you sure?;Bist du sicher?
+At least one required module is unavailable;At least one required module is unavailable;Mindestens ein erforderliches Modul ist nicht vorhanden
+Author;Author|Authors;Autor|Autoren
+Authorization;Authorization;Autorisierung
+Authorized role;Authorized role|Authorized roles;Berechtige Rolle|Berechtigte Rollen
+Authorized roles;Authorized roles;Berechtigte Rollen
+Back;Back;Zurück
+Backend;Backend;Backend
+Backend route;Backend route;Backend-Route
+Backend theme;Backend theme;Backend-Theme
+Bad request;Bad request;Ungültige Anfrage
+Base URL;Base URL;Basis URL
+Block;Block|Blocks;Block|Blöcke
+Block;Block|Blocks;Block|Blöcke
+Block Handling;Block Handling;Block Handling
+Cache;Cache;Cache
+Cancel;Cancel;Abbrechen
+Canceled;Canceled;Abgebrochen
+Change password;Change password;Passwort wechseln
+Charset;Charset;Charset
+Clear;Clear;Leeren
+Clear cache;Clear cache;Cache leeren
+Clear failed;Clear failed;Leeren fehlgeschlagen
+Cleared;Cleared;Geleert
+Close;Close;Schliessen
+Code;Code|Codes;Code|Codes
+Configuration;Configuration;Konfiguration
+Configure website;Configure website;Webseite konfigurieren
+Confirm;Confirm;Bestätigen
+Confirm password;Confirm password;Passwort bestätigen
+Content;Content;Inhalt
+Copyright;Copyright|Copyrights;Copyright|Copyrights
+Create;Create;Erstellen
+Create administrator;Create administrator;Administrator erstellen
+Create block;Create block;Block erstellen
+Create failed;Create failed;Erstellen fehlgeschlagen
+Create folder;Create folder;Ordner erstellen
+Create folder failed, see error message;Create folder failed, see error message;Ordner anlegen fehlgeschlagen, siehe Fehlermeldung
+Create item;Create item;Element erstellen
+Create navigation;Create navigation;Navigation erstellen
+Create new password;Create new password;Neues Passwort erstellen
+Create page;Create page;Seite erstellen
+Create role;Create role;Rolle erstellen
+Create section;Create section;Abschnitt erstellen
+Create user;Create user;Benutzer erstellen
+Create website;Create website;Webseite erstellen
+Created;Created;Erstellt
+Creating config file failed. Error message: {0};Creating config file failed. Error message: {0};Konfigurationsdatei erstellen fehlgeschlagen. Fehlermeldung: {0}
+Current navigation;Current navigation;Aktuelle Navigation
+Current page;Current page;Aktuelle Seite
+Current section;Current section;Aktueller Abschnitt
+Custom CSS;Custom CSS;Benutzerdefiniertes CSS
+Custom JavaScript;Custom JavaScript;Benutzerdefiniertes JavaScript
+Dashboard;Dashboard;Dashboard
+Dashboard account title;Administrate the registered users and the roles with the permissions.;Administriere die registrierten Benutzer und die Rollen mit den Berechtigungen.
+Dashboard content title;Edit the content of the pages and the navigations of the website.;Bearbeite den Inhalt der Seiten und die Navigationen der Webseite.
+Dashboard extension title;Manage the extensions of the website for individual functions and designs.;Verwalte die Erweiterungen der Webseite für individuelle Funktionen und Designs.
+Dashboard media title;Manage the content-specific media files (eg. documents, pictures or videos).;Verwalte die inhaltsspezifischen Medien (zB. Dokumente, Bilder oder Videos).
+Dashboard setting title;Configure the settings and do maintenance on the website.;Konfiguriere die Einstellungen und führe Wartungen bei der Webseite durch.
+Dashboard tool title;Use the tools for additional, administrative backend functions.;Benutze die Tools für zusätzliche, administrative Backend-Funktionen.
+Dashboard welcome description;In the backend of the Neoflow CMS you can administrate the website {0}. Depending on which permissions you are authorized, you can edit the contents of the pages, modify site-specific settings, administrate the registered users, and manage the modules and themes.;Das Backend ist der Administrationsbereich, in dem du deine Webseite {0} verwalten kannst. Je nachdem für welche Rechte du autorisiert bist, kannst du die Inhalte der Seiten bearbeiten, webseitenspezifische Einstellungen verändern, die registrierten Benutzer administrieren und sogar die installierten Module sowie Themes verwalten.
+Dashboard welcome title;Welcome to the Backend of your Website!;Willkommen im Backend deiner Webseite!
+Database;Database;Datenbank
+Database connection could not be established. Error message: {0};Database connection could not be established. Error message: {0};Datenbankverbindung konnte nicht aufgebaut werden. Fehlermeldung: {0}
+"Database installation failed. Permission to use "{0}" is missing.";Database installation failed. Permission to use "{0}" is missing.";Die Datenbankinstallation ist fehlgeschlagen. Die Berechtigung zur Verwendung von "{0}" fehlt."
+Database name;Database name;Datenbankname
+Database successfully installed;Database successfully installed;Datenbank erfolgreich installiert
+Date;Date|Dates;Datum|Daten
+Day;Day|Days;Tag|Tage
+Default;Default;Standard
+Default language;Default language;Standardsprache
+Default setting;Default setting|Default settings;Standardeinstellung|Standardeinstellungen
+Delete;Delete;Löschen
+Delete block;Delete block;Block löschen
+Delete failed;Delete failed;Löschen fehlgeschlagen
+Delete file;Delete file;Datei löschen
+Delete file failed, see error message;Deleting file failed, see error message;Löschen der Datei fehlgeschlagen, siehe Fehlermeldung
+Delete folder;Delete folder;Ordner löschen
+Delete folder failed, see error message;Delete folder failed, see error message;Löschen des Ordners fehlgeschlagen, siehe Fehlermeldung
+Delete item;Delete item;Element löschen
+Delete logfiles;Delete logfiles;Protokolldateien löschen
+Delete navigation;Delete navigation;Navigation löschen
+Delete page;Delete page;Seite löschen
+Delete role;Delete role;Rolle löschen
+Delete section;Delete section;Abschnitt löschen
+Delete user;Delete user;Benutzer löschen
+Description;Description;Beschreibung
+Directory;Directory|Directories;Verzeichnis|Verzeichnisse
+"Directory "{0}" not found";Directory "{0}" not found";Verzeichnis "{0}" nicht gefunden"
+Directory does not exist or is not accessible;Directory does not exist or is not accessible;Verzeichnis existiert nicht oder ist nicht zugänglich
+Directory not found;Directory not found;Verzeichnis nicht gefunden
+Disable;Disable;Deaktivieren
+Disable failed;Disable failed;Deaktivieren fehlgeschlagen
+Disable item;Disable item;Element deaktivieren
+Disable module;Disable module;Modul deaktivieren
+Disable page;Disable page;Seite deaktivieren
+Disable section;Disable section;Abschnitt deaktivieren
+Disabled;Disabled;Deaktiviert
+Download;Download;Herunterladen
+Download file;Download file;Datei herunterladen
+Edit;Edit;Bearbeiten
+Edit block;Edit block;Block bearbeiten
+Edit item;Edit item;Element bearbeiten
+Edit navigation;Edit navigation;Navigation bearbeiten
+Edit page;Edit page;Seite bearbeiten
+Edit profile;Edit profile;Profil bearbeiten
+Edit role;Edit role;Rolle bearbeiten
+Edit section;Edit section;Abschnitt bearbeiten
+Edit user;Edit user;Benutzer bearbeiten
+Edited;Edited;Bearbeitet
+Editor;Editor|Editors;Editor|Editoren
+Email address;Email address;E-Mailadresse
+Email already sent, you can reset your password once per hour;Email already sent, you can reset your password once per hour;E-Mail wurde schon versendet, du kannst das Passwort nur einmal pro Stunde zurücksetzen
+Email successfully sent;Email successfully sent;E-Mail erfolgreich versendet
+Empty;Empty;Leer
+Enable;Enable;Aktivieren
+Enable failed;Enable failed;Aktivieren fehlgeschlagen
+Enable item;Enable item;Element aktivieren
+Enable module;Enable module;Modul aktivieren
+Enable page;Enable page;Seite aktivieren
+Enable section;Enable section;Abschnitt aktivieren
+Enabled;Enabled;Aktiviert
+English;English;Englisch
+Execute;Execute;Ausführen
+Execute failed;Execute failed;Ausführen fehlgeschlagen
+Execute tool;Execute tool;Tool ausführen
+Executed;Executed;Ausgeführt
+Executing SQL failed. Error message: {0};Executing SQL failed. Error message: {0};SQL ausführen fehlgeschlagen. Fehlermeldung: {0}
+Extension;Extension|Extensions;Erweiterung|Erweiterungen
+File;File|Files;Datei|Dateien
+File "{0}" not found;File "{0}" not found";Datei "{0}" nicht gefunden"
+File extension;File extension|File extensions;Dateierweiterung|Dateierweiterungen
+File not found;File not found;Datei nicht gefunden
+File with the same name already exists;File with the same name already exists;Datei mit gleichem Namen existiert bereits
+Filename;Filename|Filenames;Dateiname|Dateinamen
+Files successfully uploaded;Files successfully uploaded;Dateien erfolgreich hochgeladen
+Filesize;Filesize|Filesizes;Dateigrösse|Dateigrössen
+Firstname;Firstname|Firstnames;Vorname|Vornamen
+Folder;Folder|Folders;Ordner
+Folder name ({0}) is already in use;Folder name ({0}) is already in use;Ordername ({0}) wird schon verwendet
+Folder name must be at least one character or longer;Folder name must be at least one character or longer;Ordnername muss mindestens ein Zeichen oder länger sein
+Folder permission;Folder permission|Folder permissions;Ordnerberechtigung|Ordnerberechtigungen
+Forbidden;Forbidden;Verboten
+Forward;Forward;Vorwärts
+French;French;Französisch
+Frontend;Frontend;Frontend
+Frontend authorization;Frontend authorization;Frontend-Berechtigung
+Frontend route;Frontend route;Frontend-Route
+Frontend theme;Frontend theme;Frontend-Theme
+Default sender of emails from the website.;Default sender of emails from the website.;Standardmässiger Absender von E-Mails der Webseite.
+General setting;General setting|General settings;Allgemeine Einstellung|Allgemeine Einstellungen
+German;German;Deutsch
+Hidden;Hidden;Versteckt
+Hide;Hide;Verstecken
+Hide failed;Hide failed;Verstecken fehlgeschlagen
+Hide item;Hide item;Element verstecken
+Hide page;Hide page;Seite verstecken
+Host;Host|Hosts;Host|Hosts
+Hour;Hour|Hours;Stunde|Stunden
+Identifier;Identifier;Kennzeichen
+If you change the session name, you will be logged out automatically after saving.;If you change the session name, you will be logged out automatically after saving.;Wenn du den Sitzungsnamen änderst, wirst du nach dem Speichern automatisch ausgeloggt.
+Image;Image|Images;Bild|Bilder
+Information;Information;Information|Informationen
+Information file ({0}) is invalid;Information file ({0}) is invalid;Informationsdatei ({0}) ist ungültig
+Information file ({0}) not found;Information file ({0}) not found;Informationsdatei ({0}) nicht gefunden
+Install;Install;Installieren
+Create database;Create database;Datenbank erstellen
+Install failed;Install failed;Installation fehlgeschlagen
+Install module;Install module;Modul installieren
+Install module failed;Install module failed;Modul installieren fehlgeschlagen
+Install module failed, see error message;Install module failed, see error message;Modul installieren fehlgeschlagen, siehe Fehlermeldung
+Install theme;Install theme;Theme installieren
+Install theme failed;Install theme failed;Theme installieren fehlgeschlagen
+Install theme failed, see error message;Install theme failed, see error message;Theme installieren fehlgeschlagen, siehe Fehlermeldung
+Install update;Install update;Update installieren
+Install update failed;Install update failed;Update installieren fehlgeschlagen
+Install update failed, see error message;Install update failed, see error message;Update installieren fehlgeschlagen, siehe Fehlermeldung
+Installation;Installation;Installation
+Installation success message;You can now go directly to the frontend of the website or you can enter the first content in the backend of the Neoflow CMS.;Du kannst nun direkt zum Frontend der Webseite gelangen oder aber im Backend des Neoflow CMS die ersten Inhalte erfassen.
+Installation success title;Congratulations! You have successfully installed the Neoflow CMS.;Gratulation! Du hast erfolgreich das Neoflow CMS installiert.
+Installation welcome message;First you have to configure and install the database. In the second step, you will have to enter the initial information about the website and then register the administrator.;Zuerst musst du die Datenbank konfigurieren und installieren. Im zweiten Schritt muss du dann die initialen Informationen über die Webseite angeben und zuletzt den Administrator erstellen.
+Installation welcome title;Thank you for installing the Neoflow CMS!;Danke, dass du das Neoflow CMS installierst!
+Installed;Installed;Installiert
+Internal server error;Internal server error;Interner Serverfehler
+Invalid;Invalid;Ungültig
+It is recommended to use the automatically recognized URL, unless the website is operated behind a gateway for example.;It is recommended to use the automatically recognized URL, unless the website is operated behind a gateway for example.;Es wird empfohlen die automatisch erkannte URL zu verwenden, ausser die Webseite wird zum Beispiel hinter einem Gateway betrieben.
+It is recommended to use UTF8mb4 as a charset.;It is recommended to use UTF8mb4 as a charset.;Es wird empfohlen UTF8mb4 als Charset zu verwenden.
+Item;Item|Items;Element|Elemente
+Item is active and visible;Item is active and visible;Element ist aktiv und sichtbar
+Key;Key|Keys;Schlüssel
+Keyword;Keyword|Keywords;Kennwort|Kennwörter
+Language;Language|Languages;Sprache|Sprachen
+Last change by {0} on {1};Last change by {0} on {1};Letzte Veränderung von {0} am {1}
+Lastname;Lastname|Lastnames;Nachname|Nachnamen
+License;License|Licenses;Lizenz|Lizenzen
+Line;Line|Lines;Zeile|Zeilen
+Load;Load;Laden
+Load block;Load block|Load blocks;Block laden|Blöcke laden
+Load blocks message;Load the blocks, which are configured in the configuration file <code>info.php</code> of the current frontend theme.;Lade die Blöcke, die in der Konfigurationsdatei <code>info.php</code> des aktuellen Frontend-Themes konfiguriert sind.
+Load failed;Load failed;Laden fehlgeschlagen
+Load navigation;Load navigation|Load navigations;Navigation laden|Navigationen laden
+Load navigations message;Load the navigations, which are configured in the configuration file <code>info.php</code> of the current frontend theme.;Lade die Navigationen, die in der Konfigurationsdatei <code>info.php</code> des aktuellen Frontend-Themes konfiguriert sind.
+Log level;Log level;Log-Level
+Logfile;Logfile|Logfiles;Protokolldatei|Protokolldateien
+Logged in as {0};Logged in as {0};Angemeldet als {0}
+Login;Login;Anmelden
+Login attempt;Login attempt|Login attempts;Login-Versuch|Login-Versuche
+Login failed;Login failed;Anmelden fehlgeschlagen
+Login failed. Email address and/or password are invalid.;Login failed. Email address and/or password are invalid.;Login fehlgeschlagen. E-Mailadresse und/oder Passwort ist nicht gültig.
+Login failed. You have {0} login attempts until your user account get locked.;Login failed. You have {0} login attempts until your user account get locked.;Login fehlgeschlagen. Du hast noch {0} Login-Versuche bis dein Benutzerkonto gesperrt wird.
+Loglevel;Loglevel;Protokollebene
+Logout;Logout;Abmelden
+Logout failed;Logout failed;Abmelden fehlgeschlagen
+Lost your password?;Lost your password?;Dein Passwort vergessen?
+Main navigation;Main navigation;Hauptnavigation
+Main navigation and current pagetree.;Main navigation and current pagetree.;Hauptnavigation und aktueller Seitenbaum.
+Maintain website and system;Maintain website and system;Webseite und System warten
+Maintenance;Maintenance;Wartung
+Make visible;Make visible;Sichtbar machen
+Making visible failed;Making visible failed;Sichtbar machen fehlgeschlagen
+Manage blocks;Manage blocks;Blöcke verwalten
+Manage media files and folders;Manage media files and folders;Medien-Dateien und Ordner verwalten
+Manage items;Manage items;Elemente verwalten
+Manage modules;Manage modules;Module verwalten
+Manage navigations;Manage navigations;Navigationen verwalten
+Manage pages and page content;Manage pages and page content;Seiten und Seiteninhalte verwalten
+Manage roles and permissions;Manage roles and permissions;Rollen und Berechtigungen verwalten
+Manage themes;Manage themes;Themes verwalten
+Manage user accounts;Manage user accounts;Benutzerkonten verwalten
+Manager class;Manager class;Manager-Klasse
+Manager Class;Manager Class;Manager Klasse
+Uploadable file size (defined in php.ini): max. {0}MB;Uploadable file size (defined in php.ini): max. {0}MB;Hochladbare Dateigrösse (gemäss php.ini): max. {0}MB
+Media;Media;Medien
+System information;System information;Systeminformation|Systeminformationen
+Message;Message|Messages;Nachricht|Nachrichten
+Minute;Minute|Minutes;Minute|Minuten
+Module;Module|Modules;Modul|Module
+Month;Month|Months;Monat|Monate
+Move uploaded file(s) failed, see error message;Move uploaded file(s) failed, see error message;Verschieben der hochgeladenen Datei(en) ist fehlgeschlagen, siehe Fehlermeldung
+Name;Name|Names;Name|Namen
+Navigation;Navigation|Navigations;Navigation|Navigationen
+Navigation item;Navigation item|Navigation items;Navigationselement|Navigationselemente
+Navigation settings;Navigation settings;Navigationseinstellungen
+Navigation title;Navigation title;Navigationstitel
+New password;New password;Neues Passwort
+No cache selected;No cache selected;Kein Cache ausgewählt
+No files found;No files found;Keine Dateien gefunden
+No folders and files found;No folders and files found;Keine Ordner und Dateien gefunden
+No results found;No results found;Keine Resultate gefunden
+None;None;Keine
+Not found;Not found;Nicht gefunden
+Not specified;Not specified;Nicht spezifiziert
+Note;Note|Notes;Hinweis|Hinweise
+Only database results;Only database results;Nur Datenbank-Resultate
+Only CMS data;Only CMS data;Nur CMS-Daten
+Only translations;Only translations;Nur Übersetzungen
+Only older than {0} days;Only older than {0} days;Nur älter als {0} Tage
+Open folder;Open folder;Ordner öffnen
+PHP extensions;PHP extensions;PHP Erweiterungen
+PHP settings;PHP settings;PHP Einstellungen
+or;or;oder
+Overwrite existing files with same name;Overwrite existing files with same name;Bestehende Dateien mit demselben Namen überschreiben
+Package;Package|Packages;Paket|Pakete
+Page;Page|Pages;Seite|Seiten
+Page authorization info;The authorization applies only to the page access at the frontend.;Die Berechtigung gilt nur für den Seitenzugriff beim Frontend.
+Page is active and accessible;Page is active and accessible;Seite ist aktiv und erreichbar
+Page is only accessible for logged in users;Page is only accessible for logged in users;Seite ist nur erreichbar für angemeldete Benutzer
+Page is visible in the page tree navigation;Page is visible in the page tree navigation;Seite ist sichtbar in der Seitenbaum-Navigation
+Page loaded in {0} seconds;Page loaded in {0} seconds;Seite geladen in {0} Sekunden
+Page section;Page section|Page sections;Seitenabschnitt|Seitenabschnitte
+Page settings;Page settings;Seiteneinstellungen
+Page title;Page title;Seitentitel
+Page tree;Page tree|Page trees;Seitenbaum|Seitenbäume
+Password;Password;Passwort
+Password is not matching confirm password;Password is not matching confirm password;Passwort entspricht nicht dem Bestätigungspasswort.
+Password must contain at least one lowercase character;Password must contain at least one lowercase character;Passwort muss mindestens einen Kleinbuchstaben enthalten
+Password must contain at least one number;Password must contain at least one number;Passwort muss mindestens eine Nummer enthalten
+Password must contain at least one special character;Password must contain at least one special character;Passwort muss mindestens ein Sonderzeichen beinhalten
+Password must contain at least one uppercase character;Password must contain at least one uppercase character;Passwort muss mindestens einen Grossbuchstaben enthalten
+Password reset email message;<p>Hi {0}!</p><p>Forgot your password? No problem.</p><p>Just click here to create a new password for your user account:</p><a href="{1}">{1}</a><p>If you didn\'t request a password change, you don\'t have to do anything.</p><p>Best regards.</p>;<p>Hallo, {0}!</p><p>Dein Passwort vergessen? Kein Problem.</p><p>Klicke einfach here um ein neues Passwort für deinen Benutzerkonto zu erstellen:</p><a href="{1}">{1}</a><p>Wenn du kein Passwortwechsel angefragt hast, musst du garnichts machen.</p><p>Beste Grüsse.</p>
+Password reset email subject;Create new password;Neues Passwort erstellen
+Password successfully updated;Password successfully updated;Passwort erfolgreich aktualisiert
+Path;Path|Paths;Pfad|Pfade
+Path to the config file;Path to the configuration file;Pfad zur Konfigurationsdatei
+Permission;Permission|Permissions;Berechtigung|Berechtigungen
+PHP error level;PHP error level;PHP Error-Level
+Placeholder;Placeholder|Placeholders;Platzhalter
+Placeholder is invalid. Please use only letters, underscores and hyphens.;Placeholder is invalid. Please use only letters, underscores and hyphens.;Platzhalter is ungültig. Bitte benutze nur Buchstaben sowie Unter- und Bindestrich.
+Please confirm;Please confirm;Bitte bestätigen
+Please enter the email address of your user account. You will receive a link to create a new password via email.;Please enter the email address of your user account. You will receive a link to create a new password via email.;Bitte gib die E-Mailadresse deines Benutzerkontos ein. Du wirst eine E-Mail mit einem Link für die Erstellung eines neuen Passworts erhalten.
+Please enter the new password for your user account, registered under the email address {0}.;Please enter the new password for your user account, registered under the email address {0}.;Bitte gib dein neues Passwort von deinem Benutzerkonto ein, registriert mit der E-Mailadresse {0}.
+Please note;Please note;Bitte beachten
+Please specify which cached data you want to clear;Please specify which cached data you want to clear;Bitte spezifiziere welche zwischengespeicherten Daten du geleert haben möchtest
+Please specify which logfiles you want to delete;Please specify which logfiles you want to delete;Bitte spezifiziere welche Protokolldateien du gelöscht haben willst
+Please upload the latest update as a ZIP file to start the installation.;Please upload the latest update as a ZIP file to start the installation.;Bitte lade das neuste Update als ZIP-Datei hoch um die Installation zu starten.
+Preview;Preview|Preview;Vorschau|Vorschauen
+Profile;Profile;Profil
+Recreate;Recreate;Neu erstellen
+Recreate failed;Recreate failed;Neu erstellen fehlgeschlagen
+Refresh;Refresh;Erneuern
+Refresh failed;Refresh failed;Erneuern fehlgeschlagen
+Reload;Reload;Neu laden
+Reload all modules;Reload all modules;Alle Module neu laden
+Reload all themes;Reload all themes;Alle Themes neu laden
+Reload failed;Reloaded failed;Neu laden fehlgeschlagen
+Reload failed for {0};Reload failed for {0};Neu laden fehlgeschlagen für {0}
+Reload module;Reload module|Reload modules;Modul neu laden|Module neu laden
+Reload modules information;Reload the information, which are configured in the configuration file <code>info.php</code> of the installed module (e.g. after FTP upload).|Reload the information, which are configured in the configuration files <code>info.php</code> of the installed modules (e.g. after FTP upload).;Lade die Informationen neu, die in der Konfigurationsdatei <code>info.php</code> des installierten Modules konfiguriert sind (z.B. nach FTP Upload).|Lade die Informationen neu, die in der Konfigurationsdateien <code>info.php</code> der installierten Module konfiguriert sind (z.B. nach FTP Upload).
+Reload themes information;Reload the information, which are configured in the configuration file <code>info.php</code> of the installed theme (e.g. after FTP upload).|Reload the information, which are configured in the configuration files <code>info.php</code> of the installed themes (e.g. after FTP upload).;Lade die Informationen neu, die in der Konfigurationsdatei <code>info.php</code> des installierten Themes konfiguriert sind (z.B. nach FTP Upload).|Lade die Informationen neu, die in der Konfigurationsdateien <code>info.php</code> der installierten Themes konfiguriert sind (z.B. nach FTP Upload).
+Reload theme;Reload theme|Reload themes;Theme neu laden|Themes neu laden
+Reload themes information;Reload the information, which are configured in the configuration files <code>info.php</code> of the installed themes (e.g. after FTP upload).;Lade die Informationen neu, die in der Konfigurationsdateien <code>info.php</code> der installierten Themes konfiguriert sind (z.B. nach FTP Upload).
+Reloaded;Reloaded;Neugeladen
+Relogin;Relogin;Erneut anmelden
+Remove;Remove;Entfernen
+Remove failed;Remove failed;Entfernen fehlgeschlagen
+Removed;Removed;Entfernt
+Rename;Rename;Umbenennen
+Rename failed;Rename failed;Umbenennen fehlgeschlagen
+Rename file;Rename file;Datei umbenennen
+Rename file failed, see error message;Rename file failed, see error message;Umbenennen der Datei fehlgeschlagen, siehe Fehlermeldung
+Rename folder;Rename folder;Ordner umbenennen
+Rename folder failed, see error message;Rename folder failed, see error message;Umbenennen des Ordners fehlgeschlagen, siehe Fehlermeldung
+Required module;Required module|Required modules;Erforderliches Modul|Erforderliche Module
+Reset;Reset;Zurücksetzen
+Reset failed;Reset failed;Zurücksetzen fehlgeschlagen
+Reset folder permissions;Reset folder permissions;Ordnerberechtigungen zurücksetzen
+Reset folder permissions message;The folder permissions can only be reseted on Unix-based operation systems.;Die Ordnerberechtigungen können nur auf Unix-basierten Betriebssystemen zurückgesetzt werden.
+Reset password;Reset password;Passwort zurücksetzen
+Reseted;Reseted;Zurückgesetzt
+Restricted;Restricted;Beschränkt
+Role;Role|Roles;Rolle|Rollen
+Role is in use and cannot be deleted;Role is in use and cannot be deleted;Rolle wird verwendet und kann nicht gelöscht werden
+Run tools;Run tools;Tools ausführen
+Save;Save;Speichern
+Save failed;Save failed;Speichern fehlgeschlagen
+Saved;Saved;Gespeichert
+Search;Search;Suchen
+Search failed;Search failed;Suchen fehlgeschlagen
+Searched;Searched;Gesucht
+Second;Second|Seconds;Sekunde|Sekunden
+Section;Section;Abschnitt
+Section content;Section content;Abschnittsinhalt
+Section is active and visible;Section is active and visible;Abschnitt ist aktiv und sichtbar
+Section settings;Section settings;Abschnittseinstellungen
+Sections;Sections;Abschnitte
+Security;Security;Sicherheit
+Security setting;Security setting|Security settings;Sicherheitseinstellung|Sicherheitseinstellungen
+Selectable;Selectable;Auswählbar
+Session lifetime;Session lifetime;Sitzungslaufzeit
+Session name;Session name;Sitzungsname
+Session timeout in {0};Session timeout in {0};Sitzung endet in {0}
+Setting;Setting;Einstellung
+Setting;Setting|Settings;Einstellung|Einstellungen
+Show;Show;Anzeigen
+Show custom CSS;Show custom CSS;Benutzerdefiniertes CSS ausgeben
+Show custom JavaScript;Show custom JavaScript;Benutzerdefiniertes Javascript ausgeben
+Show debugbar;Show debugbar;Debugleiste anzeigen
+Show error details;Show error details;Fehlerdetails anzeigen
+Size;Size|Sizes;Grösse|Grössen
+Sorry, but you are not authorized to access this site.;Sorry, but you are not authorized to access this site.;Entschuldigung, aber du bist nicht für diese Seite autorisiert.
+Start installation;Start intallation;Installation starten
+Status;Status;Status
+Successfully added;Successfully added;Erfolgreich hinzugefügt
+Successfully cleared;Successfully cleared;Erfolgreich geleert
+Successfully created;Successfully created;Erfolgreich erstellt
+Successfully deleted;Successfully deleted;Erfolgreich gelöscht
+Successfully disabled;Successfully disabled;Erfolgreich deaktiviert
+Successfully enabled;Successfully enabled;Erfolgreich aktiviert
+Successfully executed;Successfully executed;Erfolgreich ausgeführt
+Successfully hidden;Successfully hidden;Erfolgreich versteckt
+Successfully installed;Successfully installed;Erfolgreich installiert
+Successfully loaded;Successfully loaded;Erfolgreich geladen
+Successfully logged in;Successfully logged in;Erfolgreich eingeloggt
+Successfully logged out;Successfully logged out;Erfolgreich ausgeloggt
+Successfully made visible;Successfully made visible;Erfolgreich sichtbar gemacht
+Successfully recreated;Successfully recreated;Erfolgreich neu erstellt
+Successfully refreshed;Successfully refreshed;Erfolgreich erneuert
+Successfully reloaded;Successfully reloaded;Erfolgreich neugeladen
+Successfully removed;Successfully removed;Erfolgreich entfernt
+Successfully renamed;Successfully renamed;Erfolgreich umbenennt
+Successfully reseted;Successfully reseted;Erfolgreich zurückgesetzt
+Successfully saved;Successfully saved;Erfolgreich gespeichert
+Successfully searched;Successfully searched;Erfolgreich gesucht
+Successfully uninstalled;Successfully uninstalled;Erfolgreich deinstalliert
+Successfully updated;Successfully updated;Erfolgreich aktualisiert
+Successfully uploaded;Successfully uploaded;Erfolgreich hochgeladen
+Active language;Active language|Active languages;Aktive Sprache|Aktive Sprachen
+Author of the website (e.g. webmaster).;Author of the website (e.g. webmaster).;Autor der Webseite (zB. Webmaster)
+Supported languages of the website. Each language requires separate pages.;Supported languages of the website. Each language requires separate pages.;Unterstützte Sprachen der Webseiten. Jede Sprache benötigt separate Seiten.
+The CMS is already up to date;The CMS is already up to date;Das CMS ist bereits auf dem neuesten Stand
+"The existing file "{0}" is not accessible and cannot be overwritten";The existing file "{0}" is not accessible and cannot be overwritten";Die vorhandene Datei "{0}" ist nicht zugänglich und kann nicht überschrieben werden"
+The extension ({0}) is already up to date;The extension ({0}) is already up to date;Die Erweiterung ({0}) ist bereits auf dem neuesten Stand
+The extension ({0}) is not compatible;The extension ({0}) is not compatible;Die Erweiterung ({0}) ist nicht kompatibel
+"The file "{0}" has not an allowed file extension";The file "{0}" has not an allowed file extension";Die Datei "{0}" hat keine erlaubte Dateiendung"
+"The file "{0}" is larger than allowed";The file "{0}" is larger than allowed";Die Datei "{0}" ist grösser als erlaubt"
+The file cannot be previewed;The file cannot be previewed;Die Datei kann nicht als Vorschau angezeigt werden
+{0} has at least one or more depending modules ({1}) and cannot be deleted;{0} has at least one or more depending modules ({1}) and cannot be deleted;{0} hat mindestens ein oder mehrere abhängige Module ({1}) und kann nicht gelöscht werden
+{0} has at least one or more depending modules ({1}) and cannot be disabled;{0} has at least one or more depending modules ({1}) and cannot be disabled;{0} hat mindestens ein oder mehrere abhängige Module ({1}) und kann nicht deaktiviert werden
+The module ({0}) is in use and cannot be deleted;The module ({0}) is in use and cannot be deleted;Das Modul (Name: {0}) wird verwendet und kann nicht gelöscht werden
+The navigation item or child items cannot be the parent item;The navigation item or child items cannot be the parent item;Das Navigationselement oder ein Unterelement kann nicht das Oberelement sein
+The package could not be uploaded;The package could not be uploaded;Das Paket konnte nicht hochgeladen werden
+The password must be at least 8 characters long and contain a special character or a number.;The password must be at least 8 characters long and contain a special character or a number.;Das Passwort muss mindestens 8 Zeichen lang sein und ein Sonderzeichen oder eine Nummer enthalten.
+The value defined in php. ini for session-timeout is {0} seconds.;The value defined in php. ini for session-timeout is {0} seconds.;Der in der php.ini definierte Wert für die Sessionlaufzeit ist {0} Sekunden.
+The value defined in php.ini for the maximum uploadable file size is {0}MB.;The value defined in php.ini for the maximum uploadable file size is {0}MB.;Der in der php.ini definierte Wert für die maximal hochladbare Dateigrösse ist {0}MB.
+The version ({0}) of the CMS is not supported;The version ({0}) of the CMS is not supported;Die Version ({0}) des CMS wird nicht unterstützt
+The version ({0}) of the extension ({1}) is not supported;The  version ({0}) of the extension ({1}) is not supported;Die Version ({0}) der Erweiterung ({1}) wird nicht unterstützt
+Theme;Theme|Themes;Theme|Themes
+Theme is in use and cannot be deleted.;Theme is in use and cannot be deleted.;Theme wird schon verwendet und kann nicht gelöscht werdern.
+Theme setting;Theme setting|Theme settings;Theme-Einstellung|Theme-Einstellungen
+This URL is already in use. Please change the URL.;This URL is already in use. Please change the URL.;Diese URL wird schon verwendet. Bitte ändere die URL.
+Timezone;Timezone;Zeitzone
+Title;Title|Titles;Titel|Titeln
+To the backend;To the backend;Zum Backend
+To the frontend;To the frontend;Zum Frontend
+Toggle navigation;Toggle navigation;Navigation umschalten
+Too much login attempts than allowed. Your user account is locked.;Too much login attempts than allowed. Your user account is locked.;Zuviele Login-Versuche als erlaubt. Dein Benutzerkonto ist gesperrt.
+Tool;Tool|Tools;Tool|Tools
+Top item;Top item|Top items;Oberstes Element|Oberste Elemente
+Top page;Top page;Oberste Seite
+Type;Type|Types;Typ|Typen
+Unauthorized;Unauthorized;Unberechtigt
+Unavailable;Unavailable;Nicht verfügbar
+Uninstall;Uninstall;Deinstallieren
+Uninstall failed;Uninstall failed;Deinstallieren fehlgeschlagen
+Uninstall module;Uninstall module;Modul deinstallieren
+Uninstall theme;Uninstall theme;Theme deinstallieren
+Uninstalled;Uninstalled;Deinstalliert
+Update;Update;Aktualisieren
+Update CMS;Update CMS;CMS aktualisieren
+Update CMS failed;CMS module failed;CMS aktualisieren fehlgeschlagen
+Update CMS failed, see error message;Update CMS failed, see error message;CMS aktualisieren fehlgeschlagen, siehe Fehlermeldung
+Update failed;Update failed;Aktualisieren fehlgeschlagen
+Update module;Update module;Modul aktualisieren
+Update module failed;Update module failed;Modul aktualisieren fehlgeschlagen
+Update module failed, see error message;Update module failed, see error message;Modul aktualisieren fehlgeschlagen, siehe Fehlermeldung
+Update theme failed;Update theme failed;Theme aktualisieren fehlgeschlagen
+Update theme failed, see error message;Update theme failed, see error message;Theme aktualisieren fehlgeschlagen, siehe Fehlermeldung
+Update package;Update package;Update Paket
+Update theme;Update theme;Theme aktualisieren
+Update website settings;Update website settings;Webseiteneinstellungen aktualisieren
+Updated;Updated;Aktualisiert
+Updating password failed.;Updating password failed.;Passwort aktualisieren fehlgeschlagen
+Upload;Upload;Hochladen
+Upload failed;Upload failed;Hochladen fehlgeschlagen
+Upload file(s) failed, see error message;Upload file(s) failed, see error message;Hochladen der Datei(en) fehlgeschlagen, siehe Fehlermeldung
+Upload files;Upload files;Dateien hochladen
+Uploaded;Uploaded;Hochgeladen
+URL;URL;URL
+Use cache;Use cache;Cache verwenden
+User;User|Users;Benutzer
+User not found;User not found;Benutzer nicht gefunden
+Username;Username;Benutzername
+Valid;Valid;Gültig
+Version;Version;Version
+Video;Video|Videos;Video|Videos
+Show module;Show module;Modul anzeigen
+Show theme;Show theme;Theme anzeigen
+Visibility;Visibility;Sichtbarkeit
+Visible;Visible;Sichtbar
+Website;Website|Websites;Webseite|Webseiten
+Website author;Website author;Webseiten-Autor
+Website description;Website description;Webseiten-Beschreibung
+Website keyword;Website keyword|Website keywords;Webseiten-Kennwort|Webseiten-Kennwörter
+Website successfully configured;Website successfully configured;Webseite erfolgreich konfiguriert
+Website title;Website title;Webseiten-Titel
+CMS successfully updated;CMS successfully updated;CMS erfolgreich aktualisiert
+Module successfully updated;Module successfully updated;Modul erfolgreich aktualisiert
+Theme successfully updated;Theme successfully updated;Theme erfolgreich aktualisiert
+Week;Week|Weeks;Woche|Wochen
+Year;Year|Years;Jahr|Jahre
+Your session has expired. Please login again.;Your session has expired. Please login again.;Deine Session ist abgelaufen. Bitte melde dich erneut an.
+Zip archive ({0}) is invalid;Zip archive ({0}) is invalid;ZIP-Archiv ({0}) ist ungültig
