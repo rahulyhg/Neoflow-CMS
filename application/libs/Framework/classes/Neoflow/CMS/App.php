@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS;
 
 use Neoflow\CMS\Handler\Config;
@@ -22,6 +21,7 @@ use function request_url;
 
 class App extends FrameworkApp
 {
+
     /**
      * Publish application.
      *
@@ -229,10 +229,14 @@ class App extends FrameworkApp
     {
         // Fetch only when database connection is etablished
         if ($this->get('database')) {
+
+            // Update modules
+            $updateService = new Service\UpdateService();
+            $updateService->updateModules();
+
             // Fetch CMS modules
             $modules = ModuleModel::findAllByColumn('is_active', true);
             $modules->each(function ($module) {
-                $bla = $module->getPath('functions');
                 $this->get('loader')
                     ->loadFunctionsFromDirectory($module->getPath('functions'))
                     ->addClassDirectory($module->getPath('classes'));
