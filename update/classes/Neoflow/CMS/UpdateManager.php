@@ -16,7 +16,7 @@ class UpdateManager extends AbstractUpdateManager
     {
         if (parent::install()) {
 
-            require_once APP_ROOT . '/vendor/autoload.php';
+            require_once APP_PATH . '/vendor/autoload.php';
 
             $frameworkFolder = new Folder($this->config()->getPath('/framework'));
             return $frameworkFolder->delete();
