@@ -3,7 +3,6 @@
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
-use Neoflow\CMS\Model\ModuleModel;
 use Neoflow\CMS\Model\ThemeModel;
 use Neoflow\CMS\UpdateManager;
 use Neoflow\Filesystem\File;
@@ -102,69 +101,62 @@ class UpdateService extends AbstractService
      *
      * @throws ValidationException
      */
-    public function install(File $updatePackageFile): bool
+    public function installUpdate(File $updatePackageFile): bool
     {
         $updateFolder = $this->unpack($updatePackageFile);
 
-        try {
-            // Fetch info data
-            $info = $this->fetchInfo($updateFolder);
+        // Fetch info data
+        $info = $this->fetchInfo($updateFolder);
 
-            // Check and validate version support
-            $this->validateVersion($info);
+        // Check and validate version support
+        $this->validateVersion($info);
 
-            // Add class directory to loader
-            $classPath = $updateFolder->getPath('/classes');
-            if (is_dir($classPath)) {
-                $this->app()->get('loader')->addClassDirectory($classPath);
-            }
-
-            if (class_exists('\\Neoflow\\CMS\\UpdateManager')) {
-                $manager = new UpdateManager($updateFolder, $info);
-                $manager->install();
-            }
-
-            $this->updateModules($info, $updateFolder);
-            $this->updateThemes($info, $updateFolder);
-        } finally {
-            // Delete update folder
-            $updateFolder->delete();
+        // Add class directory to loader
+        $classPath = $updateFolder->getPath('/classes');
+        if (is_dir($classPath)) {
+            $this->app()->get('loader')->addClassDirectory($classPath);
         }
 
-        return true;
+        if (class_exists('\\Neoflow\\CMS\\UpdateManager')) {
+            $manager = new UpdateManager($updateFolder, $info);
+            if ($manager->updateFilesAndDatabase()) {
+                $this->session()->setNewFlash('updateFolderPath', $updateFolder->getPath());
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
-     * Update modules.
+     * Install modules and themes update packages.
      *
-     * @param array  $info         Info data
-     * @param Folder $updateFolder Update folder
+     * @param array $updateFolderPath Update folder path
      *
      * @return bool
      */
-    protected function updateModules(array $info, Folder $updateFolder): bool
+    public function installExtensionUpdates(string $updateFolderPath): bool
     {
-        if (isset($info['modules'])) {
-            foreach ($info['modules'] as $identifier => $packageName) {
-                try {
-                    $files = $updateFolder->findFiles('modules/'.$packageName);
-                    foreach ($files as $file) {
-                        $module = ModuleModel::findByColumn('identifier', $identifier);
-                        if ($module) {
-                            $module->installUpdate($file);
-                        } else {
-                            $module = new ModuleModel();
-                            $module->install($file);
-                        }
-                    }
-                } catch (Throwable $ex) {
-                    $this->logger()->warning('Module update installation for '.$packageName.' failed.', [
-                        'Exception message' => $ex->getMessage(),
-                    ]);
-                }
-            }
+        // Create update folder
+        $updateFolder = new Folder($updateFolderPath);
 
-            return true;
+        // Fetch info data
+        $info = $this->fetchInfo($updateFolder);
+
+        // Check and validate version support
+        $this->validateVersion($info);
+
+        // Add class directory to loader
+        $classPath = $updateFolder->getPath('/classes');
+        if (is_dir($classPath)) {
+            $this->app()->get('loader')->addClassDirectory($classPath);
+        }
+
+        if (class_exists('\\Neoflow\\CMS\\UpdateManager')) {
+            $manager = new UpdateManager($updateFolder, $info);
+
+            return $manager->updateExtensions();
         }
 
         return false;
@@ -173,17 +165,22 @@ class UpdateService extends AbstractService
     /**
      * Update themes.
      *
-     * @param array  $info         Info data
-     * @param Folder $updateFolder Update folder
+     * @param array $updateFolderPath Update folder path
      *
      * @return bool
      */
-    protected function updateThemes(array $info, Folder $updateFolder): bool
+    public function updateThemes(string $updateFolderPath): bool
     {
+        // Create update folder
+        $updateFolder = new Folder($updateFolderPath);
+
+        // Fetch info data
+        $info = $this->fetchInfo($updateFolder);
+
         if (isset($info['themes'])) {
             foreach ($info['themes'] as $identifier => $packageName) {
                 try {
-                    $files = $updateFolder->findFiles('themes/'.$packageName);
+                    $files = $updateFolder->findFiles($info['path']['packages'].'/themes/'.$packageName);
                     foreach ($files as $file) {
                         $theme = ThemeModel::findByColumn('identifier', $identifier);
                         if ($theme) {
@@ -192,6 +189,7 @@ class UpdateService extends AbstractService
                             $theme = new ThemeModel();
                             $theme->install($file);
                         }
+                        $file->delete();
                     }
                 } catch (Throwable $ex) {
                     $this->logger()->warning('Theme update installation for '.$packageName.' failed.', [

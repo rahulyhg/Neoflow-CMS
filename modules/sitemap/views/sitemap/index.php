@@ -16,13 +16,12 @@
                         <div class="col-sm-9">
                             <select id="selectDefaultChangefreq" class="form-control" name="default_changefreq">
                                 <?php foreach ($changeFrequencies as $changeFrequency) {
-
-                                    ?>
+    ?>
                                     <option <?= ($changeFrequency === $settings->default_changefreq ? 'selected' : ''); ?> value="<?= $changeFrequency; ?>">
                                         <?= translate($changeFrequency); ?>
                                     </option>
                                     <?php
-                                }
+}
 
                                 ?>
                             </select>
@@ -53,7 +52,6 @@
                         <div class="col-sm-9">
                             <select id="selectSitemapLifetime" class="form-control" name="sitemap_lifetime">
                                 <?php foreach ($sitemapLifetimes as $key => $value) {
-
                                     ?>
                                     <option <?= ($key === (int) $settings->sitemap_lifetime ? 'selected' : ''); ?> value="<?= $key; ?>">
                                         <?= translate($value); ?>
@@ -111,14 +109,12 @@
                 <ul class="list-unstyled">
                     <?php
                     if ($sitemapFile) {
-
                         ?>
                         <li><?= translate('Status'); ?>: <a href="<?= $sitemapFile->getUrl(); ?>" target="_blank" title="<?= translate('Show sitemap'); ?>"><?= translate('Available'); ?></a></li>
                         <li><?= translate('Last creation'); ?>: <?= format_timestamp($sitemapFile->getModificationTime()); ?>
                             <?php
-                        } else {
-
-                            ?>
+                    } else {
+                        ?>
                         <li><?= translate('Status'); ?>: <?= translate('Unavailable'); ?></li>
                         <li><?= translate('Last creation'); ?>: <?= translate('Unavailable'); ?></li>
                         <?php
@@ -135,8 +131,7 @@
                 </a>
 
                 <?php if (!$settings->automated_creation) {
-
-                    ?>
+                        ?>
                     <a href="<?= generate_url('tmod_sitemap_backend_delete'); ?>" class="btn btn-outline-light btn-icon-left confirm-modal" data-message="<?= translate('Are you sure you want to delete it?'); ?>" title="<?= translate('Delete sitemap'); ?>">
                         <span class="btn-icon">
                             <i class="fa fa-trash-alt"></i>
@@ -144,7 +139,7 @@
                         <?= translate('Delete'); ?>
                     </a>
                     <?php
-                }
+                    }
 
                 ?>
             </div>

@@ -6,29 +6,37 @@
                 <?= translate('All pages'); ?>
             </h4>
 
-            <?php if (count($languages) > 1) { ?>
+            <?php if (count($languages) > 1) {
+    ?>
                 <ul class="nav nav-tabs nav-fill">
-                    <?php foreach ($languages as $language) { ?>
+                    <?php foreach ($languages as $language) {
+        ?>
                         <li class="nav-item">
                             <a class="nav-link<?= ($language->id() === $activeLanguage->id() ? ' active' : ''); ?>" href="<?= generate_url('backend_page_index', ['language_id' => $language->id()]); ?>">
                                 <?= $language->renderFlagIcon(); ?>  <span class="d-none d-sm-inline-block"><?= translate($language->title); ?></span>
                             </a>
                         </li>
-                    <?php } ?>
+                    <?php
+    } ?>
                 </ul>
-            <?php } ?>
+            <?php
+} ?>
 
             <div class="card-body">
-                <?php if ($navitems->count()) { ?>
+                <?php if ($navitems->count()) {
+        ?>
                     <div class="nestable" data-save-url="<?= generate_url('backend_page_reorder'); ?>">
                         <?= $view->renderNavitemNestable($navitems); ?>
                     </div>
                     <ul class="list-inline small">
                         <li><i class="fa fa-lock"></i> = <?= translate('Accessible only for authorized users'); ?></li>
                     </ul>
-                <?php } else { ?>
+                <?php
+    } else {
+        ?>
                     <p class="text-center text-muted"><?= translate('No results found'); ?></p>
-                <?php } ?>
+                <?php
+    } ?>
             </div>
         </div>
 

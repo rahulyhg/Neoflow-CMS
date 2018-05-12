@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS;
 
 use Neoflow\CMS\Handler\Config;
@@ -6,6 +7,7 @@ use Neoflow\CMS\Handler\Router;
 use Neoflow\CMS\Handler\Translator;
 use Neoflow\CMS\Model\ModuleModel;
 use Neoflow\CMS\Model\SettingModel;
+use Neoflow\CMS\Service\UpdateService;
 use Neoflow\Framework\App as FrameworkApp;
 use Neoflow\Framework\Handler\Engine;
 use Neoflow\Framework\Handler\Loader;
@@ -21,7 +23,6 @@ use function request_url;
 
 class App extends FrameworkApp
 {
-
     /**
      * Publish application.
      *
@@ -72,28 +73,31 @@ class App extends FrameworkApp
         // Create and set session
         $this->setSession();
 
+        // Update modules
+        $this->installExtensionUpdates();
+
         // Create and set engine
         $this->set('engine', new Engine());
 
         // Set CMS-specific meta properties
         $this->get('engine')
-            ->addMetaTagProperties([
-                'name' => 'description',
-                'content' => $this->get('settings')->website_description,
-                ], 'description')
-            ->addMetaTagProperties([
-                'name' => 'keywords',
-                'content' => $this->get('settings')->website_keywords,
-                ], 'keywords')
-            ->addMetaTagProperties([
-                'name' => 'author',
-                'content' => $this->get('settings')->website_author,
-                ], 'author');
+                ->addMetaTagProperties([
+                    'name' => 'description',
+                    'content' => $this->get('settings')->website_description,
+                        ], 'description')
+                ->addMetaTagProperties([
+                    'name' => 'keywords',
+                    'content' => $this->get('settings')->website_keywords,
+                        ], 'keywords')
+                ->addMetaTagProperties([
+                    'name' => 'author',
+                    'content' => $this->get('settings')->website_author,
+                        ], 'author');
 
-        // Fetch and set CMS modules
+        // Fetch and set modules
         $this->setModules();
 
-        // Set CMS themes from settings
+        // Set themes from settings
         $this->setThemes();
 
         // Create and set router
@@ -134,8 +138,8 @@ class App extends FrameworkApp
             $response = $this->get('router')->routeByKey('error_index', ['exception' => $ex]);
 
             $this
-                ->execute($response)
-                ->publish();
+                    ->execute($response)
+                    ->publish();
 
             if ($ex instanceof HttpException) {
                 $context = [
@@ -221,6 +225,24 @@ class App extends FrameworkApp
     }
 
     /**
+     * Install modules and themes update packages (but only when updateFolderPath as flash exists).
+     *
+     * @return self
+     */
+    protected function installExtensionUpdates(): self
+    {
+        if ($this->get('database')) {
+            $updateFolderPath = $this->get('session')->getFlash('updateFolderPath');
+            if (!empty($updateFolderPath)) {
+                $updateService = new UpdateService();
+                $updateService->installExtensionUpdates($updateFolderPath);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * Fetch and set active modules.
      *
      * @return self
@@ -229,17 +251,12 @@ class App extends FrameworkApp
     {
         // Fetch only when database connection is etablished
         if ($this->get('database')) {
-
-            // Update modules
-            $updateService = new Service\UpdateService();
-            $updateService->updateModules();
-
             // Fetch CMS modules
             $modules = ModuleModel::findAllByColumn('is_active', true);
             $modules->each(function ($module) {
                 $this->get('loader')
-                    ->loadFunctionsFromDirectory($module->getPath('functions'))
-                    ->addClassDirectory($module->getPath('classes'));
+                        ->loadFunctionsFromDirectory($module->getPath('functions'))
+                        ->addClassDirectory($module->getPath('classes'));
             });
         } else {
             // Create empty CMS modules collection

@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS;
 
 use Neoflow\CMS\Manager\AbstractUpdateManager;
@@ -6,9 +7,23 @@ use Neoflow\Filesystem\Folder;
 
 class UpdateManager extends AbstractUpdateManager
 {
+    /**
+     * Constructor.
+     *
+     * @param Folder $folder Update folder
+     * @param array  $info   Info data
+     */
+    public function __construct(Folder $folder, array $info)
+    {
+        parent::__construct($folder, $info);
+
+        // Fix for old info path config (only need for update to 1.0.0-a2)
+        $this->info['sql'] = $info['path']['sql'];
+        $this->info['files'] = $info['path']['files'];
+    }
 
     /**
-     * Install update.
+     * Old istall method (only need for update from 1.0.0-a1 to 1.0.0-a2).
      *
      * @return bool
      */

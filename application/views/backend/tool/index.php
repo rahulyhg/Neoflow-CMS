@@ -20,12 +20,11 @@
                 </thead>
                 <tbody>
                     <?php foreach ($modules as $module) {
-
-                        ?>
+    ?>
                         <tr class="<?= (!$module->is_active ? 'disabled' : ''); ?>">
                             <td>
                                 <a href="<?= generate_url($module->backend_route); ?>">
-                                    <?= $module->name ?>
+                                    <?= $module->name; ?>
                                 </a>
                             </td>
                             <td>
@@ -40,7 +39,8 @@
                                 </a>
                             </td>
                         </tr>
-                    <?php }
+                    <?php
+}
 
                     ?>
                 </tbody>

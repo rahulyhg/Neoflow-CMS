@@ -3,8 +3,11 @@
 namespace Neoflow\CMS\Manager;
 
 use Neoflow\CMS\AppTrait;
+use Neoflow\CMS\Model\ModuleModel;
+use Neoflow\CMS\Model\ThemeModel;
 use Neoflow\Filesystem\File;
 use Neoflow\Filesystem\Folder;
+use Throwable;
 
 abstract class AbstractUpdateManager
 {
@@ -47,15 +50,15 @@ abstract class AbstractUpdateManager
     /**
      * Update CMS database.
      *
-     * @param string $sqlFilePath File path of sql file
-     *
      * @return bool
      */
-    protected function updateDatabase(string $sqlFilePath): bool
+    protected function updateDatabase(): bool
     {
+        $sqlFilePath = $this->folder->getPath($this->info['sql']);
+
         return (bool) $this
-                ->database()
-                ->executeFile($sqlFilePath);
+                        ->database()
+                        ->executeFile($sqlFilePath);
     }
 
     /**
@@ -87,30 +90,92 @@ abstract class AbstractUpdateManager
     /**
      * Update CMS files.
      *
-     * @param string $filesDirectoryPath Directory path of new CMS files and folders
-     *
      * @return bool
      */
-    protected function updateFiles(string $filesDirectoryPath): bool
+    protected function updateFiles(): bool
     {
+        $filesDirectoryPath = $this->folder->getPath($this->info['files']);
+
         // Copy/update files
         return (bool) Folder::load($filesDirectoryPath)->copyContent($this->config()->getPath());
     }
 
     /**
-     * Install update.
+     * Update files and database.
      *
      * @return bool
      */
-    public function install(): bool
+    public function updateFilesAndDatabase(): bool
     {
-        $sqlFilePath = $this->folder->getPath($this->info['sql']);
-        $this->updateDatabase($sqlFilePath);
+        return $this->updateDatabase() && $this->updateFiles() && $this->updateConfig();
+    }
 
-        $filesDirectoryPath = $this->folder->getPath($this->info['files']);
-        $this->updateFiles($filesDirectoryPath);
+    /**
+     * Update extensions.
+     *
+     * @return bool
+     */
+    public function updateExtensions(): bool
+    {
+        return $this->updateModules() && $this->updateThemes();
+    }
 
-        $this->updateConfig();
+    /**
+     * Update modules.
+     *
+     * @return bool
+     */
+    protected function updateModules(): bool
+    {
+        foreach ($this->info['modules'] as $identifier => $packageName) {
+            try {
+                $packageFile = $this->folder->findFiles($this->info['path']['packages'].'/modules/'.$packageName)->first();
+                if ($packageFile) {
+                    $module = ModuleModel::findByColumn('identifier', $identifier);
+                    if ($module) {
+                        $module->installUpdate($packageFile);
+                    } else {
+                        $module = new ModuleModel();
+                        $module->install($packageFile);
+                    }
+                    $packageFile->delete();
+                }
+            } catch (Throwable $ex) {
+                $this->logger()->warning('Module update installation for '.$packageName.' failed.', [
+                    'Exception message' => $ex->getMessage(),
+                ]);
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Update themes.
+     *
+     * @return bool
+     */
+    protected function updateThemes(): bool
+    {
+        foreach ($this->info['themes'] as $identifier => $packageName) {
+            try {
+                $packageFile = $this->folder->findFiles($this->info['path']['packages'].'/themes/'.$packageName)->first();
+                if ($packageFile) {
+                    $theme = ThemeModel::findByColumn('identifier', $identifier);
+                    if ($theme) {
+                        $theme->installUpdate($packageFile);
+                    } else {
+                        $theme = new ThemeModel();
+                        $theme->install($packageFile);
+                    }
+                    $packageFile->delete();
+                }
+            } catch (Throwable $ex) {
+                $this->logger()->warning('Theme update installation for '.$packageName.' failed.', [
+                    'Exception message' => $ex->getMessage(),
+                ]);
+            }
+        }
 
         return true;
     }

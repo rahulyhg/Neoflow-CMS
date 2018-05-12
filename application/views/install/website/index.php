@@ -40,10 +40,10 @@
                         </label>
                         <select class="form-control" name="default_language_id" id="selectDefaultLanguage">
                             <?php foreach ($languages as $language) {
-                                ?>
+    ?>
                                 <option value="<?= $language->id(); ?>"  <?= ($language->id() == $activeLanguage->id() ? 'selected' : ''); ?>><?= translate($language->title); ?></option>
                                 <?php
-                            }
+}
                             ?>
                         </select>
                     </div>
@@ -74,10 +74,10 @@
                                 ?>
                                 <optgroup label="<?= $region; ?>">
                                     <?php foreach ($timezones as $timezone => $title) {
-                                        ?>
-                                        <option value="<?= $timezone; ?>" <?= ($setting->timezone === $timezone ? 'selected' : ''); ?>><?= $title; ?></option>
-                                    <?php }
                                     ?>
+                                        <option value="<?= $timezone; ?>" <?= ($setting->timezone === $timezone ? 'selected' : ''); ?>><?= $title; ?></option>
+                                    <?php
+                                } ?>
                                 </optgroup>
                                 <?php
                             }

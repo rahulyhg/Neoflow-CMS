@@ -1,11 +1,15 @@
 <?php
+
 return [
     'version' => '1.0.0-a2',
     'for' => [
         '1.0.0-a1',
     ],
-    'sql' => 'changes.sql',
-    'files' => 'files',
+    'path' => [
+        'sql' => '/delivery/changes.sql',
+        'files' => '/delivery/files',
+        'packages' => '/delivery/packages',
+    ],
     'modules' => [
         'code' => 'code.zip',
         'codemirror' => 'codemirror.zip',
