@@ -31,23 +31,19 @@
                                         <?php
                                         $parentPage = $page->getParentPage();
                                         if ($parentPage) {
-                                            echo $parentPage->getRelativeUrl(false, false, true).'/';
+                                            echo $parentPage->getRelativeUrl(false, false, true) . '/';
                                         } else {
                                             echo '/';
                                         }
-
                                         ?>
                                     </span>
                                 </div>
                                 <input id="inputCustomSlug" value="<?= $page->slug; ?>" type="text" class="form-control regexomat" name="custom_slug" maxlength="50" minlength="3" data-regex="[^a-zA-Z0-9\-\_]+" />
                             </div>
 
-                            <?php if ($urlMessage) {
-                                            ?>
+                            <?php if ($urlMessage) { ?>
                                 <small class="form-text text-danger"><?= $urlMessage; ?></small>
-                                <?php
-                                        }
-
+                            <?php }
                             ?>
                         </div>
                     </div>
@@ -68,11 +64,10 @@
                         <div class="col-sm-9">
                             <select class="form-control" data-token-separators="[',']" data-tags="true" name="keywords[]" multiple id="selectKeywords">
                                 <?php foreach ($page->getKeywords() as $keyword) {
-                                ?>
+                                    ?>
                                     <option value="<?= $keyword; ?>" selected><?= $keyword; ?></option>
                                     <?php
-                            }
-
+                                }
                                 ?>
                             </select>
                         </div>
@@ -85,18 +80,14 @@
                         </label>
                         <div class="col-sm-9">
                             <select data-placeholder="<?= $view->settings()->website_author; ?>" class="form-control" name="author_user_id" id="selectAuthor">
-                                <?php if ($view->settings()->website_author) {
-                                    ?>
+                                <?php if ($view->settings()->website_author) { ?>
                                     <option value="0"><?= $view->settings()->website_author; ?></option>
                                     <?php
                                 }
                                 foreach ($users as $user) {
                                     ?>
                                     <option value="<?= $user->id(); ?>" <?= ($user->id() == $page->author_user_id ? 'selected' : ''); ?>><?= $user->getFullname(); ?></option>
-                                    <?php
-                                }
-
-                                ?>
+                                <?php } ?>
                             </select>
                         </div>
                     </div>
@@ -152,14 +143,9 @@
                         </label>
                         <div class="col-sm-9">
                             <select data-placeholder="<?= translate('All roles'); ?>" class="form-control" name="role_ids[]" multiple id="selectRoles">
-                                <?php
-                                foreach ($roles as $role) {
-                                    ?>
+                                <?php foreach ($roles as $role) { ?>
                                     <option value="<?= $role->id(); ?>" <?= (in_array($role->id(), $page->getRoles()->mapValue('role_id')) ? 'selected' : ''); ?>><?= $role->title; ?></option>
-                                    <?php
-                                }
-
-                                ?>
+                                <?php } ?>
                             </select>
                             <small class="form-text text-muted"><?= translate('Page authorization info'); ?></small>
                         </div>

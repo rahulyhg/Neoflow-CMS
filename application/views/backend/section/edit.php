@@ -17,17 +17,14 @@
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control" name="block_id" id="selectBlock" data-placeholder="">
-                                <?php if (null === $section->block_id) {
-    ?>
+                                <?php if (empty($section->block_id)) { ?>
                                     <option value="0"><?= translate('Not specified'); ?></option>
                                     <?php
-}
+                                }
                                 foreach ($blocks as $block) {
                                     ?>
                                     <option value="<?= $block->id(); ?>" <?= ($section->block_id == $block->id() ? 'selected' : ''); ?> ><?= $block->title; ?></option>
-                                    <?php
-                                }
-                                ?>
+                                <?php } ?>
                             </select>
                         </div>
                     </div>

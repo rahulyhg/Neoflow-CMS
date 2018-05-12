@@ -22,8 +22,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($roles as $role) {
-    ?>
+                    <?php foreach ($roles as $role) { ?>
                         <tr>
                             <td>
                                 <?php
@@ -34,14 +33,17 @@
                                     <a href="<?= generate_url('backend_role_edit', ['id' => $role->id()]); ?>" title="<?= translate('Edit role'); ?>">
                                         <?= $role->title; ?>
                                     </a>
-                                <?php
-                                } ?>
+                                <?php } ?>
                             </td>
-                            <td><?= nl2br($role->description); ?></td>
-                            <td><?php
+                            <td>
+                                <?= nl2br($role->description); ?>
+                            </td>
+                            <td>
+                                <?php
                                 echo $role->permissions()->fetchAll()->implode(function ($role) {
                                     return translate($role->title);
-                                }, ', '); ?></td>
+                                }, ', ');
+                                ?>
                             </td>
                             <td class="text-right nowrap">
                                 <a href="<?= generate_url('backend_role_edit', ['id' => $role->id()]); ?>" class="btn btn-outline-light btn-sm btn-icon-left d-none d-xl-inline-block <?= (1 === $role->id() ? 'disabled' : ''); ?>" title="<?= translate('Edit role'); ?>">
@@ -55,10 +57,7 @@
                                 </a>
                             </td>
                         </tr>
-                        <?php
-}
-
-                    ?>
+                    <?php } ?>
                 </tbody>
             </table>
 
@@ -96,14 +95,9 @@
                         </label>
                         <div class="col-sm-9">
                             <select multiple class="form-control" name="permission_ids[]" id="selectPermissions" data-placeholder="">
-                                <?php
-                                foreach ($permissions as $permission) {
-                                    ?>
+                                <?php foreach ($permissions as $permission) { ?>
                                     <option value="<?= $permission->id(); ?>" data-description="<?= translate($permission->description); ?>" ><?= translate($permission->title, [], true); ?></option>
-                                    <?php
-                                }
-
-                                ?>
+                                <?php } ?>
                             </select>
                         </div>
                     </div>

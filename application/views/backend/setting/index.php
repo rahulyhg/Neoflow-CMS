@@ -31,11 +31,10 @@
                         <div class="col-sm-9">
                             <select class="form-control" data-token-separators="[',']" data-tags="true" name="website_keywords[]" multiple id="selectWebsiteKeywords">
                                 <?php foreach ($setting->getWebsiteKeywords() as $websiteKeyword) {
-    ?>
+                                    ?>
                                     <option value="<?= $websiteKeyword; ?>" selected><?= $websiteKeyword; ?></option>
                                     <?php
-}
-
+                                }
                                 ?>
                             </select>
                         </div>
@@ -76,7 +75,6 @@
                                     <option value="<?= $language->id(); ?>"  <?= ($language->id() == $setting->default_language_id ? 'selected' : ''); ?>><?= translate($language->title); ?></option>
                                     <?php
                                 }
-
                                 ?>
                             </select>
                         </div>
@@ -84,16 +82,15 @@
 
                     <div class="form-group row">
                         <label for="selectLanguages" class="col-sm-3 col-form-label">
-                            <?= translate('Language', [], true); ?>
+<?= translate('Language', [], true); ?>
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control" name="language_ids[]" multiple id="selectLanguages">
-                                <?php foreach ($languages as $language) {
-                                    ?>
+<?php foreach ($languages as $language) {
+    ?>
                                     <option value="<?= $language->id(); ?>"  <?= (in_array($language->id(), $setting->language_ids) ? 'selected' : ''); ?>><?= translate($language->title); ?></option>
                                     <?php
                                 }
-
                                 ?>
                             </select>
                             <small class="form-text text-muted">
@@ -104,23 +101,22 @@
 
                     <div class="form-group row">
                         <label for="selectTimezone" class="col-sm-3 col-form-label">
-                            <?= translate('Timezone'); ?> *
+<?= translate('Timezone'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control" name="timezone" id="selectTimezone" data-minimumResultsForSearch="1">
-                                <?php foreach (get_timezones() as $region => $timezones) {
-                                    ?>
+<?php foreach (get_timezones() as $region => $timezones) {
+    ?>
                                     <optgroup label="<?= $region; ?>">
-                                        <?php foreach ($timezones as $timezone => $title) {
+                                    <?php foreach ($timezones as $timezone => $title) {
                                         ?>
                                             <option value="<?= $timezone; ?>" <?= ($setting->timezone === $timezone ? 'selected' : ''); ?>><?= $title; ?></option>
-                                        <?php
-                                    } ?>
+                                            <?php }
+                                        ?>
                                     </optgroup>
-                                    <?php
-                                }
-
-                                ?>
+                                        <?php
+                                    }
+                                    ?>
                             </select>
                         </div>
                     </div>
@@ -130,16 +126,15 @@
 
                     <div class="form-group row <?= has_validation_error('allowed_file_extensions', 'has-danger'); ?>">
                         <label for="inputAllowedFileExtensions" class="col-sm-3 col-form-label">
-                            <?= translate('Allowed file extension', [], true); ?>
+<?= translate('Allowed file extension', [], true); ?>
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control" data-tags="true" name="allowed_file_extensions[]" multiple id="inputAllowedFileExtensions">
-                                <?php foreach ($setting->getAllowedFileExtensions() as $allowedFileExtension) {
-                                    ?>
+                            <?php foreach ($setting->getAllowedFileExtensions() as $allowedFileExtension) {
+                                ?>
                                     <option value="<?= $allowedFileExtension; ?>" selected><?= $allowedFileExtension; ?></option>
                                     <?php
                                 }
-
                                 ?>
                             </select>
                         </div>
@@ -151,7 +146,7 @@
                                 <span class="btn-icon">
                                     <i class="fa fa-save"></i>
                                 </span>
-                                <?= translate('Save'); ?>
+<?= translate('Save'); ?>
                             </button>
 
                             <span class="small float-right">
@@ -166,7 +161,7 @@
 
         <div class="card">
             <h4 class="card-header">
-                <?= translate('Security setting', [], true); ?>
+<?= translate('Security setting', [], true); ?>
             </h4>
             <div class="card-body">
 
@@ -174,7 +169,7 @@
                     <input type="hidden" value="security" name="type" />
                     <div class="form-group row <?= has_validation_error('login_attempts', 'has-danger'); ?>">
                         <label for="inputLoginAttempts" class="col-sm-3 col-form-label">
-                            <?= translate('Login attempt', [], true); ?> *
+<?= translate('Login attempt', [], true); ?> *
                         </label>
                         <div class="col-sm-9">
                             <input id="inputLoginAttempts" required type="number" min="3" value="<?= $setting->login_attempts; ?>" class="form-control" name="login_attempts" />
@@ -182,14 +177,14 @@
                     </div>
                     <div class="form-group row <?= has_validation_error('session_lifetime', 'has-danger'); ?>">
                         <label for="inputSessionLifetime" class="col-sm-3 col-form-label">
-                            <?= translate('Session lifetime'); ?> *
+<?= translate('Session lifetime'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <input id="inputSessionLifetime" required type="number" min="300" value="<?= $setting->session_lifetime; ?>" class="form-control" name="session_lifetime" />
                                 <div class="input-group-append">
                                     <span class="input-group-text">
-                                        <?= translate('Second', [], true); ?>
+<?= translate('Second', [], true); ?>
                                     </span>
                                 </div>
                             </div>
@@ -198,12 +193,12 @@
 
                     <div class="form-group row <?= has_validation_error('session_name', 'has-danger'); ?>">
                         <label for="inputSessionName" class="col-sm-3 col-form-label">
-                            <?= translate('Session name'); ?>
+<?= translate('Session name'); ?>
                         </label>
                         <div class="col-sm-9">
                             <input id="inputSessionName" type="text" value="<?= $setting->session_name; ?>" class="form-control" name="session_name" />
                             <small class="form-text text-muted">
-                                <?= translate('If you change the session name, you will be logged out automatically after saving.'); ?>
+                            <?= translate('If you change the session name, you will be logged out automatically after saving.'); ?>
                             </small>
                         </div>
                     </div>
@@ -214,7 +209,7 @@
                                 <span class="btn-icon">
                                     <i class="fa fa-save"></i>
                                 </span>
-                                <?= translate('Save'); ?>
+<?= translate('Save'); ?>
                             </button>
 
                             <span class="small float-right">
@@ -232,7 +227,7 @@
 
         <div class="card">
             <h4 class="card-header">
-                <?= translate('Theme setting', [], true); ?>
+<?= translate('Theme setting', [], true); ?>
             </h4>
             <div class="card-body">
 
@@ -240,19 +235,18 @@
                     <input type="hidden" value="theme" name="type" />
                     <div class="form-group row">
                         <label for="selectTheme" class="col-sm-3 col-form-label">
-                            <?= translate('Theme'); ?> *
+<?= translate('Theme'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control" name="theme_id" id="selectTheme">
-                                <?php
-                                foreach ($themes as $theme) {
-                                    if ('frontend' === $theme->type) {
-                                        ?>
+                            <?php
+                            foreach ($themes as $theme) {
+                                if ('frontend' === $theme->type) {
+                                    ?>
                                         <option value="<?= $theme->id(); ?>"  <?= ($setting->theme_id = $theme->id() ? 'selected' : ''); ?>><?= $theme->name; ?></option>
                                         <?php
                                     }
                                 }
-
                                 ?>
                             </select>
                         </div>
@@ -260,20 +254,16 @@
 
                     <div class="form-group row <?= has_validation_error('custom_css', 'has-danger'); ?>">
                         <label for="textareaCustomCss" class="col-sm-3 col-form-label">
-                            <?= translate('Custom CSS'); ?>
+<?= translate('Custom CSS'); ?>
                         </label>
                         <div class="col-sm-9">
-                            <?php
-                            if (Neoflow\CMS\App::instance()->hasService('code')) {
-                                echo Neoflow\CMS\App::instance()->getService('code')->renderEditor('custom_css', 'textareaCustomCss', $setting->custom_css, '150px', ['mode' => 'text/css']);
-                            } else {
-                                ?>
+<?php
+if (Neoflow\CMS\App::instance()->hasService('code')) {
+    echo Neoflow\CMS\App::instance()->getService('code')->renderEditor('custom_css', 'textareaCustomCss', $setting->custom_css, '150px', ['mode' => 'text/css']);
+} else {
+    ?>
                                 <textarea name="custom_css" class="form-control vresize" id="textareaFrontendCss" rows="5"><?= $setting->custom_css; ?></textarea>
-
-                                <?php
-                            }
-
-                            ?>
+                            <?php } ?>
                         </div>
                     </div>
 
@@ -289,20 +279,16 @@
 
                     <div class="form-group row <?= has_validation_error('custom_js', 'has-danger'); ?>">
                         <label for="textareaCustomJs" class="col-sm-3 col-form-label">
-                            <?= translate('Custom JavaScript'); ?>
+<?= translate('Custom JavaScript'); ?>
                         </label>
                         <div class="col-sm-9">
-                            <?php
-                            if (Neoflow\CMS\App::instance()->hasService('code')) {
-                                echo Neoflow\CMS\App::instance()->getService('code')->renderEditor('custom_js', 'textareaCustomJs', $setting->custom_js, '150px', ['mode' => 'text/javascript']);
-                            } else {
-                                ?>
+<?php
+if (Neoflow\CMS\App::instance()->hasService('code')) {
+    echo Neoflow\CMS\App::instance()->getService('code')->renderEditor('custom_js', 'textareaCustomJs', $setting->custom_js, '150px', ['mode' => 'text/javascript']);
+} else {
+    ?>
                                 <textarea name="custom_js" class="form-control vresize" id="textareaCustomJs" rows="5"><?= $setting->custom_js; ?></textarea>
-
-                                <?php
-                            }
-
-                            ?>
+                            <?php } ?>
                         </div>
                     </div>
 
@@ -320,19 +306,18 @@
 
                     <div class="form-group row">
                         <label for="selectBackendTheme" class="col-sm-3 col-form-label">
-                            <?= translate('Backend theme'); ?> *
+<?= translate('Backend theme'); ?> *
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control" name="backend_theme_id" id="selectBackendTheme">
-                                <?php
-                                foreach ($themes as $theme) {
-                                    if ('backend' === $theme->type) {
-                                        ?>
+<?php
+foreach ($themes as $theme) {
+    if ('backend' === $theme->type) {
+        ?>
                                         <option value="<?= $theme->id(); ?>"  <?= ($setting->theme_id = $theme->id() ? 'selected' : ''); ?>><?= $theme->name; ?></option>
                                         <?php
                                     }
                                 }
-
                                 ?>
                             </select>
                         </div>
@@ -363,7 +348,7 @@
                                 <span class="btn-icon">
                                     <i class="fa fa-save"></i>
                                 </span>
-                                <?= translate('Save'); ?>
+<?= translate('Save'); ?>
                             </button>
 
                             <span class="small float-right">
@@ -379,11 +364,11 @@
 
         <div class="card">
             <h4 class="card-header">
-                <?= translate('Advanced settings'); ?>
+<?= translate('Advanced settings'); ?>
             </h4>
             <div class="card-body">
                 <p>
-                    <?= translate('Advanced settings description'); ?>
+<?= translate('Advanced settings description'); ?>
                 </p>
                 <h4><?= translate('Path to the config file'); ?>:</h4>
                 <ul>

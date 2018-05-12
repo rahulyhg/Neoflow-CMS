@@ -26,22 +26,19 @@
                 <tbody>
                     <?php
                     foreach ($modules as $module) {
-                        $requiredModuleStatus = $module->getRequiredModuleStatus(); ?>
+                        $requiredModuleStatus = $module->getRequiredModuleStatus();
+                        ?>
                         <tr class="<?= ($module->is_active ?: 'table-muted'); ?>">
                             <td class="nowrap">
                                 <a href="<?= generate_url('backend_module_view', ['id' => $module->id()]); ?>">
                                     <?= $module->name; ?>
                                 </a>
                                 <span class="<?= ($requiredModuleStatus ? 'text-success' : 'text-danger'); ?>">
-                                    <?php if ($requiredModuleStatus) {
-                            ?>
+                                    <?php if ($requiredModuleStatus) { ?>
                                         <i class="fa fa-fw fa-check"></i>
-                                        <?php
-                        } else {
-                            ?>
+                                    <?php } else { ?>
                                         <i class="fa fa-fw fa-times"></i>
-                                    <?php
-                        } ?>
+                                    <?php } ?>
                                 </span>
                             </td>
                             <td>
@@ -60,29 +57,21 @@
                                     </span>
                                     <?= translate('Show'); ?>
                                 </a>
-                                <?php if ($module->is_active) {
-                            ?>
+                                <?php if ($module->is_active) { ?>
                                     <a href="<?= generate_url('backend_module_toggle_activation', ['id' => $module->id()]); ?>" class="btn btn-outline-light btn-sm confirm-modal <?= ($module->is_core ? 'disabled' : ''); ?>" data-message="<?= translate('Are you sure you want to disable it?'); ?>" title="<?= translate('Disable module'); ?>">
                                         <i class="fa fa-fw fa-toggle-on"></i>
                                     </a>
-                                    <?php
-                        } else {
-                            ?>
+                                <?php } else { ?>
                                     <a href="<?= generate_url('backend_module_toggle_activation', ['id' => $module->id()]); ?>" class="btn btn-outline-light btn-sm confirm-modal <?= ($module->is_core ? 'disabled' : ''); ?>" data-message="<?= translate('Are you sure you want to enable it?'); ?>" title="<?= translate('Enable module'); ?>">
                                         <i class="fa fa-fw fa-toggle-off"></i>
                                     </a>
-                                <?php
-                        } ?>
-
+                                <?php } ?>
                                 <a href="<?= generate_url('backend_module_delete', ['id' => $module->id()]); ?>" class="btn btn-primary btn-sm confirm-modal <?= ($module->is_core ? 'disabled' : ''); ?>" data-message="<?= translate('Are you sure you want to delete it?'); ?>" title="<?= translate('Uninstall module'); ?>">
                                     <i class="fa fa-fw fa-trash-alt"></i>
                                 </a>
                             </td>
                         </tr>
-                        <?php
-                    }
-
-                    ?>
+                    <?php } ?>
                 </tbody>
             </table>
 
@@ -140,7 +129,6 @@
                 </form>
             </div>
         </div>
-
 
         <div class="card">
             <h4 class="card-header">

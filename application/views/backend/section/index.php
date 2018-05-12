@@ -9,7 +9,7 @@
                 ?>
                 <div class="card">
                     <h4 class="card-header">
-                        <?= translate('Sections'); ?> <small><?= translate('Block').': '.$block->title; ?></small>
+                        <?= translate('Sections'); ?> <small><?= translate('Block') . ': ' . $block->title; ?></small>
                     </h4>
                     <div class="card-body">
                         <div class="nestable sections" data-group="0" data-id="<?= $block->id(); ?>" data-max-depth="1" data-save-url="<?= generate_url('backend_section_reorder'); ?>">
@@ -28,24 +28,21 @@
                 <?php
             }
         } else {
-            $sectionsWithBlock = $sections->whereNot('block_id', null); ?>
+            $sectionsWithBlock = $sections->whereNot('block_id', null);
+            ?>
             <div class="card">
                 <h4 class="card-header">
                     <?= translate('Sections'); ?>
                 </h4>
                 <div class="card-body">
 
-                    <?php if ($sectionsWithBlock->count() > 0) {
-                ?>
+                    <?php if ($sectionsWithBlock->count() > 0) { ?>
                         <div class="nestable sections" data-group="2" data-max-depth="1" data-save-url="<?= generate_url('backend_section_reorder'); ?>">
                             <?= $view->renderSectionNestable($sectionsWithBlock, true); ?>
                         </div>
-                    <?php
-            } else {
-                ?>
+                    <?php } else { ?>
                         <p class="text-center text-muted"><?= translate('No results found'); ?></p>
-                    <?php
-            } ?>
+                    <?php } ?>
                     <ul class="list-inline small">
                         <li class="list-inline-item">
                             <i class="fa fa-toggle-on"></i> = <?= translate('Enabled'); ?>
@@ -66,7 +63,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">
-                        <?= translate('Sections'); ?> <small><?= translate('Block').': '.translate('Not specified'); ?></small>
+                        <?= translate('Sections'); ?> <small><?= translate('Block') . ': ' . translate('Not specified'); ?></small>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -85,9 +82,7 @@
                     </ul>
                 </div>
             </div>
-            <?php
-        }
-        ?>
+        <?php } ?>
     </div>
     <div class="col-xl-5">
 
@@ -105,13 +100,9 @@
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control" name="block_id" id="selectBlock" data-placeholder="">
-                                <?php
-                                foreach ($blocks as $block) {
-                                    ?>
+                                <?php foreach ($blocks as $block) { ?>
                                     <option value="<?= $block->id(); ?>"><?= $block->title; ?></option>
-                                    <?php
-                                }
-                                ?>
+                                <?php } ?>
                             </select>
                         </div>
                     </div>
@@ -122,13 +113,9 @@
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control" name="module_id" id="selectModule" data-placeholder="">
-                                <?php
-                                foreach ($modules as $module) {
-                                    ?>
+                                <?php foreach ($modules as $module) { ?>
                                     <option value="<?= $module->id(); ?>"><?= $module->name; ?></option>
-                                    <?php
-                                }
-                                ?>
+                                <?php } ?>
                             </select>
                         </div>
                     </div>
@@ -149,7 +136,7 @@
                                 <span class="btn-icon">
                                     <i class="fa fa-sync"></i>
                                 </span>
-                                <?= translate('Save'); ?>
+                                <?= translate('Save'); ?> 
                             </button>
 
                             <span class="small float-right">
