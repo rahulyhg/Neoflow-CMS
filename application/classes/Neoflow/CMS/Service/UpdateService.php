@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
@@ -12,6 +11,7 @@ use function translate;
 
 class UpdateService extends AbstractService
 {
+
     /**
      * Unpack update package.
      *
@@ -25,7 +25,7 @@ class UpdateService extends AbstractService
     protected function unpack(File $updatePackageFile, bool $delete = true): Folder
     {
         // Create temporary update folder
-        $updateFolderPath = $this->config()->getTempPath('/update_'.uniqid());
+        $updateFolderPath = $this->config()->getTempPath('/update_' . uniqid());
         $updateFolder = Folder::create($updateFolderPath);
 
         // Extract package
@@ -138,7 +138,7 @@ class UpdateService extends AbstractService
         $updateFolderName = (string) $this->request()->getGet('folder');
 
         if ($updateFolderName) {
-            $updateFolderPath = $this->config()->getTempPath('/'.sanitize_file_name($updateFolderName));
+            $updateFolderPath = $this->config()->getTempPath('/' . sanitize_file_name($updateFolderName));
 
             if (is_dir($updateFolderPath)) {
                 if (1 === $updateStep) {
@@ -238,7 +238,7 @@ class UpdateService extends AbstractService
     protected function sendUpdateRequest(array $params): bool
     {
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->request()->getUrl(false).'?'.http_build_query($params));
+        curl_setopt($ch, CURLOPT_URL, $this->request()->getUrl(false) . '?' . http_build_query($params));
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
