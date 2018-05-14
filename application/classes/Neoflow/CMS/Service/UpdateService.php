@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
@@ -11,7 +12,6 @@ use function translate;
 
 class UpdateService extends AbstractService
 {
-
     /**
      * Unpack update package.
      *
@@ -25,7 +25,7 @@ class UpdateService extends AbstractService
     protected function unpack(File $updatePackageFile, bool $delete = true): Folder
     {
         // Create temporary update folder
-        $updateFolderPath = $this->config()->getTempPath('/update_' . uniqid());
+        $updateFolderPath = $this->config()->getTempPath('/update_'.uniqid());
         $updateFolder = Folder::create($updateFolderPath);
 
         // Extract package
@@ -128,7 +128,7 @@ class UpdateService extends AbstractService
     }
 
     /**
-     * Execute update listener
+     * Execute update listener.
      *
      * @return bool
      */
@@ -138,15 +138,14 @@ class UpdateService extends AbstractService
         $updateFolderName = (string) $this->request()->getGet('folder');
 
         if ($updateFolderName) {
-            $updateFolderPath = $this->config()->getTempPath('/' . sanitize_file_name($updateFolderName));
+            $updateFolderPath = $this->config()->getTempPath('/'.sanitize_file_name($updateFolderName));
 
             if (is_dir($updateFolderPath)) {
-
-                if ($updateStep === 1) {
+                if (1 === $updateStep) {
                     return $this->installUpdate($updateFolderPath);
-                } elseif ($updateStep === 2) {
+                } elseif (2 === $updateStep) {
                     return $this->installExtensionUpdates($updateFolderPath);
-                } elseif ($updateStep === 3) {
+                } elseif (3 === $updateStep) {
                     return Folder::unlink($updateFolderPath);
                 }
             }
@@ -239,7 +238,7 @@ class UpdateService extends AbstractService
     protected function sendUpdateRequest(array $params): bool
     {
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->request()->getUrl(false) . '?' . http_build_query($params));
+        curl_setopt($ch, CURLOPT_URL, $this->request()->getUrl(false).'?'.http_build_query($params));
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);

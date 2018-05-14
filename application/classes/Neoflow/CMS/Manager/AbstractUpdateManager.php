@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Manager;
 
 use Neoflow\CMS\AppTrait;
@@ -10,7 +11,6 @@ use Throwable;
 
 abstract class AbstractUpdateManager
 {
-
     /**
      * App trait.
      */
@@ -70,7 +70,7 @@ abstract class AbstractUpdateManager
     {
         // Backup config
         $configFilePath = $this->config()->getPath('/config.php');
-        File::load($configFilePath)->rename('config-backup-' . date('d-m-Y') . '.php');
+        File::load($configFilePath)->rename('config-backup-'.date('d-m-Y').'.php');
 
         // Get config
         $config = $this->config();
@@ -109,7 +109,7 @@ abstract class AbstractUpdateManager
     {
         foreach ($this->info['modules'] as $identifier => $packageName) {
             try {
-                $packageFile = $this->folder->findFiles($this->info['path']['packages'] . '/modules/' . $packageName)->first();
+                $packageFile = $this->folder->findFiles($this->info['path']['packages'].'/modules/'.$packageName)->first();
                 if ($packageFile) {
                     $module = ModuleModel::findByColumn('identifier', $identifier);
                     if ($module) {
@@ -121,7 +121,7 @@ abstract class AbstractUpdateManager
                     $packageFile->delete();
                 }
             } catch (Throwable $ex) {
-                $this->logger()->warning('Module update installation for ' . $packageName . ' failed.', [
+                $this->logger()->warning('Module update installation for '.$packageName.' failed.', [
                     'Exception message' => $ex->getMessage(),
                 ]);
             }
@@ -139,7 +139,7 @@ abstract class AbstractUpdateManager
     {
         foreach ($this->info['themes'] as $identifier => $packageName) {
             try {
-                $packageFile = $this->folder->findFiles($this->info['path']['packages'] . '/themes/' . $packageName)->first();
+                $packageFile = $this->folder->findFiles($this->info['path']['packages'].'/themes/'.$packageName)->first();
                 if ($packageFile) {
                     $theme = ThemeModel::findByColumn('identifier', $identifier);
                     if ($theme) {
@@ -151,7 +151,7 @@ abstract class AbstractUpdateManager
                     $packageFile->delete();
                 }
             } catch (Throwable $ex) {
-                $this->logger()->warning('Theme update installation for ' . $packageName . ' failed.', [
+                $this->logger()->warning('Theme update installation for '.$packageName.' failed.', [
                     'Exception message' => $ex->getMessage(),
                 ]);
             }

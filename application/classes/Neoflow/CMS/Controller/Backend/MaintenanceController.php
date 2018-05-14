@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -12,7 +13,6 @@ use Exception;
 
 class MaintenanceController extends BackendController
 {
-
     /**
      * Constructor.
      *
@@ -87,9 +87,9 @@ class MaintenanceController extends BackendController
         $logConfig = $this->config()->get('logger');
 
         foreach ($logfiles as $logfile) {
-            $logfileDate = str_replace($logConfig->get('prefix'), '', basename($logfile->getPath(), '.' . $logConfig->get('extension')));
+            $logfileDate = str_replace($logConfig->get('prefix'), '', basename($logfile->getPath(), '.'.$logConfig->get('extension')));
 
-            if (strtotime($logfileDate) < strtotime('-' . $numberOfDays . ' days')) {
+            if (strtotime($logfileDate) < strtotime('-'.$numberOfDays.' days')) {
                 $logfile->delete();
             }
         }

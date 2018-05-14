@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS;
 
 use Neoflow\CMS\Handler\Config;
@@ -7,7 +8,6 @@ use Neoflow\CMS\Handler\Translator;
 use Neoflow\CMS\Model\ModuleModel;
 use Neoflow\CMS\Model\SettingModel;
 use Neoflow\CMS\Service\UpdateService;
-use Neoflow\Filesystem\Folder;
 use Neoflow\Framework\App as FrameworkApp;
 use Neoflow\Framework\Handler\Engine;
 use Neoflow\Framework\Handler\Loader;
@@ -20,11 +20,9 @@ use Neoflow\Framework\Persistence\Database;
 use RuntimeException;
 use Throwable;
 use function request_url;
-use function sanitize_file_name;
 
 class App extends FrameworkApp
 {
-
     /**
      * Publish application.
      *
@@ -245,7 +243,7 @@ class App extends FrameworkApp
     }
 
     /**
-     * Install update package (but only when updateFolderPath as flash exists).
+     * Execute update listener.
      *
      * @return self
      */
