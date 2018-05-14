@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
@@ -9,8 +10,7 @@ use Neoflow\Validation\ValidationException;
 use ZipArchive;
 use function translate;
 
-class UpdateService extends AbstractService
-{
+class UpdateService extends AbstractService {
 
     /**
      * Unpack update package.
@@ -25,7 +25,7 @@ class UpdateService extends AbstractService
     protected function unpack(File $updatePackageFile, bool $delete = true): Folder
     {
         // Create temporary update folder
-        $updateFolderPath = $this->config()->getTempPath('/update_' . uniqid());
+        $updateFolderPath = $this->config()->getPath('/update_' . uniqid());
         $updateFolder = Folder::create($updateFolderPath);
 
         // Extract package
@@ -121,37 +121,15 @@ class UpdateService extends AbstractService
         // Check and validate version support
         $this->validateVersion($info);
 
-        return $this->sendUpdateRequest([
-                'update' => 1,
-                'folder' => $updateFolder->getName(),
-        ]);
-    }
+        // Set update folder
+        $this->session()->setNewFlash('updateFolder', $updateFolder->getName());
 
-    /**
-     * Execute update listener.
-     *
-     * @return bool
-     */
-    public function execute(): bool
-    {
-        $updateStep = (int) $this->request()->getGet('update');
-        $updateFolderName = (string) $this->request()->getGet('folder');
+        // Redirect to file updater
+        header('Location: ' . $this->config()->getUrl('/' . $updateFolder->getName()) . '?' . http_build_query([
+                    'url' => generate_url('maintenance_index')
+        ]));
 
-        if ($updateFolderName) {
-            $updateFolderPath = $this->config()->getTempPath('/' . sanitize_file_name($updateFolderName));
-
-            if (is_dir($updateFolderPath)) {
-                if (1 === $updateStep) {
-                    return $this->installUpdate($updateFolderPath);
-                } elseif (2 === $updateStep) {
-                    return $this->installExtensionUpdates($updateFolderPath);
-                } elseif (3 === $updateStep) {
-                    return Folder::unlink($updateFolderPath);
-                }
-            }
-        }
-
-        return false;
+        exit;
     }
 
     /**
@@ -182,8 +160,8 @@ class UpdateService extends AbstractService
             $manager = new UpdateManager($updateFolder, $info);
             if ($manager->updateDatabase() && $manager->updateFiles() && $manager->updateConfig()) {
                 return $this->sendUpdateRequest([
-                        'update' => 2,
-                        'folder' => $updateFolder->getName(),
+                            'update' => 2,
+                            'folder' => $updateFolder->getName(),
                 ]);
             }
         }
@@ -219,8 +197,8 @@ class UpdateService extends AbstractService
             $manager = new UpdateManager($updateFolder, $info);
             if ($manager->updateModules() && $manager->updateThemes()) {
                 return $this->sendUpdateRequest([
-                        'update' => 3,
-                        'folder' => $updateFolder->getName(),
+                            'update' => 3,
+                            'folder' => $updateFolder->getName(),
                 ]);
             }
         }
@@ -247,4 +225,5 @@ class UpdateService extends AbstractService
 
         return (bool) $result;
     }
+
 }

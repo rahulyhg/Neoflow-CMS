@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Manager;
 
 use Neoflow\CMS\AppTrait;
@@ -8,8 +9,7 @@ use Neoflow\Filesystem\File;
 use Neoflow\Filesystem\Folder;
 use Throwable;
 
-abstract class AbstractUpdateManager
-{
+abstract class AbstractUpdateManager {
 
     /**
      * App trait.
@@ -57,8 +57,8 @@ abstract class AbstractUpdateManager
         $sqlFilePath = $this->folder->getPath($this->info['sql']);
 
         return (bool) $this
-                ->database()
-                ->executeFile($sqlFilePath);
+                        ->database()
+                        ->executeFile($sqlFilePath);
     }
 
     /**
@@ -85,19 +85,6 @@ abstract class AbstractUpdateManager
         $this->app()->set('config', $config);
 
         return true;
-    }
-
-    /**
-     * Update files.
-     *
-     * @return bool
-     */
-    protected function updateFiles(): bool
-    {
-        $filesDirectoryPath = $this->folder->getPath($this->info['files']);
-
-        // Copy/update files
-        return (bool) Folder::load($filesDirectoryPath)->copyContent($this->config()->getPath());
     }
 
     /**
@@ -159,4 +146,5 @@ abstract class AbstractUpdateManager
 
         return true;
     }
+
 }
