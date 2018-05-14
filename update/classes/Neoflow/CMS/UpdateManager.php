@@ -37,9 +37,9 @@ class UpdateManager extends AbstractUpdateManager
      *
      * @return bool
      */
-    public function updateFiles(): bool
+    public function updateFiles(string $sqlFilePath): bool
     {
-        if (parent::updateFiles()) {
+        if (parent::updateFiles($sqlFilePath)) {
             if (parent::install()) {
                 $frameworkFolder = new Folder($this->config()->getPath('/framework'));
 

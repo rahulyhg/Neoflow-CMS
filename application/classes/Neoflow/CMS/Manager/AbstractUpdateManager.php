@@ -52,7 +52,7 @@ abstract class AbstractUpdateManager
      *
      * @return bool
      */
-    protected function updateDatabase(string $sqlFilePath): bool
+    protected function updateDatabase(): bool
     {
         $sqlFilePath = $this->folder->getPath($this->info['sql']);
 
@@ -92,7 +92,7 @@ abstract class AbstractUpdateManager
      *
      * @return bool
      */
-    protected function updateFiles(string $filesDirectoryPath): bool
+    protected function updateFiles(): bool
     {
         $filesDirectoryPath = $this->folder->getPath($this->info['files']);
 
