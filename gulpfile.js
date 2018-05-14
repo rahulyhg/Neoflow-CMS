@@ -66,7 +66,7 @@ var tag = '';
 // Show prompt to get last commit or tag for checkout
 gulp.task('update:_getTagForGit', function () {
     return gulp
-            .src('./update/files')
+            .src('./update/delivery/files')
             .pipe(prompt.prompt({
                 type: 'input',
                 name: 'tag',
@@ -79,7 +79,7 @@ gulp.task('update:_getTagForGit', function () {
 // Checkout files and folders from Git based on last commit or tag
 gulp.task('update:_checkoutFromGit', function () {
     return gulp
-            .src('./update/files')
+            .src('./update/delivery/files')
             .pipe(run('git checkout-index -f --prefix="<%= file.path %>/" $(git diff --name-only ' + tag + ')', {
                 usePowerShell: true,
                 verbosity: 0
@@ -92,21 +92,21 @@ gulp.task('update:_createZipPackage', function () {
     return gulp
             .src([
                 './update/**',
-                '!./update/files/config.php',
-                '!./update/files/package*',
-                '!./update/files/composer*',
-                '!./update/files/gulpfile.js',
-                '!./update/files/node_modules{,/**}',
-                '!./update/files/installation{,/**}',
-                '!./update/files/nbproject{,/**}',
-                '!./update/files/src{,/**}',
-                '!./update/files/modules{,/**}',
-                '!./update/files/robots.txt',
-                '!./update/files/sitemap.xml',
-                '!./update/files/temp{,/**}',
-                '!./update/files/media/modules/wysiwyg{,/**}',
-                '!./update/files/themes{,/**}',
-                '!./update/files/installation{,/**}',
+                '!./update/delivery/files/config.php',
+                '!./update/delivery/files/package*',
+                '!./update/delivery/files/composer*',
+                '!./update/delivery/files/gulpfile.js',
+                '!./update/delivery/files/node_modules{,/**}',
+                '!./update/delivery/files/installation{,/**}',
+                '!./update/delivery/files/nbproject{,/**}',
+                '!./update/delivery/files/src{,/**}',
+                '!./update/delivery/files/modules{,/**}',
+                '!./update/delivery/files/robots.txt',
+                '!./update/delivery/files/sitemap.xml',
+                '!./update/delivery/files/temp{,/**}',
+                '!./update/delivery/files/media/modules/wysiwyg{,/**}',
+                '!./update/delivery/files/themes{,/**}',
+                '!./update/delivery/files/installation{,/**}',
                 '!./update/*.zip'
             ])
             .pipe(zip(pjson.name + '-update-' + tag + '-to-' + pjson.version + '.zip'))
@@ -118,7 +118,7 @@ gulp.task('update:_createZipPackage', function () {
 gulp.task('update:_copyVendor', function () {
     return gulp
             .src('./vendor/**/*')
-            .pipe(gulp.dest('./update/files/vendor'));
+            .pipe(gulp.dest('./update/delivery/files/vendor'));
 });
 
 // Create zip file of each core module (incl. Dummy module)
@@ -130,10 +130,10 @@ gulp.task('update:_createModuleZipPackages', function () {
     ];
 
     // Add folder names of changed modules
-    fs.lstat('./update/files/modules', (err, stats) => {
+    fs.lstat('./update/delivery/files/modules', (err, stats) => {
         if (stats && stats.isDirectory()) {
             coreModuleFolders.concat(fs
-                    .readdirSync('./update/files/modules')
+                    .readdirSync('./update/delivery/files/modules')
                     .filter(function (file) {
                         return fs.statSync(path.join('./modules', file)).isDirectory();
                     }));
@@ -170,10 +170,10 @@ gulp.task('update:_createThemeZipPackages', function () {
     ];
 
     // Add folder names of changed modules
-    fs.lstat('./update/files/themes', (err, stats) => {
+    fs.lstat('./update/delivery/files/themes', (err, stats) => {
         if (stats && stats.isDirectory()) {
             coreThemeFolders.concat(fs
-                    .readdirSync('./update/files/themes')
+                    .readdirSync('./update/delivery/files/themes')
                     .filter(function (file) {
                         return fs.statSync(path.join('./themes', file)).isDirectory();
                     }));
