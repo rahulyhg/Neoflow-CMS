@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS;
 
 use Neoflow\CMS\Handler\Config;
@@ -8,6 +7,7 @@ use Neoflow\CMS\Handler\Translator;
 use Neoflow\CMS\Model\ModuleModel;
 use Neoflow\CMS\Model\SettingModel;
 use Neoflow\CMS\Service\UpdateService;
+use Neoflow\Filesystem\Folder;
 use Neoflow\Framework\App as FrameworkApp;
 use Neoflow\Framework\Handler\Engine;
 use Neoflow\Framework\Handler\Loader;
@@ -20,9 +20,11 @@ use Neoflow\Framework\Persistence\Database;
 use RuntimeException;
 use Throwable;
 use function request_url;
+use function sanitize_file_name;
 
 class App extends FrameworkApp
 {
+
     /**
      * Publish application.
      *
@@ -73,26 +75,26 @@ class App extends FrameworkApp
         // Create and set session
         $this->setSession();
 
-        // Update modules
-        $this->installExtensionUpdates();
+        // Handle update
+        $this->update();
 
         // Create and set engine
         $this->set('engine', new Engine());
 
         // Set CMS-specific meta properties
         $this->get('engine')
-                ->addMetaTagProperties([
-                    'name' => 'description',
-                    'content' => $this->get('settings')->website_description,
-                        ], 'description')
-                ->addMetaTagProperties([
-                    'name' => 'keywords',
-                    'content' => $this->get('settings')->website_keywords,
-                        ], 'keywords')
-                ->addMetaTagProperties([
-                    'name' => 'author',
-                    'content' => $this->get('settings')->website_author,
-                        ], 'author');
+            ->addMetaTagProperties([
+                'name' => 'description',
+                'content' => $this->get('settings')->website_description,
+                ], 'description')
+            ->addMetaTagProperties([
+                'name' => 'keywords',
+                'content' => $this->get('settings')->website_keywords,
+                ], 'keywords')
+            ->addMetaTagProperties([
+                'name' => 'author',
+                'content' => $this->get('settings')->website_author,
+                ], 'author');
 
         // Fetch and set modules
         $this->setModules();
@@ -138,8 +140,8 @@ class App extends FrameworkApp
             $response = $this->get('router')->routeByKey('error_index', ['exception' => $ex]);
 
             $this
-                    ->execute($response)
-                    ->publish();
+                ->execute($response)
+                ->publish();
 
             if ($ex instanceof HttpException) {
                 $context = [
@@ -243,6 +245,21 @@ class App extends FrameworkApp
     }
 
     /**
+     * Install update package (but only when updateFolderPath as flash exists).
+     *
+     * @return self
+     */
+    protected function update(): self
+    {
+        if ($this->get('database')) {
+            $updateService = new UpdateService();
+            $updateService->execute();
+        }
+
+        return $this;
+    }
+
+    /**
      * Fetch and set active modules.
      *
      * @return self
@@ -255,8 +272,8 @@ class App extends FrameworkApp
             $modules = ModuleModel::findAllByColumn('is_active', true);
             $modules->each(function ($module) {
                 $this->get('loader')
-                        ->loadFunctionsFromDirectory($module->getPath('functions'))
-                        ->addClassDirectory($module->getPath('classes'));
+                    ->loadFunctionsFromDirectory($module->getPath('functions'))
+                    ->addClassDirectory($module->getPath('classes'));
             });
         } else {
             // Create empty CMS modules collection

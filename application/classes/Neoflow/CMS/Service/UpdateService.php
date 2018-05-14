@@ -2,13 +2,12 @@
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
-use Neoflow\CMS\Model\ThemeModel;
 use Neoflow\CMS\UpdateManager;
 use Neoflow\Filesystem\File;
 use Neoflow\Filesystem\Folder;
 use Neoflow\Validation\ValidationException;
-use Throwable;
 use ZipArchive;
+use function translate;
 
 class UpdateService extends AbstractService
 {
@@ -93,16 +92,27 @@ class UpdateService extends AbstractService
     }
 
     /**
-     * Install update package.
+     * Old install method (only needed for update from 1.0.0-a1 to 1.0.0-a2).
      *
      * @param File $updatePackageFile Update package (Zip archive)
      *
-     * @return bool
+     * @throws ValidationException
+     */
+    public function install(File $updatePackageFile)
+    {
+        $this->start($updatePackageFile);
+    }
+
+    /**
+     * Start update.
+     *
+     * @param File $updatePackageFile Update package (Zip archive)
      *
      * @throws ValidationException
      */
-    public function installUpdate(File $updatePackageFile): bool
+    public function start(File $updatePackageFile)
     {
+        // Unpack update zip package
         $updateFolder = $this->unpack($updatePackageFile);
 
         // Fetch info data
@@ -111,18 +121,34 @@ class UpdateService extends AbstractService
         // Check and validate version support
         $this->validateVersion($info);
 
-        // Add class directory to loader
-        $classPath = $updateFolder->getPath('/classes');
-        if (is_dir($classPath)) {
-            $this->app()->get('loader')->addClassDirectory($classPath);
-        }
+        return $this->sendUpdateRequest([
+                'update' => 1,
+                'folder' => $updateFolder->getName(),
+        ]);
+    }
 
-        if (class_exists('\\Neoflow\\CMS\\UpdateManager')) {
-            $manager = new UpdateManager($updateFolder, $info);
-            if ($manager->updateFilesAndDatabase()) {
-                $this->session()->setNewFlash('updateFolderPath', $updateFolder->getPath());
+    /**
+     * Execute update listener
+     *
+     * @return bool
+     */
+    public function execute(): bool
+    {
+        $updateStep = (int) $this->request()->getGet('update');
+        $updateFolderName = (string) $this->request()->getGet('folder');
 
-                return true;
+        if ($updateFolderName) {
+            $updateFolderPath = $this->config()->getTempPath('/' . sanitize_file_name($updateFolderName));
+
+            if (is_dir($updateFolderPath)) {
+
+                if ($updateStep === 1) {
+                    return $this->installUpdate($updateFolderPath);
+                } elseif ($updateStep === 2) {
+                    return $this->installExtensionUpdates($updateFolderPath);
+                } elseif ($updateStep === 3) {
+                    return Folder::unlink($updateFolderPath);
+                }
             }
         }
 
@@ -130,13 +156,13 @@ class UpdateService extends AbstractService
     }
 
     /**
-     * Install modules and themes update packages.
+     * Update files and database (step 1).
      *
      * @param array $updateFolderPath Update folder path
      *
      * @return bool
      */
-    public function installExtensionUpdates(string $updateFolderPath): bool
+    protected function updateFilesAndDatabase(string $updateFolderPath): bool
     {
         // Create update folder
         $updateFolder = new Folder($updateFolderPath);
@@ -155,21 +181,25 @@ class UpdateService extends AbstractService
 
         if (class_exists('\\Neoflow\\CMS\\UpdateManager')) {
             $manager = new UpdateManager($updateFolder, $info);
-
-            return $manager->updateExtensions();
+            if ($manager->updateDatabase() && $manager->updateFiles() && $manager->updateConfig()) {
+                return $this->sendUpdateRequest([
+                        'update' => 2,
+                        'folder' => $updateFolder->getName(),
+                ]);
+            }
         }
 
         return false;
     }
 
     /**
-     * Update themes.
+     * Update extensions (step 2).
      *
      * @param array $updateFolderPath Update folder path
      *
      * @return bool
      */
-    public function updateThemes(string $updateFolderPath): bool
+    protected function updateExtensions(string $updateFolderPath): bool
     {
         // Create update folder
         $updateFolder = new Folder($updateFolderPath);
@@ -177,30 +207,45 @@ class UpdateService extends AbstractService
         // Fetch info data
         $info = $this->fetchInfo($updateFolder);
 
-        if (isset($info['themes'])) {
-            foreach ($info['themes'] as $identifier => $packageName) {
-                try {
-                    $files = $updateFolder->findFiles($info['path']['packages'] . '/themes/' . $packageName);
-                    foreach ($files as $file) {
-                        $theme = ThemeModel::findByColumn('identifier', $identifier);
-                        if ($theme) {
-                            $theme->installUpdate($file);
-                        } else {
-                            $theme = new ThemeModel();
-                            $theme->install($file);
-                        }
-                        $file->delete();
-                    }
-                } catch (Throwable $ex) {
-                    $this->logger()->warning('Theme update installation for ' . $packageName . ' failed.', [
-                        'Exception message' => $ex->getMessage(),
-                    ]);
-                }
-            }
+        // Check and validate version support
+        $this->validateVersion($info);
 
-            return true;
+        // Add class directory to loader
+        $classPath = $updateFolder->getPath('/classes');
+        if (is_dir($classPath)) {
+            $this->app()->get('loader')->addClassDirectory($classPath);
+        }
+
+        if (class_exists('\\Neoflow\\CMS\\UpdateManager')) {
+            $manager = new UpdateManager($updateFolder, $info);
+            if ($manager->updateModules() && $manager->updateThemes()) {
+                return $this->sendUpdateRequest([
+                        'update' => 3,
+                        'folder' => $updateFolder->getName(),
+                ]);
+            }
         }
 
         return false;
+    }
+
+    /**
+     * Send update requests.
+     *
+     * @param array $params Update parameters
+     *
+     * @return bool
+     */
+    protected function sendUpdateRequest(array $params): bool
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $this->request()->getUrl(false) . '?' . http_build_query($params));
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        return (bool) $result;
     }
 }

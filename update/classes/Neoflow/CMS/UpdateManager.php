@@ -29,12 +29,24 @@ class UpdateManager extends AbstractUpdateManager
      */
     public function install(): bool
     {
-        if (parent::install()) {
-            $frameworkFolder = new Folder($this->config()->getPath('/framework'));
+        return true;
+    }
 
-            return $frameworkFolder->delete();
+    /**
+     * Update files.
+     *
+     * @return bool
+     */
+    public function updateFiles(): bool
+    {
+        if (parent::updateFiles()) {
+            if (parent::install()) {
+                $frameworkFolder = new Folder($this->config()->getPath('/framework'));
+
+                return $frameworkFolder->delete();
+            }
+
+            return false;
         }
-
-        return false;
     }
 }

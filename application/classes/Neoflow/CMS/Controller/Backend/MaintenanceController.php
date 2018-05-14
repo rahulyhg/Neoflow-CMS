@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -13,6 +12,7 @@ use Exception;
 
 class MaintenanceController extends BackendController
 {
+
     /**
      * Constructor.
      *
@@ -87,9 +87,9 @@ class MaintenanceController extends BackendController
         $logConfig = $this->config()->get('logger');
 
         foreach ($logfiles as $logfile) {
-            $logfileDate = str_replace($logConfig->get('prefix'), '', basename($logfile->getPath(), '.'.$logConfig->get('extension')));
+            $logfileDate = str_replace($logConfig->get('prefix'), '', basename($logfile->getPath(), '.' . $logConfig->get('extension')));
 
-            if (strtotime($logfileDate) < strtotime('-'.$numberOfDays.' days')) {
+            if (strtotime($logfileDate) < strtotime('-' . $numberOfDays . ' days')) {
                 $logfile->delete();
             }
         }
@@ -135,7 +135,7 @@ class MaintenanceController extends BackendController
             $file = $this->getService('upload')->move($uploadedItem, $this->config()->getTempPath(), true, ['zip']);
 
             $updateService = new UpdateService();
-            $updateService->install($file);
+            $updateService->start($file);
 
             $this->view->setSuccessAlert(translate('CMS successfully updated'));
         } catch (ValidationException $ex) {
