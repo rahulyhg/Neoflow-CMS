@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
@@ -13,6 +12,7 @@ use ZipArchive;
 
 class UpdateService extends AbstractService
 {
+
     /**
      * Unpack update package.
      *
@@ -26,7 +26,7 @@ class UpdateService extends AbstractService
     protected function unpack(File $updatePackageFile, bool $delete = true): Folder
     {
         // Create temporary update folder
-        $updateFolderPath = $this->config()->getTempPath('/update_'.uniqid());
+        $updateFolderPath = $this->config()->getTempPath('/update_' . uniqid());
         $updateFolder = Folder::create($updateFolderPath);
 
         // Extract package
@@ -60,7 +60,7 @@ class UpdateService extends AbstractService
         if (is_file($infoFilePath)) {
             $info = include $infoFilePath;
 
-            if (isset($info['version']) && isset($info['for']) && isset($info['sql']) && isset($info['files'])) {
+            if (isset($info['version']) && isset($info['for']) && isset($info['path']['sql']) && isset($info['path']['files']) && isset($info['path']['packages'])) {
                 return $info;
             }
             throw new ValidationException(translate('Information file ({0}) is invalid', ['info.php']));
@@ -180,7 +180,7 @@ class UpdateService extends AbstractService
         if (isset($info['themes'])) {
             foreach ($info['themes'] as $identifier => $packageName) {
                 try {
-                    $files = $updateFolder->findFiles($info['path']['packages'].'/themes/'.$packageName);
+                    $files = $updateFolder->findFiles($info['path']['packages'] . '/themes/' . $packageName);
                     foreach ($files as $file) {
                         $theme = ThemeModel::findByColumn('identifier', $identifier);
                         if ($theme) {
@@ -192,7 +192,7 @@ class UpdateService extends AbstractService
                         $file->delete();
                     }
                 } catch (Throwable $ex) {
-                    $this->logger()->warning('Theme update installation for '.$packageName.' failed.', [
+                    $this->logger()->warning('Theme update installation for ' . $packageName . ' failed.', [
                         'Exception message' => $ex->getMessage(),
                     ]);
                 }
