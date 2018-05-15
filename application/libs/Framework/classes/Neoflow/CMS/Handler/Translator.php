@@ -6,8 +6,8 @@ use Neoflow\CMS\AppTrait;
 use Neoflow\CMS\Model\LanguageModel;
 use Neoflow\Framework\Handler\Translator as FrameworkTranslator;
 
-class Translator extends FrameworkTranslator
-{
+class Translator extends FrameworkTranslator {
+
     /**
      * App trait.
      */
@@ -21,57 +21,47 @@ class Translator extends FrameworkTranslator
     protected function loadTranslations(): FrameworkTranslator
     {
         // Check whether translation is already cached
-        $cacheKey = 'translations-'.$this->languageCode;
+        $cacheKey = 'translations-' . $this->languageCode;
         if ($this->cache()->exists($cacheKey)) {
+
             // Fetch translations from cache
             $translations = $this->cache()->fetch($cacheKey);
-
             foreach ($translations as $key => $value) {
                 $this->{$key} = $value;
             }
         } else {
-            // Load translation file of each theme and module, but only when database connection is etablished
-            if ($this->app()->get('database')) {
-                foreach ($this->app()->get('modules') as $module) {
-                    // Load translation file
-                    $translationFile = $module->getPath('/i18n/'.$this->languageCode.'.php');
-                    $this->loadTranslationFile($translationFile, false, true);
-
-                    // Load fallback translation file
-                    $fallbackTranslationFile = $module->getPath('/i18n/'.$this->languageCode.'.php');
-                    $this->loadTranslationFile($fallbackTranslationFile, true, true);
-                }
-
-                foreach ($this->app()->get('themes') as $theme) {
-                    // Load translation file
-                    $translationFile = $theme->getPath('/i18n/'.$this->languageCode.'.php');
-                    $this->loadTranslationFile($translationFile, false, true);
-
-                    // Load fallback translation file
-                    $fallbackTranslationFile = $theme->getPath('/i18n/'.$this->languageCode.'.php');
-                    $this->loadTranslationFile($fallbackTranslationFile, true, true);
-                }
-            }
-
-            // Load translation file
-            $translationFile = $this->config()->getApplicationPath('/i18n/'.$this->languageCode.'.php');
-            $this->loadTranslationFile($translationFile);
-
-            // Load fallback translation file
-            $fallbackTranslationFile = $this->config()->getApplicationPath('/i18n/'.$this->fallbackLanguageCode.'.php');
-            $this->loadTranslationFile($fallbackTranslationFile, true);
-
-            // Store translations to cache
-            $this->cache()->store($cacheKey, [
-                'translation' => $this->translation,
-                'fallbackTranslation' => $this->fallbackTranslation,
-                'dateFormat' => $this->dateFormat,
-                'dateTimeFormat' => $this->dateTimeFormat,
-                'fallbackDateFormat' => $this->fallbackDateFormat,
-                'fallbackDateTimeFormat' => $this->fallbackDateTimeFormat, ], 0, ['cms_core', 'cms_translator', 'cms_translations']);
+            parent::loadTranslations();
         }
 
         return $this;
+    }
+
+    /**
+     * Destructor
+     */
+    public function __destruct()
+    {
+        $this->cache()->store('translations-' . $this->languageCode, [
+            'translation' => $this->translation,
+            'fallbackTranslation' => $this->fallbackTranslation,
+            'dateFormat' => $this->dateFormat,
+            'dateTimeFormat' => $this->dateTimeFormat,
+            'fallbackDateFormat' => $this->fallbackDateFormat,
+            'fallbackDateTimeFormat' => $this->fallbackDateTimeFormat,], 0, ['cms_core', 'cms_translator', 'cms_translations']);
+    }
+
+    /**
+     * Load translation file.
+     *
+     * @param string $translationFilePath Translation file path
+     * @param bool   $isFallback          Set TRUE if the file contains fallback translations
+     * @param bool   $silent              Set TRUE to disable runtime exception when translation file won't exists
+     *
+     * @return self
+     */
+    public function loadTranslationFile(string $translationFilePath, bool $isFallback = false, bool $silent = false): FrameworkTranslator
+    {
+        return parent::loadTranslationFile($translationFilePath, $isFallback, $silent);
     }
 
     /**
@@ -129,4 +119,5 @@ class Translator extends FrameworkTranslator
 
         return $this->config()->get('app')->get('languages')[0];
     }
+
 }
