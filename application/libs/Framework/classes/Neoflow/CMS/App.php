@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS;
 
 use Neoflow\CMS\Handler\Config;
@@ -23,6 +22,7 @@ use function request_url;
 
 class App extends FrameworkApp
 {
+
     /**
      * Publish application.
      *
@@ -73,8 +73,6 @@ class App extends FrameworkApp
         // Create and set session
         $this->setSession();
 
-        // Handle update
-        $this->update();
 
         // Create and set engine
         $this->set('engine', new Engine());
@@ -94,11 +92,6 @@ class App extends FrameworkApp
                 'content' => $this->get('settings')->website_author,
                 ], 'author');
 
-        // Fetch and set modules
-        $this->setModules();
-
-        // Set themes from settings
-        $this->setThemes();
 
         // Create and set router
         $this->set('router', new Router());
@@ -108,6 +101,15 @@ class App extends FrameworkApp
 
         // Create and register services
         $this->registerServices();
+
+        // Install modules and themes updates
+        $this->installExtensionUpdates();
+
+        // Fetch and set modules
+        $this->setModules();
+
+        // Set themes from settings
+        $this->setThemes();
 
         // Initialize CMS modules
         $this->get('modules')->each(function ($module) {
@@ -225,7 +227,7 @@ class App extends FrameworkApp
     }
 
     /**
-     * Install modules and themes update packages (but only when updateFolderPath as flash exists).
+     * Install modules and themes updates (but only when updateFolderPath as flash exists).
      *
      * @return self
      */
@@ -234,24 +236,8 @@ class App extends FrameworkApp
         if ($this->get('database')) {
             $updateFolderPath = $this->get('session')->getFlash('updateFolderPath');
             if (!empty($updateFolderPath)) {
-                $updateService = new UpdateService();
-                $updateService->installExtensionUpdates($updateFolderPath);
+                $this->getService('update')->installExtensionUpdates($updateFolderPath);
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Execute update listener.
-     *
-     * @return self
-     */
-    protected function update(): self
-    {
-        if ($this->get('database')) {
-            $updateService = new UpdateService();
-            $updateService->execute();
         }
 
         return $this;

@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
@@ -11,7 +10,8 @@ use Neoflow\Validation\ValidationException;
 use RuntimeException;
 use Exception;
 
-class MaintenanceController extends BackendController {
+class MaintenanceController extends BackendController
+{
 
     /**
      * Constructor.
@@ -24,7 +24,7 @@ class MaintenanceController extends BackendController {
         parent::__construct($view, $args);
 
         $this->view
-                ->setTitle(translate('Maintenance'));
+            ->setTitle(translate('Maintenance'));
     }
 
     /**
@@ -134,8 +134,7 @@ class MaintenanceController extends BackendController {
         try {
             $updatePackageFile = $this->getService('upload')->move($uploadedItem, $this->config()->getTempPath(), true, ['zip']);
 
-            $updateService = new UpdateService();
-            $updateService->start($updatePackageFile);
+            $this->getService('update')->installUpdate($updatePackageFile);
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Update CMS failed'), [$ex->getMessage()]]);
         } catch (Exception $ex) {
@@ -144,5 +143,4 @@ class MaintenanceController extends BackendController {
 
         return $this->redirectToRoute('backend_maintenance_index');
     }
-
 }

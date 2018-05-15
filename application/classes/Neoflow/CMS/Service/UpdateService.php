@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
@@ -7,10 +6,13 @@ use Neoflow\CMS\UpdateManager;
 use Neoflow\Filesystem\File;
 use Neoflow\Filesystem\Folder;
 use Neoflow\Validation\ValidationException;
+use RuntimeException;
 use ZipArchive;
+use function generate_url;
 use function translate;
 
-class UpdateService extends AbstractService {
+class UpdateService extends AbstractService
+{
 
     /**
      * Unpack update package.
@@ -45,111 +47,50 @@ class UpdateService extends AbstractService {
     }
 
     /**
-     * Fetch info data from information file.
-     *
-     * @param Folder $updateFolder Update folder (unpacked update package)
-     *
-     * @return array
-     *
-     * @throws ValidationException
-     */
-    protected function fetchInfo(Folder $updateFolder): array
-    {
-        $infoFilePath = $updateFolder->getPath('info.php');
-        if (is_file($infoFilePath)) {
-            $info = include $infoFilePath;
-
-            if (isset($info['version']) && isset($info['for']) && isset($info['path']['sql']) && isset($info['path']['files']) && isset($info['path']['packages'])) {
-                return $info;
-            }
-            throw new ValidationException(translate('Information file ({0}) is invalid', ['info.php']));
-        }
-        throw new ValidationException(translate('Information file ({0}) not found', ['info.php']));
-    }
-
-    /**
-     * Validate version compatibility.
-     *
-     * @param array $info Info data
-     *
-     * @return bool
-     *
-     * @throws ValidationException
-     */
-    protected function validateVersion(array $info): bool
-    {
-        if ($info['version'] === $this->config()->get('app')->get('version')) {
-            throw new ValidationException(translate('The CMS is already up to date'));
-        }
-
-        foreach ($info['for'] as $supportedVersion) {
-            if ($supportedVersion === $this->config()->get('app')->get('version')) {
-                return true;
-            }
-        }
-
-        throw new ValidationException(translate('The version ({0}) of the CMS is not supported', [$this->config()->get('app')->get('version')]));
-    }
-
-    /**
-     * Old install method (only needed for update from 1.0.0-a1 to 1.0.0-a2).
+     * Install CMS update
      *
      * @param File $updatePackageFile Update package (Zip archive)
      *
      * @throws ValidationException
      */
-    public function install(File $updatePackageFile)
+    public function installUpdate(File $updatePackageFile): bool
     {
-        $this->start($updatePackageFile);
-    }
-
-    /**
-     * Start update.
-     *
-     * @param File $updatePackageFile Update package (Zip archive)
-     *
-     * @throws ValidationException
-     */
-    public function start(File $updatePackageFile)
-    {
-        // Unpack update zip package
+        // Unpack update package and create update folder
         $updateFolder = $this->unpack($updatePackageFile);
 
-        // Fetch info data
-        $info = $this->fetchInfo($updateFolder);
+        // Create update manager
+        $manager = $this->createManager($updateFolder);
 
-        // Check and validate version support
-        $this->validateVersion($info);
-
-        // Set update folder
-        $this->session()->setNewFlash('updateFolder', $updateFolder->getName());
-
-        // Redirect to file updater
-        header('Location: ' . $this->config()->getUrl('/' . $updateFolder->getName()) . '?' . http_build_query([
-                    'url' => generate_url('maintenance_index')
-        ]));
-
-        exit;
+        // Install CMS update
+        return $manager->installUpdate();
     }
 
     /**
-     * Update files and database (step 1).
-     *
-     * @param array $updateFolderPath Update folder path
-     *
+     * Install modules and themes updates
+     * @param string $updateFolderPath Update folder path
      * @return bool
      */
-    protected function updateFilesAndDatabase(string $updateFolderPath): bool
+    public function installExtensionUpdates($updateFolderPath): bool
     {
         // Create update folder
-        $updateFolder = new Folder($updateFolderPath);
+        $updateFolder = Folder::load($updateFolderPath);
 
-        // Fetch info data
-        $info = $this->fetchInfo($updateFolder);
+        // Create update manager
+        $manager = $this->createManager($updateFolder);
 
-        // Check and validate version support
-        $this->validateVersion($info);
+        // Install extension updates
+        return $manager->installExtensionUpdates();
+    }
 
+    /**
+     * Create update manager
+     *
+     * @param Folder $updateFolder Update folder
+     *
+     * @return UpdateManager
+     */
+    protected function createManager(Folder $updateFolder): UpdateManager
+    {
         // Add class directory to loader
         $classPath = $updateFolder->getPath('/classes');
         if (is_dir($classPath)) {
@@ -157,73 +98,9 @@ class UpdateService extends AbstractService {
         }
 
         if (class_exists('\\Neoflow\\CMS\\UpdateManager')) {
-            $manager = new UpdateManager($updateFolder, $info);
-            if ($manager->updateDatabase() && $manager->updateFiles() && $manager->updateConfig()) {
-                return $this->sendUpdateRequest([
-                            'update' => 2,
-                            'folder' => $updateFolder->getName(),
-                ]);
-            }
+            return new UpdateManager($updateFolder);
         }
 
-        return false;
+        throw new RuntimeException('Update manager not found');
     }
-
-    /**
-     * Update extensions (step 2).
-     *
-     * @param array $updateFolderPath Update folder path
-     *
-     * @return bool
-     */
-    protected function updateExtensions(string $updateFolderPath): bool
-    {
-        // Create update folder
-        $updateFolder = new Folder($updateFolderPath);
-
-        // Fetch info data
-        $info = $this->fetchInfo($updateFolder);
-
-        // Check and validate version support
-        $this->validateVersion($info);
-
-        // Add class directory to loader
-        $classPath = $updateFolder->getPath('/classes');
-        if (is_dir($classPath)) {
-            $this->app()->get('loader')->addClassDirectory($classPath);
-        }
-
-        if (class_exists('\\Neoflow\\CMS\\UpdateManager')) {
-            $manager = new UpdateManager($updateFolder, $info);
-            if ($manager->updateModules() && $manager->updateThemes()) {
-                return $this->sendUpdateRequest([
-                            'update' => 3,
-                            'folder' => $updateFolder->getName(),
-                ]);
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Send update requests.
-     *
-     * @param array $params Update parameters
-     *
-     * @return bool
-     */
-    protected function sendUpdateRequest(array $params): bool
-    {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->request()->getUrl(false) . '?' . http_build_query($params));
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-        $result = curl_exec($ch);
-        curl_close($ch);
-
-        return (bool) $result;
-    }
-
 }
