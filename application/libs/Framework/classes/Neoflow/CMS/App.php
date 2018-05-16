@@ -95,6 +95,9 @@ class App extends FrameworkApp
         // Create and set translator
         $this->set('translator', new Translator());
 
+        // Create and set router
+        $this->set('router', new Router());
+
         // Create and register services
         $this->registerServices();
 
@@ -106,9 +109,6 @@ class App extends FrameworkApp
 
         // Set themes from settings
         $this->setThemes();
-
-        // Create and set router
-        $this->set('router', new Router());
 
         // Initialize CMS modules
         $this->get('modules')->each(function ($module) {
@@ -265,12 +265,21 @@ class App extends FrameworkApp
 
                 if (!$translator->isCached()) {
                     // Load translation file
-                    $translationFile = $module->getPath('/i18n/' . $translator->getCurrentLanguageCode() . '.php');
-                    $translator->loadTranslationFile($translationFile, false, true);
+                    $translationFilePath = $module->getPath('/i18n/' . $translator->getCurrentLanguageCode() . '.php');
+                    $translator->loadTranslationFile($translationFilePath, false, true);
 
                     // Load fallback translation file
-                    $fallbackTranslationFile = $module->getPath('/i18n/' . $translator->getFallbackLanguageCode() . '.php');
-                    $translator->loadTranslationFile($fallbackTranslationFile, true, true);
+                    $fallbackTranslationFilePath = $module->getPath('/i18n/' . $translator->getFallbackLanguageCode() . '.php');
+                    $translator->loadTranslationFile($fallbackTranslationFilePath, true, true);
+                }
+
+                // Get router
+                $router = $this->get('router');
+
+                if (!$router->isCached()) {
+                    // Load route file
+                    $routeFilePath = $module->getPath('/routes.php');
+                    $router->loadRouteFile($routeFilePath, true);
                 }
             });
         } else {

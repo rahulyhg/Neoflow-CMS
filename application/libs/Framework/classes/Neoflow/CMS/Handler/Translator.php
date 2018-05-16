@@ -25,7 +25,7 @@ class Translator extends FrameworkTranslator
      */
     protected function loadTranslations(): FrameworkTranslator
     {
-        // Check whether translation is already cached
+        // Check whether translations are already cached
         if ($this->cache()->exists('translations-' . $this->languageCode)) {
 
             $this->cached = true;

@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Handler;
 
 use Neoflow\CMS\AppTrait;
@@ -9,38 +8,61 @@ use Neoflow\Framework\HTTP\Responsing\Response;
 
 class Router extends FrameworkRouter
 {
+
     /**
      * App trait.
      */
     use AppTrait;
 
     /**
+     * @var bool
+     */
+    protected $cached = false;
+
+    /**
      * Constructor.
      */
     public function __construct()
     {
+        // Check whether routes are already cached
         if ($this->cache()->exists('routes')) {
+
+            $this->cached = false;
+
             // Fetch routes from cache
             $this->routes = $this->cache()->fetch('routes');
         } else {
-            // Load route file of each module
-            if ($this->app()->exists('modules')) {
-                $modules = $this->app()->get('modules');
-                foreach ($modules as $module) {
-                    $routeFilePath = $module->getPath('/routes.php');
-                    $this->loadRouteFile($routeFilePath, true);
-                }
-            }
-
-            // Load route of CMS application
-            $routeFilePath = $this->config()->getApplicationPath('/routes.php');
-            $this->loadRouteFile($routeFilePath);
-
-            // Store routes to cache
-            $this->cache()->store('routes', $this->routes, 0, ['cms_core', 'cms_router', 'cms_routes']);
+            parent::__construct();
         }
 
         $this->logger()->debug('Router created');
+    }
+
+    /**
+     * Check whether translation data is cached or not
+     * @return bool
+     */
+    public function isCached(): bool
+    {
+        return $this->cached;
+    }
+
+    /**
+     * Add routes.
+     *
+     * @param array  $routes    One or multiple route arrays
+     * @param string $namespace Namespace for route controller
+     * @param string $prefix    Prefix for route identifier
+     *
+     * @return self
+     */
+    public function addRoutes(array $routes, string $namespace = '', string $prefix = ''): FrameworkRouter
+    {
+        parent::addRoutes($routes, $namespace, $prefix);
+
+        $this->cache()->store('routes', $this->routes, 0, ['cms_core', 'cms_router', 'cms_routes']);
+
+        return $this;
     }
 
     /**
