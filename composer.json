@@ -11,6 +11,28 @@
             "email": "jonathan.nessier@neoflow.ch"
         }
     ],
+    "repositories": [
+        {
+            "url": "https://github.com/neoflow/Neoflow-Framework.git",
+            "type": "git"
+        },
+        {
+            "url": "https://github.com/neoflow/Neoflow-Filesystem.git",
+            "type": "git"
+        },
+        {
+            "url": "https://github.com/neoflow/Neoflow-Validation.git",
+            "type": "git"
+        },
+        {
+            "url": "https://github.com/neoflow/Neoflow-Image.git",
+            "type": "git"
+        },
+        {
+            "url": "https://github.com/neoflow/Neoflow-Mailer.git",
+            "type": "git"
+        }
+    ],
     "require": {
         "neoflow/framework": "dev-master",
         "neoflow/filesystem": "dev-master",
