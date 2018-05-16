@@ -252,6 +252,11 @@ class UpdateManager
         $services[] = '\Neoflow\CMS\Service\UpdateService';
         $config->set('services', $services);
 
+        // Replace auto with true
+        if ($config->get('cache')->get('type') === 'auto') {
+            $config->get('cache')->set('type', true);
+        }
+
         // Save config file
         $config->saveAsFile();
 
