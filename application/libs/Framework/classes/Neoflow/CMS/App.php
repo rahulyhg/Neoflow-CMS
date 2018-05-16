@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS;
 
 use Neoflow\CMS\Handler\Config;
@@ -21,7 +20,8 @@ use RuntimeException;
 use Throwable;
 use function request_url;
 
-class App extends FrameworkApp {
+class App extends FrameworkApp
+{
 
     /**
      * Publish application.
@@ -78,18 +78,18 @@ class App extends FrameworkApp {
 
         // Set CMS-specific meta properties
         $this->get('engine')
-                ->addMetaTagProperties([
-                    'name' => 'description',
-                    'content' => $this->get('settings')->website_description,
-                        ], 'description')
-                ->addMetaTagProperties([
-                    'name' => 'keywords',
-                    'content' => $this->get('settings')->website_keywords,
-                        ], 'keywords')
-                ->addMetaTagProperties([
-                    'name' => 'author',
-                    'content' => $this->get('settings')->website_author,
-                        ], 'author');
+            ->addMetaTagProperties([
+                'name' => 'description',
+                'content' => $this->get('settings')->website_description,
+                ], 'description')
+            ->addMetaTagProperties([
+                'name' => 'keywords',
+                'content' => $this->get('settings')->website_keywords,
+                ], 'keywords')
+            ->addMetaTagProperties([
+                'name' => 'author',
+                'content' => $this->get('settings')->website_author,
+                ], 'author');
 
 
         // Create and set translator
@@ -139,8 +139,8 @@ class App extends FrameworkApp {
             $response = $this->get('router')->routeByKey('error_index', ['exception' => $ex]);
 
             $this
-                    ->execute($response)
-                    ->publish();
+                ->execute($response)
+                ->publish();
 
             if ($ex instanceof HttpException) {
                 $context = [
@@ -257,19 +257,21 @@ class App extends FrameworkApp {
 
                 // Load functions and add class directory
                 $this->get('loader')
-                        ->loadFunctionsFromDirectory($module->getPath('functions'))
-                        ->addClassDirectory($module->getPath('classes'));
+                    ->loadFunctionsFromDirectory($module->getPath('functions'))
+                    ->addClassDirectory($module->getPath('classes'));
 
                 // Get translator
                 $translator = $this->get('translator');
 
-                // Load translation file
-                $translationFile = $module->getPath('/i18n/' . $translator->getCurrentLanguageCode() . '.php');
-                $translator->loadTranslationFile($translationFile, false, true);
+                if (!$translator->isCached()) {
+                    // Load translation file
+                    $translationFile = $module->getPath('/i18n/' . $translator->getCurrentLanguageCode() . '.php');
+                    $translator->loadTranslationFile($translationFile, false, true);
 
-                // Load fallback translation file
-                $fallbackTranslationFile = $module->getPath('/i18n/' . $translator->getFallbackLanguageCode() . '.php');
-                $translator->loadTranslationFile($fallbackTranslationFile, true, true);
+                    // Load fallback translation file
+                    $fallbackTranslationFile = $module->getPath('/i18n/' . $translator->getFallbackLanguageCode() . '.php');
+                    $translator->loadTranslationFile($fallbackTranslationFile, true, true);
+                }
             });
         } else {
             // Create empty CMS modules collection
@@ -300,8 +302,8 @@ class App extends FrameworkApp {
 
             // Load functions and add class directory
             $this->get('loader')
-                    ->loadFunctionsFromDirectory($theme->getPath('functions'))
-                    ->addClassDirectory($theme->getPath('classes'));
+                ->loadFunctionsFromDirectory($theme->getPath('functions'))
+                ->addClassDirectory($theme->getPath('classes'));
 
             // Get translator
             $translator = $this->get('translator');
@@ -319,5 +321,4 @@ class App extends FrameworkApp {
 
         return $this->set('themes', $themes);
     }
-
 }
