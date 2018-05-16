@@ -13,9 +13,9 @@
     ],
     "require": {
         "neoflow/framework": "dev-master",
-        "neoflow/filesystem": "1.*",
-        "neoflow/validation": "1.*",
-        "neoflow/image": "1.*",
-        "neoflow/mailer": "1.*"
+        "neoflow/filesystem": "dev-master",
+        "neoflow/validation": "dev-master",
+        "neoflow/image": "dev-master",
+        "neoflow/mailer": "dev-master"
     }
 }
