@@ -89,8 +89,8 @@ class UserController extends BackendController
     {
         // Get user or data if validation has failed
         $user = UserModel::findById($this->args['id']);
-        if ($this->getService('validation')->hasError()) {
-            $data = $this->getService('validation')->getData();
+        if ($this->service('validation')->hasError()) {
+            $data = $this->service('validation')->getData();
             $user = UserModel::updateById($data, $data['user_id']);
         }
 

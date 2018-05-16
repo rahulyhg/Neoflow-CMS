@@ -39,7 +39,7 @@ class Model extends AbstractModel
     public function validateCode(array $parameters = []): string
     {
         try {
-            $result = $this->app()->getService('code')->executeCode($this->code, $parameters);
+            $result = $this->app()->service('code')->executeCode($this->code, $parameters);
             if (is_string($result)) {
                 return $result;
             }

@@ -19,7 +19,7 @@ class AuthController extends BackendController
      */
     public function logoutAction(): RedirectResponse
     {
-        if ($this->getService('auth')->logout()) {
+        if ($this->service('auth')->logout()) {
             $this->view->setSuccessAlert(translate('Successfully logged out'));
 
             return $this->redirectToRoute('backend_auth_login');
@@ -60,7 +60,7 @@ class AuthController extends BackendController
 
         // Authenticate and authorize user
         try {
-            if ($this->getService('auth')->login($email, $password)) {
+            if ($this->service('auth')->login($email, $password)) {
                 $this->view->setSuccessAlert(translate('Successfully logged in'));
 
                 if ($url) {
@@ -124,7 +124,7 @@ class AuthController extends BackendController
 
         // Authenticate and authorize user
         try {
-            if ($this->getService('auth')->updatePassword($newPassword, $confirmPassword, $resetKey)) {
+            if ($this->service('auth')->updatePassword($newPassword, $confirmPassword, $resetKey)) {
                 $this->view->setSuccessAlert(translate('Password successfully updated'));
 
                 return $this->redirectToRoute('backend_auth_login');
@@ -150,7 +150,7 @@ class AuthController extends BackendController
         $email = $this->request()->getPost('email');
 
         try {
-            if ($this->getService('auth')->createResetKey($email)) {
+            if ($this->service('auth')->createResetKey($email)) {
                 $this->view->setSuccessAlert(translate('Email successfully sent'));
             } else {
                 throw new RuntimeException('Resetting password failed');

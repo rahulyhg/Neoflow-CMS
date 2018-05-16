@@ -235,7 +235,7 @@ class App extends FrameworkApp
         if ($this->get('database')) {
             $updateFolderPath = $this->get('session')->getFlash('updateFolderPath');
             if (!empty($updateFolderPath)) {
-                $this->getService('update')->installExtensionUpdates($updateFolderPath);
+                $this->service('update')->installExtensionUpdates($updateFolderPath);
             }
         }
 

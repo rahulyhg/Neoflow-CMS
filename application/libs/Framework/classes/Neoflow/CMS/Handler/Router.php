@@ -69,7 +69,7 @@ class Router extends FrameworkRouter
      */
     public function execute(): Response
     {
-        $installService = $this->getService('install');
+        $installService = $this->service('install');
 
         if (!$installService->databaseStatus() && !$installService->isRunning()) {
             $url = $this->generateUrl('install_index');

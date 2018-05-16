@@ -11,5 +11,5 @@ use Neoflow\CMS\App;
  */
 function has_permission($permissionKeys): bool
 {
-    return App::instance()->getService('auth')->hasPermission($permissionKeys);
+    return App::instance()->service('auth')->hasPermission($permissionKeys);
 }

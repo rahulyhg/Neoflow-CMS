@@ -29,7 +29,7 @@
                 </li>
                 <?php
     }
-    if ($view->getService('auth')->isAuthenticated()) {
+    if ($view->service('auth')->isAuthenticated()) {
         ?>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= generate_url('backend_profile_index'); ?>" title="<?= translate('Profile'); ?>">
@@ -55,7 +55,7 @@
                 </a>
             </li>
 
-            <?php if ($view->getService('auth')->isAuthenticated()) {
+            <?php if ($view->service('auth')->isAuthenticated()) {
         ?>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= generate_url('backend_auth_logout'); ?>" title="<?= translate('Logout'); ?>">

@@ -18,8 +18,8 @@ class AdministratorController extends InstallController
     public function indexAction(): Response
     {
         $user = UserModel::create([]);
-        if ($this->getService('validation')->hasError()) {
-            $data = $this->getService('validation')->getData();
+        if ($this->service('validation')->hasError()) {
+            $data = $this->service('validation')->getData();
             $user = UserModel::create($data);
         }
 
@@ -72,12 +72,12 @@ class AdministratorController extends InstallController
     public function preHook(): Response
     {
         // Redirect to the next installer step
-        if ($this->getService('install')->administratorStatus()) {
+        if ($this->service('install')->administratorStatus()) {
             return $this->redirectToRoute('install_success');
         }
 
         // Redirect to previous installer step
-        if (!$this->getService('install')->settingStatus()) {
+        if (!$this->service('install')->settingStatus()) {
             return $this->redirectToRoute('install_website_index');
         }
 

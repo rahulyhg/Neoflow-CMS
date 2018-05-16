@@ -74,7 +74,7 @@
                             <?= translate('Code'); ?>
                         </label>
                         <div class="col-sm-9">
-                            <?= Neoflow\CMS\App::instance()->getService('code')->renderEditor('code', 'textareaCode', $snippet->code); ?>
+                            <?= Neoflow\CMS\App::instance()->service('code')->renderEditor('code', 'textareaCode', $snippet->code); ?>
                             <span class="help-block <?= ($codeStatus ? 'text-success' : 'text-danger'); ?>">
                                 <?php if ($codeStatus) {
                                     ?>

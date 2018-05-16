@@ -109,8 +109,8 @@ class BlockController extends BackendController
     {
         // Get block or data if validation has failed
         $block = BlockModel::findById($this->args['id']);
-        if ($this->getService('validation')->hasError()) {
-            $data = $this->getService('validation')->getData();
+        if ($this->service('validation')->hasError()) {
+            $data = $this->service('validation')->getData();
             $block = BlockModel::updateById($data, $data['block_id']);
         }
 

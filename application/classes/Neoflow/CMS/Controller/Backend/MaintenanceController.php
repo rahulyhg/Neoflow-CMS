@@ -132,9 +132,9 @@ class MaintenanceController extends BackendController
         $uploadedItem = $this->request()->getFile('file');
 
         try {
-            $updatePackageFile = $this->getService('upload')->move($uploadedItem, $this->config()->getTempPath(), true, ['zip']);
+            $updatePackageFile = $this->service('upload')->move($uploadedItem, $this->config()->getTempPath(), true, ['zip']);
 
-            $this->getService('update')->installUpdate($updatePackageFile);
+            $this->service('update')->installUpdate($updatePackageFile);
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Update CMS failed'), [$ex->getMessage()]]);
         } catch (Exception $ex) {

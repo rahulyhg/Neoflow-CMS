@@ -218,7 +218,7 @@
         </ul>
         <ul class="list-unstyled small">
             <li>
-                <?= translate('Logged in as {0}', [$view->getService('auth')->getUser()->getFullname()]); ?>
+                <?= translate('Logged in as {0}', [$view->service('auth')->getUser()->getFullname()]); ?>
             </li>
             <li>
                 <?= translate('Session timeout in {0}', ['<span class="timer" id="sessionTimer" data-timeout-callback="showReloginModal()" data-time="'.$view->config()->get('session')->get('lifetime').'">'.gmdate('H:i:s', $view->config()->get('session')->get('lifetime')).'</span>'], true, false); ?>

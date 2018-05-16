@@ -152,7 +152,7 @@ class FrontendView extends AbstractView
      */
     protected function generateCacheKey(string $salt = ''): string
     {
-        $authenticedUser = $this->app()->getService('auth')->getUser();
+        $authenticedUser = $this->app()->service('auth')->getUser();
         $currentPage = $this->app()->get('page');
 
         return sha1($salt.($authenticedUser ? $authenticedUser->role_id : 'anonymous').($currentPage ? $currentPage->page_id : 'static'));

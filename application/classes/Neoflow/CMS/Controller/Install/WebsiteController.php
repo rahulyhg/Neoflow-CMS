@@ -20,8 +20,8 @@ class WebsiteController extends InstallController
     {
         // Get settings or data if validation has failed
         $settings = $this->settings()->setReadOnly(false);
-        if ($this->getService('validation')->hasError()) {
-            $data = $this->getService('validation')->getData();
+        if ($this->service('validation')->hasError()) {
+            $data = $this->service('validation')->getData();
             foreach ($data as $key => $value) {
                 $settings->{$key} = $value;
             }
@@ -77,12 +77,12 @@ class WebsiteController extends InstallController
     public function preHook(): Response
     {
         // Redirect to the next installer step
-        if ($this->getService('install')->settingStatus()) {
+        if ($this->service('install')->settingStatus()) {
             return $this->redirectToRoute('install_administrator_index');
         }
 
         // Redirect to the previous installer step
-        if (!$this->getService('install')->databaseStatus()) {
+        if (!$this->service('install')->databaseStatus()) {
             return $this->redirectToRoute('install_index');
         }
 

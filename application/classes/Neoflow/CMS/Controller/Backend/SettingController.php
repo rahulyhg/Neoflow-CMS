@@ -39,8 +39,8 @@ class SettingController extends BackendController
     {
         // Get settings or data if validation has failed
         $settings = SettingModel::findById(1);
-        if ($this->getService('validation')->hasError()) {
-            $data = $this->getService('validation')->getData();
+        if ($this->service('validation')->hasError()) {
+            $data = $this->service('validation')->getData();
             $settings = new SettingModel($data);
         }
 

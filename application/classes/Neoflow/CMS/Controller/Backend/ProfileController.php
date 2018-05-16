@@ -30,9 +30,9 @@ class ProfileController extends BackendController
         // Set title
         $this->view->setTitle(translate('Profile', [], true));
 
-        if ($this->getService('auth')->isAuthenticated()) {
+        if ($this->service('auth')->isAuthenticated()) {
             // Get user id of authenticated user
-            $user_id = $this->getService('auth')->getUser()->id();
+            $user_id = $this->service('auth')->getUser()->id();
 
             // Set authenticated user as profile user
             $this->profileUser = UserModel::findById($user_id);
@@ -142,6 +142,6 @@ class ProfileController extends BackendController
      */
     protected function checkPermission(): bool
     {
-        return $this->getService('auth')->isAuthenticated();
+        return $this->service('auth')->isAuthenticated();
     }
 }

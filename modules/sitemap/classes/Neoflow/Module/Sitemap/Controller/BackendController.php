@@ -32,7 +32,7 @@ class BackendController extends AbstractToolModuleController
 
         $this->view->setTitle('Sitemap');
 
-        $this->service = $this->getService('sitemap');
+        $this->service = $this->service('sitemap');
     }
 
     /**

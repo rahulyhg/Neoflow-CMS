@@ -6,7 +6,7 @@
                 <input type="hidden" value="<?= $code->id(); ?>" name="code_id" />
                 <input type="hidden" value="<?= $section->id(); ?>" name="section_id" />
 
-                <?= Neoflow\CMS\App::instance()->getService('code')->renderEditor('content[section-'.$section->id().']', '', $code->content, '650px'); ?>
+                <?= Neoflow\CMS\App::instance()->service('code')->renderEditor('content[section-'.$section->id().']', '', $code->content, '650px'); ?>
 
                 <small class="form-text <?= ($codeStatus ? 'text-success' : 'text-danger'); ?>">
                     <?php if ($codeStatus) {

@@ -31,7 +31,7 @@ class FrontendController extends CmsFrontendController
         if ($query) {
             $this->view->setTitle(translate('Search results for "{0}"', [$query]));
 
-            $results = $this->getService('search')->search($query);
+            $results = $this->service('search')->search($query);
         }
 
         return $this->render('search/frontend/index', [

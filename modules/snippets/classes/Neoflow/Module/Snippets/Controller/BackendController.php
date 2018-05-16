@@ -78,8 +78,8 @@ class BackendController extends AbstractToolModuleController
     {
         // Get snippet or data if validation has failed
         $snippet = Model::findById($this->args['id']);
-        if ($this->getService('validation')->hasError()) {
-            $data = $this->getService('validation')->getData();
+        if ($this->service('validation')->hasError()) {
+            $data = $this->service('validation')->getData();
             $snippet = Model::updateById($data, $data['snippet_id']);
         }
 

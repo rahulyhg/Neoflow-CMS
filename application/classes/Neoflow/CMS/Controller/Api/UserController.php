@@ -15,7 +15,7 @@ class UserController extends AbstractController
      */
     public function logoutAction(): JsonResponse
     {
-        if ($this->getService('auth')->logout()) {
+        if ($this->service('auth')->logout()) {
             return new JsonResponse([
                 'status' => true,
                 'message' => translate('Successfully logged out'),
@@ -41,7 +41,7 @@ class UserController extends AbstractController
 
         // Authenticate and authorize user
         try {
-            if ($this->getService('auth')->login($email, $password)) {
+            if ($this->service('auth')->login($email, $password)) {
                 return new JsonResponse([
                     'status' => true,
                     'message' => translate('Successfully logged in'),

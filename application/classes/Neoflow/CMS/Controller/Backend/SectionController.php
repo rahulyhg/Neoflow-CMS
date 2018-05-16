@@ -107,7 +107,7 @@ class SectionController extends BackendController
         $result = false;
         if (is_json($json)) {
             $result = $this
-                ->getService('section')
+                ->service('section')
                 ->updateOrder(json_decode($json, true));
         }
 
@@ -243,8 +243,8 @@ class SectionController extends BackendController
     {
         // Get section or data if validation has failed
         $section = SectionModel::findById($this->args['id']);
-        if ($this->getService('validation')->hasError()) {
-            $data = $this->getService('validation')->getData();
+        if ($this->service('validation')->hasError()) {
+            $data = $this->service('validation')->getData();
             $section = SectionModel::updateById($data, $data['section_id']);
         }
 

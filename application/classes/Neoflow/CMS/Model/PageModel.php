@@ -57,7 +57,7 @@ class PageModel extends AbstractModel
                 return true;
             }
 
-            $user = $this->getService('auth')->getUser();
+            $user = $this->service('auth')->getUser();
             $roles = $this->roles()->fetchAll();
 
             if ($user) {
@@ -222,7 +222,7 @@ class PageModel extends AbstractModel
      */
     public function getParentPages(): EntityCollection
     {
-        $parentPages = $this->app()->getService('page')->getParentPages($this);
+        $parentPages = $this->app()->service('page')->getParentPages($this);
 
         return new EntityCollection($parentPages);
     }

@@ -21,7 +21,7 @@ class ApiController extends AbstractPageModuleController
      */
     protected function getUploadService(): UploadService
     {
-        return $this->getService('upload');
+        return $this->service('upload');
     }
 
     /**

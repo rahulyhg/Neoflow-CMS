@@ -166,8 +166,8 @@ class PageController extends BackendController
     {
         // Get page or data if validation has failed
         $page = PageModel::findById($this->args['id']);
-        if ($this->getService('validation')->hasError()) {
-            $data = $this->getService('validation')->getData();
+        if ($this->service('validation')->hasError()) {
+            $data = $this->service('validation')->getData();
             $page = PageModel::updateById($data, $data['page_id']);
         }
 
@@ -248,7 +248,7 @@ class PageController extends BackendController
         $result = false;
         if (is_json($json)) {
             $result = $this
-                    ->getService('page')
+                    ->service('page')
                     ->updateOrder(json_decode($json, true));
         }
 

@@ -107,7 +107,7 @@ class ModuleController extends BackendController
         $uploadedItem = $this->request()->getFile('package');
 
         try {
-            $file = $this->getService('upload')->move($uploadedItem, $this->config()->getTempPath(), true, ['zip']);
+            $file = $this->service('upload')->move($uploadedItem, $this->config()->getTempPath(), true, ['zip']);
 
             $module = new ModuleModel();
 
@@ -138,7 +138,7 @@ class ModuleController extends BackendController
         $module_id = $this->request()->getPost('module_id');
 
         try {
-            $file = $this->getService('upload')->move($uploadedItem, $this->config()->getTempPath(), true, ['zip']);
+            $file = $this->service('upload')->move($uploadedItem, $this->config()->getTempPath(), true, ['zip']);
 
             $module = ModuleModel::findById($module_id);
 

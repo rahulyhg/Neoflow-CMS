@@ -88,7 +88,7 @@ class AuthService extends AbstractService
 
                     if ($sendMail) {
                         return $this
-                                ->getService('mail')
+                                ->service('mail')
                                 ->create($user->email, $subject, $message)
                                 ->send();
                     }

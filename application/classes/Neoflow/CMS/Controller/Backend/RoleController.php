@@ -89,8 +89,8 @@ class RoleController extends BackendController
     {
         // Get user or data if validation has failed
         $role = RoleModel::findById($this->args['id']);
-        if ($this->getService('validation')->hasError()) {
-            $data = $this->getService('validation')->getData();
+        if ($this->service('validation')->hasError()) {
+            $data = $this->service('validation')->getData();
             $role = new RoleModel($data);
         }
 

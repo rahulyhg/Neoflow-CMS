@@ -84,7 +84,7 @@ class InstallController extends AbstractController
         // Redirect to frontend when install folder is removed
         $installationPath = $this->config()->getPath('/installation');
         if (!is_dir($installationPath)) {
-            if ($this->getService('install')->databaseStatus()) {
+            if ($this->service('install')->databaseStatus()) {
                 return $this->redirectToRoute('frontend_index');
             }
             throw new RuntimeException('Something went wrong. Connection to database could not be established and installation not possible.');

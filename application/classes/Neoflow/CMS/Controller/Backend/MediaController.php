@@ -249,7 +249,7 @@ class MediaController extends BackendController
         }
 
         try {
-            $this->getService('filesystem')->renameFile($this->currentFile, $name, false);
+            $this->service('filesystem')->renameFile($this->currentFile, $name, false);
             $this->view->setSuccessAlert(translate('Successfully renamed'));
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Rename failed'), $ex->getErrors()]);
@@ -271,7 +271,7 @@ class MediaController extends BackendController
         $name = $this->request()->getPost('name');
 
         try {
-            $this->getService('filesystem')->renameFolder($this->currentFolder, $name, false);
+            $this->service('filesystem')->renameFolder($this->currentFolder, $name, false);
             $this->view->setSuccessAlert(translate('Successfully renamed'));
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Rename failed'), $ex->getErrors()]);
@@ -302,7 +302,7 @@ class MediaController extends BackendController
         $overwrite = $this->request()->getPost('overwrite');
 
         try {
-            $result = $this->getService('upload')->moveMultiple($uploadedItems, $directoryPath, $overwrite, $this->settings()->getAllowedFileExtensions());
+            $result = $this->service('upload')->moveMultiple($uploadedItems, $directoryPath, $overwrite, $this->settings()->getAllowedFileExtensions());
             if (count($result['success'])) {
                 $this->view->setSuccessAlert([translate('Successfully uploaded'), array_keys($result['success'])]);
             }
@@ -327,7 +327,7 @@ class MediaController extends BackendController
         $name = $this->request()->getPost('name');
 
         try {
-            $this->getService('filesystem')->createNewFolder($name, $this->currentFolder->getPath());
+            $this->service('filesystem')->createNewFolder($name, $this->currentFolder->getPath());
             $this->view->setSuccessAlert(translate('Successfully created'));
         } catch (ValidationException $ex) {
             $this->view->setWarningAlert([translate('Create failed'), $ex->getErrors()]);

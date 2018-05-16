@@ -78,7 +78,7 @@ class ThemeController extends BackendController
         $uploadedItem = $this->request()->getFile('package');
 
         try {
-            $file = $this->getService('upload')->move($uploadedItem, $this->config()->getTempPath(), true, ['zip']);
+            $file = $this->service('upload')->move($uploadedItem, $this->config()->getTempPath(), true, ['zip']);
 
             $theme = new ThemeModel();
 
@@ -109,7 +109,7 @@ class ThemeController extends BackendController
         $theme_id = $this->request()->getPost('theme_id');
 
         try {
-            $file = $this->getService('upload')->move($uploadedItem, $this->config()->getTempPath(), true, ['zip']);
+            $file = $this->service('upload')->move($uploadedItem, $this->config()->getTempPath(), true, ['zip']);
 
             $theme = ThemeModel::findById($theme_id);
 

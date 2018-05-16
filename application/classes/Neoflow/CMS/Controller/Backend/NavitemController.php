@@ -187,8 +187,8 @@ class NavitemController extends BackendController
     {
         // Get navigation item or data if validation has failed
         $navitem = NavitemModel::findById($this->args['id']);
-        if ($this->getService('validation')->hasError()) {
-            $navitemData = $this->getService('validation')->getData();
+        if ($this->service('validation')->hasError()) {
+            $navitemData = $this->service('validation')->getData();
             $navitem = new NavitemModel($navitemData);
         }
 
@@ -315,7 +315,7 @@ class NavitemController extends BackendController
         $result = false;
         if (is_json($json)) {
             $result = $this
-                ->getService('navitem')
+                ->service('navitem')
                 ->updateOrder(json_decode($json, true));
         }
 

@@ -7,7 +7,7 @@
             <div class="form-group <?= has_validation_error('content', 'has-error'); ?>">
                 <input type="hidden" value="<?= $wysiwyg->id(); ?>" name="wysiwyg_id" />
                 <input type="hidden" value="<?= $section->id(); ?>" name="section_id" />
-                <?= Neoflow\CMS\App::instance()->getService('wysiwyg')->renderEditor('content[section-'.$section->id().']', 'section-'.$section->id(), $wysiwyg->content); ?>
+                <?= Neoflow\CMS\App::instance()->service('wysiwyg')->renderEditor('content[section-'.$section->id().']', 'section-'.$section->id(), $wysiwyg->content); ?>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-icon-left">

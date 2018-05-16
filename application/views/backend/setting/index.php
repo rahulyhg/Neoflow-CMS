@@ -259,7 +259,7 @@
                         <div class="col-sm-9">
 <?php
 if (Neoflow\CMS\App::instance()->hasService('code')) {
-    echo Neoflow\CMS\App::instance()->getService('code')->renderEditor('custom_css', 'textareaCustomCss', $setting->custom_css, '150px', ['mode' => 'text/css']);
+    echo Neoflow\CMS\App::instance()->service('code')->renderEditor('custom_css', 'textareaCustomCss', $setting->custom_css, '150px', ['mode' => 'text/css']);
 } else {
     ?>
                                 <textarea name="custom_css" class="form-control vresize" id="textareaFrontendCss" rows="5"><?= $setting->custom_css; ?></textarea>
@@ -284,7 +284,7 @@ if (Neoflow\CMS\App::instance()->hasService('code')) {
                         <div class="col-sm-9">
 <?php
 if (Neoflow\CMS\App::instance()->hasService('code')) {
-    echo Neoflow\CMS\App::instance()->getService('code')->renderEditor('custom_js', 'textareaCustomJs', $setting->custom_js, '150px', ['mode' => 'text/javascript']);
+    echo Neoflow\CMS\App::instance()->service('code')->renderEditor('custom_js', 'textareaCustomJs', $setting->custom_js, '150px', ['mode' => 'text/javascript']);
 } else {
     ?>
                                 <textarea name="custom_js" class="form-control vresize" id="textareaCustomJs" rows="5"><?= $setting->custom_js; ?></textarea>

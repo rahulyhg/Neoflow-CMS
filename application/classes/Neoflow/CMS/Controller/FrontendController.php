@@ -64,7 +64,7 @@ class FrontendController extends AbstractController
             }
 
             // Throw unauthorized exception when user is authenticated
-            if ($this->getService('auth')->getUser()) {
+            if ($this->service('auth')->getUser()) {
                 throw new UnauthorizedException();
             }
             throw new ForbiddenException();

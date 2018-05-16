@@ -70,7 +70,7 @@ class BackendController extends AbstractController
             'backend_auth_update_password',
         ];
 
-        if ($this->getService('auth')->isAuthenticated()) {
+        if ($this->service('auth')->isAuthenticated()) {
             if (in_array($currentRoute[0], $anonymousRoutes)) {
                 return $this->redirectToRoute('backend_dashboard_index');
             } elseif (!$this->checkPermission()) {

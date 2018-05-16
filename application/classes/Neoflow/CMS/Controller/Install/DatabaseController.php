@@ -45,13 +45,13 @@ class DatabaseController extends InstallController
 
         try {
             // Etablish database connection and create tables
-            $this->getService('install')->createDatabase($config['database']);
+            $this->service('install')->createDatabase($config['database']);
 
             // Create config file
-            $this->getService('install')->createConfigFile($config);
+            $this->service('install')->createConfigFile($config);
 
             // Update settings
-            $this->getService('install')->updateSettings();
+            $this->service('install')->updateSettings();
 
             $this->view->setSuccessAlert(translate('Database successfully installed'));
 
@@ -78,7 +78,7 @@ class DatabaseController extends InstallController
     public function preHook(): Response
     {
         // Redirect to the next installer step
-        if ($this->getService('install')->databaseStatus()) {
+        if ($this->service('install')->databaseStatus()) {
             return $this->redirectToRoute('install_website_index');
         }
 

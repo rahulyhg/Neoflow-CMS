@@ -112,8 +112,8 @@ class NavigationController extends BackendController
     {
         // Get navigation or data if validation has failed
         $navigation = NavigationModel::findById($this->args['id']);
-        if ($this->getService('validation')->hasError()) {
-            $data = $this->getService('validation')->getData();
+        if ($this->service('validation')->hasError()) {
+            $data = $this->service('validation')->getData();
             $navigation = NavigationModel::updateById($data, $data['navigation_id']);
         }
 
