@@ -55,7 +55,7 @@ gulp.task('install:_pullFromGit', function () {
 
 // Build update package
 gulp.task('update:release', function (callback) {
-    return runSequence('update:clean', 'update:_getTagForGit', 'update:_checkoutFromGit', 'update:_copyVendor', 'update:_createModuleZipPackages', 'update:_createThemeZipPackages', 'update:_createZipPackage', callback);
+    return runSequence('update:clean', 'update:_getTagForGit', 'update:_checkoutFromGit', 'update:_copyFiles', 'update:_createModuleZipPackages', 'update:_createThemeZipPackages', 'update:_createZipPackage', callback);
 });
 
 
@@ -90,7 +90,7 @@ gulp.task('update:_createZipPackage', function () {
     console.log('Create ' + pjson.name + '-' + tag + '-to-' + pjson.version + '-update.zip');
     return gulp
             .src([
-                './update/**',
+                './update/**/*',
                 '!./update/delivery/files/config.php',
                 '!./update/delivery/files/package*',
                 '!./update/delivery/files/composer*',
@@ -106,18 +106,23 @@ gulp.task('update:_createZipPackage', function () {
                 '!./update/delivery/files/media/modules/wysiwyg{,/**}',
                 '!./update/delivery/files/themes{,/**}',
                 '!./update/delivery/files/installation{,/**}',
-                '!./update/*.zip'
             ])
             .pipe(zip(pjson.name + '-update-' + tag + '-to-' + pjson.version + '.zip'))
-            .pipe(gulp.dest('./update/'));
+            .pipe(gulp.dest('./'));
 });
 
-
-// Copy all vendor files and folders to the update
-gulp.task('update:_copyVendor', function () {
+// Copy index.php, readme and license
+gulp.task('update:_copyFiles', function () {
     return gulp
-            .src('./vendor/**/*')
-            .pipe(gulp.dest('./update/delivery/files/vendor'));
+            .src([
+                './index.php',
+                './LICENSE',
+                './README.md',
+                '*application/**/*',
+                '*vendor/**/*',
+                '*statics/**/*'
+            ])
+            .pipe(gulp.dest('./update/delivery/files'));
 });
 
 // Create zip file of each core module (incl. Dummy module)
@@ -136,7 +141,7 @@ gulp.task('update:_createModuleZipPackages', function () {
             }));
 
     // Get all installed module folder names, but only zip core and changed modules
-    fs
+    return fs
             .readdirSync('./modules')
             .filter(function (file) {
                 return fs.statSync(path.join('./modules', file)).isDirectory();
@@ -171,7 +176,7 @@ gulp.task('update:_createThemeZipPackages', function () {
             }));
 
     // Get all installed theme folder names, but only zip core and changed themes
-    fs
+    return fs
             .readdirSync('./themes')
             .filter(function (file) {
                 return fs.statSync(path.join('./themes', file)).isDirectory();

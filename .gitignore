@@ -23,7 +23,7 @@ media/modules/wysiwyg/section-*
 media/public/*
 !media/public/.gitkeep
 
-update/neoflow-cms-update*.zip
+neoflow-cms-update*.zip
 
 update/delivery/files/*
 !update/delivery/files/.gitkeep
