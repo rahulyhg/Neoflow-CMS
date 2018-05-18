@@ -90,7 +90,7 @@ gulp.task('update:_createZipPackage', function () {
     console.log('Create ' + pjson.name + '-' + tag + '-to-' + pjson.version + '-update.zip');
     return gulp
             .src([
-                './update/**/*',
+                './update/**',
                 '!./update/delivery/files/config.php',
                 '!./update/delivery/files/package*',
                 '!./update/delivery/files/composer*',

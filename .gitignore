@@ -16,22 +16,16 @@ sitemap.xml
 
 temp/cache/cache_*
 
-media/modules/wysiwyg/section-*
+media/modules/*/section-*
 !media/modules/.gitkeep
-!media/modules/wysiwyg/.gitkeep
+!media/modules/*/.gitkeep
 
 media/public/*
 !media/public/.gitkeep
 
 neoflow-cms-update*.zip
 
-update/delivery/files/*
-!update/delivery/files/.gitkeep
-
-update/delivery/packages/modules/*
-!update/delivery/packages/modules/.gitkeep
-
-update/delivery/packages/themes/*
-!update/delivery/packages/themes/.gitkeep
+update/delivery/*
+!update/delivery/*/.gitkeep
 
 vendor/
