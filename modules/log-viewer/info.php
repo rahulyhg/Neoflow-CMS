@@ -15,6 +15,6 @@ return [
     'license' => 'MIT',
     'type' => 'tool',
     'folder_name' => 'log-viewer',
-    'manager_class' => '\\Neoflow\\Module\\LogViewer\\Manager',
+    'manager_class' => 'Neoflow\\Module\\LogViewer\\Manager',
     'backend_route' => 'tmod_log_viewer_backend_index',
 ];

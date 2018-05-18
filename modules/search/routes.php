@@ -6,5 +6,5 @@ return [
         ['tmod_search_backend_index', 'get', '/backend/module/search', 'Backend@index'],
         ['tmod_search_backend_update', 'post', '/backend/module/search/update', 'Backend@update'],
     ],
-    'namespace' => '\\Neoflow\\Module\\Search\\Controller\\',
+    'namespace' => 'Neoflow\\Module\\Search\\Controller\\',
 ];

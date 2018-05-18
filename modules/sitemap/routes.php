@@ -8,5 +8,5 @@ return [
         ['tmod_sitemap_backend_delete', 'get', '/backend/module/sitemap/delete', 'Backend@deleteSitemap'],
         ['tmod_sitemap_backend_update_settings', 'post', '/backend/module/sitemap/settings/update', 'Backend@updateSettings'],
     ],
-    'namespace' => '\\Neoflow\\Module\\Sitemap\\Controller\\',
+    'namespace' => 'Neoflow\\Module\\Sitemap\\Controller\\',
 ];

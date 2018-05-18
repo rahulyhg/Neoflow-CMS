@@ -46,7 +46,7 @@ class UserModel extends AbstractModel
      */
     public function role(): Repository
     {
-        return $this->belongsTo('\\Neoflow\\CMS\\Model\\RoleModel', 'role_id');
+        return $this->belongsTo('Neoflow\\CMS\\Model\\RoleModel', 'role_id');
     }
 
     /**

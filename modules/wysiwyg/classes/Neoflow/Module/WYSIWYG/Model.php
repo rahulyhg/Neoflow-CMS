@@ -34,7 +34,7 @@ class Model extends AbstractModel implements ModelSearchInterface
      */
     public function section(): Repository
     {
-        return $this->belongsTo('\\Neoflow\\CMS\\Model\\SectionModel', 'section_id');
+        return $this->belongsTo('Neoflow\\CMS\\Model\\SectionModel', 'section_id');
     }
 
     /**

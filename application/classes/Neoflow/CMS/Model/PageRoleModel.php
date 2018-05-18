@@ -29,7 +29,7 @@ class PageRoleModel extends AbstractModel
      */
     public function role(): Repository
     {
-        return $this->belongsTo('\\Neoflow\\CMS\\Model\\RoleModel', 'role_id');
+        return $this->belongsTo('Neoflow\\CMS\\Model\\RoleModel', 'role_id');
     }
 
     /**
@@ -39,6 +39,6 @@ class PageRoleModel extends AbstractModel
      */
     public function page(): Repository
     {
-        return $this->belongsTo('\\Neoflow\\CMS\\Model\\PageModel', 'page_id');
+        return $this->belongsTo('Neoflow\\CMS\\Model\\PageModel', 'page_id');
     }
 }

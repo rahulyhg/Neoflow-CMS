@@ -32,7 +32,7 @@ class NavigationModel extends AbstractModel
      */
     public function navitems(): Repository
     {
-        return $this->hasMany('\\Neoflow\\CMS\\Model\\NavitemModel', 'navigation_id');
+        return $this->hasMany('Neoflow\\CMS\\Model\\NavitemModel', 'navigation_id');
     }
 
     /**

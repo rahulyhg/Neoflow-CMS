@@ -13,5 +13,5 @@ return [
         ['pmod_wysiwyg_fisch', 'get', '{url:wysiwyg}/fisch', 'Frontend@fisch'],
         ['pmod_wysiwyg_frontend', 'any', false, 'Frontend@index'],
     ],
-    'namespace' => '\\Neoflow\\Module\\WYSIWYG\\Controller\\',
+    'namespace' => 'Neoflow\\Module\\WYSIWYG\\Controller\\',
 ];

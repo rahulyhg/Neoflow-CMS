@@ -15,6 +15,6 @@ return [
     'license' => 'MIT',
     'type' => 'tool',
     'folder_name' => 'robots',
-    'manager_class' => '\\Neoflow\\Module\\Robots\\Manager',
+    'manager_class' => 'Neoflow\\Module\\Robots\\Manager',
     'backend_route' => 'tmod_robots_backend_index',
 ];

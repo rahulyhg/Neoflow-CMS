@@ -6,7 +6,7 @@ return [
         'routes' => [
             ['admin_redirect', 'any', '/admin', 'Frontend@adminRedirect'],
         ],
-        'namespace' => '\\Neoflow\\CMS\\Controller\\',
+        'namespace' => 'Neoflow\\CMS\\Controller\\',
         'prefix' => 'frontend_',
     ],
     // Backend routes
@@ -14,7 +14,7 @@ return [
         'routes' => [
             ['index', 'any', '/backend', 'Backend'],
         ],
-        'namespace' => '\\Neoflow\\CMS\\Controller\\',
+        'namespace' => 'Neoflow\\CMS\\Controller\\',
         'prefix' => 'backend_',
     ],
     // Backend auth routes
@@ -28,7 +28,7 @@ return [
             ['new_password', 'get', '/backend/new-password/(reset_key:string)', 'Auth@newPassword'],
             ['update_password', 'post', '/backend/update-password', 'Auth@updatePassword'],
         ],
-        'namespace' => '\\Neoflow\\CMS\\Controller\\Backend\\',
+        'namespace' => 'Neoflow\\CMS\\Controller\\Backend\\',
         'prefix' => 'backend_auth_',
     ],
     // Backend dashboard routes
@@ -36,7 +36,7 @@ return [
         'routes' => [
             ['index', 'get', '/backend/dashboard', 'Dashboard'],
         ],
-        'namespace' => '\\Neoflow\\CMS\\Controller\\Backend\\',
+        'namespace' => 'Neoflow\\CMS\\Controller\\Backend\\',
         'prefix' => 'backend_dashboard_',
     ],
     // Backend page routes
@@ -50,7 +50,7 @@ return [
             ['create', 'post', '/backend/page/create', 'Page@create'],
             ['index', 'get', '/backend/pages', 'Page@index'],
         ],
-        'namespace' => '\\Neoflow\\CMS\\Controller\\Backend\\',
+        'namespace' => 'Neoflow\\CMS\\Controller\\Backend\\',
         'prefix' => 'backend_page_',
     ],
     // Backend section routes
@@ -64,7 +64,7 @@ return [
             ['toggle_activation', 'get', '/backend/page/section/toggle-activation/(id:num)', 'Section@toggleActivation'],
             ['index', 'get', '/backend/page/edit/(page_id:num)/sections', 'Section@index'],
         ],
-        'namespace' => '\\Neoflow\\CMS\\Controller\\Backend\\',
+        'namespace' => 'Neoflow\\CMS\\Controller\\Backend\\',
         'prefix' => 'backend_section_',
     ],
     // Backend user routes
@@ -77,7 +77,7 @@ return [
             ['update_password', 'post', '/backend/user/update-password', 'User@updatePassword'],
             ['index', 'get', '/backend/users', 'User@index'],
         ],
-        'namespace' => '\\Neoflow\\CMS\\Controller\\Backend\\',
+        'namespace' => 'Neoflow\\CMS\\Controller\\Backend\\',
         'prefix' => 'backend_user_',
     ],
     // Backend role routes
@@ -89,7 +89,7 @@ return [
             ['update', 'post', '/backend/role/update', 'Role@update'],
             ['index', 'get', '/backend/roles', 'Role@index'],
         ],
-        'namespace' => '\\Neoflow\\CMS\\Controller\\Backend\\',
+        'namespace' => 'Neoflow\\CMS\\Controller\\Backend\\',
         'prefix' => 'backend_role_',
     ],
     // Backend module routes
@@ -104,7 +104,7 @@ return [
             ['reload', 'get', '/backend/module/reload/(id:num)', 'Module@reload'],
             ['toggle_activation', 'get', '/backend/module/toggle-activation/(id:num)', 'Module@toggleActivation'],
         ],
-        'namespace' => '\\Neoflow\\CMS\\Controller\\Backend\\',
+        'namespace' => 'Neoflow\\CMS\\Controller\\Backend\\',
         'prefix' => 'backend_module_',
     ],
     // Backend media routes
@@ -121,7 +121,7 @@ return [
             ['rename_folder', 'get', '/backend/media/folder/rename', 'Media@renameFolder'],
             ['update_folder', 'post', '/backend/media/folder/update', 'Media@updateFolder'],
         ],
-        'namespace' => '\\Neoflow\\CMS\\Controller\\Backend\\',
+        'namespace' => 'Neoflow\\CMS\\Controller\\Backend\\',
         'prefix' => 'backend_media_',
     ],
     // Backend theme routes
@@ -135,7 +135,7 @@ return [
             ['view', 'get', '/backend/theme/view/(id:num)', 'Theme@view'],
             ['update', 'post', '/backend/theme/update', 'Theme@update'],
         ],
-        'namespace' => '\\Neoflow\\CMS\\Controller\\Backend\\',
+        'namespace' => 'Neoflow\\CMS\\Controller\\Backend\\',
         'prefix' => 'backend_theme_',
     ],
     // Backend block routes
@@ -148,7 +148,7 @@ return [
             ['delete', 'get', '/backend/block/delete/(id:num)', 'Block@delete'],
             ['index', 'get', '/backend/blocks', 'Block@index'],
         ],
-        'namespace' => '\\Neoflow\\CMS\\Controller\\Backend\\',
+        'namespace' => 'Neoflow\\CMS\\Controller\\Backend\\',
         'prefix' => 'backend_block_',
     ],
     // Backend navigation routes
@@ -161,7 +161,7 @@ return [
             ['delete', 'get', '/backend/navigation/delete/(id:num)', 'Navigation@delete'],
             ['index', 'get', '/backend/navigations', 'Navigation@index'],
         ],
-        'namespace' => '\\Neoflow\\CMS\\Controller\\Backend\\',
+        'namespace' => 'Neoflow\\CMS\\Controller\\Backend\\',
         'prefix' => 'backend_navigation_',
     ],
     // Backend navitem routes
@@ -175,7 +175,7 @@ return [
             ['delete', 'get', '/backend/navigation/item/delete/(id:num)', 'Navitem@delete'],
             ['toggle_activation', 'get', '/backend/navigation/item/toggle-activation/(id:num)', 'Navitem@toggleActivation'],
         ],
-        'namespace' => '\\Neoflow\\CMS\\Controller\\Backend\\',
+        'namespace' => 'Neoflow\\CMS\\Controller\\Backend\\',
         'prefix' => 'backend_navitem_',
     ],
     // Backend setting routes
@@ -184,7 +184,7 @@ return [
             ['index', 'get', '/backend/settings', 'Setting'],
             ['update', 'post', '/backend/settings/update', 'Setting@update'],
         ],
-        'namespace' => '\\Neoflow\\CMS\\Controller\\Backend\\',
+        'namespace' => 'Neoflow\\CMS\\Controller\\Backend\\',
         'prefix' => 'backend_setting_',
     ],
     // Backend maintenance routes
@@ -196,7 +196,7 @@ return [
             ['delete_logfiles', 'post', '/backend/maintenance/logfiles/delete', 'Maintenance@deleteLogfiles'],
             ['reset_folder_permissions', 'get', '/backend/maintenance/folder-permissions/reset', 'Maintenance@resetFolderPermissions'],
         ],
-        'namespace' => '\\Neoflow\\CMS\\Controller\\Backend\\',
+        'namespace' => 'Neoflow\\CMS\\Controller\\Backend\\',
         'prefix' => 'backend_maintenance_',
     ],
     // Backend tool routes
@@ -204,7 +204,7 @@ return [
         'routes' => [
             ['index', 'get', '/backend/tools', 'Tool@index'],
         ],
-        'namespace' => '\\Neoflow\\CMS\\Controller\\Backend\\',
+        'namespace' => 'Neoflow\\CMS\\Controller\\Backend\\',
         'prefix' => 'backend_tool_',
     ],
 // Add error route
@@ -217,7 +217,7 @@ return [
             ['not_found', 'any', 'not-found', 'Error@notFound'],
             ['internal_server_error', 'any', 'internal-server-error', 'Error@internalServerError'],
         ],
-        'namespace' => '\\Neoflow\\CMS\\Controller\\Frontend\\',
+        'namespace' => 'Neoflow\\CMS\\Controller\\Frontend\\',
         'prefix' => 'error_',
     ],
     // User profile route
@@ -227,7 +227,7 @@ return [
             ['update', 'post', '/backend/profile/update', 'Profile@update'],
             ['update_password', 'post', '/backend/profile/update-password', 'Profile@updatePassword'],
         ],
-        'namespace' => '\\Neoflow\\CMS\\Controller\\Backend\\',
+        'namespace' => 'Neoflow\\CMS\\Controller\\Backend\\',
         'prefix' => 'backend_profile_',
     ],
     // Add api route
@@ -236,7 +236,7 @@ return [
             ['auth', 'post', '/api/user/auth', 'User@auth'],
             ['logout', 'get', '/api/user/logout', 'User@logout'],
         ],
-        'namespace' => '\\Neoflow\\CMS\\Controller\\Api\\',
+        'namespace' => 'Neoflow\\CMS\\Controller\\Api\\',
         'prefix' => 'api_user_',
     ],
     // Install route
@@ -251,7 +251,7 @@ return [
             ['administrator_create', 'post', '/install/administrator/create', 'Install\\Administrator@create'],
             ['success', 'get', '/install/success', 'Install@success'],
         ],
-        'namespace' => '\\Neoflow\\CMS\\Controller\\',
+        'namespace' => 'Neoflow\\CMS\\Controller\\',
         'prefix' => 'install_',
     ],
 ];

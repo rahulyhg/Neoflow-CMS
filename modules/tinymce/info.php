@@ -15,5 +15,5 @@ return [
     'license' => 'MIT',
     'type' => 'library',
     'folder_name' => 'tinymce',
-    'manager_class' => '\Neoflow\Module\TinyMCE\Manager',
+    'manager_class' => 'Neoflow\\Module\\TinyMCE\\Manager',
 ];

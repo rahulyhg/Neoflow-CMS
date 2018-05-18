@@ -15,7 +15,7 @@ return [
     'license' => 'MIT',
     'type' => 'page',
     'folder_name' => 'code',
-    'manager_class' => '\Neoflow\Module\Code\Manager',
+    'manager_class' => 'Neoflow\\Module\\Code\\Manager',
     'backend_route' => 'pmod_code_backend_index',
     'frontend_route' => 'pmod_code_frontend',
     'is_core' => true,

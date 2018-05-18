@@ -11,5 +11,5 @@ class Results extends Collection
      *
      * @var string
      */
-    protected static $className = '\\Neoflow\\Module\\Search\\Result';
+    protected static $className = 'Neoflow\\Module\\Search\\Result';
 }

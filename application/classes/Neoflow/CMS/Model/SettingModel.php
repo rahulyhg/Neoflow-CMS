@@ -80,7 +80,7 @@ class SettingModel extends AbstractModel
      */
     public function frontendTheme(): Repository
     {
-        return $this->belongsTo('\\Neoflow\\CMS\\Model\\ThemeModel', 'theme_id');
+        return $this->belongsTo('Neoflow\\CMS\\Model\\ThemeModel', 'theme_id');
     }
 
     /**
@@ -166,7 +166,7 @@ class SettingModel extends AbstractModel
      */
     public function backendTheme(): Repository
     {
-        return $this->belongsTo('\\Neoflow\\CMS\\Model\\ThemeModel', 'backend_theme_id');
+        return $this->belongsTo('Neoflow\\CMS\\Model\\ThemeModel', 'backend_theme_id');
     }
 
     /**
@@ -176,7 +176,7 @@ class SettingModel extends AbstractModel
      */
     public function defaultLanguage(): Repository
     {
-        return $this->belongsTo('\\Neoflow\\CMS\\Model\\LanguageModel', 'default_language_id');
+        return $this->belongsTo('Neoflow\\CMS\\Model\\LanguageModel', 'default_language_id');
     }
 
     /**
@@ -186,7 +186,7 @@ class SettingModel extends AbstractModel
      */
     public function languages(): Repository
     {
-        return $this->hasManyThrough('\\Neoflow\\CMS\\Model\\LanguageModel', '\\Neoflow\\CMS\\Model\\SettingLanguageModel', 'setting_id', 'language_id');
+        return $this->hasManyThrough('Neoflow\\CMS\\Model\\LanguageModel', '\\Neoflow\\CMS\\Model\\SettingLanguageModel', 'setting_id', 'language_id');
     }
 
     /**

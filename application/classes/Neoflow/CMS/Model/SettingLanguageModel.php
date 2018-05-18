@@ -29,7 +29,7 @@ class SettingLanguageModel extends AbstractModel
      */
     public function setting(): Repository
     {
-        return $this->belongsTo('\\Neoflow\\CMS\\Model\\SettingModel', 'setting_id');
+        return $this->belongsTo('Neoflow\\CMS\\Model\\SettingModel', 'setting_id');
     }
 
     /**
@@ -39,6 +39,6 @@ class SettingLanguageModel extends AbstractModel
      */
     public function language(): Repository
     {
-        return $this->belongsTo('\\Neoflow\\CMS\\Model\\LanguageModel', 'language_id');
+        return $this->belongsTo('Neoflow\\CMS\\Model\\LanguageModel', 'language_id');
     }
 }

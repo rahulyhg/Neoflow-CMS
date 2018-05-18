@@ -33,7 +33,7 @@ class BlockModel extends AbstractModel
      */
     public function sections(): Repository
     {
-        return $this->hasMany('\\Neoflow\\CMS\\Model\\SectionModel', 'block_id');
+        return $this->hasMany('Neoflow\\CMS\\Model\\SectionModel', 'block_id');
     }
 
     /**

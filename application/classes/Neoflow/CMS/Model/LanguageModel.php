@@ -29,7 +29,7 @@ class LanguageModel extends AbstractModel
      */
     public function pages(): Repository
     {
-        return $this->hasMany('\\Neoflow\\CMS\\Model\\PageModel', 'language_id');
+        return $this->hasMany('Neoflow\\CMS\\Model\\PageModel', 'language_id');
     }
 
     /**
@@ -39,7 +39,7 @@ class LanguageModel extends AbstractModel
      */
     public function setting(): Repository
     {
-        return $this->hasOne('\\Neoflow\\CMS\\Model\\SettingModel', 'language_id');
+        return $this->hasOne('Neoflow\\CMS\\Model\\SettingModel', 'language_id');
     }
 
     /**

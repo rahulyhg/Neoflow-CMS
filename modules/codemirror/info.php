@@ -12,5 +12,5 @@ return [
     'license' => 'MIT',
     'type' => 'library',
     'folder_name' => 'codemirror',
-    'manager_class' => '\Neoflow\Module\CodeMirror\Manager',
+    'manager_class' => 'Neoflow\\Module\\CodeMirror\\Manager',
 ];

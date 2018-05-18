@@ -9,5 +9,5 @@ return [
         ['tmod_snippets_backend_create', 'post', '/backend/module/snippet/create', 'Backend@create'],
         ['tmod_snippets_backend_update', 'post', '/backend/module/snippet/update', 'Backend@update'],
     ],
-    'namespace' => '\\Neoflow\\Module\\Snippets\\Controller\\',
+    'namespace' => 'Neoflow\\Module\\Snippets\\Controller\\',
 ];

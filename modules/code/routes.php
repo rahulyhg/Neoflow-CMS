@@ -7,5 +7,5 @@ return [
         ['pmod_code_backend_update', 'post', '/backend/module/code/update', 'Backend@update'],
         ['pmod_code_frontend', 'any', false, 'Frontend@index'],
     ],
-    'namespace' => '\\Neoflow\\Module\\Code\\Controller\\',
+    'namespace' => 'Neoflow\\Module\\Code\\Controller\\',
 ];

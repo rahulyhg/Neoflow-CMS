@@ -32,7 +32,7 @@ class RoleModel extends AbstractModel
      */
     public function permissions(): Repository
     {
-        return $this->hasManyThrough('\\Neoflow\\CMS\\Model\\PermissionModel', '\\Neoflow\\CMS\\Model\\RolePermissionModel', 'role_id', 'permission_id');
+        return $this->hasManyThrough('Neoflow\\CMS\\Model\\PermissionModel', '\\Neoflow\\CMS\\Model\\RolePermissionModel', 'role_id', 'permission_id');
     }
 
     /**
@@ -42,7 +42,7 @@ class RoleModel extends AbstractModel
      */
     public function pages(): Repository
     {
-        return $this->hasManyThrough('\\Neoflow\\CMS\\Model\\PageModel', '\\Neoflow\\CMS\\Model\\PageRoleModel', 'role_id', 'page_id');
+        return $this->hasManyThrough('Neoflow\\CMS\\Model\\PageModel', '\\Neoflow\\CMS\\Model\\PageRoleModel', 'role_id', 'page_id');
     }
 
     /**
@@ -52,7 +52,7 @@ class RoleModel extends AbstractModel
      */
     public function users(): Repository
     {
-        return $this->hasMany('\\Neoflow\\CMS\\Model\\UserModel', 'role_id');
+        return $this->hasMany('Neoflow\\CMS\\Model\\UserModel', 'role_id');
     }
 
     /**

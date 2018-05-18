@@ -15,6 +15,6 @@ return [
     'license' => 'MIT',
     'type' => 'tool', // page, library or tool
     'folder_name' => 'dummy', // Mostly like the identifier, but without special chars or spaces
-    'manager_class' => '\\Neoflow\\Module\\Dummy\\Manager',
+    'manager_class' => 'Neoflow\\Module\\Dummy\\Manager',
     'backend_route' => 'tmod_dummy_backend_index',
 ];

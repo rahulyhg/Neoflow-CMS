@@ -41,7 +41,7 @@ class PageModel extends AbstractModel
      */
     public function sections(): Repository
     {
-        return $this->hasMany('\\Neoflow\\CMS\\Model\\SectionModel', 'page_id');
+        return $this->hasMany('Neoflow\\CMS\\Model\\SectionModel', 'page_id');
     }
 
     /**
@@ -234,7 +234,7 @@ class PageModel extends AbstractModel
      */
     public function language(): Repository
     {
-        return $this->belongsTo('\\Neoflow\\CMS\\Model\\LanguageModel', 'language_id');
+        return $this->belongsTo('Neoflow\\CMS\\Model\\LanguageModel', 'language_id');
     }
 
     /**
@@ -244,7 +244,7 @@ class PageModel extends AbstractModel
      */
     public function navitems(): Repository
     {
-        return $this->hasMany('\\Neoflow\\CMS\\Model\\NavitemModel', 'page_id');
+        return $this->hasMany('Neoflow\\CMS\\Model\\NavitemModel', 'page_id');
     }
 
     /**
@@ -301,7 +301,7 @@ class PageModel extends AbstractModel
      */
     public function authorUser(): Repository
     {
-        return $this->belongsTo('\\Neoflow\\CMS\\Model\\UserModel', 'author_user_id');
+        return $this->belongsTo('Neoflow\\CMS\\Model\\UserModel', 'author_user_id');
     }
 
     /**
@@ -577,6 +577,6 @@ class PageModel extends AbstractModel
      */
     public function roles(): Repository
     {
-        return $this->hasManyThrough('\\Neoflow\\CMS\\Model\\RoleModel', '\\Neoflow\\CMS\\Model\\PageRoleModel', 'page_id', 'role_id');
+        return $this->hasManyThrough('Neoflow\\CMS\\Model\\RoleModel', '\\Neoflow\\CMS\\Model\\PageRoleModel', 'page_id', 'role_id');
     }
 }

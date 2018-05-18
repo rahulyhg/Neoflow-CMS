@@ -29,7 +29,7 @@ class RolePermissionModel extends AbstractModel
      */
     public function permission(): Repository
     {
-        return $this->belongsTo('\\Neoflow\\CMS\\Model\\PermissionModel', 'permission_id');
+        return $this->belongsTo('Neoflow\\CMS\\Model\\PermissionModel', 'permission_id');
     }
 
     /**
@@ -39,6 +39,6 @@ class RolePermissionModel extends AbstractModel
      */
     public function role(): Repository
     {
-        return $this->belongsTo('\\Neoflow\\CMS\\Model\\RoleModel', 'role_id');
+        return $this->belongsTo('Neoflow\\CMS\\Model\\RoleModel', 'role_id');
     }
 }

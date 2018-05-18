@@ -33,7 +33,7 @@ class SectionModel extends AbstractModel
      */
     public function page(): Repository
     {
-        return $this->belongsTo('\\Neoflow\\CMS\\Model\\PageModel', 'page_id');
+        return $this->belongsTo('Neoflow\\CMS\\Model\\PageModel', 'page_id');
     }
 
     /**
@@ -103,7 +103,7 @@ class SectionModel extends AbstractModel
      */
     public function module(): Repository
     {
-        return $this->belongsTo('\\Neoflow\\CMS\\Model\\ModuleModel', 'module_id');
+        return $this->belongsTo('Neoflow\\CMS\\Model\\ModuleModel', 'module_id');
     }
 
     /**
@@ -129,7 +129,7 @@ class SectionModel extends AbstractModel
      */
     public function block(): Repository
     {
-        return $this->belongsTo('\\Neoflow\\CMS\\Model\\BlockModel', 'block_id');
+        return $this->belongsTo('Neoflow\\CMS\\Model\\BlockModel', 'block_id');
     }
 
     /**

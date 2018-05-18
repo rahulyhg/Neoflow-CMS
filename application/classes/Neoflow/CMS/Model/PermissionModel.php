@@ -29,6 +29,6 @@ class PermissionModel extends AbstractModel
      */
     public function roles(): Repository
     {
-        return $this->hasManyThrough('\\Neoflow\\CMS\\Model\\RoleModel', '\\Neoflow\\CMS\\Model\\RolePermissionModel', 'permission_id', 'role_id');
+        return $this->hasManyThrough('Neoflow\\CMS\\Model\\RoleModel', '\\Neoflow\\CMS\\Model\\RolePermissionModel', 'permission_id', 'role_id');
     }
 }

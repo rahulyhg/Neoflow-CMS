@@ -51,7 +51,7 @@ class ModuleModel extends AbstractExtensionModel
      */
     public function sections(): Repository
     {
-        return $this->hasMany('\\Neoflow\\CMS\\Model\\SectionModel', 'module_id');
+        return $this->hasMany('Neoflow\\CMS\\Model\\SectionModel', 'module_id');
     }
 
     /**
