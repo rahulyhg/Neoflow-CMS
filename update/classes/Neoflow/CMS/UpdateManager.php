@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS;
 
 use Neoflow\CMS\AppTrait;
@@ -11,8 +12,7 @@ use Throwable;
 use function generate_url;
 use function translate;
 
-class UpdateManager
-{
+class UpdateManager {
 
     /**
      * App trait.
@@ -99,8 +99,6 @@ class UpdateManager
      */
     public function installExtensionUpdates(): bool
     {
-        $this->validateVersion();
-
         if ($this->updateModules() && $this->updateThemes()) {
             return $this->folder->delete();
         }
@@ -116,7 +114,7 @@ class UpdateManager
     {
         foreach ($this->info['modules'] as $identifier => $packageName) {
             try {
-                $packageFile = $this->folder->findFiles($this->info['path']['packages'] . '/modules/' . $packageName)->first();
+                $packageFile = $this->folder->findFiles($this->info['path']['modules'] . '/' . $packageName)->first();
                 if ($packageFile) {
                     $module = ModuleModel::findByColumn('identifier', $identifier);
                     if ($module) {
@@ -146,7 +144,7 @@ class UpdateManager
     {
         foreach ($this->info['themes'] as $identifier => $packageName) {
             try {
-                $packageFile = $this->folder->findFiles($this->info['path']['packages'] . '/themes/' . $packageName)->first();
+                $packageFile = $this->folder->findFiles($this->info['path']['themes'] . '/' . $packageName)->first();
                 if ($packageFile) {
                     $theme = ThemeModel::findByColumn('identifier', $identifier);
                     if ($theme) {
@@ -225,8 +223,8 @@ class UpdateManager
         $sqlFilePath = $this->folder->getPath($this->info['path']['sql']);
 
         return (bool) $this
-                ->database()
-                ->executeFile($sqlFilePath);
+                        ->database()
+                        ->executeFile($sqlFilePath);
     }
 
     /**
@@ -264,4 +262,5 @@ class UpdateManager
 
         return true;
     }
+
 }
