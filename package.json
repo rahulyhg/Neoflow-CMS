@@ -14,7 +14,7 @@
     "gulp-run": "^1.7.1",
     "gulp-zip": "^4.1.0",
     "run-sequence": "^2.2.1",
-    "shelljs": "^0.8.1"
+    "shelljs": "^0.8.2"
   },
   "dependencies": {
     "fs-extra": "^6.0.1"

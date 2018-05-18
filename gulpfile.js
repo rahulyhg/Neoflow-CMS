@@ -152,7 +152,7 @@ gulp.task('update:_createModuleZipPackages', function () {
                     return gulp
                             .src(path.join('./modules', moduleFolder) + '/**')
                             .pipe(zip(moduleFolder + '.zip'))
-                            .pipe(gulp.dest('./update/delivery/packages/modules'));
+                            .pipe(gulp.dest('./update/delivery/modules'));
                 }
                 return false;
             });
@@ -192,7 +192,7 @@ gulp.task('update:_createThemeZipPackages', function () {
                                 '!./themes/*/src{,/**}'
                             ])
                             .pipe(zip(themeFolder + '.zip'))
-                            .pipe(gulp.dest('./update/delivery/packages/themes'));
+                            .pipe(gulp.dest('./update/delivery/themes'));
                 }
                 return false;
             });
@@ -202,34 +202,21 @@ gulp.task('update:_createThemeZipPackages', function () {
 // Create zip file of each core theme
 gulp.task('update:clean', function () {
 
-    // Delete module zip packages
-    fs.readdir('./update/delivery/packages/modules', (err, files) => {
-        for (const file of files) {
-            if (file !== '.gitkeep') {
-                fs.removeSync(path.join('./update/delivery/packages/modules', file));
-            }
-        }
-    });
-
-    // Delete theme zip packages
-    fs.readdir('./update/delivery/packages/themes', (err, files) => {
-        for (const file of files) {
-            if (file !== '.gitkeep') {
-                fs.removeSync(path.join('./update/delivery/packages/themes', file));
-            }
-        }
-    });
-
     // Delete files
-    fs.readdir('./update/delivery/files', (err, files) => {
-        for (const file of files) {
-            if (file !== '.gitkeep') {
-                fs.removeSync(path.join('./update/delivery/files', file));
-            }
-        }
-    });
-
-    // Delete update zip package
-    fs.removeSync('./update/neoflow-cms-update*');
+    return fs
+            .readdirSync('./update/delivery')
+            .filter(function (folder) {
+                return fs.statSync(path.join('./update/delivery', folder)).isDirectory();
+            })
+            .map(function (folder) {
+                var folderPath = path.join('./update/delivery', folder);
+                return fs
+                        .readdirSync(folderPath)
+                        .map(function (file) {
+                            if (file !== '.gitkeep') {
+                                fs.removeSync(path.join(folderPath, file));
+                            }
+                        });
+            });
 });
 

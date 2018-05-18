@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Manager;
 
 use Neoflow\CMS\AppTrait;
@@ -9,7 +8,8 @@ use Neoflow\Filesystem\File;
 use Neoflow\Filesystem\Folder;
 use Throwable;
 
-abstract class AbstractUpdateManager {
+abstract class AbstractUpdateManager
+{
 
     /**
      * App trait.
@@ -57,8 +57,8 @@ abstract class AbstractUpdateManager {
         $sqlFilePath = $this->folder->getPath($this->info['sql']);
 
         return (bool) $this
-                        ->database()
-                        ->executeFile($sqlFilePath);
+                ->database()
+                ->executeFile($sqlFilePath);
     }
 
     /**
@@ -96,7 +96,7 @@ abstract class AbstractUpdateManager {
     {
         foreach ($this->info['modules'] as $identifier => $packageName) {
             try {
-                $packageFile = $this->folder->findFiles($this->info['path']['packages'] . '/modules/' . $packageName)->first();
+                $packageFile = $this->folder->findFiles($this->info['path']['modules'] . '/' . $packageName)->first();
                 if ($packageFile) {
                     $module = ModuleModel::findByColumn('identifier', $identifier);
                     if ($module) {
@@ -126,7 +126,7 @@ abstract class AbstractUpdateManager {
     {
         foreach ($this->info['themes'] as $identifier => $packageName) {
             try {
-                $packageFile = $this->folder->findFiles($this->info['path']['packages'] . '/themes/' . $packageName)->first();
+                $packageFile = $this->folder->findFiles($this->info['path']['themes'] . '/' . $packageName)->first();
                 if ($packageFile) {
                     $theme = ThemeModel::findByColumn('identifier', $identifier);
                     if ($theme) {
@@ -146,5 +146,4 @@ abstract class AbstractUpdateManager {
 
         return true;
     }
-
 }
