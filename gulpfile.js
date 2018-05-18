@@ -2,17 +2,17 @@ var gulp = require('gulp'),
         zip = require('gulp-zip'),
         run = require('gulp-run'),
         runSequence = require('run-sequence'),
-        prompt = require('gulp-prompt'),
         fs = require('fs-extra'),
         path = require('path'),
         flatmap = require('gulp-flatmap'),
         del = require('del');
+
 // Get package info
 var pjson = require('./package.json');
 
 // Build install package
 gulp.task('install:release', function (callback) {
-    runSequence('install:_pullFromGit', 'install:_createZipPackage', callback);
+    runSequence('source:pullFromGit', 'install:_createZipPackage', callback);
 });
 
 // Create zip file for installation
@@ -46,7 +46,7 @@ gulp.task('install:_createZipPackage', function () {
 });
 
 // Pull latest files and folders from Git
-gulp.task('install:_pullFromGit', function () {
+gulp.task('source:pullFromGit', function () {
     return gulp
             .src('.')
             .pipe(run('git pull', {
@@ -57,7 +57,7 @@ gulp.task('install:_pullFromGit', function () {
 
 // Build update package
 gulp.task('update:release', function (callback) {
-    return runSequence('update:clean', 'install:_pullFromGit', 'update:_copyFiles', 'update:_createModuleZipPackages', 'update:_createThemeZipPackages', 'update:_createZipPackage', callback);
+    return runSequence('update:clean', 'source:pullFromGit', 'update:_copyFiles', 'update:_createModuleZipPackages', 'update:_createThemeZipPackages', 'update:_createZipPackage', callback);
 });
 
 // Create zip file for update

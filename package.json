@@ -13,7 +13,6 @@
     "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-flatmap": "^1.0.2",
-    "gulp-prompt": "^1.0.1",
     "gulp-run": "^1.7.1",
     "gulp-zip": "^4.1.0",
     "run-sequence": "^2.2.1",

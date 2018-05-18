@@ -9,7 +9,8 @@ return [
     'path' => [
         'sql' => '/delivery/changes.sql',
         'files' => '/delivery/files',
-        'packages' => '/delivery/packages',
+        'modules' => '/delivery/modules',
+        'themes' => '/delivery/themes',
     ],
     'modules' => [
         'code' => 'code.zip',
