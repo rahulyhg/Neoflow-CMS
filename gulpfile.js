@@ -4,7 +4,9 @@ var gulp = require('gulp'),
         runSequence = require('run-sequence'),
         prompt = require('gulp-prompt'),
         fs = require('fs-extra'),
-        path = require('path');
+        path = require('path'),
+        flatmap = require('gulp-flatmap'),
+        del = require('del');
 // Get package info
 var pjson = require('./package.json');
 
@@ -55,39 +57,12 @@ gulp.task('install:_pullFromGit', function () {
 
 // Build update package
 gulp.task('update:release', function (callback) {
-    return runSequence('update:clean', 'update:_getTagForGit', 'update:_checkoutFromGit', 'update:_copyFiles', 'update:_createModuleZipPackages', 'update:_createThemeZipPackages', 'update:_createZipPackage', callback);
-});
-
-
-// Last commit or tag
-var tag = '';
-
-// Show prompt to get last commit or tag for checkout
-gulp.task('update:_getTagForGit', function () {
-    return gulp
-            .src('./update/delivery/files')
-            .pipe(prompt.prompt({
-                type: 'input',
-                name: 'tag',
-                message: 'From which last commit or tag would you like to checkout?'
-            }, function (res) {
-                tag = res.tag;
-            }));
-});
-
-// Checkout files and folders from Git based on last commit or tag
-gulp.task('update:_checkoutFromGit', function () {
-    return gulp
-            .src('./update/delivery/files')
-            .pipe(run('git checkout-index -f --prefix="<%= file.path %>/" $(git diff --name-only ' + tag + ')', {
-                usePowerShell: true,
-                verbosity: 0
-            }));
+    return runSequence('update:clean', 'install:_pullFromGit', 'update:_copyFiles', 'update:_createModuleZipPackages', 'update:_createThemeZipPackages', 'update:_createZipPackage', callback);
 });
 
 // Create zip file for update
 gulp.task('update:_createZipPackage', function () {
-    console.log('Create ' + pjson.name + '-' + tag + '-to-' + pjson.version + '-update.zip');
+    console.log('Create ' + pjson.name + '-' + pjson.prior_version + '-to-' + pjson.version + '-update.zip');
     return gulp
             .src([
                 './update/**',
@@ -105,9 +80,9 @@ gulp.task('update:_createZipPackage', function () {
                 '!./update/delivery/files/temp{,/**}',
                 '!./update/delivery/files/media/modules/wysiwyg{,/**}',
                 '!./update/delivery/files/themes{,/**}',
-                '!./update/delivery/files/installation{,/**}',
+                '!./update/delivery/files/installation{,/**}'
             ])
-            .pipe(zip(pjson.name + '-update-' + tag + '-to-' + pjson.version + '.zip'))
+            .pipe(zip(pjson.name + '-update-' + pjson.prior_version + '-to-' + pjson.version + '.zip'))
             .pipe(gulp.dest('./'));
 });
 
@@ -125,98 +100,53 @@ gulp.task('update:_copyFiles', function () {
             .pipe(gulp.dest('./update/delivery/files'));
 });
 
-// Create zip file of each core module (incl. Dummy module)
+
+// Create zip packages of each module
 gulp.task('update:_createModuleZipPackages', function () {
-
-    // Define folder names of core modules
-    var moduleFolders = [
-        'code', 'datetimepicker', 'dummy', 'sitemap', 'snippets', 'wysiwyg', 'search'
-    ];
-
-    // Add folder names of changed modules
-    moduleFolders = moduleFolders.concat(fs
-            .readdirSync('./update/delivery/files/modules')
-            .filter(function (file) {
-                return (fs.statSync(path.join('./modules', file)).isDirectory() && moduleFolders.indexOf(file) === -1);
-            }));
-
-    // Get all installed module folder names, but only zip core and changed modules
-    return fs
-            .readdirSync('./modules')
-            .filter(function (file) {
-                return fs.statSync(path.join('./modules', file)).isDirectory();
-            })
-            .map(function (moduleFolder) {
-                if (moduleFolders.indexOf(moduleFolder) > -1) {
-                    console.log('Create ' + moduleFolder + '.zip');
+    return gulp
+            .src('./modules/*')
+            .pipe(flatmap(function (stream, file) {
+                if (fs.statSync(file.path).isDirectory()) {
+                    console.log('Create ' + path.basename(file.path) + '.zip');
                     return gulp
-                            .src(path.join('./modules', moduleFolder) + '/**')
-                            .pipe(zip(moduleFolder + '.zip'))
-                            .pipe(gulp.dest('./update/delivery/modules'));
+                            .src(file.path + '/**')
+                            .pipe(zip(path.basename(file.path) + '.zip'));
                 }
-                return false;
-            });
-
+            }))
+            .pipe(gulp.dest('./update/delivery/modules'));
 });
 
 
-// Create zip file of each core theme
+// Create zip packages of each theme
 gulp.task('update:_createThemeZipPackages', function () {
-
-    // Define folder names of core themes
-    var themeFolders = [
-        'neoflow-backend'
-    ];
-
-    // Add folder names of changed themes
-    themeFolders = themeFolders.concat(fs
-            .readdirSync('./update/delivery/files/themes')
-            .filter(function (file) {
-                return (fs.statSync(path.join('./themes', file)).isDirectory() && themeFolders.indexOf(file) === -1);
-            }));
-
-    // Get all installed theme folder names, but only zip core and changed themes
-    return fs
-            .readdirSync('./themes')
-            .filter(function (file) {
-                return fs.statSync(path.join('./themes', file)).isDirectory();
-            })
-            .map(function (themeFolder) {
-                if (themeFolders.indexOf(themeFolder) > -1) {
-                    console.log('Create ' + themeFolder + '.zip');
+    return gulp
+            .src('./themes/*')
+            .pipe(flatmap(function (stream, file) {
+                if (fs.statSync(file.path).isDirectory()) {
+                    console.log('Create ' + path.basename(file.path) + '.zip');
                     return gulp
                             .src([
-                                path.join('./themes', themeFolder) + '/**',
+                                file.path + '/**',
                                 '!./themes/*/package*',
                                 '!./themes/*/node_modules{,/**}',
                                 '!./themes/*/src{,/**}'
                             ])
-                            .pipe(zip(themeFolder + '.zip'))
-                            .pipe(gulp.dest('./update/delivery/themes'));
+                            .pipe(zip(path.basename(file.path) + '.zip'));
                 }
-                return false;
-            });
+            }))
+            .pipe(gulp.dest('./update/delivery/themes'));
 });
 
 
 // Create zip file of each core theme
 gulp.task('update:clean', function () {
-
-    // Delete files
-    return fs
-            .readdirSync('./update/delivery')
-            .filter(function (folder) {
-                return fs.statSync(path.join('./update/delivery', folder)).isDirectory();
-            })
-            .map(function (folder) {
-                var folderPath = path.join('./update/delivery', folder);
-                return fs
-                        .readdirSync(folderPath)
-                        .map(function (file) {
-                            if (file !== '.gitkeep') {
-                                fs.removeSync(path.join(folderPath, file));
-                            }
-                        });
-            });
+    return del([
+        './update/delivery/files/**/*',
+        './update/delivery/modules/**/*',
+        './update/delivery/themes/**/*',
+        '!./update/delivery/files/.gitkeep',
+        '!./update/delivery/modules/.gitkeep',
+        '!./update/delivery/themes/.gitkeep',
+    ]);
 });
 
