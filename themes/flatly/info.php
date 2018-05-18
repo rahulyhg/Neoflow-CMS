@@ -7,7 +7,9 @@ return [
     'folder_name' => 'flatly',
     'description' => 'Bootstrap-based free template of Bootswatch, modified for Neoflow CMS.',
     'version' => '1.0.0',
-    'for' => [],
+    'for' => [
+        '1.0',
+    ],
     'author' => 'Thomas Park, Jonathan Nessier',
     'copyright' => '2012-2018 Thomas Park',
     'license' => 'MIT',
