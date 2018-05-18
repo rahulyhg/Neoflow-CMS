@@ -20,8 +20,8 @@ use RuntimeException;
 use Throwable;
 use function request_url;
 
-class App extends FrameworkApp
-{
+class App extends FrameworkApp {
+
     /**
      * Publish application.
      *
@@ -262,11 +262,11 @@ class App extends FrameworkApp
 
                 if (!$translator->isCached()) {
                     // Load translation file
-                    $translationFilePath = $module->getPath('/i18n/'.$translator->getCurrentLanguageCode().'.php');
+                    $translationFilePath = $module->getPath('/i18n/' . $translator->getCurrentLanguageCode() . '.php');
                     $translator->loadTranslationFile($translationFilePath, false, true);
 
                     // Load fallback translation file
-                    $fallbackTranslationFilePath = $module->getPath('/i18n/'.$translator->getFallbackLanguageCode().'.php');
+                    $fallbackTranslationFilePath = $module->getPath('/i18n/' . $translator->getFallbackLanguageCode() . '.php');
                     $translator->loadTranslationFile($fallbackTranslationFilePath, true, true);
                 }
 
@@ -314,11 +314,11 @@ class App extends FrameworkApp
             $translator = $this->get('translator');
 
             // Load translation file
-            $translationFile = $theme->getPath('/i18n/'.$translator->getCurrentLanguageCode().'.php');
+            $translationFile = $theme->getPath('/i18n/' . $translator->getCurrentLanguageCode() . '.php');
             $translator->loadTranslationFile($translationFile, false, true);
 
             // Load fallback translation file
-            $fallbackTranslationFile = $theme->getPath('/i18n/'.$translator->getFallbackLanguageCode().'.php');
+            $fallbackTranslationFile = $theme->getPath('/i18n/' . $translator->getFallbackLanguageCode() . '.php');
             $translator->loadTranslationFile($fallbackTranslationFile, true, true);
         });
 
@@ -326,4 +326,5 @@ class App extends FrameworkApp
 
         return $this->set('themes', $themes);
     }
+
 }
