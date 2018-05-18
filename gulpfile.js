@@ -91,6 +91,7 @@ gulp.task('update:_copyFiles', function () {
     return gulp
             .src([
                 './index.php',
+                './autoload.php',
                 './LICENSE',
                 './README.md',
                 '*application/**/*',

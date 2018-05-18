@@ -6,7 +6,6 @@ use Neoflow\CMS\Model\ModuleModel;
 use Neoflow\CMS\Model\ThemeModel;
 use Neoflow\Filesystem\File;
 use Neoflow\Filesystem\Folder;
-use Neoflow\Filesystem\Folder;
 use Neoflow\Validation\ValidationException;
 use Throwable;
 use function generate_url;
@@ -42,7 +41,7 @@ class UpdateManager
      * @param Folder $folder Update folder
      * @param array  $info   Old info data (only needed for update from 1.0.0-a1 to 1.0.0-a2).
      */
-    public function __construct(Folder $folder, array $info)
+    public function __construct(Folder $folder, array $info = [])
     {
         $this->folder = $folder;
 
@@ -60,11 +59,11 @@ class UpdateManager
      */
     protected function fetchInfo(): array
     {
-        $infoFilePath = $this->folder->getPath('info.php');
+        $infoFilePath = $this->folder->getPath('/info.php');
         if (is_file($infoFilePath)) {
             $info = include $infoFilePath;
 
-            if (isset($info['version']) && isset($info['for']) && isset($info['path']['sql']) && isset($info['path']['files']) && isset($info['path']['packages'])) {
+            if (isset($info['version']) && isset($info['for']) && isset($info['path']['sql']) && isset($info['path']['files']) && isset($info['path']['modules']) && isset($info['path']['themes'])) {
                 return $info;
             }
             throw new ValidationException(translate('Information file ({0}) is invalid', ['info.php']));
@@ -187,7 +186,7 @@ class UpdateManager
     {
         $this->validateVersion();
 
-        $url = generate_url('maintenance_index');
+        $url = generate_url('backend_maintenance_index');
 
         $this->session()->setNewFlash('updateFolderPath', $this->folder->getPath());
 
