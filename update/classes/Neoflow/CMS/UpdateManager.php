@@ -189,6 +189,7 @@ class UpdateManager {
         $this->session()->setNewFlash('updateFolderPath', $this->folder->getPath());
 
         if ($this->updateFiles() && $this->updateDatabase() && $this->updateConfig()) {
+            $this->cache()->clear();
             header('Location:' . $url);
             exit;
         }
