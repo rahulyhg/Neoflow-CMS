@@ -5,8 +5,8 @@ namespace Neoflow\Module\Search;
 use Neoflow\CMS\Manager\AbstractModuleManager;
 use Neoflow\Module\Search\Model\SettingModel;
 
-class Manager extends AbstractModuleManager
-{
+class Manager extends AbstractModuleManager {
+
     /**
      * Install module.
      *
@@ -17,24 +17,25 @@ class Manager extends AbstractModuleManager
         $this->uninstall();
 
         $this
-            ->database()
-            ->prepare('CREATE TABLE `mod_search_entities` (
+                ->database()
+                ->prepare('CREATE TABLE `mod_search_entities` (
                                     `entity_id` INT NOT NULL AUTO_INCREMENT,
                                     `entity_class` VARCHAR(255) NOT NULL,
                                 PRIMARY KEY (`entity_id`));')
-            ->execute();
+                ->execute();
 
         $this
-            ->database()
-            ->prepare('CREATE TABLE `mod_search_settings` (
+                ->database()
+                ->prepare('CREATE TABLE `mod_search_settings` (
+                                    `setting_id` INT NOT NULL AUTO_INCREMENT,
                                     `url_path` VARCHAR(200) NOT NULL DEFAULT "/search" ,
                                     `is_active` tinyint(1) NOT NULL DEFAULT 1,
                                 PRIMARY KEY (`setting_id`));')
-            ->execute();
+                ->execute();
 
         $setting = SettingModel::create([
-                'url_path' => '/search',
-                'is_active' => true,
+                    'url_path' => '/search',
+                    'is_active' => true,
         ]);
 
         return $setting->save();
@@ -49,16 +50,16 @@ class Manager extends AbstractModuleManager
     {
         if ($this->database()->hasTable('mod_search_entities')) {
             $this
-                ->database()
-                ->prepare('DROP TABLE `mod_search_entities`')
-                ->execute();
+                    ->database()
+                    ->prepare('DROP TABLE `mod_search_entities`')
+                    ->execute();
         }
 
         if ($this->database()->hasTable('mod_search_settings')) {
             $this
-                ->database()
-                ->prepare('DROP TABLE `mod_search_settings`')
-                ->execute();
+                    ->database()
+                    ->prepare('DROP TABLE `mod_search_settings`')
+                    ->execute();
         }
 
         return true;
@@ -100,4 +101,5 @@ class Manager extends AbstractModuleManager
     {
         return true;
     }
+
 }
