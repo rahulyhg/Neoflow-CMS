@@ -7,7 +7,6 @@ use Neoflow\CMS\Handler\Router;
 use Neoflow\CMS\Handler\Translator;
 use Neoflow\CMS\Model\ModuleModel;
 use Neoflow\CMS\Model\SettingModel;
-use Neoflow\CMS\Service\UpdateService;
 use Neoflow\Framework\App as FrameworkApp;
 use Neoflow\Framework\Handler\Engine;
 use Neoflow\Framework\Handler\Loader;
@@ -21,8 +20,8 @@ use RuntimeException;
 use Throwable;
 use function request_url;
 
-class App extends FrameworkApp {
-
+class App extends FrameworkApp
+{
     /**
      * Publish application.
      *
@@ -90,7 +89,6 @@ class App extends FrameworkApp {
                     'name' => 'author',
                     'content' => $this->get('settings')->website_author,
                         ], 'author');
-
 
         // Create and set translator
         $this->set('translator', new Translator());
@@ -254,7 +252,6 @@ class App extends FrameworkApp {
             // Fetch CMS modules
             $modules = ModuleModel::findAllByColumn('is_active', true);
             $modules->each(function ($module) {
-
                 // Load functions and add class directory
                 $this->get('loader')
                         ->loadFunctionsFromDirectory($module->getPath('functions'))
@@ -265,11 +262,11 @@ class App extends FrameworkApp {
 
                 if (!$translator->isCached()) {
                     // Load translation file
-                    $translationFilePath = $module->getPath('/i18n/' . $translator->getCurrentLanguageCode() . '.php');
+                    $translationFilePath = $module->getPath('/i18n/'.$translator->getCurrentLanguageCode().'.php');
                     $translator->loadTranslationFile($translationFilePath, false, true);
 
                     // Load fallback translation file
-                    $fallbackTranslationFilePath = $module->getPath('/i18n/' . $translator->getFallbackLanguageCode() . '.php');
+                    $fallbackTranslationFilePath = $module->getPath('/i18n/'.$translator->getFallbackLanguageCode().'.php');
                     $translator->loadTranslationFile($fallbackTranslationFilePath, true, true);
                 }
 
@@ -308,7 +305,6 @@ class App extends FrameworkApp {
         }
 
         $themes->each(function ($theme) {
-
             // Load functions and add class directory
             $this->get('loader')
                     ->loadFunctionsFromDirectory($theme->getPath('functions'))
@@ -318,11 +314,11 @@ class App extends FrameworkApp {
             $translator = $this->get('translator');
 
             // Load translation file
-            $translationFile = $theme->getPath('/i18n/' . $translator->getCurrentLanguageCode() . '.php');
+            $translationFile = $theme->getPath('/i18n/'.$translator->getCurrentLanguageCode().'.php');
             $translator->loadTranslationFile($translationFile, false, true);
 
             // Load fallback translation file
-            $fallbackTranslationFile = $theme->getPath('/i18n/' . $translator->getFallbackLanguageCode() . '.php');
+            $fallbackTranslationFile = $theme->getPath('/i18n/'.$translator->getFallbackLanguageCode().'.php');
             $translator->loadTranslationFile($fallbackTranslationFile, true, true);
         });
 
@@ -330,5 +326,4 @@ class App extends FrameworkApp {
 
         return $this->set('themes', $themes);
     }
-
 }

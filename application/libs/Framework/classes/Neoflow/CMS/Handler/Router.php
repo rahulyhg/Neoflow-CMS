@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Handler;
 
 use Neoflow\CMS\AppTrait;
@@ -8,7 +9,6 @@ use Neoflow\Framework\HTTP\Responsing\Response;
 
 class Router extends FrameworkRouter
 {
-
     /**
      * App trait.
      */
@@ -26,7 +26,6 @@ class Router extends FrameworkRouter
     {
         // Check whether routes are already cached
         if ($this->cache()->exists('routes')) {
-
             $this->cached = false;
 
             // Fetch routes from cache
@@ -39,7 +38,8 @@ class Router extends FrameworkRouter
     }
 
     /**
-     * Check whether translation data is cached or not
+     * Check whether translation data is cached or not.
+     *
      * @return bool
      */
     public function isCached(): bool

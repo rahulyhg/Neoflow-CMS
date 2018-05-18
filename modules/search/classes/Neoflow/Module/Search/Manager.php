@@ -5,8 +5,8 @@ namespace Neoflow\Module\Search;
 use Neoflow\CMS\Manager\AbstractModuleManager;
 use Neoflow\Module\Search\Model\SettingModel;
 
-class Manager extends AbstractModuleManager {
-
+class Manager extends AbstractModuleManager
+{
     /**
      * Install module.
      *
@@ -101,5 +101,4 @@ class Manager extends AbstractModuleManager {
     {
         return true;
     }
-
 }

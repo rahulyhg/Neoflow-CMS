@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
@@ -8,12 +9,10 @@ use Neoflow\Filesystem\Folder;
 use Neoflow\Validation\ValidationException;
 use RuntimeException;
 use ZipArchive;
-use function generate_url;
 use function translate;
 
 class UpdateService extends AbstractService
 {
-
     /**
      * Unpack update package.
      *
@@ -27,7 +26,7 @@ class UpdateService extends AbstractService
     protected function unpack(File $updatePackageFile, bool $delete = true): Folder
     {
         // Create temporary update folder
-        $updateFolderPath = $this->config()->getPath('/update_' . uniqid());
+        $updateFolderPath = $this->config()->getPath('/update_'.uniqid());
         $updateFolder = Folder::create($updateFolderPath);
 
         // Extract package
@@ -47,7 +46,7 @@ class UpdateService extends AbstractService
     }
 
     /**
-     * Install CMS update
+     * Install CMS update.
      *
      * @param File $updatePackageFile Update package (Zip archive)
      *
@@ -66,8 +65,10 @@ class UpdateService extends AbstractService
     }
 
     /**
-     * Install modules and themes updates
+     * Install modules and themes updates.
+     *
      * @param string $updateFolderPath Update folder path
+     *
      * @return bool
      */
     public function installExtensionUpdates($updateFolderPath): bool
@@ -83,7 +84,7 @@ class UpdateService extends AbstractService
     }
 
     /**
-     * Create update manager
+     * Create update manager.
      *
      * @param Folder $updateFolder Update folder
      *

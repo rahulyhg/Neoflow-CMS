@@ -1,4 +1,5 @@
 <?php
+
 return [
     'translation' => [
         'Automated creation of sitemap (sitemap. xml) for search engines.' => 'Automated creation of sitemap (sitemap. xml) for search engines.',
@@ -30,5 +31,5 @@ return [
         'Auto generation' => 'Auto generation',
         'Sitemap does not exist and therefore cannot be deleted' => 'Sitemap does not exist and therefore cannot be deleted',
         'Show sitemap' => 'Show sitemap',
-    ]
+    ],
 ];

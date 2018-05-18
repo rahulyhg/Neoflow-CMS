@@ -1,4 +1,5 @@
 <?php
+
 return [
     'translation' => [
         'Provides a dynamic search.' => 'Provides a dynamic search.',
@@ -9,5 +10,5 @@ return [
         'The URL is already in use.' => 'The URL is already in use.',
         'The search page is active and accessible' => 'The search page is active and accessible',
         'The search module has no settings, but can be used in the frontend via this URL:' => 'The search module has no settings, but can be used in the frontend via this URL:',
-    ]
+    ],
 ];

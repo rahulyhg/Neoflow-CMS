@@ -9,5 +9,5 @@ return [
         'Log data not found' => 'Keine Protokolldaten gefunden',
         'Log file "{0}" not found' => 'Protokolldatei "{0}" nicht gefunden',
         'Log file will be updated in {0}' => 'Die Protokolldatei wird aktualisiert in {0}',
-    ]
+    ],
 ];

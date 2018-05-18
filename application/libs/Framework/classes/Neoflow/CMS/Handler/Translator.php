@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Handler;
 
 use Neoflow\CMS\AppTrait;
@@ -7,7 +8,6 @@ use Neoflow\Framework\Handler\Translator as FrameworkTranslator;
 
 class Translator extends FrameworkTranslator
 {
-
     /**
      * App trait.
      */
@@ -26,23 +26,22 @@ class Translator extends FrameworkTranslator
     protected function loadTranslations(): FrameworkTranslator
     {
         // Check whether translations are already cached
-        if ($this->cache()->exists('translations-' . $this->languageCode)) {
-
+        if ($this->cache()->exists('translations-'.$this->languageCode)) {
             $this->cached = true;
 
             // Fetch and set translation data from cache
-            $translations = $this->cache()->fetch('translations-' . $this->languageCode);
+            $translations = $this->cache()->fetch('translations-'.$this->languageCode);
             $this->translation = $translations['translation'];
             $this->fallbackTranslation = $translations['fallbackTranslation'];
 
-            if ($this->cache()->exists('dateformats-' . $this->languageCode)) {
-                $dateFormats = $this->cache()->fetch('dateformat-' . $this->languageCode);
+            if ($this->cache()->exists('dateformats-'.$this->languageCode)) {
+                $dateFormats = $this->cache()->fetch('dateformat-'.$this->languageCode);
                 $this->dateFormat = $dateFormats['dateFormat'];
                 $this->fallbackDateFormat = $dateFormats['fallbackDateFormat'];
             }
 
-            if ($this->cache()->exists('datetimeformats-' . $this->languageCode)) {
-                $dateTimeFormats = $this->cache()->fetch('datetimeformats-' . $this->languageCode);
+            if ($this->cache()->exists('datetimeformats-'.$this->languageCode)) {
+                $dateTimeFormats = $this->cache()->fetch('datetimeformats-'.$this->languageCode);
                 $this->dateTimeFormat = $dateTimeFormats['dateTimeFormat'];
                 $this->facllbackDateTimeFormat = $dateTimeFormats['fallbackDateTimeFormat'];
             }
@@ -65,9 +64,9 @@ class Translator extends FrameworkTranslator
     {
         parent::addTranslation($translation, $isFallback);
 
-        $this->cache()->store('translations-' . $this->languageCode, [
+        $this->cache()->store('translations-'.$this->languageCode, [
             'translation' => $this->translation,
-            'fallbackTranslation' => $this->fallbackTranslation
+            'fallbackTranslation' => $this->fallbackTranslation,
             ], 0, ['cms_core', 'cms_translator', 'cms_translations']);
 
         return $this;
@@ -85,9 +84,9 @@ class Translator extends FrameworkTranslator
     {
         parent::setDateFormat($format, $isFallback);
 
-        $this->cache()->store('dateformats-' . $this->languageCode, [
+        $this->cache()->store('dateformats-'.$this->languageCode, [
             'dateFormat' => $this->dateFormat,
-            'fallbackDateFormat' => $this->fallbackDateFormat], 0, ['cms_core', 'cms_translator', 'cms_translations']);
+            'fallbackDateFormat' => $this->fallbackDateFormat, ], 0, ['cms_core', 'cms_translator', 'cms_translations']);
 
         return $this;
     }
@@ -104,15 +103,16 @@ class Translator extends FrameworkTranslator
     {
         parent::setDateTimeFormat($format, $isFallback);
 
-        $this->cache()->store('datetimeformats-' . $this->languageCode, [
+        $this->cache()->store('datetimeformats-'.$this->languageCode, [
             'dateTimeFormat' => $this->dateTimeFormat,
-            'fallbackDateTimeFormat' => $this->fallbackDateTimeFormat], 0, ['cms_core', 'cms_translator', 'cms_translations']);
+            'fallbackDateTimeFormat' => $this->fallbackDateTimeFormat, ], 0, ['cms_core', 'cms_translator', 'cms_translations']);
 
         return $this;
     }
 
     /**
-     * Check whether translation data is cached or not
+     * Check whether translation data is cached or not.
+     *
      * @return bool
      */
     public function isCached(): bool

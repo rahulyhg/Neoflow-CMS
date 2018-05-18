@@ -1,4 +1,5 @@
 <?php
+
 return [
     'translation' => [
         'Snippet' => 'Snippet|Snippets',
@@ -16,5 +17,5 @@ return [
         'Usage' => 'Verwendung',
         'To execute the snippet and display the result, the placeholder must be added to the template.' => 'Damit das Snippet ausgeführt und das Resultat angezeigt wird, muss der Platzhalter dem Template hinzugefügt werden.',
         'Depending on the snippets, the parameters of the placeholder must also be customized.' => 'Abhängig von den Snippets müssen zusätzlich auch die Parameter des Platzhalters angepasst werden.',
-    ]
+    ],
 ];
