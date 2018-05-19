@@ -178,7 +178,7 @@ class UpdateManager {
     /**
      * Update files and database.
      *
-     * @return void
+     * @return bool
      */
     public function installUpdate(): bool
     {
@@ -188,10 +188,17 @@ class UpdateManager {
 
         $this->session()->setNewFlash('updateFolderPath', $this->folder->getPath());
 
-        if ($this->updateFiles() && $this->updateDatabase() && $this->updateConfig()) {
-            $this->cache()->clear();
-            header('Location:' . $url);
-            exit;
+        try {
+            $this->updateDatabase();
+            if ($this->updateFiles() && $this->updateConfig()) {
+                $this->cache()->clear();
+                header('Location:' . $url);
+                exit;
+            }
+        } catch (Throwable $ex) {
+            $this->logger()->error('Update installation failed.', [
+                'Exception message' => $ex->getMessage(),
+            ]);
         }
 
         return false;
@@ -247,7 +254,7 @@ class UpdateManager {
 
         // Add update service
         $services = $config->get('services');
-        $services[] = '\Neoflow\CMS\Service\UpdateService';
+        $services[] = 'Neoflow\\CMS\\Service\\UpdateService';
         $config->set('services', $services);
 
         // Replace auto with true
