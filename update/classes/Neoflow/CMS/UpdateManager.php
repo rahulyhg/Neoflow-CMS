@@ -2,6 +2,7 @@
 
 namespace Neoflow\CMS;
 
+use Neoflow\Alert\SuccessAlert;
 use Neoflow\CMS\AppTrait;
 use Neoflow\CMS\Model\ModuleModel;
 use Neoflow\CMS\Model\ThemeModel;
@@ -94,13 +95,21 @@ class UpdateManager {
     }
 
     /**
-     * Install extension updates
+     * Install extension updates (update step 2)
      * @return bool
      */
     public function installExtensionUpdates(): bool
     {
         if ($this->updateModules() && $this->updateThemes()) {
-            return $this->folder->delete();
+            $this->folder->delete();
+
+            $this->session()->setNewFlash('alerts', [
+                new SuccessAlert(translate('CMS successfully updated'))
+            ]);
+
+            $this->cache()->clear();
+            header('Location:' . generate_url('backend_maintenance_index'));
+            exit;
         }
         return false;
     }
@@ -176,7 +185,7 @@ class UpdateManager {
     }
 
     /**
-     * Update files and database.
+     * Update files and database (update step 1).
      *
      * @return bool
      */
