@@ -2,96 +2,126 @@
 
 namespace Neoflow\CMS\Service;
 
+use Neoflow\Alert\AbstractAlert;
+use Neoflow\Alert\DangerAlert;
+use Neoflow\Alert\InfoAlert;
+use Neoflow\Alert\SuccessAlert;
+use Neoflow\Alert\WarningAlert;
 use Neoflow\CMS\Core\AbstractService;
 
 class AlertService extends AbstractService {
 
     /**
-     * Check whether alerts exists.
-     *
-     * @return bool
+     * @var array
      */
-    public function hasAlerts(): bool {
-        return (bool) count($this->getAlerts());
+    protected $alerts = [];
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $sessionAlerts = $this->session()->get('alerts');
+        $flashAlerts = $this->session()->getFlash('alerts');
+
+        $this->alerts = array_merge($sessionAlerts, $flashAlerts);
     }
 
     /**
-     * Get alert.
+     * Count alerts for current request
+     *
+     * @return int
+     */
+    public function count(): int {
+        return count($this->alerts);
+    }
+
+    /**
+     * Get all alerts for current request
      *
      * @return array
      */
-    public function getAlerts(): array {
-        return $this->get('alerts', []);
+    public function getAll(): array {
+        return $this->alerts;
     }
 
     /**
-     * Set alert.
+     * Set alert
      *
      * @param AbstractAlert $alert Alert
-     * @param bool          $asFlash
+     * @param string $presentation Presentation time (now, next (next request), forever)
      *
      * @return self
      */
-    protected function set(AbstractAlert $alert, bool $asFlash = true): self {
-        if ($asFlash) {
-            $alerts = [];
-            if ($this->session()->hasNewFlash('alerts')) {
-                $alerts = $this->session()->getNewFlash('alerts');
-            }
-            $alerts[] = $alert;
-            $this->session()->setNewFlash('alerts', $alerts);
-        } else {
-            $alerts = $this->get('alerts');
-            $alerts[] = $alert;
-            $this->set('alerts', $alerts);
+    protected function setAlert(AbstractAlert $alert, string $presentation = 'now'): self {
+        $alerts = [];
+        switch ($presentation) {
+            case 'forever':
+                if ($this->session()->has('alerts')) {
+                    $alerts = $this->session()->get('alerts');
+                }
+                $alerts[] = $alert;
+                $this->session()->set('alerts', $alerts);
+                break;
+            case 'next':
+                if ($this->session()->hasNewFlash('alerts')) {
+                    $alerts = $this->session()->getNewFlash('alerts');
+                }
+                $alerts[] = $alert;
+                $this->session()->setNewFlash('alerts', $alerts);
+                break;
+            default:
+                $this->alerts[] = $alert;
         }
 
         return $this;
     }
 
     /**
-     * Create danger alert
+     * Create and set danger alert
      *
      * @param string|array $message Message or a list of messages
-     * @param string $presentationType Alert presentation type (now, next (next request), forever
+     * @param string $presentation Presentation time (now, next (next request), forever)
      *
      * @return self
      */
-    public function danger($message, bool $presentationType = 'flash'): self {
-        return $this->set(new DangerAlert($message), $presentationType);
+    public function danger($message, string $presentation = 'now'): self {
+        return $this->set(new DangerAlert($message), $presentation);
     }
 
     /**
-     * Create info alert and set as session flash.
+     * Create and set info alert
      *
      * @param string|array $message Message or a list of messages
+     * @param string $presentation Presentation time (now, next (next request), forever)
      *
      * @return self
      */
-    public function setInfoAlert($message, bool $asFlash = true): self {
-        return $this->setAlert(new InfoAlert($message), $asFlash);
+    public function info($message, string $presentation = 'now'): self {
+        return $this->set(new InfoAlert($message), $presentation);
     }
 
     /**
-     * Create success alert and set as session flash.
+     * Create and set success alert
      *
      * @param string|array $message Message or a list of messages
+     * @param string $presentation Presentation time (now, next (next request), forever)
      *
      * @return self
      */
-    public function setSuccessAlert($message, bool $asFlash = true): self {
-        return $this->setAlert(new SuccessAlert($message), $asFlash);
+    public function succerss($message, string $presentation = 'now'): self {
+        return $this->set(new SuccessAlert($message), $presentation);
     }
 
     /**
-     * Create warning alert and set as session flash.
+     * Create and set warning alert
      *
      * @param string|array $message Message or a list of messages
+     * @param string $presentation Presentation time (now, next (next request), forever)
      *
      * @return self
      */
-    public function setWarningAlert($message, bool $asFlash = true): self {
-        return $this->setAlert(new WarningAlert($message), $asFlash);
+    public function warning($message, string $presentation = 'now'): self {
+        return $this->set(new WarningAlert($message), $presentation);
     }
 
 }
