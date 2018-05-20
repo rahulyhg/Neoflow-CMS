@@ -258,11 +258,20 @@ class UpdateManager {
         // Update config params
         $config->get('app')->set('version', $this->newVersion);
 
-        // Add update service
-        $services = $config->get('services');
-        $services['update'] = 'Neoflow\\CMS\\Service\\UpdateService';
-        $services['alert'] = 'Neoflow\\CMS\\Service\\AlertService';
-        $config->set('services', $services);
+        // Register services
+        $config->set('services', [
+            'alert' => 'Neoflow\\CMS\\Service\\AlertService',
+            'mail' => 'Neoflow\\CMS\\Service\\MailService',
+            'navitem' => 'Neoflow\\CMS\\Service\\NavitemService',
+            'section' => 'Neoflow\\CMS\\Service\\SectionService',
+            'auth' => 'Neoflow\\CMS\\Service\\AuthService',
+            'page' => 'Neoflow\\CMS\\Service\\PageService',
+            'upload' => 'Neoflow\\CMS\\Service\\UploadService',
+            'filesystem' => 'Neoflow\\CMS\\Service\\FilesystemService',
+            'validation' => 'Neoflow\\CMS\\Service\\ValidationService',
+            'install' => 'Neoflow\\CMS\\Service\\InstallService',
+            'update' => 'Neoflow\\CMS\\Service\\UpdateService'
+        ]);
 
         // Replace auto with true
         if ($config->get('cache')->get('type') === 'auto') {

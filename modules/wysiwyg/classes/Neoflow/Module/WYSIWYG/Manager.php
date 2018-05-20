@@ -24,10 +24,10 @@ class Manager extends AbstractPageModuleManager
         }
 
         return (bool) Model::create([
-                    'section_id' => $section->id(),
-                    'content' => '',
-                ])
-                ->save();
+                            'section_id' => $section->id(),
+                            'content' => '',
+                        ])
+                        ->save();
     }
 
     /**
@@ -59,13 +59,13 @@ class Manager extends AbstractPageModuleManager
 
         if (!$this->database()->hasTable('mod_wysiwyg')) {
             return $this
-                    ->database()
-                    ->prepare('CREATE TABLE `mod_wysiwyg` (
+                            ->database()
+                            ->prepare('CREATE TABLE `mod_wysiwyg` (
                                     `wysiwyg_id` INT NOT NULL AUTO_INCREMENT,
                                     `content` TEXT,
                                     `section_id` INT NOT NULL,
                                 PRIMARY KEY (`wysiwyg_id`));')
-                    ->execute();
+                            ->execute();
         }
 
         return false;
@@ -83,9 +83,9 @@ class Manager extends AbstractPageModuleManager
 
         if ($this->database()->hasTable('mod_wysiwyg')) {
             return $this
-                    ->database()
-                    ->prepare('DROP TABLE `mod_wysiwyg`')
-                    ->execute();
+                            ->database()
+                            ->prepare('DROP TABLE `mod_wysiwyg`')
+                            ->execute();
         }
 
         return true;
@@ -99,8 +99,8 @@ class Manager extends AbstractPageModuleManager
     public function initialize(): bool
     {
         // Register service
-        if (!$this->app()->hasService('wysiwyg')) {
-            $this->app()->registerService(new Service(), 'wysiwyg');
+        if (!$this->app()->get('services')->exist('wysiwyg')) {
+            $this->app()->get('services')->set('wysiwyg', new Service());
         }
 
         return true;
@@ -115,7 +115,7 @@ class Manager extends AbstractPageModuleManager
     {
         if ('1.0' === $this->module->oldVersion) {
             $entity = new EntityModel();
-            $entity->entity_class = '\\Neoflow\\Module\\WYSIWYG\\Model';
+            $entity->entity_class = 'Neoflow\\Module\\WYSIWYG\\Model';
             $entity->validate();
             $entity->save();
         }

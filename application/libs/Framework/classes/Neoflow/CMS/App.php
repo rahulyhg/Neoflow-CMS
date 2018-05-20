@@ -57,6 +57,9 @@ class App extends FrameworkApp
         // Register error handler
         $this->registerErrorHandler();
 
+        // Create service registry
+        $this->set('services', []);
+
         // Set and create cache
         $this->setCache();
 
@@ -95,9 +98,6 @@ class App extends FrameworkApp
 
         // Create and set router
         $this->set('router', new Router());
-
-        // Create and register services
-        $this->registerServices();
 
         // Install modules and themes updates
         $this->installExtensionUpdates();

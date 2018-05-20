@@ -33,7 +33,8 @@ class Manager extends AbstractModuleManager
      */
     public function initialize(): bool
     {
-        $this->app()->registerService(new Service($this->module), 'wysiwyg');
+        // Register service
+        $this->app()->get('services')->set('wysiwyg', new Service($this->module));
 
         return true;
     }

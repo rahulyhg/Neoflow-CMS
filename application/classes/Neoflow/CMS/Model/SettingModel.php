@@ -186,7 +186,7 @@ class SettingModel extends AbstractModel
      */
     public function languages(): Repository
     {
-        return $this->hasManyThrough('Neoflow\\CMS\\Model\\LanguageModel', '\\Neoflow\\CMS\\Model\\SettingLanguageModel', 'setting_id', 'language_id');
+        return $this->hasManyThrough('Neoflow\\CMS\\Model\\LanguageModel', 'Neoflow\\CMS\\Model\\SettingLanguageModel', 'setting_id', 'language_id');
     }
 
     /**

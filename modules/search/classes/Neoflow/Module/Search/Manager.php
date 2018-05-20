@@ -76,16 +76,13 @@ class Manager extends AbstractModuleManager
         $service = new Service($this->module);
 
         // Register service
-        $this->app()->registerService($service, 'search');
-
-        // Get search settings
-        $settings = SettingModel::findById(1);
+        $this->app()->get('services')->set('search', $service);
 
         // Check whether search page is active and accessible
-        if ($settings->is_active) {
+        if ($service->getSettings()->is_active) {
             // Add custom url path as route
             $this->router()->addRoutes([
-                ['tmod_search_frontend_index', 'get', $settings->url_path, '\\Neoflow\\Module\\Search\\Controller\\Frontend@index'],
+                ['tmod_search_frontend_index', 'get', $service->getSettings()->url_path, 'Neoflow\\Module\\Search\\Controller\\Frontend@index'],
             ]);
         }
 

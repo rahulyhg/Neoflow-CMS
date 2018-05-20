@@ -98,7 +98,7 @@ class UpdateService extends AbstractService
             $this->app()->get('loader')->addClassDirectory($classPath);
         }
 
-        if (class_exists('\\Neoflow\\CMS\\UpdateManager')) {
+        if (class_exists('Neoflow\\CMS\\UpdateManager')) {
             return new UpdateManager($updateFolder);
         }
 

@@ -577,6 +577,6 @@ class PageModel extends AbstractModel
      */
     public function roles(): Repository
     {
-        return $this->hasManyThrough('Neoflow\\CMS\\Model\\RoleModel', '\\Neoflow\\CMS\\Model\\PageRoleModel', 'page_id', 'role_id');
+        return $this->hasManyThrough('Neoflow\\CMS\\Model\\RoleModel', 'Neoflow\\CMS\\Model\\PageRoleModel', 'page_id', 'role_id');
     }
 }
