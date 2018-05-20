@@ -103,10 +103,7 @@ class UpdateManager {
         if ($this->updateModules() && $this->updateThemes()) {
             $this->folder->delete();
 
-            $this->session()->setNewFlash('alerts', [
-                new SuccessAlert(translate('CMS successfully updated'))
-            ]);
-
+            $this->service('alert')->success(translate('CMS successfully updated'));
             $this->cache()->clear();
             header('Location:' . generate_url('backend_maintenance_index'));
             exit;
@@ -263,7 +260,8 @@ class UpdateManager {
 
         // Add update service
         $services = $config->get('services');
-        $services[] = 'Neoflow\\CMS\\Service\\UpdateService';
+        $services['update'] = 'Neoflow\\CMS\\Service\\UpdateService';
+        $services['alert'] = 'Neoflow\\CMS\\Service\\AlertService';
         $config->set('services', $services);
 
         // Replace auto with true

@@ -67,7 +67,7 @@ class BackendController extends AbstractToolModuleController
         $content = $this->request()->getPost('content');
 
         if ($this->robotsFile->setContent($content)) {
-            $this->view->setSuccessAlert(translate('Successfully updated'));
+            $this->service('alert')->success(translate('Successfully updated'));
         } else {
             throw new RuntimeException('Update robots.txt failed');
         }

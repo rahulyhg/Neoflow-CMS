@@ -63,7 +63,7 @@ class MaintenanceController extends BackendController
             } else {
                 $this->cache()->deleteByTag($cacheTag);
             }
-            $this->view->setSuccessAlert(translate('Successfully cleared'));
+            $this->service('alert')->success(translate('Successfully cleared'));
         } else {
             throw new RuntimeException('Clearing cache failed');
         }
@@ -93,7 +93,7 @@ class MaintenanceController extends BackendController
             }
         }
 
-        $this->view->setSuccessAlert(translate('Successfully deleted'));
+        $this->service('alert')->success(translate('Successfully deleted'));
 
         return $this->redirectToRoute('backend_maintenance_index');
     }
@@ -114,7 +114,7 @@ class MaintenanceController extends BackendController
             chmod($absolutePath, $folder->get('permission'));
         }
 
-        $this->view->setSuccessAlert(translate('Successfully reseted'));
+        $this->service('alert')->success(translate('Successfully reseted'));
 
         return $this->redirectToRoute('backend_maintenance_index');
     }
@@ -135,9 +135,9 @@ class MaintenanceController extends BackendController
 
             $this->service('update')->installUpdate($updatePackageFile);
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Update CMS failed'), [$ex->getMessage()]]);
+            $this->service('alert')->warning([translate('Update CMS failed'), [$ex->getMessage()]]);
         } catch (Exception $ex) {
-            $this->view->setDangerAlert([translate('Update CMS failed, see error message'), [$ex->getMessage()]]);
+            $this->service('alert')->danger([translate('Update CMS failed, see error message'), [$ex->getMessage()]]);
         }
 
         return $this->redirectToRoute('backend_maintenance_index');

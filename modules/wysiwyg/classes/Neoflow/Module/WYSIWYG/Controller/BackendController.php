@@ -49,12 +49,12 @@ class BackendController extends AbstractPageModuleController
 
             // Validate and save wysiwyg content
             if ($wysiwyg && $wysiwyg->save() && $this->updateModifiedWhen()) {
-                $this->view->setSuccessAlert(translate('Successfully updated'));
+                $this->service('alert')->success(translate('Successfully updated'));
             } else {
                 throw new RuntimeException('Update wysiwyg content failed (ID: '.$postData->get('editor_id').')');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert($ex->getErrors());
+            $this->service('alert')->warning($ex->getErrors());
         }
 
         return $this->redirectToRoute('pmod_wysiwyg_backend_index', [

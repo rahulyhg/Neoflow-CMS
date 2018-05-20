@@ -79,7 +79,7 @@ class MediaController extends BackendController
                 $this->currentFile = new File($filePath);
                 $relativeFolderPath = dirname($relativeFilePath);
             } else {
-                $this->view->setDangerAlert([translate('File not found'), [normalize_url($relativeFilePath)]]);
+                $this->service('alert')->danger([translate('File not found'), [normalize_url($relativeFilePath)]]);
 
                 return $this->redirectToRoute('backend_media_index');
             }
@@ -90,7 +90,7 @@ class MediaController extends BackendController
             $this->relativeFolderPath = normalize_path($relativeFolderPath, true);
             $this->currentFolder = new Folder($directoryPath);
         } else {
-            $this->view->setDangerAlert([translate('Directory not found'), [normalize_url($relativeFolderPath)]]);
+            $this->service('alert')->danger([translate('Directory not found'), [normalize_url($relativeFolderPath)]]);
 
             return $this->redirectToRoute('backend_media_index');
         }
@@ -169,9 +169,9 @@ class MediaController extends BackendController
     {
         try {
             $this->currentFile->delete();
-            $this->view->setSuccessAlert(translate('Successfully deleted'));
+            $this->service('alert')->success(translate('Successfully deleted'));
         } catch (FilesystemException $ex) {
-            $this->view->setDangerAlert([translate('
+            $this->service('alert')->danger([translate('
 
         Delete file failed, see error message'), [$ex->getMessage()]]);
         }
@@ -188,9 +188,9 @@ class MediaController extends BackendController
     {
         try {
             $this->currentFolder->delete(true);
-            $this->view->setSuccessAlert(translate('Successfully deleted'));
+            $this->service('alert')->success(translate('Successfully deleted'));
         } catch (FilesystemException $ex) {
-            $this->view->setDangerAlert([translate('Delete folder failed, see error message'), [$ex->getMessage()]]);
+            $this->service('alert')->danger([translate('Delete folder failed, see error message'), [$ex->getMessage()]]);
         }
         $newRelativeFolderPath = normalize_path(dirname($this->relativeFolderPath), true);
         if ('.' === $newRelativeFolderPath) {
@@ -250,11 +250,11 @@ class MediaController extends BackendController
 
         try {
             $this->service('filesystem')->renameFile($this->currentFile, $name, false);
-            $this->view->setSuccessAlert(translate('Successfully renamed'));
+            $this->service('alert')->success(translate('Successfully renamed'));
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Rename failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Rename failed'), $ex->getErrors()]);
         } catch (FilesystemException $ex) {
-            $this->view->setDangerAlert([translate('Rename file failed, see error message'), [$ex->getMessage()]]);
+            $this->service('alert')->danger([translate('Rename file failed, see error message'), [$ex->getMessage()]]);
         }
 
         return $this->redirectToRoute('backend_media_index', ['dir' => $this->relativeFolderPath]);
@@ -272,11 +272,11 @@ class MediaController extends BackendController
 
         try {
             $this->service('filesystem')->renameFolder($this->currentFolder, $name, false);
-            $this->view->setSuccessAlert(translate('Successfully renamed'));
+            $this->service('alert')->success(translate('Successfully renamed'));
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Rename failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Rename failed'), $ex->getErrors()]);
         } catch (FilesystemException $ex) {
-            $this->view->setDangerAlert([translate('Rename folder failed, see error message'), [$ex->getMessage()]]);
+            $this->service('alert')->danger([translate('Rename folder failed, see error message'), [$ex->getMessage()]]);
         }
 
         $newRelativeFolderPath = normalize_path(dirname($this->relativeFolderPath), true);
@@ -304,13 +304,13 @@ class MediaController extends BackendController
         try {
             $result = $this->service('upload')->moveMultiple($uploadedItems, $directoryPath, $overwrite, $this->settings()->getAllowedFileExtensions());
             if (count($result['success'])) {
-                $this->view->setSuccessAlert([translate('Successfully uploaded'), array_keys($result['success'])]);
+                $this->service('alert')->success([translate('Successfully uploaded'), array_keys($result['success'])]);
             }
             if (count($result['error'])) {
-                $this->view->setWarningAlert([translate('Upload failed'), $result['error']]);
+                $this->service('alert')->warning([translate('Upload failed'), $result['error']]);
             }
         } catch (Exception $ex) {
-            $this->view->setDangerAlert([translate('Upload file(s) failed, see error message'), [$ex->getMessage()]]);
+            $this->service('alert')->danger([translate('Upload file(s) failed, see error message'), [$ex->getMessage()]]);
         }
 
         return $this->redirectToRoute('backend_media_index', ['dir' => $this->relativeFolderPath]);
@@ -328,11 +328,11 @@ class MediaController extends BackendController
 
         try {
             $this->service('filesystem')->createNewFolder($name, $this->currentFolder->getPath());
-            $this->view->setSuccessAlert(translate('Successfully created'));
+            $this->service('alert')->success(translate('Successfully created'));
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Create failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Create failed'), $ex->getErrors()]);
         } catch (FilesystemException $ex) {
-            $this->view->setDangerAlert([translate('Create folder failed, see error message'), [$ex->getMessage()]]);
+            $this->service('alert')->danger([translate('Create folder failed, see error message'), [$ex->getMessage()]]);
         }
 
         return $this->redirectToRoute('backend_media_index', ['dir' => $this->relativeFolderPath]);

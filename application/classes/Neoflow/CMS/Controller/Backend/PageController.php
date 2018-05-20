@@ -137,7 +137,7 @@ class PageController extends BackendController
 
                 // Validate and save section
                 if ($section && $section->validate() && $section->save()) {
-                    $this->view->setSuccessAlert(translate('Successfully created'));
+                    $this->service('alert')->success(translate('Successfully created'));
 
                     $module = $section->getModule();
 
@@ -149,7 +149,7 @@ class PageController extends BackendController
                 throw new RuntimeException('Creating page failed');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Create failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Create failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_page_index');
@@ -269,7 +269,7 @@ class PageController extends BackendController
         // Delete page
         $result = PageModel::deleteById($this->args['id']);
         if ($result) {
-            $this->view->setSuccessAlert(translate('Successfully deleted'));
+            $this->service('alert')->success(translate('Successfully deleted'));
 
             return $this->redirectToRoute('backend_page_index');
         }
@@ -306,12 +306,12 @@ class PageController extends BackendController
 
             // Validate and save page
             if ($page && $page->validate() && $page->save() && $page->saveUrl()) {
-                $this->view->setSuccessAlert(translate('Successfully updated'));
+                $this->service('alert')->success(translate('Successfully updated'));
             } else {
                 throw new RuntimeException('Updating page failed (ID: '.$postData->get('page_id').')');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_page_edit', [
@@ -332,9 +332,9 @@ class PageController extends BackendController
         $page = PageModel::findById($this->args['id']);
         if ($page && $page->toggleActivation() && $page->save()) {
             if ($page->is_active) {
-                $this->view->setSuccessAlert(translate('Successfully enabled'));
+                $this->service('alert')->success(translate('Successfully enabled'));
             } else {
-                $this->view->setSuccessAlert(translate('Successfully disabled'));
+                $this->service('alert')->success(translate('Successfully disabled'));
             }
 
             return $this->redirectToRoute('backend_page_index');
@@ -357,9 +357,9 @@ class PageController extends BackendController
             $mainNavitem = $page->getMainNavitem();
             if ($mainNavitem && $mainNavitem->toggleVisibility() && $mainNavitem->save()) {
                 if ($mainNavitem->is_visible) {
-                    $this->view->setSuccessAlert(translate('Successfully made visible'));
+                    $this->service('alert')->success(translate('Successfully made visible'));
                 } else {
-                    $this->view->setSuccessAlert(translate('Successfully hidden'));
+                    $this->service('alert')->success(translate('Successfully hidden'));
                 }
 
                 return $this->redirectToRoute('backend_page_index');

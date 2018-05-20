@@ -101,12 +101,12 @@ class SettingController extends BackendController
 
             // Validate and save settings
             if ($settings && $settings->validate() && $settings->save()) {
-                $this->view->setSuccessAlert(translate('Successfully updated'));
+                $this->service('alert')->success(translate('Successfully updated'));
             } else {
                 throw new RuntimeException('Update settings failed (ID: 1)');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_setting_index');

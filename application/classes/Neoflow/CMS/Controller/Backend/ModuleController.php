@@ -55,15 +55,15 @@ class ModuleController extends BackendController
         try {
             if ($module && $module->toggleActivation() && $module->save()) {
                 if ($module->is_active) {
-                    $this->view->setSuccessAlert(translate('Successfully enabled'));
+                    $this->service('alert')->success(translate('Successfully enabled'));
                 } else {
-                    $this->view->setSuccessAlert(translate('Successfully disabled'));
+                    $this->service('alert')->success(translate('Successfully disabled'));
                 }
             } else {
                 throw new RuntimeException('Toggling activation for module failed (ID: '.$this->args['id'].')');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert($ex->getErrors());
+            $this->service('alert')->warning($ex->getErrors());
         }
 
         return $this->redirectToRoute('backend_module_index');
@@ -84,12 +84,12 @@ class ModuleController extends BackendController
         try {
             // Delete module
             if ($module && $module->delete()) {
-                $this->view->setSuccessAlert(translate('Successfully deleted'));
+                $this->service('alert')->success(translate('Successfully deleted'));
             } else {
                 throw new RuntimeException('Deleting module failed (ID: '.$this->args['id'].')');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert($ex->getErrors());
+            $this->service('alert')->warning($ex->getErrors());
         }
 
         return $this->redirectToRoute('backend_module_index');
@@ -112,14 +112,14 @@ class ModuleController extends BackendController
             $module = new ModuleModel();
 
             if ($module->install($file)) {
-                $this->view->setSuccessAlert(translate('Successfully installed'));
+                $this->service('alert')->success(translate('Successfully installed'));
             } else {
                 throw new RuntimeException('Installing module failed');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Install module failed'), [$ex->getMessage()]]);
+            $this->service('alert')->warning([translate('Install module failed'), [$ex->getMessage()]]);
         } catch (Exception $ex) {
-            $this->view->setDangerAlert([translate('Install module failed, see error message'), [$ex->getMessage()]]);
+            $this->service('alert')->danger([translate('Install module failed, see error message'), [$ex->getMessage()]]);
         }
 
         return $this->redirectToRoute('backend_module_index');
@@ -143,14 +143,14 @@ class ModuleController extends BackendController
             $module = ModuleModel::findById($module_id);
 
             if ($module && $module->installUpdate($file)) {
-                $this->view->setSuccessAlert(translate('Module successfully updated'));
+                $this->service('alert')->success(translate('Module successfully updated'));
             } else {
                 throw new RuntimeException('Updating module failed (ID: '.$module_id.')');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Update module failed'), [$ex->getMessage()]]);
+            $this->service('alert')->warning([translate('Update module failed'), [$ex->getMessage()]]);
         } catch (Exception $ex) {
-            $this->view->setDangerAlert([translate('Update module failed, see error message'), [$ex->getMessage()]]);
+            $this->service('alert')->danger([translate('Update module failed, see error message'), [$ex->getMessage()]]);
         }
 
         return $this->redirectToRoute('backend_module_view', ['id' => $module_id]);
@@ -222,9 +222,9 @@ class ModuleController extends BackendController
         }
 
         if (count($errors) > 0) {
-            $this->view->setDangerAlert($errors);
+            $this->service('alert')->danger($errors);
         } else {
-            $this->view->setSuccessAlert(translate('Successfully reloaded'));
+            $this->service('alert')->success(translate('Successfully reloaded'));
         }
 
         if (isset($this->args['id'])) {

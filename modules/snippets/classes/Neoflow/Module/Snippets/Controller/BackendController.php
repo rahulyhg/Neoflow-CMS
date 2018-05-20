@@ -56,12 +56,12 @@ class BackendController extends AbstractToolModuleController
 
             // Validate and save snippet
             if ($snippet && $snippet->validate() && $snippet->save()) {
-                $this->view->setSuccessAlert(translate('Successfully created'));
+                $this->service('alert')->success(translate('Successfully created'));
             } else {
                 throw new RuntimeException('Create snippet failed');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Create failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Create failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('tmod_snippets_backend_index');
@@ -139,12 +139,12 @@ class BackendController extends AbstractToolModuleController
 
             // Validate and save snippet
             if ($snippet && $snippet->validate() && $snippet->save()) {
-                $this->view->setSuccessAlert(translate('Successfully updated'));
+                $this->service('alert')->success(translate('Successfully updated'));
             } else {
                 throw new RuntimeException('Updating snippet failed (ID: '.$postData->get('snippet_id').')');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('tmod_snippets_backend_edit', ['id' => $postData->get('snippet_id')]);
@@ -162,7 +162,7 @@ class BackendController extends AbstractToolModuleController
         // Delete snippet
         $result = Model::deleteById($this->args['id']);
         if ($result) {
-            $this->view->setSuccessAlert(translate('Successfully deleted'));
+            $this->service('alert')->success(translate('Successfully deleted'));
 
             return $this->redirectToRoute('tmod_snippets_backend_index');
         }

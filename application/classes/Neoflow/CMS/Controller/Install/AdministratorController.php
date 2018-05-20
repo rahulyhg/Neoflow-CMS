@@ -51,14 +51,14 @@ class AdministratorController extends InstallController
 
             // Validate and save user
             if ($user && $user->validate() && $user->save()) {
-                $this->view->setSuccessAlert(translate('Administrator successfully created'));
+                $this->service('alert')->success(translate('Administrator successfully created'));
             }
 
             return $this->redirectToRoute('install_success');
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Create failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Create failed'), $ex->getErrors()]);
         } catch (Throwable $ex) {
-            $this->view->setDangerAlert([translate('Create failed'), [$ex->getMessage()]]);
+            $this->service('alert')->danger([translate('Create failed'), [$ex->getMessage()]]);
         }
 
         return $this->redirectToRoute('install_administrator_index');

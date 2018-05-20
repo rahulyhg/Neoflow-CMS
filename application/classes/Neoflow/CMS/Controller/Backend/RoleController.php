@@ -67,12 +67,12 @@ class RoleController extends BackendController
 
             // Validate and save role
             if ($role && $role->validate() && $role->save()) {
-                $this->view->setSuccessAlert(translate('Successfully created'));
+                $this->service('alert')->success(translate('Successfully created'));
             } else {
                 throw new RuntimeException('Creating role failed');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Create failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Create failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_role_index');
@@ -134,12 +134,12 @@ class RoleController extends BackendController
 
             // Validate and save role
             if ($role && 1 !== $role->id() && $role->validate() && $role->save()) {
-                $this->view->setSuccessAlert(translate('Successfully updated'));
+                $this->service('alert')->success(translate('Successfully updated'));
             } else {
                 throw new RuntimeException('Updating role failed (ID: '.$postData->get('page_id').')');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_role_edit', [
@@ -160,12 +160,12 @@ class RoleController extends BackendController
             // Get and delete role
             $role = RoleModel::findById($this->args['id']);
             if ($role && 1 !== $role->id() && $role->delete()) {
-                $this->view->setSuccessAlert(translate('Successfully deleted'));
+                $this->service('alert')->success(translate('Successfully deleted'));
             } else {
                 throw new RuntimeException('Deleting role failed (ID: '.$this->args['id'].')');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert($ex->getErrors());
+            $this->service('alert')->warning($ex->getErrors());
         }
 
         return $this->redirectToRoute('backend_role_index');

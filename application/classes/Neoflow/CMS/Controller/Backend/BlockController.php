@@ -24,8 +24,8 @@ class BlockController extends BackendController
 
         // Set title and breadcrumb
         $this->view
-            ->setTitle(translate('Block', [], true))
-            ->addBreadcrumb(translate('Content'));
+                ->setTitle(translate('Block', [], true))
+                ->addBreadcrumb(translate('Content'));
     }
 
     /**
@@ -35,8 +35,10 @@ class BlockController extends BackendController
      */
     public function indexAction(): Response
     {
+        $this->service('alert')->success(translate('Successfully created 2'), 'now');
+
         return $this->render('backend/block/index', [
-                'blocks' => BlockModel::findAll(),
+                    'blocks' => BlockModel::findAll(),
         ]);
     }
 
@@ -55,18 +57,18 @@ class BlockController extends BackendController
 
             // Create block
             $block = BlockModel::create([
-                    'title' => $postData->get('title'),
-                    'block_key' => $postData->get('block_key'),
+                        'title' => $postData->get('title'),
+                        'block_key' => $postData->get('block_key'),
             ]);
 
             // Validate and save block
             if ($block && $block->validate() && $block->save()) {
-                $this->view->setSuccessAlert(translate('Successfully created'));
+                $this->service('alert')->success(translate('Successfully created'));
             } else {
                 throw new RuntimeException('Creating block failed');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Create failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Create failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_block_index');
@@ -87,12 +89,12 @@ class BlockController extends BackendController
 
             // Validate and save block
             if ($frontendTheme && $frontendTheme->loadBlocks()) {
-                $this->view->setSuccessAlert(translate('Successfully created'));
+                $this->service('alert')->success(translate('Successfully created'));
             } else {
                 throw new RuntimeException('Creating block failed');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert($ex->getErrors());
+            $this->service('alert')->warning($ex->getErrors());
         }
 
         return $this->redirectToRoute('backend_block_index');
@@ -117,15 +119,15 @@ class BlockController extends BackendController
         if ($block) {
             // Set title and breadcrumb
             $this->view
-                ->setTitle($block->title)
-                ->setSubtitle('ID: '.$block->id())
-                ->addBreadcrumb(translate('Block', [], true), generate_url('backend_block_index'));
+                    ->setTitle($block->title)
+                    ->setSubtitle('ID: '.$block->id())
+                    ->addBreadcrumb(translate('Block', [], true), generate_url('backend_block_index'));
 
             // Set back url
             $this->view->setBackRoute('backend_block_index');
 
             return $this->render('backend/block/edit', [
-                    'block' => $block,
+                        'block' => $block,
             ]);
         }
         throw new RuntimeException('Block not found (ID: '.$this->args['id'].')');
@@ -146,22 +148,22 @@ class BlockController extends BackendController
 
             // Update block
             $block = BlockModel::updateById([
-                    'title' => $postData->get('title'),
-                    'block_key' => $postData->get('block_key'),
-                    ], $postData->get('block_id'));
+                        'title' => $postData->get('title'),
+                        'block_key' => $postData->get('block_key'),
+                            ], $postData->get('block_id'));
 
             // Validate and save block
             if ($block && $block->validate() && $block->save()) {
-                $this->view->setSuccessAlert(translate('Successfully updated'));
+                $this->service('alert')->success(translate('Successfully updated'));
             } else {
                 throw new RuntimeException('Updating block failed (ID: '.$postData->get('block_id').')');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_block_edit', [
-                'id' => $block->id(),
+                    'id' => $block->id(),
         ]);
     }
 
@@ -177,7 +179,7 @@ class BlockController extends BackendController
         // Get and delete block
         $block = BlockModel::findById($this->args['id']);
         if ($block && $block->delete()) {
-            $this->view->setSuccessAlert(translate('Successfully deleted'));
+            $this->service('alert')->success(translate('Successfully deleted'));
 
             return $this->redirectToRoute('backend_block_index');
         }

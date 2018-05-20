@@ -137,12 +137,12 @@ class SectionController extends BackendController
 
             // Validate and save section
             if ($section && $section->validate() && $section->save()) {
-                $this->view->setSuccessAlert(translate('Successfully updated'));
+                $this->service('alert')->success(translate('Successfully updated'));
             } else {
                 throw new RuntimeException('Updating section failed (ID: '.$postData->get('section_id').')');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_section_edit', [
@@ -173,12 +173,12 @@ class SectionController extends BackendController
 
             // Validate and save section
             if ($section->validate() && $section->save()) {
-                $this->view->setSuccessAlert(translate('Successfully created'));
+                $this->service('alert')->success(translate('Successfully created'));
             } else {
                 throw new RuntimeException('Creating section failed');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Create failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Create failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_section_index', [
@@ -198,7 +198,7 @@ class SectionController extends BackendController
         // Get and delete section
         $section = SectionModel::findById($this->args['id']);
         if ($section && $section->delete()) {
-            $this->view->setSuccessAlert(translate('Successfully deleted'));
+            $this->service('alert')->success(translate('Successfully deleted'));
 
             return $this->redirectToRoute('backend_section_index', [
                     'page_id' => $section->page_id,
@@ -220,9 +220,9 @@ class SectionController extends BackendController
         $section = SectionModel::findById($this->args['id']);
         if ($section && $section->toggleActivation() && $section->save()) {
             if ($section->is_active) {
-                $this->view->setSuccessAlert(translate('Successfully enabled'));
+                $this->service('alert')->success(translate('Successfully enabled'));
             } else {
-                $this->view->setSuccessAlert(translate('Successfully disabled'));
+                $this->service('alert')->success(translate('Successfully disabled'));
             }
 
             return $this->redirectToRoute('backend_section_index', [

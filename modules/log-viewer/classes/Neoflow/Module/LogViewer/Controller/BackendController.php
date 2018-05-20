@@ -61,7 +61,7 @@ class BackendController extends AbstractToolModuleController
             ]);
         }
 
-        $this->view->setDangerAlert(translate('Log file "{0}" not found', [basename($logfile)]));
+        $this->service('alert')->danger(translate('Log file "{0}" not found', [basename($logfile)]));
 
         return $this->redirectToRoute('tmod_log_viewer_backend_index');
     }

@@ -3,7 +3,6 @@
 namespace Neoflow\CMS\View;
 
 use Neoflow\CMS\Core\AbstractView;
-use Neoflow\Alert\AbstractAlert;
 
 class BackendView extends AbstractView
 {
@@ -34,14 +33,14 @@ class BackendView extends AbstractView
     {
         // Set theme
         $this->theme = $this
-            ->settings()
-            ->getBackendTheme();
+                ->settings()
+                ->getBackendTheme();
 
         // Set backend-specific meta data
         $this->engine()->addMetaTagProperties([
             'name' => 'robots',
             'content' => 'noindex',
-            ], 'robots');
+                ], 'robots');
 
         parent::__construct();
     }
@@ -179,15 +178,13 @@ class BackendView extends AbstractView
     /**
      * Render alert.
      *
-     * @param AbstractAlert $alert
-     *
      * @return string
      */
     public function renderAlertTemplate(): string
     {
-        if ($this->hasAlerts()) {
+        if ($this->service('alert')->count() > 0) {
             return $this->renderTemplate('backend/alert', [
-                    'alerts' => $this->getAlerts(),
+                        'alerts' => $this->service('alert')->getAll(),
             ]);
         }
 

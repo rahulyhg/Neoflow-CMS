@@ -67,12 +67,12 @@ class UserController extends BackendController
 
             // Validate and save user
             if ($user && $user->validate() && $user->save()) {
-                $this->view->setSuccessAlert(translate('Successfully created'));
+                $this->service('alert')->success(translate('Successfully created'));
             } else {
                 throw new RuntimeException('Create user failed');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Create failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Create failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_user_index');
@@ -136,12 +136,12 @@ class UserController extends BackendController
 
             // Validate and save user
             if ($user && $user->validate() && $user->save()) {
-                $this->view->setSuccessAlert(translate('Successfully updated'));
+                $this->service('alert')->success(translate('Successfully updated'));
             } else {
                 throw new RuntimeException('Updating user failed (ID: '.$postData->get('user_id').')');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_user_edit', [
@@ -167,12 +167,12 @@ class UserController extends BackendController
 
             // Validate and save user password
             if ($user->validateNewPassword() && $user->save()) {
-                $this->view->setSuccessAlert(translate('Password successfully updated'));
+                $this->service('alert')->success(translate('Password successfully updated'));
             } else {
                 throw new RuntimeException('Updating password of user failed (ID: '.$postData->get('user_id').')');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert($ex->getErrors());
+            $this->service('alert')->warning($ex->getErrors());
         }
 
         return $this->redirectToRoute('backend_user_edit', [
@@ -192,7 +192,7 @@ class UserController extends BackendController
         // Delete user
         $result = UserModel::deleteById($this->args['id']);
         if ($result) {
-            $this->view->setSuccessAlert(translate('Successfully deleted'));
+            $this->service('alert')->success(translate('Successfully deleted'));
 
             return $this->redirectToRoute('backend_user_index');
         }

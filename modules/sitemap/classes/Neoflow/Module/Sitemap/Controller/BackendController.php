@@ -76,12 +76,12 @@ class BackendController extends AbstractToolModuleController
 
             // Validate and save settings
             if ($settings && $settings->validate() && $settings->save()) {
-                $this->view->setSuccessAlert(translate('Successfully updated'));
+                $this->service('alert')->success(translate('Successfully updated'));
             } else {
                 throw new RuntimeException('Update settings failed (ID: 1)');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('tmod_sitemap_backend_index');
@@ -110,12 +110,12 @@ class BackendController extends AbstractToolModuleController
 
             // Validate and save snippet
             if ($snippet && $snippet->validate() && $snippet->save()) {
-                $this->view->setSuccessAlert(translate('Successfully updated'));
+                $this->service('alert')->success(translate('Successfully updated'));
             } else {
                 throw new RuntimeException('Updating snippet failed (ID: '.$postData->get('snippet_id').')');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('tmod_snippets_backend_edit', [
@@ -137,7 +137,7 @@ class BackendController extends AbstractToolModuleController
             $sitemapFile = $this->service->getFile();
             if ($sitemapFile) {
                 if ($sitemapFile->delete()) {
-                    $this->view->setSuccessAlert(translate('Successfully deleted'));
+                    $this->service('alert')->success(translate('Successfully deleted'));
                 } else {
                     throw new RuntimeException('Deleting sitemap failed');
                 }
@@ -145,7 +145,7 @@ class BackendController extends AbstractToolModuleController
                 throw new ValidationException(translate('Sitemap does not exist and therefore cannot be deleted'));
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Delete failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Delete failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('tmod_sitemap_backend_index');
@@ -162,12 +162,12 @@ class BackendController extends AbstractToolModuleController
     {
         try {
             if ($this->service->generateAsFile()) {
-                $this->view->setSuccessAlert(translate('Successfully recreated'));
+                $this->service('alert')->success(translate('Successfully recreated'));
             } else {
                 throw new RuntimeException('Recreating sitemap failed');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Recreate failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Recreate failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('tmod_sitemap_backend_index');

@@ -137,12 +137,12 @@ class NavitemController extends BackendController
 
             // Validate and save navigation item
             if ($navitem && 1 != $navitem->navigation_id && $navitem->validate() && $navitem->save()) {
-                $this->view->setSuccessAlert(translate('Successfully created'));
+                $this->service('alert')->success(translate('Successfully created'));
             } else {
                 throw new RuntimeException('Creating navigation item failed or navigation is not editable');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Create failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Create failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_navitem_index', [
@@ -167,7 +167,7 @@ class NavitemController extends BackendController
         // Get and delete navigation item
         $navitem = NavitemModel::findById($this->args['id']);
         if ($navitem && 1 != $navitem->navigation_id && $navitem->delete()) {
-            $this->view->setSuccessAlert(translate('Successfully deleted'));
+            $this->service('alert')->success(translate('Successfully deleted'));
 
             return $this->redirectToRoute('backend_navitem_index', [
                     'id' => $navitem->navigation_id,
@@ -263,12 +263,12 @@ class NavitemController extends BackendController
 
             // Validate and save navigation item
             if ($navitem && $navitem->validate() && $navitem->save()) {
-                $this->view->setSuccessAlert(translate('Successfully updated'));
+                $this->service('alert')->success(translate('Successfully updated'));
             } else {
                 throw new RuntimeException('Updating navigation item failed (ID: '.$postData->get('navitem_id').')');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_navitem_edit', [
@@ -289,9 +289,9 @@ class NavitemController extends BackendController
         $navitem = NavitemModel::findById($this->args['id']);
         if ($navitem && $navitem->toggleActivation() && $navitem->save()) {
             if ($navitem->is_active) {
-                $this->view->setSuccessAlert(translate('Successfully enabled'));
+                $this->service('alert')->success(translate('Successfully enabled'));
             } else {
-                $this->view->setSuccessAlert(translate('Successfully disabled'));
+                $this->service('alert')->success(translate('Successfully disabled'));
             }
 
             return $this->redirectToRoute('backend_navitem_index', [

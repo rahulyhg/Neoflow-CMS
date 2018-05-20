@@ -53,12 +53,12 @@ class DatabaseController extends InstallController
             // Update settings
             $this->service('install')->updateSettings();
 
-            $this->view->setSuccessAlert(translate('Database successfully installed'));
+            $this->service('alert')->success(translate('Database successfully installed'));
 
             return $this->redirectToRoute('install_website_index');
         } catch (Throwable $ex) {
             File::unlink($this->config()->getPath('/config.php'));
-            $this->view->setDangerAlert([translate('Install failed'), [$ex->getMessage()]]);
+            $this->service('alert')->danger([translate('Install failed'), [$ex->getMessage()]]);
         }
 
         // Set current config as flash

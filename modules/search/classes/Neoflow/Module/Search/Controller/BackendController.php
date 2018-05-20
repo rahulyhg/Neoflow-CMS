@@ -69,12 +69,12 @@ class BackendController extends AbstractToolModuleController
 
             // Validate and save settings
             if ($this->settings->validate() && $this->settings->save()) {
-                $this->view->setSuccessAlert(translate('Successfully updated'));
+                $this->service('alert')->success(translate('Successfully updated'));
             } else {
                 throw new RuntimeException('Update settings failed (ID: 1)');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('tmod_search_backend_index');

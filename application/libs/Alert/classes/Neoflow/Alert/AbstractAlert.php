@@ -17,27 +17,29 @@ abstract class AbstractAlert
     /**
      * Constructor.
      *
-     * @param string|array $messages One or multiple messages
+     * @param string|array $message Message or a list of messages
      */
-    public function __construct($messages)
+    public function __construct($message)
     {
-        $this->setMessages($messages);
+        if (is_string($message)) {
+            $this->addMessage($message);
+        } else {
+            $this->messages = $message;
+        }
+
+        return $this;
     }
 
     /**
-     * Set messages.
+     * Add message.
      *
-     * @param string|array $messages One or multiple messages
+     * @param string $message Message
      *
      * @return self
      */
-    public function setMessages($messages): self
+    public function addMessage(string $message): self
     {
-        if (is_string($messages)) {
-            $this->messages[] = $messages;
-        } else {
-            $this->messages = $messages;
-        }
+        $this->messages[] = $message;
 
         return $this;
     }

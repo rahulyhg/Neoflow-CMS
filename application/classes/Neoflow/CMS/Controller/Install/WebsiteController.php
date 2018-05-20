@@ -56,14 +56,14 @@ class WebsiteController extends InstallController
 
             // Validate and save settings
             if ($settings->validate() && $settings->save()) {
-                $this->view->setSuccessAlert(translate('Website successfully configured'));
+                $this->service('alert')->success(translate('Website successfully configured'));
 
                 return $this->redirectToRoute('install_administrator_index');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Create failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Create failed'), $ex->getErrors()]);
         } catch (Throwable $ex) {
-            $this->view->setDangerAlert([translate('Create failed'), [$ex->getMessage()]]);
+            $this->service('alert')->danger([translate('Create failed'), [$ex->getMessage()]]);
         }
 
         return $this->redirectToRoute('install_website_index');

@@ -64,12 +64,12 @@ class NavigationController extends BackendController
 
             // Validate and save navigation
             if ($navigation && $navigation->validate() && $navigation->save()) {
-                $this->view->setSuccessAlert(translate('Successfully created'));
+                $this->service('alert')->success(translate('Successfully created'));
             } else {
                 throw new RuntimeException('Creating navigation failed');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Create failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Create failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_navigation_index');
@@ -90,12 +90,12 @@ class NavigationController extends BackendController
 
             // Validate and save navigation
             if ($frontendTheme && $frontendTheme->loadNavigations()) {
-                $this->view->setSuccessAlert(translate('Successfully created'));
+                $this->service('alert')->success(translate('Successfully created'));
             } else {
                 throw new RuntimeException('Creating navigation failed');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert($ex->getErrors());
+            $this->service('alert')->warning($ex->getErrors());
         }
 
         return $this->redirectToRoute('backend_navigation_index');
@@ -155,12 +155,12 @@ class NavigationController extends BackendController
 
             // Validate and save navigation
             if ($navigation && 1 !== $navigation->id() && $navigation->validate() && $navigation->save()) {
-                $this->view->setSuccessAlert(translate('Successfully updated'));
+                $this->service('alert')->success(translate('Successfully updated'));
             } else {
                 throw new RuntimeException('Updating navigation failed or navigation is not updatable (ID: '.$postData->get('navigation_id').')');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert([translate('Update failed'), $ex->getErrors()]);
+            $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_navigation_edit', [
@@ -180,7 +180,7 @@ class NavigationController extends BackendController
         // Get and delete navigation
         $navigation = NavigationModel::findById($this->args['id']);
         if ($navigation && 1 !== $navigation->id() && $navigation->delete()) {
-            $this->view->setSuccessAlert(translate('Successfully deleted'));
+            $this->service('alert')->success(translate('Successfully deleted'));
 
             return $this->redirectToRoute('backend_navigation_index');
         }

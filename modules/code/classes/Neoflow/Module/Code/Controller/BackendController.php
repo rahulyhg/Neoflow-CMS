@@ -62,12 +62,12 @@ class BackendController extends AbstractPageModuleController
 
             // Validate and save code content
             if ($code && $code->save() && $this->updateModifiedWhen()) {
-                $this->view->setSuccessAlert(translate('Successfully updated'));
+                $this->service('alert')->success(translate('Successfully updated'));
             } else {
                 throw new RuntimeException('Update code failed (ID: '.$postData->get('code_id').')');
             }
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert($ex->getErrors());
+            $this->service('alert')->warning($ex->getErrors());
         }
 
         return $this->redirectToRoute('pmod_code_backend_index', [

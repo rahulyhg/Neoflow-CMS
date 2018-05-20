@@ -20,12 +20,12 @@ class AuthController extends BackendController
     public function logoutAction(): RedirectResponse
     {
         if ($this->service('auth')->logout()) {
-            $this->view->setSuccessAlert(translate('Successfully logged out'));
+            $this->service('alert')->success(translate('Successfully logged out'));
 
             return $this->redirectToRoute('backend_auth_login');
         }
 
-        $this->view->setDangerAlert(translate('Logout failed'));
+        $this->service('alert')->danger(translate('Logout failed'));
 
         return $this->redirectToRoute('backend_dashboard_index');
     }
@@ -61,7 +61,7 @@ class AuthController extends BackendController
         // Authenticate and authorize user
         try {
             if ($this->service('auth')->login($email, $password)) {
-                $this->view->setSuccessAlert(translate('Successfully logged in'));
+                $this->service('alert')->success(translate('Successfully logged in'));
 
                 if ($url) {
                     return $this->redirect($url);
@@ -70,7 +70,7 @@ class AuthController extends BackendController
                 return $this->redirectToRoute('backend_dashboard_index');
             }
         } catch (AuthException $ex) {
-            $this->view->setDangerAlert($ex->getMessage());
+            $this->service('alert')->danger($ex->getMessage());
         }
 
         return $this->redirectToRoute('backend_auth_login');
@@ -100,12 +100,12 @@ class AuthController extends BackendController
         $user = UserModel::findByColumn('reset_key', $this->args['reset_key']);
 
         if ($user) {
-            $this->view->setInfoAlert(translate('Please enter the new password for your user account, registered under the email address {0}.', [$user->email]));
+            $this->service('alert')->info(translate('Please enter the new password for your user account, registered under the email address {0}.', [$user->email]));
 
             return $this->render('backend/auth/new-password', ['user' => $user]);
         }
 
-        $this->view->setDangerAlert(translate('User not found'));
+        $this->service('alert')->danger(translate('User not found'));
 
         return $this->redirectToRoute('backend_auth_login');
     }
@@ -125,14 +125,14 @@ class AuthController extends BackendController
         // Authenticate and authorize user
         try {
             if ($this->service('auth')->updatePassword($newPassword, $confirmPassword, $resetKey)) {
-                $this->view->setSuccessAlert(translate('Password successfully updated'));
+                $this->service('alert')->success(translate('Password successfully updated'));
 
                 return $this->redirectToRoute('backend_auth_login');
             }
         } catch (AuthException $ex) {
-            $this->view->setWarningAlert($ex->getMessage());
+            $this->service('alert')->warning($ex->getMessage());
         } catch (ValidationException $ex) {
-            $this->view->setWarningAlert($ex->getErrors());
+            $this->service('alert')->warning($ex->getErrors());
         }
 
         return $this->redirectToRoute('backend_auth_new_password', [
@@ -151,12 +151,12 @@ class AuthController extends BackendController
 
         try {
             if ($this->service('auth')->createResetKey($email)) {
-                $this->view->setSuccessAlert(translate('Email successfully sent'));
+                $this->service('alert')->success(translate('Email successfully sent'));
             } else {
                 throw new RuntimeException('Resetting password failed');
             }
         } catch (AuthException $ex) {
-            $this->view->setDangerAlert($ex->getMessage());
+            $this->service('alert')->danger($ex->getMessage());
         }
 
         return $this->redirectToRoute('backend_auth_lost_password');
