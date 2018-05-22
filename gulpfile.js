@@ -96,16 +96,6 @@ gulp.task('install:_createThemeZipPackages', function () {
             .pipe(gulp.dest('./installation/themes'));
 });
 
-// Pull latest files and folders from Git
-gulp.task('source:pullFromGit', function () {
-    return gulp
-            .src('.')
-            .pipe(run('git pull', {
-                usePowerShell: true,
-                verbosity: 0
-            }));
-});
-
 // Build update package
 gulp.task('update:release', function (callback) {
     return runSequence('update:clean', 'source:pullFromGit', 'update:_copyFiles', 'update:_createModuleZipPackages', 'update:_createThemeZipPackages', 'update:_createZipPackage', callback);
@@ -205,3 +195,18 @@ gulp.task('update:clean', function () {
     ]);
 });
 
+
+// Source clean
+gulp.task('source:clean', function (callback) {
+    runSequence('install:clean', 'update:clean', callback);
+});
+
+// Pull latest files and folders from Git
+gulp.task('source:pullFromGit', function () {
+    return gulp
+            .src('.')
+            .pipe(run('git pull', {
+                usePowerShell: true,
+                verbosity: 0
+            }));
+});
