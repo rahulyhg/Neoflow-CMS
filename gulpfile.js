@@ -12,7 +12,7 @@ var pjson = require('./package.json');
 
 // Build install package
 gulp.task('install:release', function (callback) {
-    runSequence('install:clean', 'source:pullFromGit', 'install:_createModuleZipPackages', 'install:_createZipPackage', callback);
+    runSequence('install:clean', 'source:pullFromGit', 'install:_createModuleZipPackages', 'install:_createThemeZipPackages', 'install:_createZipPackage', callback);
 });
 
 // Create zip file for installation
