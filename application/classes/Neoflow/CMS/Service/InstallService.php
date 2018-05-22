@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
@@ -15,7 +16,6 @@ use const APP_MODE;
 
 class InstallService extends AbstractService
 {
-
     /**
      * Etablish database connection, create tables and insert data.
      *
@@ -31,7 +31,7 @@ class InstallService extends AbstractService
 
         // Alter database to user defined charset
         if ($this->database()->hasGrants(['ALTER'])) {
-            $this->database()->exec('ALTER DATABASE `' . $config['dbname'] . '` CHARACTER SET ' . strtolower($config['charset']));
+            $this->database()->exec('ALTER DATABASE `'.$config['dbname'].'` CHARACTER SET '.strtolower($config['charset']));
         }
 
         // Create tables
@@ -46,7 +46,8 @@ class InstallService extends AbstractService
     }
 
     /**
-     * Install modules
+     * Install modules.
+     *
      * @return self
      */
     public function installModules(): self
@@ -58,12 +59,12 @@ class InstallService extends AbstractService
         // Install each module package file
         $modulesFolder
             ->findFiles('*.zip')
-            ->each(function($file) {
+            ->each(function ($file) {
                 try {
                     $module = new ModuleModel();
                     $module->install($file);
                 } catch (Throwable $ex) {
-                    $this->logger()->warning('Module installation for package ' . $file->getName() . ' failed.', [
+                    $this->logger()->warning('Module installation for package '.$file->getName().' failed.', [
                         'Exception message' => $ex->getMessage(),
                     ]);
                 }
@@ -73,7 +74,8 @@ class InstallService extends AbstractService
     }
 
     /**
-     * Install themes
+     * Install themes.
+     *
      * @return self
      */
     public function installThemes(): self
@@ -85,7 +87,7 @@ class InstallService extends AbstractService
         // Install each module package file
         $themesFolder
             ->findFiles('*.zip')
-            ->each(function($file) {
+            ->each(function ($file) {
                 $theme = new ThemeModel();
                 $theme->install($file);
             });

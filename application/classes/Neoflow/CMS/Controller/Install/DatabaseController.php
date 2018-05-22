@@ -1,7 +1,7 @@
 <?php
+
 namespace Neoflow\CMS\Controller\Install;
 
-use Exception;
 use Neoflow\CMS\Controller\InstallController;
 use Neoflow\Filesystem\File;
 use Neoflow\Framework\HTTP\Responsing\Response;
@@ -10,7 +10,6 @@ use function translate;
 
 class DatabaseController extends InstallController
 {
-
     /**
      * Index action.
      *
