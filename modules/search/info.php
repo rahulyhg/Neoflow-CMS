@@ -8,7 +8,7 @@ return [
     'description' => 'Provides a dynamic search.',
     'version' => '1.0.0',
     'author' => 'Jonathan Nessier <jonathan.nessier@neoflow.ch>',
-    'copyright' => 'Copyright (c) Jonathan Nessier, Neoflow.ch',
+    'copyright' => '(c) Jonathan Nessier, Neoflow.ch',
     'license' => 'MIT',
     'type' => 'tool',
     'folder_name' => 'search',

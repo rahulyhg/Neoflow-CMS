@@ -11,7 +11,7 @@ return [
         '4.7.1',
     ],
     'author' => 'Jonathan Nessier <jonathan.nessier@neoflow.ch>',
-    'copyright' => 'Copyright (c) Jonathan Nessier, Neoflow.ch',
+    'copyright' => '(c) Jonathan Nessier, Neoflow.ch',
     'license' => 'MIT',
     'type' => 'library',
     'folder_name' => 'tinymce',

@@ -11,7 +11,7 @@ return [
         '1.0.0',
     ], // list of older versions (for updates)
     'author' => 'Jonathan Nessier <jonathan.nessier@neoflow.ch>',
-    'copyright' => 'Copyright (c) Jonathan Nessier, Neoflow.ch',
+    'copyright' => '(c) Jonathan Nessier, Neoflow.ch',
     'license' => 'MIT',
     'type' => 'tool', // page, library or tool
     'folder_name' => 'dummy', // Mostly like the identifier, but without special chars or spaces
