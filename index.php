@@ -4,7 +4,7 @@ use Neoflow\CMS\App;
 
 // PHP version check
 if (version_compare(PHP_VERSION, '7.1', '<')) {
-    die('PHP 7 or newer required.');
+    die('PHP 7.1 or newer required.');
 }
 
 // Start timer
@@ -18,13 +18,13 @@ error_reporting(E_ALL);
 
 // Define constant
 define('APP_PATH', __DIR__);
-define('APP_MODE', 'DEV');
+define('APP_MODE', 'PROD');
 
 // Include autoload
 require_once 'autoload.php';
 
 // Define config file path
-$configFilePath = __DIR__.DIRECTORY_SEPARATOR.'config.php';
+$configFilePath = __DIR__ . DIRECTORY_SEPARATOR . 'config.php';
 
 // Create, execute and publish CMS app
 $app = new App([], false, true);

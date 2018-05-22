@@ -77,8 +77,12 @@ $('.datatable').each(function () {
                         .find('.dataTables_paginate');
 
                 if ($currentDtPaginate.find('.pagination li').length < 2) {
-                    $currentDtPaginate.remove();
+                    $currentDtPaginate.hide();
+                } else {
+                    $currentDtPaginate.show();
                 }
+
+
 
                 $dataTable.css('visibility', 'visible');
             })

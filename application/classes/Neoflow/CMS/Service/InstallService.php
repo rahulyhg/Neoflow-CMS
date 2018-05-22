@@ -1,16 +1,21 @@
 <?php
-
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
 use Neoflow\CMS\Handler\Translator;
+use Neoflow\CMS\Model\ModuleModel;
 use Neoflow\CMS\Model\SettingModel;
+use Neoflow\CMS\Model\ThemeModel;
 use Neoflow\CMS\Model\UserModel;
+use Neoflow\Filesystem\Folder;
 use Neoflow\Framework\Handler\Logging\Logger;
 use Neoflow\Framework\Persistence\Database;
+use Throwable;
+use const APP_MODE;
 
 class InstallService extends AbstractService
 {
+
     /**
      * Etablish database connection, create tables and insert data.
      *
@@ -26,7 +31,7 @@ class InstallService extends AbstractService
 
         // Alter database to user defined charset
         if ($this->database()->hasGrants(['ALTER'])) {
-            $this->database()->exec('ALTER DATABASE `'.$config['dbname'].'` CHARACTER SET '.strtolower($config['charset']));
+            $this->database()->exec('ALTER DATABASE `' . $config['dbname'] . '` CHARACTER SET ' . strtolower($config['charset']));
         }
 
         // Create tables
@@ -36,6 +41,54 @@ class InstallService extends AbstractService
         // Get SQL to insert data into tables
         $insertSqlFilePath = $this->config()->getPath('/installation/data.sql');
         $this->database()->executeFile($insertSqlFilePath);
+
+        return $this;
+    }
+
+    /**
+     * Install modules
+     * @return self
+     */
+    public function installModules(): self
+    {
+        // Get modules folder
+        $modulesPath = $this->config()->getPath('/installation/modules');
+        $modulesFolder = new Folder($modulesPath);
+
+        // Install each module package file
+        $modulesFolder
+            ->findFiles('*.zip')
+            ->each(function($file) {
+                try {
+                    $module = new ModuleModel();
+                    $module->install($file);
+                } catch (Throwable $ex) {
+                    $this->logger()->warning('Module installation for package ' . $file->getName() . ' failed.', [
+                        'Exception message' => $ex->getMessage(),
+                    ]);
+                }
+            });
+
+        return $this;
+    }
+
+    /**
+     * Install themes
+     * @return self
+     */
+    public function installThemes(): self
+    {
+        // Get themes folder
+        $themesPath = $this->config()->getPath('/installation/themes');
+        $themesFolder = new Folder($themesPath);
+
+        // Install each module package file
+        $themesFolder
+            ->findFiles('*.zip')
+            ->each(function($file) {
+                $theme = new ThemeModel();
+                $theme->install($file);
+            });
 
         return $this;
     }

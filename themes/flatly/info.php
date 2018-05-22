@@ -1,12 +1,11 @@
 <?php
-
 // Theme info
 return [
     'name' => 'Flatly',
     'identifier' => 'flatly',
     'folder_name' => 'flatly',
     'description' => 'Bootstrap-based free template of Bootswatch, modified for Neoflow CMS.',
-    'version' => '1.0.0',
+    'version' => '1.0.1',
     'for' => [
         '1.0',
     ],

@@ -1,5 +1,4 @@
 <?php
-
 return [
     'app' => [
         'url' => '',
@@ -29,7 +28,7 @@ return [
     'logger' => [
         'extension' => 'txt',
         'prefix' => 'log_',
-        'level' => 'DEBUG',
+        'level' => 'WARNING',
         'stackTrace' => true,
     ],
     'translator' => [
