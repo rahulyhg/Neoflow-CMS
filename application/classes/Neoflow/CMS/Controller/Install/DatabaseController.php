@@ -8,8 +8,8 @@ use Neoflow\Framework\HTTP\Responsing\Response;
 use Throwable;
 use function translate;
 
-class DatabaseController extends InstallController
-{
+class DatabaseController extends InstallController {
+
     /**
      * Index action.
      *
@@ -75,7 +75,7 @@ class DatabaseController extends InstallController
 
         // Redirect to current step
         return $this->redirectToRoute('install_database_index', [
-                'url' => $config['url'],
+                    'url' => $config['url'],
         ]);
     }
 
@@ -93,4 +93,5 @@ class DatabaseController extends InstallController
 
         return parent::preHook();
     }
+
 }

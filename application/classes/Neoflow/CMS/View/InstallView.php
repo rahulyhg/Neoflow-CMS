@@ -5,8 +5,8 @@ namespace Neoflow\CMS\View;
 use Neoflow\CMS\Core\AbstractView;
 use Neoflow\CMS\Model\ThemeModel;
 
-class InstallView extends AbstractView
-{
+class InstallView extends AbstractView {
+
     /**
      * Constructor.
      */
@@ -21,7 +21,7 @@ class InstallView extends AbstractView
         $this->engine()->addMetaTagProperties([
             'name' => 'robots',
             'content' => 'noindex',
-            ], 'robots');
+                ], 'robots');
 
         parent::__construct();
     }
@@ -35,12 +35,13 @@ class InstallView extends AbstractView
      */
     public function renderAlertTemplate(): string
     {
-        if ($this->hasAlerts()) {
+        if ($this->service('alert')->count() > 0) {
             return $this->renderTemplate('backend/alert', [
-                    'alerts' => $this->getAlerts(),
+                        'alerts' => $this->service('alert')->getAll(),
             ]);
         }
 
         return '';
     }
+
 }

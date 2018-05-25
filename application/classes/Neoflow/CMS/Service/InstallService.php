@@ -11,11 +11,12 @@ use Neoflow\CMS\Model\UserModel;
 use Neoflow\Filesystem\Folder;
 use Neoflow\Framework\Handler\Logging\Logger;
 use Neoflow\Framework\Persistence\Database;
+use RuntimeException;
 use Throwable;
 use const APP_MODE;
 
-class InstallService extends AbstractService
-{
+class InstallService extends AbstractService {
+
     /**
      * Etablish database connection, create tables and insert data.
      *
@@ -31,7 +32,7 @@ class InstallService extends AbstractService
 
         // Alter database to user defined charset
         if ($this->database()->hasGrants(['ALTER'])) {
-            $this->database()->exec('ALTER DATABASE `'.$config['dbname'].'` CHARACTER SET '.strtolower($config['charset']));
+            $this->database()->exec('ALTER DATABASE `' . $config['dbname'] . '` CHARACTER SET ' . strtolower($config['charset']));
         }
 
         // Create tables
@@ -58,17 +59,17 @@ class InstallService extends AbstractService
 
         // Install each module package file
         $modulesFolder
-            ->findFiles('*.zip')
-            ->each(function ($file) {
-                try {
-                    $module = new ModuleModel();
-                    $module->install($file);
-                } catch (Throwable $ex) {
-                    $this->logger()->warning('Module installation for package '.$file->getName().' failed.', [
-                        'Exception message' => $ex->getMessage(),
-                    ]);
-                }
-            });
+                ->findFiles('*.zip')
+                ->each(function ($file) {
+                    try {
+                        $module = new ModuleModel();
+                        $module->install($file);
+                    } catch (Throwable $ex) {
+                        $this->logger()->warning('Module installation for package ' . $file->getName() . ' failed.', [
+                            'Exception message' => $ex->getMessage(),
+                        ]);
+                    }
+                });
 
         return $this;
     }
@@ -86,11 +87,17 @@ class InstallService extends AbstractService
 
         // Install each module package file
         $themesFolder
-            ->findFiles('*.zip')
-            ->each(function ($file) {
-                $theme = new ThemeModel();
-                $theme->install($file);
-            });
+                ->findFiles('*.zip')
+                ->each(function ($file) {
+                    try {
+                        $theme = new ThemeModel();
+                        $theme->install($file);
+                    } catch (Throwable $ex) {
+                        $this->logger()->warning('Theme installation for package ' . $file->getName() . ' failed.', [
+                            'Exception message' => $ex->getMessage(),
+                        ]);
+                    }
+                });
 
         return $this;
     }
@@ -99,39 +106,46 @@ class InstallService extends AbstractService
      * Update settings with initial configuration.
      *
      * @return self
+     *
+     * @throws RuntimeException
      */
     public function updateSettings(): self
     {
         // Fetch and set settings
         $settings = SettingModel::findById(1);
-        $this->app()->set('settings', $settings);
+        if ($settings) {
+            $this->app()->set('settings', $settings);
 
-        // Reset translator (to get correct language detection after database installation)
-        $this->app()->set('translator', new Translator());
+            // Reset translator (to get correct language detection after database installation)
+            $this->app()->set('translator', new Translator());
 
-        // Update settings
-        $settings->timezone = date_default_timezone_get();
-        $settings->session_name = ini_get('session.name');
-        $settings->session_lifetime = (int) ini_get('session.gc_maxlifetime');
+            // Update settings
+            $settings->timezone = date_default_timezone_get();
+            $settings->session_name = ini_get('session.name');
+            $settings->session_lifetime = (int) ini_get('session.gc_maxlifetime');
 
-        if (APP_MODE === 'DEV') {
-            $settings->show_error_details = true;
-            $settings->show_debugbar = true;
+            if (APP_MODE === 'DEV') {
+                $settings->show_error_details = true;
+                $settings->show_debugbar = true;
+            }
+
+            $settings->theme_id = 2;
+
+            // Get language
+            $language = $this->translator()->getCurrentLanguage();
+
+            // Update language settings
+            $settings->default_language_id = $language->id();
+
+            $settings->save();
+            $settings->setReadOnly();
+
+            // Overwrite config with CMS settings
+            $settings->overwriteConfig();
+
+            return $this;
         }
-
-        // Get language
-        $language = $this->translator()->getCurrentLanguage();
-
-        // Update language settings
-        $settings->default_language_id = $language->id();
-
-        $settings->save();
-        $settings->setReadOnly();
-
-        // Overwrite config with CMS settings
-        $settings->overwriteConfig();
-
-        return $this;
+        throw new RuntimeException('Settings not found.');
     }
 
     /**
@@ -213,4 +227,5 @@ class InstallService extends AbstractService
 
         return false;
     }
+
 }

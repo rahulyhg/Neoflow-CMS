@@ -23,7 +23,7 @@ media/modules/*/section-*
 media/public/*
 !media/public/.gitkeep
 
-neoflow-cms-update*.zip
+neoflow-cms-*.zip
 
 installation/*
 !installation/*/.gitkeep
