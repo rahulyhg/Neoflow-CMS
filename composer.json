@@ -4,13 +4,15 @@
     "license": "MIT",
     "version": "1.0.0-a2",
     "minimum-stability": "dev",
-    "optimize-autoloader": true,
     "authors": [
         {
             "name": "Jonathan Nessier",
             "email": "jonathan.nessier@neoflow.ch"
         }
     ],
+    "config": {
+        "optimize-autoloader": true
+    },
     "repositories": [
         {
             "url": "https://github.com/neoflow/Neoflow-Framework.git",
@@ -31,12 +33,16 @@
         {
             "url": "https://github.com/neoflow/Neoflow-Mailer.git",
             "type": "git"
+        },
+        {
+            "url": "https://github.com/neoflow/Neoflow-Functions.git",
+            "type": "git"
         }
     ],
     "require": {
         "neoflow/framework": "dev-master",
-        "neoflow/filesystem": "dev-master",
         "neoflow/validation": "dev-master",
+        "neoflow/filesystem": "dev-master",
         "neoflow/image": "dev-master",
         "neoflow/mailer": "dev-master"
     }
