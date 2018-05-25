@@ -1,10 +1,10 @@
 # Neoflow CMS
-Module-based content management system with a user friendly interface, based on a perfect optimized MVC framework.
+Module-based content management system with a user friendly interface, based on a optimized MVC framework.
 
 ## Current state
-The Neoflow CMS is currently in development. But the first prerelease is already released.
+The Neoflow CMS is currently under development, but the first prerelease is already released.
 
-Please visit the [project board](https://github.com/Neoflow/Neoflow-CMS/projects) for more information about the roadmap of the next changes.
+Please visit the [project board](https://github.com/Neoflow/Neoflow-CMS/projects) to get more information about the next releases.
 
 ## Requirements
  * About 20 MB disk space
