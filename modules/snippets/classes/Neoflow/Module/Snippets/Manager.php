@@ -1,11 +1,11 @@
 <?php
+
 namespace Neoflow\Module\Snippets;
 
 use Neoflow\CMS\Manager\AbstractModuleManager;
 
 class Manager extends AbstractModuleManager
 {
-
     /**
      * Install module.
      *
@@ -14,7 +14,6 @@ class Manager extends AbstractModuleManager
     public function install(): bool
     {
         if (!$this->database()->hasTable('mod_snippets')) {
-
             $this
                 ->database()
                 ->prepare('

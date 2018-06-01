@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\CMS\Service;
 
 use Neoflow\CMS\Core\AbstractService;
@@ -16,7 +17,6 @@ use const APP_MODE;
 
 class InstallService extends AbstractService
 {
-
     /**
      * Etablish database connection, create tables and insert data.
      *
@@ -32,7 +32,7 @@ class InstallService extends AbstractService
 
         // Alter database to user defined charset
         if ($this->database()->hasGrants(['ALTER'])) {
-            $this->database()->exec('ALTER DATABASE `' . $config['dbname'] . '` CHARACTER SET ' . strtolower($config['charset']));
+            $this->database()->exec('ALTER DATABASE `'.$config['dbname'].'` CHARACTER SET '.strtolower($config['charset']));
         }
 
         // Create tables
@@ -66,7 +66,7 @@ class InstallService extends AbstractService
                     $module = new ModuleModel();
                     $module->install($file);
                 } catch (Throwable $ex) {
-                    $this->logger()->warning('Module installation for package ' . $file->getName() . ' failed.', [
+                    $this->logger()->warning('Module installation for package '.$file->getName().' failed.', [
                         'Exception message' => $ex->getMessage(),
                     ]);
                 }
@@ -94,19 +94,17 @@ class InstallService extends AbstractService
                     $theme = new ThemeModel();
                     $theme->install($file);
                 } catch (Throwable $ex) {
-                    $this->logger()->warning('Theme installation for package ' . $file->getName() . ' failed.', [
+                    $this->logger()->warning('Theme installation for package '.$file->getName().' failed.', [
                         'Exception message' => $ex->getMessage(),
                     ]);
                 }
             });
 
-
         // Update frontend theme
         SettingModel::updateById([
-                'theme_id' => 2
+                'theme_id' => 2,
                 ], 1)
             ->save();
-
 
         return $this;
     }

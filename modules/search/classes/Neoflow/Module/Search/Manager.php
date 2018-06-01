@@ -1,4 +1,5 @@
 <?php
+
 namespace Neoflow\Module\Search;
 
 use Neoflow\CMS\Manager\AbstractModuleManager;
@@ -7,7 +8,6 @@ use Neoflow\Module\Search\Model\EntityModel;
 
 class Manager extends AbstractModuleManager
 {
-
     /**
      * Install module.
      *
@@ -32,7 +32,7 @@ class Manager extends AbstractModuleManager
             ->execute();
 
         EntityModel::create([
-            'entity_class' => 'Neoflow\\Module\\WYSIWYG\\Model'
+            'entity_class' => 'Neoflow\\Module\\WYSIWYG\\Model',
         ])->save();
 
         SettingModel::create([

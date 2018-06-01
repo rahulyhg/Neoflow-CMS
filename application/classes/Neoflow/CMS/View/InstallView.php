@@ -5,8 +5,8 @@ namespace Neoflow\CMS\View;
 use Neoflow\CMS\Core\AbstractView;
 use Neoflow\CMS\Model\ThemeModel;
 
-class InstallView extends AbstractView {
-
+class InstallView extends AbstractView
+{
     /**
      * Constructor.
      */
@@ -43,5 +43,4 @@ class InstallView extends AbstractView {
 
         return '';
     }
-
 }

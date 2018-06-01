@@ -21,13 +21,13 @@ class Manager extends AbstractModuleManager
                         `url_id` INT NOT NULL AUTO_INCREMENT,
                         `loc` VARCHAR(255) NOT NULL,
                         `lastmod` VARCHAR(20) NOT NULL,
-                        `changefreq` enum("always","hourly","daily","weekly","monthly","yearly","never") NOT NULL DEFAULT "monthly"
+                        `changefreq` enum("always","hourly","daily","weekly","monthly","yearly","never") NOT NULL DEFAULT "monthly",
                         `priority` VARCHAR(5) NOT NULL,
                     PRIMARY KEY (`url_id`));
 
                     CREATE TABLE `mod_sitemap_settings` (
                         `setting_id` INT NOT NULL AUTO_INCREMENT,
-                        `default_changefreq` enum("always","hourly","daily","weekly","monthly","yearly","never") NOT NULL DEFAULT "monthly"
+                        `default_changefreq` enum("always","hourly","daily","weekly","monthly","yearly","never") NOT NULL DEFAULT "monthly",
                         `default_priority` VARCHAR(5) NOT NULL DEFAULT "0.5",
                         `sitemap_lifetime` INT NOT NULL DEFAULT "72",
                         `automated_creation` TINYINT(1) NOT NULL DEFAULT "1",
