@@ -8,8 +8,8 @@ use Neoflow\Framework\ORM\EntityCollection;
 use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Framework\ORM\Repository;
 
-class NavigationModel extends AbstractModel
-{
+class NavigationModel extends AbstractModel {
+
     /**
      * @var string
      */
@@ -62,17 +62,17 @@ class NavigationModel extends AbstractModel
         $validator = new EntityValidator($this);
 
         $validator
-            ->required()
-            ->set('title', translate('Title'));
+                ->required()
+                ->set('title', translate('Title'));
 
         $validator
-            ->callback(function ($navigationKey, $id) {
-                return 0 === NavigationModel::repo()
-                    ->where('navigation_key', '=', $navigationKey)
-                    ->where('navigation_id', '!=', $id)
-                    ->count();
-            }, '{0} has to be unique', [$this->id()])
-            ->set('navigation_key', 'Key');
+                ->callback(function ($navigationKey, $id) {
+                    return 0 === NavigationModel::repo()
+                            ->where('navigation_key', '=', $navigationKey)
+                            ->where('navigation_id', '!=', $id)
+                            ->count();
+                }, '{0} has to be unique', [$this->id()])
+                ->set('navigation_key', 'Key');
 
         return (bool) $validator->validate();
     }
@@ -113,8 +113,8 @@ class NavigationModel extends AbstractModel
 
         if ($strict) {
             $navitems
-                ->where('is_active', true)
-                ->sort('position');
+                    ->where('is_active', true)
+                    ->sortByProperty('position');
         }
 
         foreach ($navitems as $navitem) {
@@ -173,10 +173,10 @@ class NavigationModel extends AbstractModel
     public function getNavigationTree(int $startLevel = 0, int $maxLevel = 5, bool $strict = true, int $language_id = 0): array
     {
         $navitems = $this->navitems()
-            ->where('parent_navitem_id', '=', null)
-            ->where('language_id', '=', $language_id)
-            ->orderByAsc('position')
-            ->fetchAll();
+                ->where('parent_navitem_id', '=', null)
+                ->where('language_id', '=', $language_id)
+                ->orderByAsc('position')
+                ->fetchAll();
 
         $navigationTree = $this->buildNavigationTree($navitems, $maxLevel, $strict);
 
@@ -191,4 +191,5 @@ class NavigationModel extends AbstractModel
 
         return $navigationTree;
     }
+
 }
