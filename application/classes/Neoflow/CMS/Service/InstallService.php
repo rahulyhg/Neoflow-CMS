@@ -15,8 +15,8 @@ use RuntimeException;
 use Throwable;
 use const APP_MODE;
 
-class InstallService extends AbstractService
-{
+class InstallService extends AbstractService {
+
     /**
      * Etablish database connection, create tables and insert data.
      *
@@ -32,7 +32,7 @@ class InstallService extends AbstractService
 
         // Alter database to user defined charset
         if ($this->database()->hasGrants(['ALTER'])) {
-            $this->database()->exec('ALTER DATABASE `'.$config['dbname'].'` CHARACTER SET '.strtolower($config['charset']));
+            $this->database()->exec('ALTER DATABASE `' . $config['dbname'] . '` CHARACTER SET ' . strtolower($config['charset']));
         }
 
         // Create tables
@@ -59,18 +59,18 @@ class InstallService extends AbstractService
 
         // Install each module package file
         $modulesFolder
-            ->findFiles('*.zip')
-            ->sortByName('ASC')
-            ->each(function ($file) {
-                try {
-                    $module = new ModuleModel();
-                    $module->install($file);
-                } catch (Throwable $ex) {
-                    $this->logger()->warning('Module installation for package '.$file->getName().' failed.', [
-                        'Exception message' => $ex->getMessage(),
-                    ]);
-                }
-            });
+                ->findFiles('*.zip')
+                ->sortByName('ASC')
+                ->each(function ($file) {
+                    try {
+                        $module = new ModuleModel();
+                        $module->install($file);
+                    } catch (Throwable $ex) {
+                        $this->logger()->warning('Module installation for package ' . $file->getName() . ' failed.', [
+                            'Exception message' => $ex->getMessage(),
+                        ]);
+                    }
+                });
 
         return $this;
     }
@@ -88,23 +88,24 @@ class InstallService extends AbstractService
 
         // Install each module package file
         $themesFolder
-            ->findFiles('*.zip')
-            ->each(function ($file) {
-                try {
-                    $theme = new ThemeModel();
-                    $theme->install($file);
-                } catch (Throwable $ex) {
-                    $this->logger()->warning('Theme installation for package '.$file->getName().' failed.', [
-                        'Exception message' => $ex->getMessage(),
-                    ]);
-                }
-            });
+                ->findFiles('*.zip')
+                ->sortByName('ASC')
+                ->each(function ($file) {
+                    try {
+                        $theme = new ThemeModel();
+                        $theme->install($file);
+                    } catch (Throwable $ex) {
+                        $this->logger()->warning('Theme installation for package ' . $file->getName() . ' failed.', [
+                            'Exception message' => $ex->getMessage(),
+                        ]);
+                    }
+                });
 
         // Update frontend theme
         SettingModel::updateById([
-                'theme_id' => 2,
-                ], 1)
-            ->save();
+                    'theme_id' => 2,
+                        ], 1)
+                ->save();
 
         return $this;
     }
@@ -232,4 +233,5 @@ class InstallService extends AbstractService
 
         return false;
     }
+
 }
