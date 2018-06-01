@@ -27,7 +27,7 @@ INSERT INTO `roles_permissions` VALUES(11, 1, 11);
 INSERT INTO `blocks` VALUES(1, 'content', 'Content Default');
 INSERT INTO `blocks` VALUES(2, 'content-primary', 'Content Primary');
 
-INSERT INTO `navigations` VALUES(1, 'Page tree', 'Navigation of complete page tree. DO NOT CHANGE IT.', 'page-tree');
+INSERT INTO `navigations` VALUES(1, 'Page tree', 'Navigation of complete page tree.', 'page-tree');
 
 INSERT INTO `languages` VALUES(1, 'en', 'English', 'gb');
 INSERT INTO `languages` VALUES(2, 'de', 'German', 'de');
@@ -35,17 +35,8 @@ INSERT INTO `languages` VALUES(3, 'fr', 'French', 'fr');
 
 INSERT INTO `themes` VALUES(1, 'Neoflow Backend', 'neoflow-backend', 'backend', 'MIT', 'Jonathan Nessier <jonathan.nessier@neoflow.ch>', 'Official backend theme of the Neoflow CMS.', 'Copyright (c) Jonathan Nessier, Neoflow.ch', '1.0.1', 'sequential', 'neoflow-backend');
 
-INSERT INTO `settings` VALUES (1,'','','','',1,1,10,1800,0,'','','jpeg,jpg,doc,docx,xls,xlsx,ppt,pptx,pdf,gif,png,bmp,psd,tiff,zip,tar,rar,txt',0,2,'',0,'',0,'UTC');
+INSERT INTO `settings` VALUES (1,'','','','',1,1,10,1800,0,'','','jpeg,jpg,doc,docx,xls,xlsx,ppt,pptx,pdf,gif,png,bmp,psd,tiff,zip,tar,rar,txt',0,NULL,'',0,'',0,'UTC');
 
 INSERT INTO `settings_languages` VALUES (1,1,1);
 INSERT INTO `settings_languages` VALUES (2,1,2);
 INSERT INTO `settings_languages` VALUES (3,1,3);
-
-INSERT INTO `mod_sitemap_settings` VALUES(1, 'monthly', '1', 72, 1);
-
-INSERT INTO `mod_search_entities` VALUES (1, '\\Neoflow\\Module\\WYSIWYG\\Model');
-
-INSERT INTO `mod_search_settings` VALUES (1, '/search', 1);
-
-INSERT INTO `mod_snippets` VALUES(1, 'Dummy', 'return \'Just a snippet\';', 'dummy', 'Dummy snippet....', '');
-INSERT INTO `mod_snippets` VALUES(2, 'Google Analytics', 'return \'<script>\r\n	(function (i, s, o, g, r, a, m) {\r\n		i[\"GoogleAnalyticsObject\"] = r;\r\n		i[r] = i[r] || function () {\r\n			(i[r].q = i[r].q || []).push(arguments)\r\n		}, i[r].l = 1 * new Date();\r\n		a = s.createElement(o),\r\n				m = s.getElementsByTagName(o)[0];\r\n		a.async = 1;\r\n		a.src = g;\r\n		m.parentNode.insertBefore(a, m);\r\n	})(window, document, \"script\", \"https://www.google-analytics.com/analytics.js\", \"ga\");\r\n\r\n	ga(\"create\", \"\' . $id . \'\", \"auto\");\r\n	ga(\"send\", \"pageview\");\r\n</script>\';', 'GoogleAnalytics', 'Creates the JavaScript code for Google Analytics based on an custom ID which passed by a parameter.', 'id');
