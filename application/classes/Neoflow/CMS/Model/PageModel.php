@@ -14,8 +14,8 @@ use function normalize_url;
 use function slugify;
 use function translate;
 
-class PageModel extends AbstractModel
-{
+class PageModel extends AbstractModel {
+
     /**
      * @var string
      */
@@ -32,7 +32,7 @@ class PageModel extends AbstractModel
     public static $properties = ['page_id', 'title', 'slug',
         'description', 'keywords', 'is_active', 'is_restricted', 'author_user_id',
         'only_logged_in_users', 'language_id', 'url', 'has_custom_slug', 'is_startpage',
-        'created_when', 'modified_when', ];
+        'created_when', 'modified_when',];
 
     /**
      * Get repository to fetch sections.
@@ -62,7 +62,7 @@ class PageModel extends AbstractModel
 
             if ($user) {
                 // Get role ids
-                $roleIds = $roles->mapValue('role_id');
+                $roleIds = $roles->mapProperty('role_id');
 
                 // Role-based access
                 if (count($roleIds)) {
@@ -135,10 +135,10 @@ class PageModel extends AbstractModel
     public function validateUrl(): bool
     {
         $numberOfPages = self::repo()
-            ->where('url', '=', $this->url)
-            ->where('page_id', '!=', $this->id())
-            ->where('language_id', '=', $this->language_id)
-            ->count();
+                ->where('url', '=', $this->url)
+                ->where('page_id', '!=', $this->id())
+                ->where('language_id', '=', $this->language_id)
+                ->count();
 
         $route = $this->router()->getRoutingByUrl($this->url);
 
@@ -168,7 +168,7 @@ class PageModel extends AbstractModel
 
         $numberOfLanguages = count($this->config()->get('app')->get('languages'));
         if ($withLanguageCode && $numberOfLanguages > 1) {
-            $relativeUrl .= '/'.$this->language()->fetch()->code.'/';
+            $relativeUrl .= '/' . $this->language()->fetch()->code . '/';
         }
 
         if ($forStartpage || !$this->is_startpage) {
@@ -339,16 +339,16 @@ class PageModel extends AbstractModel
         if ($result) {
             if ($this->isNew) {
                 $navitem = NavitemModel::create([
-                        'navigation_id' => 1,
-                        'page_id' => $this->id(),
-                        'title' => $this->title,
-                        'language_id' => $this->language_id,
+                            'navigation_id' => 1,
+                            'page_id' => $this->id(),
+                            'title' => $this->title,
+                            'language_id' => $this->language_id,
                 ]);
             } else {
                 $navitem = NavitemModel::repo()
-                    ->where('page_id', '=', $this->id())
-                    ->where('navigation_id', '=', 1)
-                    ->fetch();
+                        ->where('page_id', '=', $this->id())
+                        ->where('navigation_id', '=', 1)
+                        ->fetch();
 
                 if (null !== $this->is_visible) {
                     $navitem->is_active = $this->is_visible;
@@ -373,10 +373,10 @@ class PageModel extends AbstractModel
                 // Create new page roles
                 foreach ($this->role_ids as $role_id) {
                     PageRoleModel::create([
-                            'page_id' => $this->id(),
-                            'role_id' => $role_id,
-                        ])
-                        ->save($preventCacheClearing);
+                                'page_id' => $this->id(),
+                                'role_id' => $role_id,
+                            ])
+                            ->save($preventCacheClearing);
                 }
             }
         }
@@ -397,8 +397,8 @@ class PageModel extends AbstractModel
         $this->url = '/';
         if ($parentPages->count() > 0) {
             $this->url .= $parentPages->implode(function ($page) {
-                return $page->slug;
-            }, '/').'/';
+                        return $page->slug;
+                    }, '/') . '/';
         }
         $this->url .= $this->slug;
 
@@ -415,18 +415,18 @@ class PageModel extends AbstractModel
         $validator = new EntityValidator($this);
 
         $validator
-            ->required()
-            ->betweenLength(3, 100)
-            ->callback(function ($title, PageModel $page) {
-                $result = 0 === PageModel::repo()
-                    ->where('title', '=', $title)
-                    ->where('language_id', '=', $page->language_id)
-                    ->where('page_id', '!=', $page->id())
-                    ->count();
+                ->required()
+                ->betweenLength(3, 100)
+                ->callback(function ($title, PageModel $page) {
+                    $result = 0 === PageModel::repo()
+                            ->where('title', '=', $title)
+                            ->where('language_id', '=', $page->language_id)
+                            ->where('page_id', '!=', $page->id())
+                            ->count();
 
-                return (bool) $result;
-            }, '{0} has to be unique', [$this])
-            ->set('title', 'Title');
+                    return (bool) $result;
+                }, '{0} has to be unique', [$this])
+                ->set('title', 'Title');
 
         return (bool) $validator->validate();
     }
@@ -507,24 +507,24 @@ class PageModel extends AbstractModel
     {
         // Get all sections
         $sections = $this->sections()
-            ->orderByAsc('position')
-            ->where('block_id', 'IS NOT', null)
-            ->where('is_active', '=', true)
-            ->fetchAll();
+                ->orderByAsc('position')
+                ->where('block_id', 'IS NOT', null)
+                ->where('is_active', '=', true)
+                ->fetchAll();
 
         // Set page-specific meta data
         if ($this->description) {
             $this->engine()->addMetaTagProperties([
                 'name' => 'description',
                 'content' => $this->description,
-                ], 'description');
+                    ], 'description');
         }
 
         if ($this->keywords) {
             $this->engine()->addMetaTagProperties([
                 'name' => 'keywords',
                 'content' => $this->keywords,
-                ], 'keywords');
+                    ], 'keywords');
         }
 
         $authorUser = $this->getAuthorUser();
@@ -532,7 +532,7 @@ class PageModel extends AbstractModel
             $this->engine()->addMetaTagProperties([
                 'name' => 'author',
                 'content' => $authorUser->getFullname(),
-                ], 'author');
+                    ], 'author');
         }
 
         $view->setTitle($this->title);
@@ -547,11 +547,11 @@ class PageModel extends AbstractModel
 
             // Render section content
             $content = $view->renderTemplate('frontend/section-content', [
-                    'content' => $content,
-                    'section' => $section->setReadOnly(),
-                    'page' => $this->setReadOnly(),
-                    'block' => $block->setReadOnly(),
-                ]).PHP_EOL;
+                        'content' => $content,
+                        'section' => $section->setReadOnly(),
+                        'page' => $this->setReadOnly(),
+                        'block' => $block->setReadOnly(),
+                    ]) . PHP_EOL;
 
             // Add content to output
             $output .= $content;
@@ -559,7 +559,7 @@ class PageModel extends AbstractModel
             // Add content to the block
             if ($block) {
                 $view->engine()->addContentToBlock('sections', $content);
-                $view->engine()->addContentToBlock('section_'.$block->block_key, $content);
+                $view->engine()->addContentToBlock('section_' . $block->block_key, $content);
             }
         }
 
@@ -579,4 +579,5 @@ class PageModel extends AbstractModel
     {
         return $this->hasManyThrough('Neoflow\\CMS\\Model\\RoleModel', 'Neoflow\\CMS\\Model\\PageRoleModel', 'page_id', 'role_id');
     }
+
 }

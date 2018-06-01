@@ -9,8 +9,8 @@ use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Framework\ORM\Repository;
 use function random_string;
 
-class SettingModel extends AbstractModel
-{
+class SettingModel extends AbstractModel {
+
     /**
      * @var string
      */
@@ -48,7 +48,7 @@ class SettingModel extends AbstractModel
         parent::__construct($data, $isReadOnly);
 
         if ($this->app()->get('database')) {
-            $this->language_ids = $this->getLanguages()->mapValue('language_id');
+            $this->language_ids = $this->getLanguages()->mapProperty('language_id');
         }
     }
 
@@ -199,41 +199,41 @@ class SettingModel extends AbstractModel
         $validator = new EntityValidator($this);
 
         $validator
-            ->required()
-            ->betweenLength(3, 50)
-            ->set('website_title', 'Website title');
+                ->required()
+                ->betweenLength(3, 50)
+                ->set('website_title', 'Website title');
 
         $validator
-            ->maxlength(150)
-            ->set('website_description', 'Website description');
+                ->maxlength(150)
+                ->set('website_description', 'Website description');
 
         $validator
-            ->maxlength(250)
-            ->set('website_keywords', translate('Website keyword', [], true));
+                ->maxlength(250)
+                ->set('website_keywords', translate('Website keyword', [], true));
 
         $validator
-            ->maxlength(50)
-            ->set('website_author', 'Website author');
+                ->maxlength(50)
+                ->set('website_author', 'Website author');
 
         $validator
-            ->integer()
-            ->min(3)
-            ->set('login_attempts', translate('Login attempt', [], true));
+                ->integer()
+                ->min(3)
+                ->set('login_attempts', translate('Login attempt', [], true));
 
         $validator
-            ->integer()
-            ->min(300)
-            ->set('session_lifetime', 'Session lifetime');
+                ->integer()
+                ->min(300)
+                ->set('session_lifetime', 'Session lifetime');
 
         $validator
-            ->required()
-            ->email()
-            ->maxLength(100)
-            ->set('emailaddress', 'E-Mailaddress');
+                ->required()
+                ->email()
+                ->maxLength(100)
+                ->set('emailaddress', 'E-Mailaddress');
 
         $validator
-            ->maxlength(50)
-            ->set('session_name', 'Session name');
+                ->maxlength(50)
+                ->set('session_name', 'Session name');
 
         return (bool) $validator->validate();
     }
@@ -287,10 +287,10 @@ class SettingModel extends AbstractModel
                 // Create new setting languages
                 foreach ($this->language_ids as $language_id) {
                     SettingLanguageModel::create([
-                            'setting_id' => $this->id(),
-                            'language_id' => $language_id,
-                        ])
-                        ->save($preventCacheClearing);
+                                'setting_id' => $this->id(),
+                                'language_id' => $language_id,
+                            ])
+                            ->save($preventCacheClearing);
                 }
             }
 
@@ -319,7 +319,7 @@ class SettingModel extends AbstractModel
     {
         // Get language codes from database if connection is etablished
         if ($this->app()->get('database') && self::findById(1)) {
-            return $this->getLanguages()->mapValue('code');
+            return $this->getLanguages()->mapProperty('code');
         }
 
         return $this->config()->get('app')->get('languages');
@@ -334,4 +334,5 @@ class SettingModel extends AbstractModel
     {
         return $this->defaultLanguage()->fetch();
     }
+
 }

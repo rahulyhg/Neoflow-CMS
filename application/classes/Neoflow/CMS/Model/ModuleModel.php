@@ -12,8 +12,8 @@ use Neoflow\Validation\ValidationException;
 use RuntimeException;
 use function translate;
 
-class ModuleModel extends AbstractExtensionModel
-{
+class ModuleModel extends AbstractExtensionModel {
+
     /**
      * @var string
      */
@@ -83,62 +83,62 @@ class ModuleModel extends AbstractExtensionModel
         $validator = new EntityValidator($this);
 
         $validator
-            ->required()
-            ->minLength(3)
-            ->maxLength(50)
-            ->callback(function ($name, $id) {
-                return 0 === ModuleModel::repo()
-                    ->where('name', '=', $name)
-                    ->where('module_id', '!=', $id)
-                    ->count();
-            }, '{0} has to be unique', [$this->id()])
-            ->set('name', 'Name');
+                ->required()
+                ->minLength(3)
+                ->maxLength(50)
+                ->callback(function ($name, $id) {
+                    return 0 === ModuleModel::repo()
+                            ->where('name', '=', $name)
+                            ->where('module_id', '!=', $id)
+                            ->count();
+                }, '{0} has to be unique', [$this->id()])
+                ->set('name', 'Name');
 
         $validator
-            ->required()
-            ->minLength(3)
-            ->maxLength(50)
-            ->callback(function ($folder, $id) {
-                return 0 === ModuleModel::repo()
-                    ->where('folder_name', '=', $folder)
-                    ->where('module_id', '!=', $id)
-                    ->count();
-            }, '{0} has to be unique', [$this->id()])
-            ->set('folder_name', 'Folder');
+                ->required()
+                ->minLength(3)
+                ->maxLength(50)
+                ->callback(function ($folder, $id) {
+                    return 0 === ModuleModel::repo()
+                            ->where('folder_name', '=', $folder)
+                            ->where('module_id', '!=', $id)
+                            ->count();
+                }, '{0} has to be unique', [$this->id()])
+                ->set('folder_name', 'Folder');
 
         if ('page' === $this->type) {
             $validator
-                ->required()
-                ->minLength(3)
-                ->maxLength(50)
-                ->set('frontend_route', 'Frontend Routekey');
+                    ->required()
+                    ->minLength(3)
+                    ->maxLength(50)
+                    ->set('frontend_route', 'Frontend Routekey');
 
             $validator
-                ->required()
-                ->minLength(3)
-                ->maxLength(50)
-                ->set('backend_route', 'Backend Routekey');
+                    ->required()
+                    ->minLength(3)
+                    ->maxLength(50)
+                    ->set('backend_route', 'Backend Routekey');
         }
 
         $validator
-            ->required()
-            ->minLength(3)
-            ->maxLength(50)
-            ->set('identifier', 'Identifier');
+                ->required()
+                ->minLength(3)
+                ->maxLength(50)
+                ->set('identifier', 'Identifier');
 
         $validator
-            ->maxLength(100)
-            ->callback(function ($namespace, $id) {
-                return 0 === ModuleModel::repo()
-                    ->where('manager_class', '=', $namespace)
-                    ->where('module_id', '!=', $id)
-                    ->count();
-            }, '{0} has to be unique', [$this->id()])
-            ->set('manager_class', 'Manager Class');
+                ->maxLength(100)
+                ->callback(function ($namespace, $id) {
+                    return 0 === ModuleModel::repo()
+                            ->where('manager_class', '=', $namespace)
+                            ->where('module_id', '!=', $id)
+                            ->count();
+                }, '{0} has to be unique', [$this->id()])
+                ->set('manager_class', 'Manager Class');
 
         $validator
-            ->oneOf(static::$types)
-            ->set('type', 'Type');
+                ->oneOf(static::$types)
+                ->set('type', 'Type');
 
         return (bool) $validator->validate();
     }
@@ -153,7 +153,7 @@ class ModuleModel extends AbstractExtensionModel
     public function toggleActivation(): AbstractExtensionModel
     {
         if ($this->hasDependentModules()) {
-            throw new ValidationException(translate('{0} has at least one or more depending modules ({1}) and cannot be disabled', [$this->name, $this->getDependentModules()->mapValue('name')]));
+            throw new ValidationException(translate('{0} has at least one or more depending modules ({1}) and cannot be disabled', [$this->name, $this->getDependentModules()->mapProperty('name')]));
         }
 
         return parent::toggleActivation();
@@ -171,7 +171,7 @@ class ModuleModel extends AbstractExtensionModel
         if (!$this->manager && class_exists($this->manager_class)) {
             $this->manager = new $this->manager_class($this);
         } elseif (!class_exists($this->manager_class)) {
-            throw new RuntimeException('Manager class '.$this->manager_class.'  not found');
+            throw new RuntimeException('Manager class ' . $this->manager_class . '  not found');
         }
 
         return $this->manager;
@@ -212,7 +212,7 @@ class ModuleModel extends AbstractExtensionModel
      */
     public function hasDependentModules(): bool
     {
-        return self::repo()->where('dependencies', 'LIKE', '%'.$this->identifier.'%')->count() > 0;
+        return self::repo()->where('dependencies', 'LIKE', '%' . $this->identifier . '%')->count() > 0;
     }
 
     /**
@@ -222,7 +222,7 @@ class ModuleModel extends AbstractExtensionModel
      */
     public function getDependentModules(): EntityCollection
     {
-        return self::repo()->where('dependencies', 'LIKE', '%'.$this->identifier.'%')->fetchAll();
+        return self::repo()->where('dependencies', 'LIKE', '%' . $this->identifier . '%')->fetchAll();
     }
 
     /**
@@ -292,7 +292,7 @@ class ModuleModel extends AbstractExtensionModel
 
                     return false;
                 }
-                throw new ValidationException(translate('{0} has at least one or more depending modules ({1}) and cannot be deleted', [$this->name, $this->getDependentModules()->mapValue('name')]));
+                throw new ValidationException(translate('{0} has at least one or more depending modules ({1}) and cannot be deleted', [$this->name, $this->getDependentModules()->mapProperty('name')]));
             }
             throw new ValidationException(translate('The module ({0}) is in use and cannot be deleted', [$this->name]));
         }
@@ -309,8 +309,8 @@ class ModuleModel extends AbstractExtensionModel
     public function getUrl(string $additionalUrlPath = ''): string
     {
         return $this
-                ->config()
-                ->getModulesUrl('/'.$this->folder_name.'/'.$additionalUrlPath);
+                        ->config()
+                        ->getModulesUrl('/' . $this->folder_name . '/' . $additionalUrlPath);
     }
 
     /**
@@ -323,7 +323,8 @@ class ModuleModel extends AbstractExtensionModel
     public function getPath(string $additionalPath = ''): string
     {
         return $this
-                ->config()
-                ->getModulesPath('/'.$this->folder_name.'/'.$additionalPath);
+                        ->config()
+                        ->getModulesPath('/' . $this->folder_name . '/' . $additionalPath);
     }
+
 }

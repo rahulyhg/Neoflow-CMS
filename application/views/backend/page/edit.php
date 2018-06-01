@@ -144,7 +144,7 @@
                         <div class="col-sm-9">
                             <select data-placeholder="<?= translate('All roles'); ?>" class="form-control" name="role_ids[]" multiple id="selectRoles">
                                 <?php foreach ($roles as $role) { ?>
-                                    <option value="<?= $role->id(); ?>" <?= (in_array($role->id(), $page->getRoles()->mapValue('role_id')) ? 'selected' : ''); ?>><?= $role->title; ?></option>
+                                    <option value="<?= $role->id(); ?>" <?= (in_array($role->id(), $page->getRoles()->mapProperty('role_id')) ? 'selected' : ''); ?>><?= $role->title; ?></option>
                                 <?php } ?>
                             </select>
                             <small class="form-text text-muted"><?= translate('Page authorization info'); ?></small>
