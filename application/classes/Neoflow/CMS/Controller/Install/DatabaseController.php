@@ -1,5 +1,4 @@
 <?php
-
 namespace Neoflow\CMS\Controller\Install;
 
 use Neoflow\CMS\Controller\InstallController;
@@ -8,7 +7,8 @@ use Neoflow\Framework\HTTP\Responsing\Response;
 use Throwable;
 use function translate;
 
-class DatabaseController extends InstallController {
+class DatabaseController extends InstallController
+{
 
     /**
      * Index action.
@@ -59,9 +59,6 @@ class DatabaseController extends InstallController {
             // Install modules
             $this->service('install')->installThemes();
 
-            // Update settings
-            $this->service('install')->updateSettings();
-
             $this->service('alert')->success(translate('Database successfully installed'));
 
             return $this->redirectToRoute('install_website_index');
@@ -75,7 +72,7 @@ class DatabaseController extends InstallController {
 
         // Redirect to current step
         return $this->redirectToRoute('install_database_index', [
-                    'url' => $config['url'],
+                'url' => $config['url'],
         ]);
     }
 
@@ -93,5 +90,4 @@ class DatabaseController extends InstallController {
 
         return parent::preHook();
     }
-
 }

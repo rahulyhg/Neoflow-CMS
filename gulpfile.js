@@ -5,7 +5,8 @@ var gulp = require('gulp'),
         fs = require('fs'),
         path = require('path'),
         flatmap = require('gulp-flatmap'),
-        del = require('del');
+        del = require('del'),
+        order = require('gulp-order');
 
 // Get package info
 var pjson = require('./package.json');
@@ -57,17 +58,32 @@ gulp.task('install:clean', function () {
 
 // Create zip packages of each module
 gulp.task('install:_createModuleZipPackages', function () {
+
+    var count = 1;
+
     return gulp
             .src([
                 './modules/*',
                 '!./modules/dummy'
             ])
+            .pipe(order([
+                'code',
+                'codemirror',
+                'wysiwyg',
+                'tinymce'
+            ]))
             .pipe(flatmap(function (stream, file) {
                 if (fs.statSync(file.path).isDirectory()) {
-                    console.log('Create ' + path.basename(file.path) + '.zip');
+
+                    var number = (count++).toString();
+                    while (number.length < 3) {
+                        number = '0' + number;
+                    }
+
+                    console.log('Create ' + number + '_' + path.basename(file.path) + '.zip');
                     return gulp
                             .src(file.path + '/**')
-                            .pipe(zip(path.basename(file.path) + '.zip'));
+                            .pipe(zip(number + '_' + path.basename(file.path) + '.zip'));
                 }
             }))
             .pipe(gulp.dest('./installation/modules'));

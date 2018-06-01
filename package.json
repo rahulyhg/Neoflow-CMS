@@ -18,5 +18,7 @@
     "run-sequence": "^2.2.1",
     "shelljs": "^0.8.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "gulp-order": "^1.1.1"
+  }
 }
