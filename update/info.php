@@ -1,4 +1,5 @@
 <?php
+
 return [
     'version' => '1.0.0-a2',
     'for' => [
@@ -15,6 +16,8 @@ return [
     'modules' => [
         'code' => 'code.zip',
         'codemirror' => 'codemirror.zip',
+        'wysiwyg' => 'wysiwyg.zip',
+        'tinymce' => 'tinymce.zip',
         'datetimepicker' => 'datetimepicker.zip',
         'dummy' => 'dummy.zip',
         'log-viewer' => 'log-viewer.zip',
@@ -22,8 +25,6 @@ return [
         'search' => 'search.zip',
         'sitemap' => 'sitemap.zip',
         'snippets' => 'snippets.zip',
-        'tinymce' => 'tinymce.zip',
-        'wysiwyg' => 'wysiwyg.zip',
     ],
     'themes' => [
         'flatly' => 'flatly.zip',
