@@ -2,7 +2,6 @@
 
 namespace Neoflow\CMS;
 
-use Neoflow\Alert\SuccessAlert;
 use Neoflow\CMS\AppTrait;
 use Neoflow\CMS\Model\ModuleModel;
 use Neoflow\CMS\Model\ThemeModel;
@@ -250,7 +249,7 @@ class UpdateManager {
     {
         // Backup config
         $configFilePath = $this->config()->getPath('/config.php');
-        File::load($configFilePath)->rename('config-backup-' . date('d-m-Y') . '.php');
+        File::load($configFilePath)->rename('config-backup-' . date('d-m-Y_h-i-s') . '.php');
 
         // Get config
         $config = $this->config();
