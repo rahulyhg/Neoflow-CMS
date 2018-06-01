@@ -80,11 +80,12 @@ gulp.task('install:_createModuleZipPackages', function () {
                     while (number.length < 3) {
                         number = '0' + number;
                     }
+                    var filename = number + '_' + path.basename(file.path) + '.zip';
 
-                    console.log('Create ' + number + '_' + path.basename(file.path) + '.zip');
+                    console.log('Create ' + filename);
                     return gulp
                             .src(file.path + '/**')
-                            .pipe(zip(number + '_' + path.basename(file.path) + '.zip'));
+                            .pipe(zip(filename));
                 }
             }))
             .pipe(gulp.dest('./installation/modules'));
@@ -92,6 +93,9 @@ gulp.task('install:_createModuleZipPackages', function () {
 
 // Create zip packages of each theme
 gulp.task('install:_createThemeZipPackages', function () {
+
+    var count = 1;
+
     return gulp
             .src([
                 './themes/*',
@@ -99,7 +103,14 @@ gulp.task('install:_createThemeZipPackages', function () {
             ])
             .pipe(flatmap(function (stream, file) {
                 if (fs.statSync(file.path).isDirectory()) {
-                    console.log('Create ' + path.basename(file.path) + '.zip');
+
+                    var number = (count++).toString();
+                    while (number.length < 3) {
+                        number = '0' + number;
+                    }
+                    var filename = number + '_' + path.basename(file.path) + '.zip';
+
+                    console.log('Create ' + filename);
                     return gulp
                             .src([
                                 file.path + '/**',
@@ -107,7 +118,7 @@ gulp.task('install:_createThemeZipPackages', function () {
                                 '!./themes/*/node_modules{,/**}',
                                 '!./themes/*/src{,/**}'
                             ])
-                            .pipe(zip(path.basename(file.path) + '.zip'));
+                            .pipe(zip(filename));
                 }
             }))
             .pipe(gulp.dest('./installation/themes'));
