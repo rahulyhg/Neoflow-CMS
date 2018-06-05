@@ -59,9 +59,6 @@ gulp.task('install:clean', function () {
 
 // Create zip packages of each module
 gulp.task('install:_createModuleZipPackages', function () {
-
-    var count = 1;
-
     return gulp
             .src([
                 './modules/*',
@@ -75,13 +72,7 @@ gulp.task('install:_createModuleZipPackages', function () {
             ]))
             .pipe(flatmap(function (stream, file) {
                 if (fs.statSync(file.path).isDirectory()) {
-
-                    var number = (count++).toString();
-                    while (number.length < 3) {
-                        number = '0' + number;
-                    }
-                    var filename = number + '_' + path.basename(file.path) + '.zip';
-
+                    var filename = path.basename(file.path) + '.zip';
                     console.log('Create ' + filename);
                     return gulp
                             .src(file.path + '/**')
@@ -93,9 +84,6 @@ gulp.task('install:_createModuleZipPackages', function () {
 
 // Create zip packages of each theme
 gulp.task('install:_createThemeZipPackages', function () {
-
-    var count = 1;
-
     return gulp
             .src([
                 './themes/*',
@@ -103,13 +91,7 @@ gulp.task('install:_createThemeZipPackages', function () {
             ])
             .pipe(flatmap(function (stream, file) {
                 if (fs.statSync(file.path).isDirectory()) {
-
-                    var number = (count++).toString();
-                    while (number.length < 3) {
-                        number = '0' + number;
-                    }
-                    var filename = number + '_' + path.basename(file.path) + '.zip';
-
+                    var filename = path.basename(file.path) + '.zip';
                     console.log('Create ' + filename);
                     return gulp
                             .src([
