@@ -54,8 +54,8 @@ return [
             'path' => '/application',
             'permission' => 448,
         ],
-        'framework' => [
-            'path' => '/framework',
+        'vendor' => [
+            'path' => '/vendor',
             'permission' => 448,
         ],
         'temp' => [
