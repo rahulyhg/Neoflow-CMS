@@ -10617,6 +10617,14 @@ body.prepage #content {
   margin: 0;
   padding: 0;
 }
+.form-loading {
+  position: relative;
+}
+.form-loading .loader {
+  background: #f8f8f8 url(../img/loading-dark.gif) center center no-repeat;
+  position: absolute;
+  top: 0;
+}
 #debugbar {
   position: fixed;
   left: 0;

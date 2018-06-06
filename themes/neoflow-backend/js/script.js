@@ -672,26 +672,32 @@ $.fn.preventDefaultClickBehaviour = function () {
 $('a[disabled]').preventDefaultClickBehaviour();
 
 $('.regexomat[data-regex]')
-        .on('input', function () {
-            var $this = $(this),
-                    regexRule = $this.data('regex'),
-                    value = $this.val();
+    .on('input', function () {
+        var $this = $(this),
+            regexRule = $this.data('regex'),
+            value = $this.val();
 
-            value = value.replace(new RegExp(regexRule), '');
-            $this.val(value);
-        });
+        value = value.replace(new RegExp(regexRule), '');
+        $this.val(value);
+    });
 
-$('form').on('submit', function() {
-    $(this)
-        .animate({
-            'opacity': 0
-        }, 150)
-        .parent()
+$('form').on('submit', function () {
+    var $this = $(this)
+        .addClass('form-loading')
+
+    $this.find(':submit').blur();
+
+    var $placeholder = $('<div>')
         .css({
-            'background-image': 'url(' + THEME_URL + '/img/loading-dark.gif)',
-            'background-position': 'center center',
-            'background-repeat': 'no-repeat'
-        });
+            'display': 'none',
+            'height': $this.outerHeight() + 'px',
+            'width': $this.outerWidth() + 'px',
+        })
+        .addClass('loader');
+
+    $this.append($placeholder.fadeIn(200));
+
+
 });
 
 (function () {

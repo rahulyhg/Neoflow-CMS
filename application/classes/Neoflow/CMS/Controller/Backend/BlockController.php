@@ -23,9 +23,7 @@ class BlockController extends BackendController
         parent::__construct($view, $args);
 
         // Set title and breadcrumb
-        $this->view
-                ->setTitle(translate('Block', [], true))
-                ->addBreadcrumb(translate('Content'));
+        $this->view->setTitle(translate('Block', [], true))->addBreadcrumb(translate('Content'));
     }
 
     /**
@@ -35,11 +33,9 @@ class BlockController extends BackendController
      */
     public function indexAction(): Response
     {
-        $this->service('alert')->success(translate('Successfully created 2'), 'now');
+        $this->service('alert')->success(translate('Successfully created'), 'now');
 
-        return $this->render('backend/block/index', [
-                    'blocks' => BlockModel::findAll(),
-        ]);
+        return $this->render('backend/block/index', ['blocks' => BlockModel::findAll()]);
     }
 
     /**
@@ -56,10 +52,7 @@ class BlockController extends BackendController
             $postData = $this->request()->getPostData();
 
             // Create block
-            $block = BlockModel::create([
-                        'title' => $postData->get('title'),
-                        'block_key' => $postData->get('block_key'),
-            ]);
+            $block = BlockModel::create(['title' => $postData->get('title'), 'block_key' => $postData->get('block_key')]);
 
             // Validate and save block
             if ($block && $block->validate() && $block->save()) {
@@ -118,17 +111,12 @@ class BlockController extends BackendController
 
         if ($block) {
             // Set title and breadcrumb
-            $this->view
-                    ->setTitle($block->title)
-                    ->setSubtitle('ID: '.$block->id())
-                    ->addBreadcrumb(translate('Block', [], true), generate_url('backend_block_index'));
+            $this->view->setTitle($block->title)->setSubtitle('ID: '.$block->id())->addBreadcrumb(translate('Block', [], true), generate_url('backend_block_index'));
 
             // Set back url
             $this->view->setBackRoute('backend_block_index');
 
-            return $this->render('backend/block/edit', [
-                        'block' => $block,
-            ]);
+            return $this->render('backend/block/edit', ['block' => $block]);
         }
         throw new RuntimeException('Block not found (ID: '.$this->args['id'].')');
     }
@@ -147,10 +135,7 @@ class BlockController extends BackendController
             $postData = $this->request()->getPostData();
 
             // Update block
-            $block = BlockModel::updateById([
-                        'title' => $postData->get('title'),
-                        'block_key' => $postData->get('block_key'),
-                            ], $postData->get('block_id'));
+            $block = BlockModel::updateById(['title' => $postData->get('title'), 'block_key' => $postData->get('block_key')], $postData->get('block_id'));
 
             // Validate and save block
             if ($block && $block->validate() && $block->save()) {
@@ -162,9 +147,7 @@ class BlockController extends BackendController
             $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
         }
 
-        return $this->redirectToRoute('backend_block_edit', [
-                    'id' => $block->id(),
-        ]);
+        return $this->redirectToRoute('backend_block_edit', ['id' => $block->id()]);
     }
 
     /**
