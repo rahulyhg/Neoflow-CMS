@@ -6,6 +6,7 @@ use Neoflow\CMS\Core\AbstractModel;
 use Neoflow\Framework\Core\AbstractModel as FrameworkAbstractModel;
 use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Framework\ORM\Repository;
+use RuntimeException;
 use function slugify;
 use function translate;
 
@@ -60,6 +61,8 @@ class BlockModel extends AbstractModel
      * Validate block.
      *
      * @return bool
+     *
+     * @throws \Neoflow\Validation\ValidationException
      */
     public function validate(): bool
     {

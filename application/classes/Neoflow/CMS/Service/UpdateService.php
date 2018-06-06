@@ -22,6 +22,8 @@ class UpdateService extends AbstractService
      * @return Folder
      *
      * @throws ValidationException
+     * @throws \Neoflow\Filesystem\Exception\FileException
+     * @throws \Neoflow\Filesystem\Exception\FolderException
      */
     protected function unpack(File $updatePackageFile, bool $delete = true): Folder
     {
@@ -50,7 +52,11 @@ class UpdateService extends AbstractService
      *
      * @param File $updatePackageFile Update package (Zip archive)
      *
+     * @return bool
+     *
      * @throws ValidationException
+     * @throws \Neoflow\Filesystem\Exception\FileException
+     * @throws \Neoflow\Filesystem\Exception\FolderException
      */
     public function installUpdate(File $updatePackageFile): bool
     {
@@ -70,6 +76,8 @@ class UpdateService extends AbstractService
      * @param string $updateFolderPath Update folder path
      *
      * @return bool
+     *
+     * @throws \Neoflow\Filesystem\Exception\FolderException
      */
     public function installExtensionUpdates($updateFolderPath): bool
     {
@@ -89,6 +97,8 @@ class UpdateService extends AbstractService
      * @param Folder $updateFolder Update folder
      *
      * @return UpdateManager
+     *
+     * @throws ValidationException
      */
     protected function createManager(Folder $updateFolder): UpdateManager
     {

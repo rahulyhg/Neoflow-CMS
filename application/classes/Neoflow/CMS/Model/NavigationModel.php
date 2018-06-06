@@ -8,8 +8,8 @@ use Neoflow\Framework\ORM\EntityCollection;
 use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Framework\ORM\Repository;
 
-class NavigationModel extends AbstractModel {
-
+class NavigationModel extends AbstractModel
+{
     /**
      * @var string
      */
@@ -56,6 +56,8 @@ class NavigationModel extends AbstractModel {
      * Validate navigation.
      *
      * @return bool
+     *
+     * @throws \Neoflow\Validation\ValidationException
      */
     public function validate(): bool
     {
@@ -191,5 +193,4 @@ class NavigationModel extends AbstractModel {
 
         return $navigationTree;
     }
-
 }

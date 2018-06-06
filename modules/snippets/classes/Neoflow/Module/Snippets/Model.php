@@ -30,7 +30,7 @@ class Model extends AbstractModel
     /**
      * Validate code.
      *
-     * @params array $parameters Code parameters
+     * @param array $parameters Code parameters
      *
      * @return string
      *
@@ -48,7 +48,6 @@ class Model extends AbstractModel
         } catch (Throwable $e) {
             throw new ValidationException(translate('Snippet code is invalid: "{0}"', [$e->getMessage().' on line '.$e->getLine()]));
         }
-        throw new ValidationException(translate('Snippet code is valid, but has return a string'));
     }
 
     /**
@@ -82,9 +81,9 @@ class Model extends AbstractModel
     /**
      * Execute code.
      *
-     * @params array $parameters Code parameters
+     * @param array $parameters Code parameters
      *
-     * @return bool
+     * @return string
      */
     public function executeCode(array $parameters = []): string
     {
@@ -117,6 +116,8 @@ class Model extends AbstractModel
      * Validate setting entity.
      *
      * @return bool
+     *
+     * @throws ValidationException
      */
     public function validate(): bool
     {

@@ -15,8 +15,8 @@ class FrontendController extends AbstractController
     /**
      * Constructor.
      *
-     * @param FrontendView $view
-     * @param array        $args
+     * @param FrontendView $view Backend view
+     * @param array        $args Request argument
      */
     public function __construct(FrontendView $view = null, array $args = [])
     {
@@ -34,23 +34,27 @@ class FrontendController extends AbstractController
      * Index action.
      *
      * @return Response
+     *
+     * @throws ForbiddenException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     public function indexAction(): Response
     {
         if (isset($this->args['url'])) {
             $page = PageModel::repo()
-                ->where('url', '=', $this->args['url'])
-                ->where('language_id', '=', $this->translator()->getCurrentLanguage()->id())
-                ->fetch();
+                    ->where('url', '=', $this->args['url'])
+                    ->where('language_id', '=', $this->translator()->getCurrentLanguage()->id())
+                    ->fetch();
 
             if ($page && $page->is_startpage && mb_strlen($this->args['url']) > 1) {
                 return $this->redirect($this->config()->getUrl());
             }
         } else {
             $page = PageModel::repo()
-                ->where('is_startpage', '=', true)
-                ->where('language_id', '=', $this->translator()->getCurrentLanguage()->id())
-                ->fetch();
+                    ->where('is_startpage', '=', true)
+                    ->where('language_id', '=', $this->translator()->getCurrentLanguage()->id())
+                    ->fetch();
         }
 
         if ($page) {

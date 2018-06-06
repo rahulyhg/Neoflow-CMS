@@ -90,6 +90,8 @@ class UserModel extends AbstractModel
      * Validate user.
      *
      * @return bool
+     *
+     * @throws \Neoflow\Validation\ValidationException
      */
     public function validate(): bool
     {
@@ -149,6 +151,8 @@ class UserModel extends AbstractModel
      * Validate new password of user.
      *
      * @return bool
+     *
+     * @throws \Neoflow\Validation\ValidationException
      */
     public function validateNewPassword(): bool
     {

@@ -8,8 +8,8 @@ use Neoflow\Framework\ORM\Repository;
 use Neoflow\Validation\ValidationException;
 use function translate;
 
-class RoleModel extends AbstractModel {
-
+class RoleModel extends AbstractModel
+{
     /**
      * @var string
      */
@@ -59,6 +59,8 @@ class RoleModel extends AbstractModel {
      * Validate setting entity.
      *
      * @return bool
+     *
+     * @throws ValidationException
      */
     public function validate(): bool
     {
@@ -159,5 +161,4 @@ class RoleModel extends AbstractModel {
 
         return $value;
     }
-
 }

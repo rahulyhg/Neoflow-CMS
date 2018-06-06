@@ -48,7 +48,7 @@ class Model extends AbstractModel
     /**
      * Execute code.
      *
-     * @return bool
+     * @return string
      */
     public function executeCode(): string
     {

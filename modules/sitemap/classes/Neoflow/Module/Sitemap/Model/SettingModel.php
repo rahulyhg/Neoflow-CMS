@@ -4,6 +4,7 @@ namespace Neoflow\Module\Sitemap\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
 use Neoflow\Framework\ORM\EntityValidator;
+use Neoflow\Validation\ValidationException;
 
 class SettingModel extends AbstractModel
 {
@@ -70,6 +71,8 @@ class SettingModel extends AbstractModel
      * Validate setting.
      *
      * @return bool
+     *
+     * @throws ValidationException
      */
     public function validate(): bool
     {

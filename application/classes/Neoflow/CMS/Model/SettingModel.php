@@ -9,8 +9,8 @@ use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Framework\ORM\Repository;
 use function random_string;
 
-class SettingModel extends AbstractModel {
-
+class SettingModel extends AbstractModel
+{
     /**
      * @var string
      */
@@ -193,6 +193,8 @@ class SettingModel extends AbstractModel {
      * Validate setting.
      *
      * @return bool
+     *
+     * @throws \Neoflow\Validation\ValidationException
      */
     public function validate(): bool
     {
@@ -334,5 +336,4 @@ class SettingModel extends AbstractModel {
     {
         return $this->defaultLanguage()->fetch();
     }
-
 }

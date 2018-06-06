@@ -67,8 +67,10 @@ class Result
     /**
      * Get focused description.
      *
-     * @param string $query Search query
-     * @param int    $range Focus range (number of chars left and right of found search query in description)
+     * @param string $query   Search query
+     * @param int    $range   Focus range (number of chars left and right of found search query in description)
+     * @param string $prefix  Prefix when shortened
+     * @param string $postfix Postfix when shortened
      *
      * @return string
      */

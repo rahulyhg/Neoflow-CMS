@@ -71,11 +71,13 @@ class Manager extends AbstractModuleManager
      * Initialize Sitemap module.
      *
      * @return bool
+     *
+     * @throws \Neoflow\Filesystem\Exception\FileException
      */
     public function initialize(): bool
     {
         // Create service
-        $service = new Service($this->module);
+        $service = new Service();
 
         // Register service
         $this->app()->get('services')->set('sitemap', $service);

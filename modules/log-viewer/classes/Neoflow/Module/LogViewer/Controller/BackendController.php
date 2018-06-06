@@ -4,11 +4,11 @@ namespace Neoflow\Module\LogViewer\Controller;
 
 use Neoflow\CMS\Controller\Backend\AbstractToolModuleController;
 use Neoflow\CMS\View\BackendView;
+use Neoflow\Filesystem\File;
+use Neoflow\Filesystem\Folder;
 use Neoflow\Framework\HTTP\Exception\NotFoundException;
 use Neoflow\Framework\HTTP\Responsing\Response;
 use Neoflow\Framework\HTTP\Responsing\StreamResponse;
-use Neoflow\Filesystem\File;
-use Neoflow\Filesystem\Folder;
 
 class BackendController extends AbstractToolModuleController
 {
@@ -27,6 +27,8 @@ class BackendController extends AbstractToolModuleController
      * Index action.
      *
      * @return Response
+     *
+     * @throws \Neoflow\Filesystem\Exception\FolderException
      */
     public function indexAction(): Response
     {
@@ -70,6 +72,8 @@ class BackendController extends AbstractToolModuleController
      * Show action.
      *
      * @return Response
+     *
+     * @throws \Neoflow\Filesystem\Exception\FileException
      */
     public function getAction(): Response
     {

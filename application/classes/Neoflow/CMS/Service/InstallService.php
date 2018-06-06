@@ -15,8 +15,8 @@ use RuntimeException;
 use Throwable;
 use const APP_MODE;
 
-class InstallService extends AbstractService {
-
+class InstallService extends AbstractService
+{
     /**
      * Etablish database connection, create tables and insert data.
      *
@@ -24,14 +24,15 @@ class InstallService extends AbstractService {
      *
      * @return self
      */
-    public function createDatabase(array $config): self {
+    public function createDatabase(array $config): self
+    {
         // Etablish connection to database
         $database = Database::connect($config['host'], $config['dbname'], $config['username'], $config['password'], $config['charset']);
         $this->app()->set('database', $database);
 
         // Alter database to user defined charset
         if ($this->database()->hasGrants(['ALTER'])) {
-            $this->database()->exec('ALTER DATABASE `' . $config['dbname'] . '` CHARACTER SET ' . strtolower($config['charset']));
+            $this->database()->exec('ALTER DATABASE `'.$config['dbname'].'` CHARACTER SET '.strtolower($config['charset']));
         }
 
         // Create tables
@@ -49,9 +50,11 @@ class InstallService extends AbstractService {
      * Install modules.
      *
      * @return self
+     *
+     * @throws \Neoflow\Filesystem\Exception\FolderException
      */
-    public function installModules(): self {
-
+    public function installModules(): self
+    {
         // Get modules folder
         $modulesPath = $this->config()->getPath('/installation/modules');
         $modulesFolder = new Folder($modulesPath);
@@ -67,12 +70,12 @@ class InstallService extends AbstractService {
                     $module = new ModuleModel();
                     $module->install($file);
                 } catch (Throwable $ex) {
-                    $this->logger()->error('Module installation for package ' . $file->getName() . ' failed.', [
+                    $this->logger()->error('Module installation for package '.$file->getName().' failed.', [
                         'Exception message' => $ex->getMessage(),
                     ]);
                 }
             } else {
-                $this->logger()->warning('Module package ' . $filename . ' not found.');
+                $this->logger()->warning('Module package '.$filename.' not found.');
             }
         }
 
@@ -83,8 +86,11 @@ class InstallService extends AbstractService {
      * Install themes.
      *
      * @return self
+     *
+     * @throws \Neoflow\Filesystem\Exception\FolderException
      */
-    public function installThemes(): self {
+    public function installThemes(): self
+    {
         // Get themes folder
         $themesPath = $this->config()->getPath('/installation/themes');
         $themesFolder = new Folder($themesPath);
@@ -100,12 +106,12 @@ class InstallService extends AbstractService {
                     $theme = new ThemeModel();
                     $theme->install($file);
                 } catch (Throwable $ex) {
-                    $this->logger()->error('Theme installation for package ' . $file->getName() . ' failed.', [
+                    $this->logger()->error('Theme installation for package '.$file->getName().' failed.', [
                         'Exception message' => $ex->getMessage(),
                     ]);
                 }
             } else {
-                $this->logger()->warning('Theme package ' . $filename . ' not found.');
+                $this->logger()->warning('Theme package '.$filename.' not found.');
             }
         }
 
@@ -124,7 +130,8 @@ class InstallService extends AbstractService {
      *
      * @throws RuntimeException
      */
-    public function updateSettings(): self {
+    public function updateSettings(): self
+    {
         // Fetch and set settings
         $settings = SettingModel::findById(1);
         if ($settings) {
@@ -166,8 +173,11 @@ class InstallService extends AbstractService {
      * @param array $config
      *
      * @return self
+     *
+     * @throws \Neoflow\Filesystem\Exception\FileException
      */
-    public function createConfigFile(array $config): self {
+    public function createConfigFile(array $config): self
+    {
         $this->config()->get('app')->set('url', $config['url']);
 
         $this->config()->get('database')->setData($config['database']);
@@ -189,7 +199,8 @@ class InstallService extends AbstractService {
      *
      * @return bool
      */
-    public function isRunning(): bool {
+    public function isRunning(): bool
+    {
         $urlPath = $this->request()->getUrlPath();
 
         return in_array($urlPath, [
@@ -209,7 +220,8 @@ class InstallService extends AbstractService {
      *
      * @return bool
      */
-    public function databaseStatus(): bool {
+    public function databaseStatus(): bool
+    {
         return $this->config()->get('database')->get('host') && $this->app()->get('database') && SettingModel::findById(1);
     }
 
@@ -218,7 +230,8 @@ class InstallService extends AbstractService {
      *
      * @return bool
      */
-    public function settingStatus(): bool {
+    public function settingStatus(): bool
+    {
         return $this->app()->get('database') && '' !== $this->settings()->website_title && '' !== $this->settings()->emailaddress;
     }
 
@@ -227,12 +240,12 @@ class InstallService extends AbstractService {
      *
      * @return bool
      */
-    public function administratorStatus(): bool {
+    public function administratorStatus(): bool
+    {
         if ($this->databaseStatus()) {
             return (bool) UserModel::findById(1);
         }
 
         return false;
     }
-
 }

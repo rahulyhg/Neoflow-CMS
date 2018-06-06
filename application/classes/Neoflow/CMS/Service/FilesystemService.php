@@ -95,6 +95,8 @@ class FilesystemService extends AbstractService
      * @param string $name      New file name
      * @param bool   $overwrite Set FALSE to prevent overwriting, when a file with same name already exist
      *
+     * @return File
+     *
      * @throws ValidationException
      * @throws FileException
      */
@@ -115,12 +117,13 @@ class FilesystemService extends AbstractService
     /**
      * Rename folder.
      *
-     * @param Folder $folder    Folder to rename
-     * @param string $name      New folder name
-     * @param bool   $overwrite Set FALSE to prevent overwriting, when a folder with same name already exist
+     * @param Folder $folder Folder to rename
+     * @param string $name   New folder name
+     *
+     * @return Folder
      *
      * @throws ValidationException
-     * @throws FileException
+     * @throws FolderException
      */
     public function renameFolder(Folder $folder, string $name): Folder
     {

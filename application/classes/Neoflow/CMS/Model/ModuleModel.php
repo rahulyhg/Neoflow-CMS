@@ -12,8 +12,8 @@ use Neoflow\Validation\ValidationException;
 use RuntimeException;
 use function translate;
 
-class ModuleModel extends AbstractExtensionModel {
-
+class ModuleModel extends AbstractExtensionModel
+{
     /**
      * @var string
      */
@@ -75,6 +75,8 @@ class ModuleModel extends AbstractExtensionModel {
      * Validate module.
      *
      * @return bool
+     *
+     * @throws ValidationException
      */
     public function validate(): bool
     {
@@ -171,7 +173,7 @@ class ModuleModel extends AbstractExtensionModel {
         if (!$this->manager && class_exists($this->manager_class)) {
             $this->manager = new $this->manager_class($this);
         } elseif (!class_exists($this->manager_class)) {
-            throw new RuntimeException('Manager class ' . $this->manager_class . '  not found');
+            throw new RuntimeException('Manager class '.$this->manager_class.'  not found');
         }
 
         return $this->manager;
@@ -180,7 +182,11 @@ class ModuleModel extends AbstractExtensionModel {
     /**
      * Install module.
      *
+     * @param File $extensionPackageFile Extension package file
+     *
      * @return bool
+     *
+     * @throws ValidationException
      */
     public function install(File $extensionPackageFile): bool
     {
@@ -194,7 +200,11 @@ class ModuleModel extends AbstractExtensionModel {
     /**
      * Install and update module.
      *
+     * @param File $extensionPackageFile Extension package file
+     *
      * @return bool
+     *
+     * @throws ValidationException
      */
     public function installUpdate(File $extensionPackageFile): bool
     {
@@ -212,7 +222,7 @@ class ModuleModel extends AbstractExtensionModel {
      */
     public function hasDependentModules(): bool
     {
-        return self::repo()->where('dependencies', 'LIKE', '%' . $this->identifier . '%')->count() > 0;
+        return self::repo()->where('dependencies', 'LIKE', '%'.$this->identifier.'%')->count() > 0;
     }
 
     /**
@@ -222,7 +232,7 @@ class ModuleModel extends AbstractExtensionModel {
      */
     public function getDependentModules(): EntityCollection
     {
-        return self::repo()->where('dependencies', 'LIKE', '%' . $this->identifier . '%')->fetchAll();
+        return self::repo()->where('dependencies', 'LIKE', '%'.$this->identifier.'%')->fetchAll();
     }
 
     /**
@@ -310,7 +320,7 @@ class ModuleModel extends AbstractExtensionModel {
     {
         return $this
                         ->config()
-                        ->getModulesUrl('/' . $this->folder_name . '/' . $additionalUrlPath);
+                        ->getModulesUrl('/'.$this->folder_name.'/'.$additionalUrlPath);
     }
 
     /**
@@ -324,7 +334,6 @@ class ModuleModel extends AbstractExtensionModel {
     {
         return $this
                         ->config()
-                        ->getModulesPath('/' . $this->folder_name . '/' . $additionalPath);
+                        ->getModulesPath('/'.$this->folder_name.'/'.$additionalPath);
     }
-
 }

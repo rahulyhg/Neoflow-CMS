@@ -62,10 +62,10 @@ class BackendView extends AbstractView
     /**
      * Add breadcrumb.
      *
-     * @param string $title
-     * @param string $url
+     * @param string $title Title
+     * @param string $url   Optional URL
      *
-     * return self
+     * @return self
      */
     public function addBreadcrumb(string $title, string $url = ''): self
     {

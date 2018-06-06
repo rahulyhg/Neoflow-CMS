@@ -3,14 +3,13 @@
 namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
-use Neoflow\CMS\Exception\UploadException;
 use Neoflow\CMS\View\Backend\MediaView;
 use Neoflow\CMS\View\BackendView;
-use Neoflow\Framework\HTTP\Responsing\DownloadResponse;
-use Neoflow\Framework\HTTP\Responsing\Response;
 use Neoflow\Filesystem\Exception\FilesystemException;
 use Neoflow\Filesystem\File;
 use Neoflow\Filesystem\Folder;
+use Neoflow\Framework\HTTP\Responsing\DownloadResponse;
+use Neoflow\Framework\HTTP\Responsing\Response;
 use Neoflow\Validation\ValidationException;
 
 class MediaController extends BackendController
@@ -41,6 +40,9 @@ class MediaController extends BackendController
      *
      * @param BackendView $view
      * @param array       $args
+     *
+     * @throws \Neoflow\Filesystem\Exception\FolderException
+     * @throws \Neoflow\Filesystem\Exception\FileException
      */
     public function __construct(BackendView $view = null, array $args = [])
     {
@@ -291,8 +293,6 @@ class MediaController extends BackendController
      * Upload action.
      *
      * @return Response
-     *
-     * @throws UploadException
      */
     public function uploadAction(): Response
     {

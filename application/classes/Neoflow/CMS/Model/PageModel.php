@@ -14,8 +14,8 @@ use function normalize_url;
 use function slugify;
 use function translate;
 
-class PageModel extends AbstractModel {
-
+class PageModel extends AbstractModel
+{
     /**
      * @var string
      */
@@ -32,7 +32,7 @@ class PageModel extends AbstractModel {
     public static $properties = ['page_id', 'title', 'slug',
         'description', 'keywords', 'is_active', 'is_restricted', 'author_user_id',
         'only_logged_in_users', 'language_id', 'url', 'has_custom_slug', 'is_startpage',
-        'created_when', 'modified_when',];
+        'created_when', 'modified_when', ];
 
     /**
      * Get repository to fetch sections.
@@ -142,7 +142,7 @@ class PageModel extends AbstractModel {
 
         $route = $this->router()->getRoutingByUrl($this->url);
 
-        if (0 === $numberOfPages && isset($route['route'][0]) && $route['route'][0] === 'frontend_index') {
+        if (0 === $numberOfPages && isset($route['route'][0]) && 'frontend_index' === $route['route'][0]) {
             return true;
         }
 
@@ -156,7 +156,7 @@ class PageModel extends AbstractModel {
      * @param bool $withLanguageCode Set TRUE to get relative URL with language code when multiple languages are in use
      * @param bool $forStartpage     SET true to get the URL path for the startpage too
      *
-     * @return bool
+     * @return string
      */
     public function getRelativeUrl(bool $withBasePath = false, bool $withLanguageCode = false, bool $forStartpage = false): string
     {
@@ -168,7 +168,7 @@ class PageModel extends AbstractModel {
 
         $numberOfLanguages = count($this->config()->get('app')->get('languages'));
         if ($withLanguageCode && $numberOfLanguages > 1) {
-            $relativeUrl .= '/' . $this->language()->fetch()->code . '/';
+            $relativeUrl .= '/'.$this->language()->fetch()->code.'/';
         }
 
         if ($forStartpage || !$this->is_startpage) {
@@ -397,8 +397,8 @@ class PageModel extends AbstractModel {
         $this->url = '/';
         if ($parentPages->count() > 0) {
             $this->url .= $parentPages->implode(function ($page) {
-                        return $page->slug;
-                    }, '/') . '/';
+                return $page->slug;
+            }, '/').'/';
         }
         $this->url .= $this->slug;
 
@@ -409,6 +409,8 @@ class PageModel extends AbstractModel {
      * Validate page.
      *
      * @return bool
+     *
+     * @throws ValidationException
      */
     public function validate(): bool
     {
@@ -551,7 +553,7 @@ class PageModel extends AbstractModel {
                         'section' => $section->setReadOnly(),
                         'page' => $this->setReadOnly(),
                         'block' => $block->setReadOnly(),
-                    ]) . PHP_EOL;
+                    ]).PHP_EOL;
 
             // Add content to output
             $output .= $content;
@@ -559,7 +561,7 @@ class PageModel extends AbstractModel {
             // Add content to the block
             if ($block) {
                 $view->engine()->addContentToBlock('sections', $content);
-                $view->engine()->addContentToBlock('section_' . $block->block_key, $content);
+                $view->engine()->addContentToBlock('section_'.$block->block_key, $content);
             }
         }
 
@@ -579,5 +581,4 @@ class PageModel extends AbstractModel {
     {
         return $this->hasManyThrough('Neoflow\\CMS\\Model\\RoleModel', 'Neoflow\\CMS\\Model\\PageRoleModel', 'page_id', 'role_id');
     }
-
 }

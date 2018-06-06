@@ -29,8 +29,6 @@ class InstallView extends AbstractView
     /**
      * Render alert.
      *
-     * @param AbstractAlert $alert
-     *
      * @return string
      */
     public function renderAlertTemplate(): string

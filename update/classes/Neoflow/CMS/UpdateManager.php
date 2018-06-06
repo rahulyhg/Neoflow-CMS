@@ -2,7 +2,6 @@
 
 namespace Neoflow\CMS;
 
-use Neoflow\CMS\AppTrait;
 use Neoflow\CMS\Model\ModuleModel;
 use Neoflow\CMS\Model\ThemeModel;
 use Neoflow\Filesystem\File;
@@ -12,8 +11,8 @@ use Throwable;
 use function generate_url;
 use function translate;
 
-class UpdateManager {
-
+class UpdateManager
+{
     /**
      * App trait.
      */
@@ -40,6 +39,8 @@ class UpdateManager {
      *
      * @param Folder $folder Update folder
      * @param array  $info   Old info data (only needed for update from 1.0.0-a1 to 1.0.0-a2).
+     *
+     * @throws ValidationException
      */
     public function __construct(Folder $folder, array $info = [])
     {
@@ -51,7 +52,7 @@ class UpdateManager {
     }
 
     /**
-     * Fetch and validate update information
+     * Fetch and validate update information.
      *
      * @return array
      *
@@ -94,8 +95,11 @@ class UpdateManager {
     }
 
     /**
-     * Install extension updates (update step 2)
+     * Install extension updates (update step 2).
+     *
      * @return bool
+     *
+     * @throws \Neoflow\Filesystem\Exception\FolderException
      */
     public function installExtensionUpdates(): bool
     {
@@ -104,9 +108,10 @@ class UpdateManager {
 
             $this->service('alert')->success(translate('CMS successfully updated'));
             $this->cache()->clear();
-            header('Location:' . generate_url('backend_maintenance_index'));
+            header('Location:'.generate_url('backend_maintenance_index'));
             exit;
         }
+
         return false;
     }
 
@@ -119,7 +124,7 @@ class UpdateManager {
     {
         foreach ($this->info['modules'] as $identifier => $packageName) {
             try {
-                $packageFile = $this->folder->findFiles($this->info['path']['modules'] . '/' . $packageName)->first();
+                $packageFile = $this->folder->findFiles($this->info['path']['modules'].'/'.$packageName)->first();
                 if ($packageFile) {
                     $module = ModuleModel::findByColumn('identifier', $identifier);
                     if ($module) {
@@ -131,7 +136,7 @@ class UpdateManager {
                     $packageFile->delete();
                 }
             } catch (Throwable $ex) {
-                $this->logger()->warning('Module update installation for ' . $packageName . ' failed.', [
+                $this->logger()->warning('Module update installation for '.$packageName.' failed.', [
                     'Exception message' => $ex->getMessage(),
                 ]);
             }
@@ -149,7 +154,7 @@ class UpdateManager {
     {
         foreach ($this->info['themes'] as $identifier => $packageName) {
             try {
-                $packageFile = $this->folder->findFiles($this->info['path']['themes'] . '/' . $packageName)->first();
+                $packageFile = $this->folder->findFiles($this->info['path']['themes'].'/'.$packageName)->first();
                 if ($packageFile) {
                     $theme = ThemeModel::findByColumn('identifier', $identifier);
                     if ($theme) {
@@ -161,7 +166,7 @@ class UpdateManager {
                     $packageFile->delete();
                 }
             } catch (Throwable $ex) {
-                $this->logger()->warning('Theme update installation for ' . $packageName . ' failed.', [
+                $this->logger()->warning('Theme update installation for '.$packageName.' failed.', [
                     'Exception message' => $ex->getMessage(),
                 ]);
             }
@@ -184,6 +189,8 @@ class UpdateManager {
      * Update files and database (update step 1).
      *
      * @return bool
+     *
+     * @throws ValidationException
      */
     public function installUpdate(): bool
     {
@@ -197,7 +204,7 @@ class UpdateManager {
             $this->updateDatabase();
             if ($this->updateFiles() && $this->updateConfig()) {
                 $this->cache()->clear();
-                header('Location:' . $url);
+                header('Location:'.$url);
                 exit;
             }
         } catch (Throwable $ex) {
@@ -219,10 +226,10 @@ class UpdateManager {
         $filesFolder = $this->folder->findFolders($this->info['path']['files'])->first();
 
         if ($filesFolder && $filesFolder->copyContent($this->config()->getPath())) {
-
             // Delete not needed framework folder
             return Folder::unlink($this->config()->getPath('/framework'));
         }
+
         return false;
     }
 
@@ -244,12 +251,14 @@ class UpdateManager {
      * Update CMS config.
      *
      * @return bool
+     *
+     * @throws \Neoflow\Filesystem\Exception\FileException
      */
     protected function updateConfig(): bool
     {
         // Backup config
         $configFilePath = $this->config()->getPath('/config.php');
-        File::load($configFilePath)->rename('config-backup-' . date('d-m-Y_h-i-s') . '.php');
+        File::load($configFilePath)->rename('config-backup-'.date('d-m-Y_h-i-s').'.php');
 
         // Get config
         $config = $this->config();
@@ -269,11 +278,11 @@ class UpdateManager {
             'filesystem' => 'Neoflow\\CMS\\Service\\FilesystemService',
             'validation' => 'Neoflow\\CMS\\Service\\ValidationService',
             'install' => 'Neoflow\\CMS\\Service\\InstallService',
-            'update' => 'Neoflow\\CMS\\Service\\UpdateService'
+            'update' => 'Neoflow\\CMS\\Service\\UpdateService',
         ]);
 
         // Replace auto with true
-        if ($config->get('cache')->get('type') === 'auto') {
+        if ('auto' === $config->get('cache')->get('type')) {
             $config->get('cache')->set('type', true);
         }
 
@@ -285,5 +294,4 @@ class UpdateManager {
 
         return true;
     }
-
 }

@@ -6,8 +6,8 @@ use Neoflow\CMS\Controller\Backend\AbstractToolModuleController;
 use Neoflow\CMS\View\BackendView;
 use Neoflow\Framework\HTTP\Responsing\RedirectResponse;
 use Neoflow\Framework\HTTP\Responsing\Response;
-use Neoflow\Validation\ValidationException;
 use Neoflow\Module\Snippets\Model;
+use Neoflow\Validation\ValidationException;
 use RuntimeException;
 
 class BackendController extends AbstractToolModuleController

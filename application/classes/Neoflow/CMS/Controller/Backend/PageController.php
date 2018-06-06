@@ -11,7 +11,6 @@ use Neoflow\CMS\Model\PageModel;
 use Neoflow\CMS\Model\RoleModel;
 use Neoflow\CMS\Model\SectionModel;
 use Neoflow\CMS\View\Backend\PageView;
-use Neoflow\CMS\View\BackendView;
 use Neoflow\Framework\HTTP\Responsing\JsonResponse;
 use Neoflow\Framework\HTTP\Responsing\RedirectResponse;
 use Neoflow\Framework\HTTP\Responsing\Response;
@@ -28,9 +27,8 @@ class PageController extends BackendController
     /**
      * Constructor.
      *
-     * @param PageView    $view
-     * @param BackendView $view
-     * @param array       $args
+     * @param PageView $view Page view
+     * @param array    $args Request arguments
      */
     public function __construct(PageView $view = null, array $args = [])
     {

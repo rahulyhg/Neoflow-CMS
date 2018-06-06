@@ -2,8 +2,8 @@
 
 namespace Neoflow\CMS\Service;
 
-use Neoflow\CMS\Model\SectionModel;
 use Neoflow\CMS\Core\AbstractService;
+use Neoflow\CMS\Model\SectionModel;
 
 class SectionService extends AbstractService
 {

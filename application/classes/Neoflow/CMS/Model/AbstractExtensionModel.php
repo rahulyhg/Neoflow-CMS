@@ -3,11 +3,14 @@
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
+use Neoflow\Filesystem\Exception\FileException;
+use Neoflow\Filesystem\Exception\FolderException;
 use Neoflow\Filesystem\File;
 use Neoflow\Filesystem\Folder;
 use Neoflow\Framework\Core\AbstractModel as FrameworkAbstractModel;
 use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Validation\ValidationException;
+use RuntimeException;
 use ZipArchive;
 use function translate;
 
@@ -27,6 +30,9 @@ abstract class AbstractExtensionModel extends AbstractModel
      * Delete extension.
      *
      * @return bool
+     *
+     * @throws FolderException
+     * @throws FolderException
      */
     public function delete(): bool
     {
@@ -37,7 +43,8 @@ abstract class AbstractExtensionModel extends AbstractModel
             }
 
             // Delete system config cache
-            $this->cache()->deleteByTag('cms_core', 'cms_extensions');
+            $this->cache()->deleteByTag('cms_core');
+            $this->cache()->deleteByTag('cms_extensions');
 
             return true;
         }
@@ -48,7 +55,7 @@ abstract class AbstractExtensionModel extends AbstractModel
     /**
      * Fetch info data from information file.
      *
-     * @params string $infoFilePath
+     * @param string $infoFilePath Info file path
      *
      * @return array
      *
@@ -71,6 +78,8 @@ abstract class AbstractExtensionModel extends AbstractModel
      * Validate extension.
      *
      * @return bool
+     *
+     * @throws ValidationException
      */
     public function validate(): bool
     {
@@ -103,6 +112,8 @@ abstract class AbstractExtensionModel extends AbstractModel
      * Reload the informatione of the extension.
      *
      * @return bool
+     *
+     * @throws ValidationException
      */
     public function reload(): bool
     {
@@ -125,6 +136,8 @@ abstract class AbstractExtensionModel extends AbstractModel
      * @return Folder
      *
      * @throws ValidationException
+     * @throws FileException
+     * @throws FolderException
      */
     protected function unpack(File $extensionPackageFile, bool $delete = true): Folder
     {
@@ -151,9 +164,13 @@ abstract class AbstractExtensionModel extends AbstractModel
     /**
      * Install extension package.
      *
+     * @param File $extensionPackageFile Extension package file
+     *
      * @return bool
      *
      * @throws ValidationException
+     * @throws FolderException
+     * @throws FileException
      */
     public function install(File $extensionPackageFile): bool
     {
@@ -193,9 +210,13 @@ abstract class AbstractExtensionModel extends AbstractModel
     /**
      * Install update extension package.
      *
+     * @param File $extensionPackageFile Extension package file
+     *
      * @return bool
      *
      * @throws ValidationException
+     * @throws FolderException
+     * @throws FolderException
      */
     public function installUpdate(File $extensionPackageFile): bool
     {
@@ -255,7 +276,8 @@ abstract class AbstractExtensionModel extends AbstractModel
     public function save(bool $preventCacheClearing = false): bool
     {
         // Delete cms cache first
-        $this->cache()->deleteByTag('cms_core', 'cms_extensions');
+        $this->cache()->deleteByTag('cms_extensions');
+        $this->cache()->deleteByTag('cms_core');
 
         return parent::save($preventCacheClearing);
     }

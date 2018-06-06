@@ -121,6 +121,8 @@ class Config extends FrameworkConfig
      * Save and overwrite current config as file.
      *
      * @return bool
+     *
+     * @throws \Neoflow\Filesystem\Exception\FileException
      */
     public function saveAsFile(): bool
     {

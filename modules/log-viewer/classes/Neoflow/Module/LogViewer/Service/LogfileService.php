@@ -25,6 +25,8 @@ class LogfileService extends AbstractService
      * Get date of logfile.
      *
      * @param string $logfilePath
+     *
+     * @return string
      */
     public function getLogfileDate(string $logfilePath): string
     {
@@ -50,7 +52,7 @@ class LogfileService extends AbstractService
      *
      * @param string $logfilePath
      *
-     * @return int
+     * @return DateTime
      */
     public function getLogfileDateAsDatetime(string $logfilePath): DateTime
     {

@@ -73,6 +73,8 @@ class ThemeModel extends AbstractExtensionModel
      * Load blocks from info file.
      *
      * @return self
+     *
+     * @throws ValidationException
      */
     public function loadBlocks(): self
     {
@@ -115,6 +117,8 @@ class ThemeModel extends AbstractExtensionModel
      * Load navigations from info file.
      *
      * @return self
+     *
+     * @throws ValidationException
      */
     public function loadNavigations(): self
     {
@@ -157,6 +161,8 @@ class ThemeModel extends AbstractExtensionModel
      * Validate module.
      *
      * @return bool
+     *
+     * @throws ValidationException
      */
     public function validate(): bool
     {

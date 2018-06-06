@@ -6,8 +6,8 @@ use Neoflow\CMS\Controller\Backend\AbstractToolModuleController;
 use Neoflow\CMS\View\BackendView;
 use Neoflow\Framework\HTTP\Responsing\RedirectResponse;
 use Neoflow\Framework\HTTP\Responsing\Response;
-use Neoflow\Module\Sitemap\Model;
 use Neoflow\Module\Sitemap\Model\SettingModel;
+use Neoflow\Module\Sitemap\Model\UrlModel;
 use Neoflow\Module\Sitemap\Service;
 use Neoflow\Validation\ValidationException;
 use RuntimeException;
@@ -39,6 +39,8 @@ class BackendController extends AbstractToolModuleController
      * Index action.
      *
      * @return Response
+     *
+     * @throws \Neoflow\Filesystem\Exception\FileException
      */
     public function indexAction(): Response
     {
@@ -67,7 +69,7 @@ class BackendController extends AbstractToolModuleController
         $postData = $this->request()->getPostData();
 
         try {
-            $settings = Model\SettingModel::updateById([
+            $settings = SettingModel::updateById([
                     'default_changefreq' => $postData->get('default_changefreq'),
                     'default_priority' => $postData->get('default_priority'),
                     'sitemap_lifetime' => $postData->get('sitemap_lifetime'),
@@ -101,7 +103,7 @@ class BackendController extends AbstractToolModuleController
             $postData = $this->request()->getPostData();
 
             // Update snippet
-            $snippet = Model::updateById([
+            $snippet = UrlModel::updateById([
                     'title' => $postData->get('title'),
                     'description' => $postData->get('description'),
                     'placeholder' => $postData->get('placeholder'),
@@ -129,7 +131,7 @@ class BackendController extends AbstractToolModuleController
      * @return RedirectResponse
      *
      * @throws RuntimeException
-     * @throws ValidationException
+     * @throws \Neoflow\Filesystem\Exception\FileException
      */
     public function deleteSitemapAction(): RedirectResponse
     {

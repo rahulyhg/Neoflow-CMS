@@ -33,11 +33,11 @@ class Service extends AbstractService
      * @param string $location        URL (of page)
      * @param int    $lastModified    Last modified timestamp (of page)
      * @param string $changeFrequency Change frequency of URL (page content)
-     * @param string $priority        Priority of URL
-     *
-     * @see https://www.sitemaps.org/de/protocol.html
+     * @param float  $priority        Priority of URL
      *
      * @return self
+     *
+     * @see https://www.sitemaps.org/de/protocol.html
      */
     public function register(string $location, int $lastModified = null, string $changeFrequency = null, float $priority = null): self
     {
@@ -80,6 +80,8 @@ class Service extends AbstractService
      * Get sitemap file.
      *
      * @return File|null
+     *
+     * @throws \Neoflow\Filesystem\Exception\FileException
      */
     public function getFile()
     {

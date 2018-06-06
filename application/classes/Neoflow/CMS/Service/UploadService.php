@@ -13,13 +13,15 @@ class UploadService extends AbstractService
     /**
      * Move multiple uploaded file items to directory.
      *
-     * @param string $uploadedItems         Uploaded POST file items
+     * @param array  $uploadedItems         Uploaded POST file items
      * @param string $directoryPath         Target directory path to move the uploaded file item
      * @param bool   $overwrite             Set FALSE to prevent overwriting, when a file with same name in the new directory path already exist
      * @param array  $allowedFileExtensions List of allowed file extensions
      * @param int    $allowedFileSize       Allowed file size in bytes (-1 = unlimited)
      *
      * @return array
+     *
+     * @throws UploadException
      */
     public function moveMultiple(array $uploadedItems, string $directoryPath, bool $overwrite = true, array $allowedFileExtensions = [], int $allowedFileSize = -1): array
     {
@@ -41,7 +43,7 @@ class UploadService extends AbstractService
     /**
      * Move uploaded file item to directory.
      *
-     * @param string $uploadedItem          Uploaded POST file item
+     * @param array  $uploadedItem          Uploaded POST file item
      * @param string $directoryPath         Target directory path to move the uploaded file item
      * @param bool   $overwrite             Set FALSE to prevent overwriting, when a file with same name in the new directory path already exist
      * @param array  $allowedFileExtensions List of allowed file extensions
@@ -51,7 +53,6 @@ class UploadService extends AbstractService
      *
      * @throws UploadException
      * @throws ValidationException
-     * @throws InvalidArgumentException
      */
     public function move(array $uploadedItem, string $directoryPath, bool $overwrite = true, array $allowedFileExtensions = [], int $allowedFileSize = -1): File
     {

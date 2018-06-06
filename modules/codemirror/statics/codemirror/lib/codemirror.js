@@ -8883,15 +8883,15 @@ function domTextBetween(cm, from, to, fromLine, toLine) {
         addText(cmText || node.textContent.replace(/\u200b/g, ""))
         return
       }
-      var markerID = node.getAttribute("cm-marker"), range
+      var markerID = node.getAttribute("cm-marker"), range;
       if (markerID) {
-        var found = cm.findMarks(Pos(fromLine, 0), Pos(toLine + 1, 0), recognizeMarker(+markerID))
+        var found = cm.findMarks(Pos(fromLine, 0), Pos(toLine + 1, 0), recognizeMarker(+markerID));
         if (found.length && (range = found[0].find()))
           { addText(getBetween(cm.doc, range.from, range.to).join(lineSep)) }
         return
       }
       if (node.getAttribute("contenteditable") == "false") { return }
-      var isBlock = /^(pre|div|p)$/i.test(node.nodeName)
+      var isBlock = /^(pre|div|p)$/i.test(node.nodeName);
       if (isBlock) { close() }
       for (var i = 0; i < node.childNodes.length; i++)
         { walk(node.childNodes[i]) }
@@ -8901,7 +8901,7 @@ function domTextBetween(cm, from, to, fromLine, toLine) {
     }
   }
   for (;;) {
-    walk(from)
+    walk(from);
     if (from == to) { break }
     from = from.nextSibling
   }
@@ -8909,9 +8909,9 @@ function domTextBetween(cm, from, to, fromLine, toLine) {
 }
 
 function domToPos(cm, node, offset) {
-  var lineNode
+  var lineNode;
   if (node == cm.display.lineDiv) {
-    lineNode = cm.display.lineDiv.childNodes[offset]
+    lineNode = cm.display.lineDiv.childNodes[offset];
     if (!lineNode) { return badPos(cm.clipPos(Pos(cm.display.viewTo - 1)), true) }
     node = null; offset = 0
   } else {
@@ -8921,60 +8921,60 @@ function domToPos(cm, node, offset) {
     }
   }
   for (var i = 0; i < cm.display.view.length; i++) {
-    var lineView = cm.display.view[i]
+    var lineView = cm.display.view[i];
     if (lineView.node == lineNode)
       { return locateNodeInLineView(lineView, node, offset) }
   }
 }
 
 function locateNodeInLineView(lineView, node, offset) {
-  var wrapper = lineView.text.firstChild, bad = false
+  var wrapper = lineView.text.firstChild, bad = false;
   if (!node || !contains(wrapper, node)) { return badPos(Pos(lineNo(lineView.line), 0), true) }
   if (node == wrapper) {
-    bad = true
-    node = wrapper.childNodes[offset]
-    offset = 0
+    bad = true;
+    node = wrapper.childNodes[offset];
+    offset = 0;
     if (!node) {
-      var line = lineView.rest ? lst(lineView.rest) : lineView.line
+      var line = lineView.rest ? lst(lineView.rest) : lineView.line;
       return badPos(Pos(lineNo(line), line.text.length), bad)
     }
   }
 
-  var textNode = node.nodeType == 3 ? node : null, topNode = node
+  var textNode = node.nodeType == 3 ? node : null, topNode = node;
   if (!textNode && node.childNodes.length == 1 && node.firstChild.nodeType == 3) {
-    textNode = node.firstChild
+    textNode = node.firstChild;
     if (offset) { offset = textNode.nodeValue.length }
   }
   while (topNode.parentNode != wrapper) { topNode = topNode.parentNode }
-  var measure = lineView.measure, maps = measure.maps
+  var measure = lineView.measure, maps = measure.maps;
 
   function find(textNode, topNode, offset) {
     for (var i = -1; i < (maps ? maps.length : 0); i++) {
-      var map = i < 0 ? measure.map : maps[i]
+      var map = i < 0 ? measure.map : maps[i];
       for (var j = 0; j < map.length; j += 3) {
-        var curNode = map[j + 2]
+        var curNode = map[j + 2];
         if (curNode == textNode || curNode == topNode) {
-          var line = lineNo(i < 0 ? lineView.line : lineView.rest[i])
-          var ch = map[j] + offset
+          var line = lineNo(i < 0 ? lineView.line : lineView.rest[i]);
+          var ch = map[j] + offset;
           if (offset < 0 || curNode != textNode) { ch = map[j + (offset ? 1 : 0)] }
           return Pos(line, ch)
         }
       }
     }
   }
-  var found = find(textNode, topNode, offset)
+  var found = find(textNode, topNode, offset);
   if (found) { return badPos(found, bad) }
 
   // FIXME this is all really shaky. might handle the few cases it needs to handle, but likely to cause problems
   for (var after = topNode.nextSibling, dist = textNode ? textNode.nodeValue.length - offset : 0; after; after = after.nextSibling) {
-    found = find(after, after.firstChild, 0)
+    found = find(after, after.firstChild, 0);
     if (found)
       { return badPos(Pos(found.line, found.ch - dist), bad) }
     else
       { dist += after.textContent.length }
   }
   for (var before = topNode.previousSibling, dist$1 = offset; before; before = before.previousSibling) {
-    found = find(before, before.firstChild, -1)
+    found = find(before, before.firstChild, -1);
     if (found)
       { return badPos(Pos(found.line, found.ch + dist$1), bad) }
     else
@@ -8985,35 +8985,35 @@ function locateNodeInLineView(lineView, node, offset) {
 // TEXTAREA INPUT STYLE
 
 var TextareaInput = function(cm) {
-  this.cm = cm
+  this.cm = cm;
   // See input.poll and input.reset
-  this.prevInput = ""
+  this.prevInput = "";
 
   // Flag that indicates whether we expect input to appear real soon
   // now (after some event like 'keypress' or 'input') and are
   // polling intensively.
-  this.pollingFast = false
+  this.pollingFast = false;
   // Self-resetting timeout for the poller
-  this.polling = new Delayed()
+  this.polling = new Delayed();
   // Tracks when input.reset has punted to just putting a short
   // string into the textarea instead of the full selection.
-  this.inaccurateSelection = false
+  this.inaccurateSelection = false;
   // Used to work around IE issue with selection being forgotten when focus moves away from textarea
-  this.hasSelection = false
+  this.hasSelection = false;
   this.composing = null
 };
 
 TextareaInput.prototype.init = function (display) {
     var this$1 = this;
 
-  var input = this, cm = this.cm
+  var input = this, cm = this.cm;
 
   // Wraps and hides input textarea
-  var div = this.wrapper = hiddenTextarea()
+  var div = this.wrapper = hiddenTextarea();
   // The semihidden textarea that is focused when the editor is
   // focused, and receives input.
-  var te = this.textarea = div.firstChild
-  display.wrapper.insertBefore(div, display.wrapper.firstChild)
+  var te = this.textarea = div.firstChild;
+  display.wrapper.insertBefore(div, display.wrapper.firstChild);
 
   // Needed to hide big blue blinking cursor on Mobile Safari (doesn't seem to work in iOS 8 anymore)
   if (ios) { te.style.width = "0px" }
@@ -9021,66 +9021,66 @@ TextareaInput.prototype.init = function (display) {
   on(te, "input", function () {
     if (ie && ie_version >= 9 && this$1.hasSelection) { this$1.hasSelection = null }
     input.poll()
-  })
+  });
 
   on(te, "paste", function (e) {
     if (signalDOMEvent(cm, e) || handlePaste(e, cm)) { return }
 
-    cm.state.pasteIncoming = true
+    cm.state.pasteIncoming = true;
     input.fastPoll()
-  })
+  });
 
   function prepareCopyCut(e) {
     if (signalDOMEvent(cm, e)) { return }
     if (cm.somethingSelected()) {
-      setLastCopied({lineWise: false, text: cm.getSelections()})
+      setLastCopied({lineWise: false, text: cm.getSelections()});
       if (input.inaccurateSelection) {
-        input.prevInput = ""
-        input.inaccurateSelection = false
-        te.value = lastCopied.text.join("\n")
+        input.prevInput = "";
+        input.inaccurateSelection = false;
+        te.value = lastCopied.text.join("\n");
         selectInput(te)
       }
     } else if (!cm.options.lineWiseCopyCut) {
       return
     } else {
-      var ranges = copyableRanges(cm)
-      setLastCopied({lineWise: true, text: ranges.text})
+      var ranges = copyableRanges(cm);
+      setLastCopied({lineWise: true, text: ranges.text});
       if (e.type == "cut") {
         cm.setSelections(ranges.ranges, null, sel_dontScroll)
       } else {
-        input.prevInput = ""
-        te.value = ranges.text.join("\n")
+        input.prevInput = "";
+        te.value = ranges.text.join("\n");
         selectInput(te)
       }
     }
     if (e.type == "cut") { cm.state.cutIncoming = true }
   }
-  on(te, "cut", prepareCopyCut)
-  on(te, "copy", prepareCopyCut)
+  on(te, "cut", prepareCopyCut);
+  on(te, "copy", prepareCopyCut);
 
   on(display.scroller, "paste", function (e) {
     if (eventInWidget(display, e) || signalDOMEvent(cm, e)) { return }
-    cm.state.pasteIncoming = true
+    cm.state.pasteIncoming = true;
     input.focus()
-  })
+  });
 
   // Prevent normal selection in the editor (we handle our own)
   on(display.lineSpace, "selectstart", function (e) {
     if (!eventInWidget(display, e)) { e_preventDefault(e) }
-  })
+  });
 
   on(te, "compositionstart", function () {
-    var start = cm.getCursor("from")
+    var start = cm.getCursor("from");
     if (input.composing) { input.composing.range.clear() }
     input.composing = {
       start: start,
       range: cm.markText(start, cm.getCursor("to"), {className: "CodeMirror-composing"})
     }
-  })
+  });
   on(te, "compositionend", function () {
     if (input.composing) {
-      input.poll()
-      input.composing.range.clear()
+      input.poll();
+      input.composing.range.clear();
       input.composing = null
     }
   })
@@ -9088,15 +9088,15 @@ TextareaInput.prototype.init = function (display) {
 
 TextareaInput.prototype.prepareSelection = function () {
   // Redraw the selection and/or cursor
-  var cm = this.cm, display = cm.display, doc = cm.doc
-  var result = prepareSelection(cm)
+  var cm = this.cm, display = cm.display, doc = cm.doc;
+  var result = prepareSelection(cm);
 
   // Move the hidden textarea near the cursor to prevent scrolling artifacts
   if (cm.options.moveInputWithCursor) {
-    var headPos = cursorCoords(cm, doc.sel.primary().head, "div")
-    var wrapOff = display.wrapper.getBoundingClientRect(), lineOff = display.lineDiv.getBoundingClientRect()
+    var headPos = cursorCoords(cm, doc.sel.primary().head, "div");
+    var wrapOff = display.wrapper.getBoundingClientRect(), lineOff = display.lineDiv.getBoundingClientRect();
     result.teTop = Math.max(0, Math.min(display.wrapper.clientHeight - 10,
-                                        headPos.top + lineOff.top - wrapOff.top))
+                                        headPos.top + lineOff.top - wrapOff.top));
     result.teLeft = Math.max(0, Math.min(display.wrapper.clientWidth - 10,
                                          headPos.left + lineOff.left - wrapOff.left))
   }
@@ -9105,11 +9105,11 @@ TextareaInput.prototype.prepareSelection = function () {
 };
 
 TextareaInput.prototype.showSelection = function (drawn) {
-  var cm = this.cm, display = cm.display
-  removeChildrenAndAdd(display.cursorDiv, drawn.cursors)
-  removeChildrenAndAdd(display.selectionDiv, drawn.selection)
+  var cm = this.cm, display = cm.display;
+  removeChildrenAndAdd(display.cursorDiv, drawn.cursors);
+  removeChildrenAndAdd(display.selectionDiv, drawn.selection);
   if (drawn.teTop != null) {
-    this.wrapper.style.top = drawn.teTop + "px"
+    this.wrapper.style.top = drawn.teTop + "px";
     this.wrapper.style.left = drawn.teLeft + "px"
   }
 };
@@ -9118,18 +9118,18 @@ TextareaInput.prototype.showSelection = function (drawn) {
 // when not typing and nothing is selected)
 TextareaInput.prototype.reset = function (typing) {
   if (this.contextMenuPending || this.composing) { return }
-  var minimal, selected, cm = this.cm, doc = cm.doc
+  var minimal, selected, cm = this.cm, doc = cm.doc;
   if (cm.somethingSelected()) {
-    this.prevInput = ""
-    var range = doc.sel.primary()
+    this.prevInput = "";
+    var range = doc.sel.primary();
     minimal = hasCopyEvent &&
-      (range.to().line - range.from().line > 100 || (selected = cm.getSelection()).length > 1000)
-    var content = minimal ? "-" : selected || cm.getSelection()
-    this.textarea.value = content
+      (range.to().line - range.from().line > 100 || (selected = cm.getSelection()).length > 1000);
+    var content = minimal ? "-" : selected || cm.getSelection();
+    this.textarea.value = content;
     if (cm.state.focused) { selectInput(this.textarea) }
     if (ie && ie_version >= 9) { this.hasSelection = content }
   } else if (!typing) {
-    this.prevInput = this.textarea.value = ""
+    this.prevInput = this.textarea.value = "";
     if (ie && ie_version >= 9) { this.hasSelection = null }
   }
   this.inaccurateSelection = minimal
@@ -9161,7 +9161,7 @@ TextareaInput.prototype.slowPoll = function () {
 
   if (this.pollingFast) { return }
   this.polling.set(this.cm.options.pollInterval, function () {
-    this$1.poll()
+    this$1.poll();
     if (this$1.cm.state.focused) { this$1.slowPoll() }
   })
 };
@@ -9170,10 +9170,10 @@ TextareaInput.prototype.slowPoll = function () {
 // something in the input textarea, we poll faster, to ensure that
 // the change appears on the screen quickly.
 TextareaInput.prototype.fastPoll = function () {
-  var missed = false, input = this
-  input.pollingFast = true
+  var missed = false, input = this;
+  input.pollingFast = true;
   function p() {
-    var changed = input.poll()
+    var changed = input.poll();
     if (!changed && !missed) {missed = true; input.polling.set(60, p)}
     else {input.pollingFast = false; input.slowPoll()}
   }
@@ -9189,7 +9189,7 @@ TextareaInput.prototype.fastPoll = function () {
 TextareaInput.prototype.poll = function () {
     var this$1 = this;
 
-  var cm = this.cm, input = this.textarea, prevInput = this.prevInput
+  var cm = this.cm, input = this.textarea, prevInput = this.prevInput;
   // Since this is called a *lot*, try to bail out as cheaply as
   // possible when it is clear that nothing happened. hasSelection
   // will be the case when there is a lot of text in the textarea,
@@ -9199,7 +9199,7 @@ TextareaInput.prototype.poll = function () {
       cm.isReadOnly() || cm.options.disableInput || cm.state.keySeq)
     { return false }
 
-  var text = input.value
+  var text = input.value;
   // If nothing changed, bail.
   if (text == prevInput && !cm.somethingSelected()) { return false }
   // Work around nonsensical selection resetting in IE9/10, and
@@ -9207,33 +9207,33 @@ TextareaInput.prototype.poll = function () {
   // some key combos in Mac (#2689).
   if (ie && ie_version >= 9 && this.hasSelection === text ||
       mac && /[\uf700-\uf7ff]/.test(text)) {
-    cm.display.input.reset()
+    cm.display.input.reset();
     return false
   }
 
   if (cm.doc.sel == cm.display.selForContextMenu) {
-    var first = text.charCodeAt(0)
+    var first = text.charCodeAt(0);
     if (first == 0x200b && !prevInput) { prevInput = "\u200b" }
     if (first == 0x21da) { this.reset(); return this.cm.execCommand("undo") }
   }
   // Find the part of the input that is actually new
-  var same = 0, l = Math.min(prevInput.length, text.length)
+  var same = 0, l = Math.min(prevInput.length, text.length);
   while (same < l && prevInput.charCodeAt(same) == text.charCodeAt(same)) { ++same }
 
   runInOp(cm, function () {
     applyTextInput(cm, text.slice(same), prevInput.length - same,
-                   null, this$1.composing ? "*compose" : null)
+                   null, this$1.composing ? "*compose" : null);
 
     // Don't leave long text in the textarea, since it makes further polling slow
     if (text.length > 1000 || text.indexOf("\n") > -1) { input.value = this$1.prevInput = "" }
     else { this$1.prevInput = text }
 
     if (this$1.composing) {
-      this$1.composing.range.clear()
+      this$1.composing.range.clear();
       this$1.composing.range = cm.markText(this$1.composing.start, cm.getCursor("to"),
                                          {className: "CodeMirror-composing"})
     }
-  })
+  });
   return true
 };
 
@@ -9247,51 +9247,51 @@ TextareaInput.prototype.onKeyPress = function () {
 };
 
 TextareaInput.prototype.onContextMenu = function (e) {
-  var input = this, cm = input.cm, display = cm.display, te = input.textarea
-  var pos = posFromMouse(cm, e), scrollPos = display.scroller.scrollTop
+  var input = this, cm = input.cm, display = cm.display, te = input.textarea;
+  var pos = posFromMouse(cm, e), scrollPos = display.scroller.scrollTop;
   if (!pos || presto) { return } // Opera is difficult.
 
   // Reset the current text selection only if the click is done outside of the selection
   // and 'resetSelectionOnContextMenu' option is true.
-  var reset = cm.options.resetSelectionOnContextMenu
+  var reset = cm.options.resetSelectionOnContextMenu;
   if (reset && cm.doc.sel.contains(pos) == -1)
     { operation(cm, setSelection)(cm.doc, simpleSelection(pos), sel_dontScroll) }
 
-  var oldCSS = te.style.cssText, oldWrapperCSS = input.wrapper.style.cssText
-  input.wrapper.style.cssText = "position: absolute"
-  var wrapperBox = input.wrapper.getBoundingClientRect()
-  te.style.cssText = "position: absolute; width: 30px; height: 30px;\n      top: " + (e.clientY - wrapperBox.top - 5) + "px; left: " + (e.clientX - wrapperBox.left - 5) + "px;\n      z-index: 1000; background: " + (ie ? "rgba(255, 255, 255, .05)" : "transparent") + ";\n      outline: none; border-width: 0; outline: none; overflow: hidden; opacity: .05; filter: alpha(opacity=5);"
-  var oldScrollY
+  var oldCSS = te.style.cssText, oldWrapperCSS = input.wrapper.style.cssText;
+  input.wrapper.style.cssText = "position: absolute";
+  var wrapperBox = input.wrapper.getBoundingClientRect();
+  te.style.cssText = "position: absolute; width: 30px; height: 30px;\n      top: " + (e.clientY - wrapperBox.top - 5) + "px; left: " + (e.clientX - wrapperBox.left - 5) + "px;\n      z-index: 1000; background: " + (ie ? "rgba(255, 255, 255, .05)" : "transparent") + ";\n      outline: none; border-width: 0; outline: none; overflow: hidden; opacity: .05; filter: alpha(opacity=5);";
+  var oldScrollY;
   if (webkit) { oldScrollY = window.scrollY } // Work around Chrome issue (#2712)
-  display.input.focus()
+  display.input.focus();
   if (webkit) { window.scrollTo(null, oldScrollY) }
-  display.input.reset()
+  display.input.reset();
   // Adds "Select all" to context menu in FF
   if (!cm.somethingSelected()) { te.value = input.prevInput = " " }
-  input.contextMenuPending = true
-  display.selForContextMenu = cm.doc.sel
-  clearTimeout(display.detectingSelectAll)
+  input.contextMenuPending = true;
+  display.selForContextMenu = cm.doc.sel;
+  clearTimeout(display.detectingSelectAll);
 
   // Select-all will be greyed out if there's nothing to select, so
   // this adds a zero-width space so that we can later check whether
   // it got selected.
   function prepareSelectAllHack() {
     if (te.selectionStart != null) {
-      var selected = cm.somethingSelected()
-      var extval = "\u200b" + (selected ? te.value : "")
-      te.value = "\u21da" // Used to catch context-menu undo
-      te.value = extval
-      input.prevInput = selected ? "" : "\u200b"
-      te.selectionStart = 1; te.selectionEnd = extval.length
+      var selected = cm.somethingSelected();
+      var extval = "\u200b" + (selected ? te.value : "");
+      te.value = "\u21da"; // Used to catch context-menu undo
+      te.value = extval;
+      input.prevInput = selected ? "" : "\u200b";
+      te.selectionStart = 1; te.selectionEnd = extval.length;
       // Re-set this, in case some other handler touched the
       // selection in the meantime.
       display.selForContextMenu = cm.doc.sel
     }
   }
   function rehide() {
-    input.contextMenuPending = false
-    input.wrapper.style.cssText = oldWrapperCSS
-    te.style.cssText = oldCSS
+    input.contextMenuPending = false;
+    input.wrapper.style.cssText = oldWrapperCSS;
+    te.style.cssText = oldCSS;
     if (ie && ie_version < 9) { display.scrollbars.setScrollTop(display.scroller.scrollTop = scrollPos) }
 
     // Try to detect the user choosing select-all
@@ -9304,21 +9304,21 @@ TextareaInput.prototype.onContextMenu = function (e) {
         } else if (i++ < 10) {
           display.detectingSelectAll = setTimeout(poll, 500)
         } else {
-          display.selForContextMenu = null
+          display.selForContextMenu = null;
           display.input.reset()
         }
-      }
+      };
       display.detectingSelectAll = setTimeout(poll, 200)
     }
   }
 
   if (ie && ie_version >= 9) { prepareSelectAllHack() }
   if (captureRightClick) {
-    e_stop(e)
+    e_stop(e);
     var mouseup = function () {
-      off(window, "mouseup", mouseup)
+      off(window, "mouseup", mouseup);
       setTimeout(rehide, 20)
-    }
+    };
     on(window, "mouseup", mouseup)
   } else {
     setTimeout(rehide, 50)
@@ -9332,11 +9332,11 @@ TextareaInput.prototype.readOnlyChanged = function (val) {
 
 TextareaInput.prototype.setUneditable = function () {};
 
-TextareaInput.prototype.needsContentAttribute = false
+TextareaInput.prototype.needsContentAttribute = false;
 
 function fromTextArea(textarea, options) {
-  options = options ? copyObj(options) : {}
-  options.value = textarea.value
+  options = options ? copyObj(options) : {};
+  options.value = textarea.value;
   if (!options.tabindex && textarea.tabIndex)
     { options.tabindex = textarea.tabIndex }
   if (!options.placeholder && textarea.placeholder)
@@ -9344,25 +9344,25 @@ function fromTextArea(textarea, options) {
   // Set autofocus to true if this textarea is focused, or if it has
   // autofocus and no other element is focused.
   if (options.autofocus == null) {
-    var hasFocus = activeElt()
+    var hasFocus = activeElt();
     options.autofocus = hasFocus == textarea ||
       textarea.getAttribute("autofocus") != null && hasFocus == document.body
   }
 
   function save() {textarea.value = cm.getValue()}
 
-  var realSubmit
+  var realSubmit;
   if (textarea.form) {
-    on(textarea.form, "submit", save)
+    on(textarea.form, "submit", save);
     // Deplorable hack to make the submit method do the right thing.
     if (!options.leaveSubmitMethodAlone) {
-      var form = textarea.form
-      realSubmit = form.submit
+      var form = textarea.form;
+      realSubmit = form.submit;
       try {
         var wrappedSubmit = form.submit = function () {
-          save()
-          form.submit = realSubmit
-          form.submit()
+          save();
+          form.submit = realSubmit;
+          form.submit();
           form.submit = wrappedSubmit
         }
       } catch(e) {}
@@ -9370,89 +9370,89 @@ function fromTextArea(textarea, options) {
   }
 
   options.finishInit = function (cm) {
-    cm.save = save
-    cm.getTextArea = function () { return textarea; }
+    cm.save = save;
+    cm.getTextArea = function () { return textarea; };
     cm.toTextArea = function () {
-      cm.toTextArea = isNaN // Prevent this from being ran twice
-      save()
-      textarea.parentNode.removeChild(cm.getWrapperElement())
-      textarea.style.display = ""
+      cm.toTextArea = isNaN; // Prevent this from being ran twice
+      save();
+      textarea.parentNode.removeChild(cm.getWrapperElement());
+      textarea.style.display = "";
       if (textarea.form) {
-        off(textarea.form, "submit", save)
+        off(textarea.form, "submit", save);
         if (typeof textarea.form.submit == "function")
           { textarea.form.submit = realSubmit }
       }
     }
-  }
+  };
 
-  textarea.style.display = "none"
+  textarea.style.display = "none";
   var cm = CodeMirror(function (node) { return textarea.parentNode.insertBefore(node, textarea.nextSibling); },
-    options)
+    options);
   return cm
 }
 
 function addLegacyProps(CodeMirror) {
-  CodeMirror.off = off
-  CodeMirror.on = on
-  CodeMirror.wheelEventPixels = wheelEventPixels
-  CodeMirror.Doc = Doc
-  CodeMirror.splitLines = splitLinesAuto
-  CodeMirror.countColumn = countColumn
-  CodeMirror.findColumn = findColumn
-  CodeMirror.isWordChar = isWordCharBasic
-  CodeMirror.Pass = Pass
-  CodeMirror.signal = signal
-  CodeMirror.Line = Line
-  CodeMirror.changeEnd = changeEnd
-  CodeMirror.scrollbarModel = scrollbarModel
-  CodeMirror.Pos = Pos
-  CodeMirror.cmpPos = cmp
-  CodeMirror.modes = modes
-  CodeMirror.mimeModes = mimeModes
-  CodeMirror.resolveMode = resolveMode
-  CodeMirror.getMode = getMode
-  CodeMirror.modeExtensions = modeExtensions
-  CodeMirror.extendMode = extendMode
-  CodeMirror.copyState = copyState
-  CodeMirror.startState = startState
-  CodeMirror.innerMode = innerMode
-  CodeMirror.commands = commands
-  CodeMirror.keyMap = keyMap
-  CodeMirror.keyName = keyName
-  CodeMirror.isModifierKey = isModifierKey
-  CodeMirror.lookupKey = lookupKey
-  CodeMirror.normalizeKeyMap = normalizeKeyMap
-  CodeMirror.StringStream = StringStream
-  CodeMirror.SharedTextMarker = SharedTextMarker
-  CodeMirror.TextMarker = TextMarker
-  CodeMirror.LineWidget = LineWidget
-  CodeMirror.e_preventDefault = e_preventDefault
-  CodeMirror.e_stopPropagation = e_stopPropagation
-  CodeMirror.e_stop = e_stop
-  CodeMirror.addClass = addClass
-  CodeMirror.contains = contains
-  CodeMirror.rmClass = rmClass
+  CodeMirror.off = off;
+  CodeMirror.on = on;
+  CodeMirror.wheelEventPixels = wheelEventPixels;
+  CodeMirror.Doc = Doc;
+  CodeMirror.splitLines = splitLinesAuto;
+  CodeMirror.countColumn = countColumn;
+  CodeMirror.findColumn = findColumn;
+  CodeMirror.isWordChar = isWordCharBasic;
+  CodeMirror.Pass = Pass;
+  CodeMirror.signal = signal;
+  CodeMirror.Line = Line;
+  CodeMirror.changeEnd = changeEnd;
+  CodeMirror.scrollbarModel = scrollbarModel;
+  CodeMirror.Pos = Pos;
+  CodeMirror.cmpPos = cmp;
+  CodeMirror.modes = modes;
+  CodeMirror.mimeModes = mimeModes;
+  CodeMirror.resolveMode = resolveMode;
+  CodeMirror.getMode = getMode;
+  CodeMirror.modeExtensions = modeExtensions;
+  CodeMirror.extendMode = extendMode;
+  CodeMirror.copyState = copyState;
+  CodeMirror.startState = startState;
+  CodeMirror.innerMode = innerMode;
+  CodeMirror.commands = commands;
+  CodeMirror.keyMap = keyMap;
+  CodeMirror.keyName = keyName;
+  CodeMirror.isModifierKey = isModifierKey;
+  CodeMirror.lookupKey = lookupKey;
+  CodeMirror.normalizeKeyMap = normalizeKeyMap;
+  CodeMirror.StringStream = StringStream;
+  CodeMirror.SharedTextMarker = SharedTextMarker;
+  CodeMirror.TextMarker = TextMarker;
+  CodeMirror.LineWidget = LineWidget;
+  CodeMirror.e_preventDefault = e_preventDefault;
+  CodeMirror.e_stopPropagation = e_stopPropagation;
+  CodeMirror.e_stop = e_stop;
+  CodeMirror.addClass = addClass;
+  CodeMirror.contains = contains;
+  CodeMirror.rmClass = rmClass;
   CodeMirror.keyNames = keyNames
 }
 
 // EDITOR CONSTRUCTOR
 
-defineOptions(CodeMirror)
+defineOptions(CodeMirror);
 
-addEditorMethods(CodeMirror)
+addEditorMethods(CodeMirror);
 
 // Set up methods on CodeMirror's prototype to redirect to the editor's document.
-var dontDelegate = "iter insert remove copy getEditor constructor".split(" ")
+var dontDelegate = "iter insert remove copy getEditor constructor".split(" ");
 for (var prop in Doc.prototype) { if (Doc.prototype.hasOwnProperty(prop) && indexOf(dontDelegate, prop) < 0)
   { CodeMirror.prototype[prop] = (function(method) {
     return function() {return method.apply(this.doc, arguments)}
   })(Doc.prototype[prop]) } }
 
-eventMixin(Doc)
+eventMixin(Doc);
 
 // INPUT HANDLING
 
-CodeMirror.inputStyles = {"textarea": TextareaInput, "contenteditable": ContentEditableInput}
+CodeMirror.inputStyles = {"textarea": TextareaInput, "contenteditable": ContentEditableInput};
 
 // MODE DEFINITION AND QUERYING
 
@@ -9462,28 +9462,28 @@ CodeMirror.inputStyles = {"textarea": TextareaInput, "contenteditable": ContentE
 CodeMirror.defineMode = function(name/*, mode, …*/) {
   if (!CodeMirror.defaults.mode && name != "null") { CodeMirror.defaults.mode = name }
   defineMode.apply(this, arguments)
-}
+};
 
-CodeMirror.defineMIME = defineMIME
+CodeMirror.defineMIME = defineMIME;
 
 // Minimal default mode.
-CodeMirror.defineMode("null", function () { return ({token: function (stream) { return stream.skipToEnd(); }}); })
-CodeMirror.defineMIME("text/plain", "null")
+CodeMirror.defineMode("null", function () { return ({token: function (stream) { return stream.skipToEnd(); }}); });
+CodeMirror.defineMIME("text/plain", "null");
 
 // EXTENSIONS
 
 CodeMirror.defineExtension = function (name, func) {
   CodeMirror.prototype[name] = func
-}
+};
 CodeMirror.defineDocExtension = function (name, func) {
   Doc.prototype[name] = func
-}
+};
 
-CodeMirror.fromTextArea = fromTextArea
+CodeMirror.fromTextArea = fromTextArea;
 
-addLegacyProps(CodeMirror)
+addLegacyProps(CodeMirror);
 
-CodeMirror.version = "5.27.4"
+CodeMirror.version = "5.27.4";
 
 return CodeMirror;
 

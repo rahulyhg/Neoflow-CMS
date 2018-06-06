@@ -15,6 +15,8 @@ class Manager extends AbstractPageModuleManager
      * @param SectionModel $section
      *
      * @return bool
+     *
+     * @throws \Neoflow\Filesystem\Exception\FolderException
      */
     public function add(SectionModel $section): bool
     {
@@ -51,6 +53,8 @@ class Manager extends AbstractPageModuleManager
      * Install WYSIWYG module.
      *
      * @return bool
+     *
+     * @throws \Neoflow\Filesystem\Exception\FolderException
      */
     public function install(): bool
     {

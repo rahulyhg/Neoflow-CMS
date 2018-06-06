@@ -40,6 +40,8 @@ class SettingModel extends AbstractModel
      * Validate settings.
      *
      * @return bool
+     *
+     * @throws \Neoflow\Validation\ValidationException
      */
     public function validate(): bool
     {
@@ -52,7 +54,7 @@ class SettingModel extends AbstractModel
             ->callback(function ($value, $router) {
                 $route = $router->getRoutingByUrl($value);
 
-                return !isset($route['route'][0]) || $route['route'][0] === 'frontend_index';
+                return !isset($route['route'][0]) || 'frontend_index' === $route['route'][0];
             }, 'The URL is already in use.', [$this->router()])
             ->set('url_path');
 

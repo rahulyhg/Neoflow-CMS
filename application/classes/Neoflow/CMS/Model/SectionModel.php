@@ -77,7 +77,7 @@ class SectionModel extends AbstractModel
                 $routing = $this->router()->getRoutingByUrl($urlPath, $httpMethod);
             }
 
-            if (isset($routing['route'][0]) && $routing['route'][0] !== 'frontend_index') {
+            if (isset($routing['route'][0]) && 'frontend_index' !== $routing['route'][0]) {
                 $args = array_merge($routing['args'], ['section' => $this]);
                 $this->router()->route($routing['route'], $args, $view);
                 $this->app()->set('module_url_routed', true);
@@ -207,6 +207,8 @@ class SectionModel extends AbstractModel
      * Validate section.
      *
      * @return bool
+     *
+     * @throws \Neoflow\Validation\ValidationException
      */
     public function validate(): bool
     {

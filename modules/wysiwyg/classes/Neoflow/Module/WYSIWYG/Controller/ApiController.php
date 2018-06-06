@@ -2,14 +2,13 @@
 
 namespace Neoflow\Module\WYSIWYG\Controller;
 
+use Exception;
 use Neoflow\CMS\Controller\Backend\AbstractPageModuleController;
-use Neoflow\CMS\Exception\UploadException;
 use Neoflow\CMS\Model\NavigationModel;
 use Neoflow\CMS\Service\UploadService;
-use Neoflow\Framework\HTTP\Responsing\JsonResponse;
-use Neoflow\Framework\HTTP\Responsing\Response;
 use Neoflow\Filesystem\File;
 use Neoflow\Filesystem\Folder;
+use Neoflow\Framework\HTTP\Responsing\JsonResponse;
 use Neoflow\Validation\ValidationException;
 
 class ApiController extends AbstractPageModuleController
@@ -27,9 +26,9 @@ class ApiController extends AbstractPageModuleController
     /**
      * Upload file action.
      *
-     * @return Response
+     * @return JsonResponse
      *
-     * @throws UploadException
+     * @throws \Neoflow\Filesystem\Exception\FolderException
      */
     public function uploadFileAction(): JsonResponse
     {
@@ -81,6 +80,8 @@ class ApiController extends AbstractPageModuleController
      * Get files.
      *
      * @return JsonResponse
+     *
+     * @throws \Neoflow\Filesystem\Exception\FolderException
      */
     public function filesAction(): JsonResponse
     {
@@ -140,6 +141,9 @@ class ApiController extends AbstractPageModuleController
      * Delete file action.
      *
      * @return JsonResponse
+     *
+     * @throws \Neoflow\Filesystem\Exception\FileException
+     * @throws \Neoflow\Filesystem\Exception\FileException
      */
     public function deleteFileAction(): JsonResponse
     {

@@ -2,8 +2,8 @@
 
 namespace Neoflow\Module\Code;
 
-use Neoflow\CMS\Model\SectionModel;
 use Neoflow\CMS\Manager\AbstractPageModuleManager;
+use Neoflow\CMS\Model\SectionModel;
 
 class Manager extends AbstractPageModuleManager
 {

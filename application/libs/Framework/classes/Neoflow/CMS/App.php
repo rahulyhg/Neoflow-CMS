@@ -30,8 +30,6 @@ class App extends FrameworkApp
      * @param string $configFilePath Config file path
      *
      * @return self
-     *
-     * @throws RuntimeException
      */
     public function initialize(float $startTime, Loader $loader, string $configFilePath): FrameworkApp
     {
@@ -157,6 +155,8 @@ class App extends FrameworkApp
     /**
      * Execute application and create response.
      *
+     * @param Response|null $response Pre-created response
+     *
      * @return self
      */
     public function execute(Response $response = null): FrameworkApp
@@ -177,7 +177,7 @@ class App extends FrameworkApp
     }
 
     /**
-     * Etablish connection and set database.
+     * Establish connection and set database.
      *
      * @param Database $database Precreated and etablished database connection
      *
@@ -247,7 +247,7 @@ class App extends FrameworkApp
      */
     protected function setModules(): self
     {
-        // Fetch only when database connection is etablished
+        // Fetch only when database connection is established
         if ($this->get('database')) {
             // Fetch CMS modules
             $modules = ModuleModel::findAllByColumn('is_active', true);

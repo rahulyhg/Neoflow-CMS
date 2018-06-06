@@ -5,8 +5,8 @@ namespace Neoflow\Module\WYSIWYG\Controller;
 use Neoflow\CMS\Controller\Backend\AbstractPageModuleController;
 use Neoflow\Framework\HTTP\Responsing\RedirectResponse;
 use Neoflow\Framework\HTTP\Responsing\Response;
-use Neoflow\Validation\ValidationException;
 use Neoflow\Module\WYSIWYG\Model;
+use Neoflow\Validation\ValidationException;
 use RuntimeException;
 
 class BackendController extends AbstractPageModuleController

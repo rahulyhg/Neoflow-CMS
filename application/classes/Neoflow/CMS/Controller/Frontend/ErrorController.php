@@ -11,6 +11,7 @@ use Neoflow\Framework\HTTP\Exception\NotFoundException;
 use Neoflow\Framework\HTTP\Exception\UnauthorizedException;
 use Neoflow\Framework\HTTP\Responsing\Response;
 use Throwable;
+use function translate;
 
 class ErrorController extends FrontendController
 {
@@ -131,8 +132,8 @@ class ErrorController extends FrontendController
         $this->view->setTitle(translate('Internal server error'));
 
         return $this->render('frontend/error/internal-server-error', [
-                    'exception' => $exception,
-                ])
-                ->setStatusCode(500);
+                            'exception' => $exception,
+                        ])
+                        ->setStatusCode(500);
     }
 }

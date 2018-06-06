@@ -2,8 +2,8 @@
 
 namespace Neoflow\CMS\Service;
 
-use Neoflow\CMS\Model\NavitemModel;
 use Neoflow\CMS\Core\AbstractService;
+use Neoflow\CMS\Model\NavitemModel;
 
 class NavitemService extends AbstractService
 {

@@ -20,7 +20,8 @@ class NavitemController extends BackendController
      *
      * @paran NavitemView $view
      *
-     * @param array $args
+     * @param NavitemView|null $view Navigation item view
+     * @param array            $args Request arguments
      */
     public function __construct(NavitemView $view = null, array $args = [])
     {

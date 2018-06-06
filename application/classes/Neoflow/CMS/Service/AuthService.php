@@ -19,6 +19,8 @@ class AuthService extends AbstractService
      * @param string $password User password
      *
      * @return bool
+     *
+     * @throws AuthException
      */
     public function login(string $email, string $password): bool
     {
@@ -95,12 +97,10 @@ class AuthService extends AbstractService
 
                     return true;
                 }
-            } else {
-                throw new AuthException(translate('Email already sent, you can reset your password once per hour'));
             }
-        } else {
-            throw new AuthException(translate('User not found'));
+            throw new AuthException(translate('Email already sent, you can reset your password once per hour'));
         }
+        throw new AuthException(translate('User not found'));
     }
 
     /**
@@ -122,11 +122,12 @@ class AuthService extends AbstractService
     /**
      * Authenticate user with email and password.
      *
-     * @param string $email
-     * @param string $password
-     * @param bool   $authorize
+     * @param string $email    Email address
+     * @param string $password User password
      *
      * @return bool
+     *
+     * @throws AuthException
      */
     protected function authenticate($email, $password): bool
     {

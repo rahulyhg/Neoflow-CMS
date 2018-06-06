@@ -3,8 +3,8 @@
 namespace Neoflow\Module\Search;
 
 use Neoflow\CMS\Manager\AbstractModuleManager;
-use Neoflow\Module\Search\Model\SettingModel;
 use Neoflow\Module\Search\Model\EntityModel;
+use Neoflow\Module\Search\Model\SettingModel;
 
 class Manager extends AbstractModuleManager
 {
@@ -75,7 +75,7 @@ class Manager extends AbstractModuleManager
     public function initialize(): bool
     {
         // Create service
-        $service = new Service($this->module);
+        $service = new Service();
 
         // Register service
         $this->app()->get('services')->set('search', $service);

@@ -16,8 +16,8 @@ class BackendController extends AbstractController
     /**
      * Constructor.
      *
-     * @param BackendView $view
-     * @param array       $args
+     * @param BackendView $view Backend view
+     * @param array       $args Request arguments
      */
     public function __construct(BackendView $view = null, array $args = [])
     {

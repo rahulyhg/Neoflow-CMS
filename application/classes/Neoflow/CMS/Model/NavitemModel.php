@@ -3,10 +3,10 @@
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
+use Neoflow\Framework\Core\AbstractModel as FrameworkAbstractModel;
 use Neoflow\Framework\ORM\EntityCollection;
 use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Framework\ORM\Repository;
-use Neoflow\Framework\Core\AbstractModel as FrameworkAbstractModel;
 
 class NavitemModel extends AbstractModel
 {
@@ -183,6 +183,8 @@ class NavitemModel extends AbstractModel
      * Validate navitem.
      *
      * @return bool
+     *
+     * @throws \Neoflow\Validation\ValidationException
      */
     public function validate(): bool
     {

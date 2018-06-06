@@ -5,7 +5,6 @@ namespace Neoflow\Module\DateTimePicker;
 use DateTime;
 use Neoflow\CMS\Core\AbstractService;
 use Neoflow\CMS\Model\ModuleModel;
-use RuntimeException;
 
 class Service extends AbstractService
 {
@@ -46,9 +45,7 @@ class Service extends AbstractService
      * @param string $id      ID of form input
      * @param array  $options Custom options for DateTimePicker
      *
-     * @return string
-     *
-     * @throws RuntimeException
+     * @return bool
      */
     public function init(string $id, array $options = []): bool
     {

@@ -4,6 +4,7 @@ nbproject/
 node_modules/
 *package-lock.json
 *composer.lock
+.idea/
 
 # Application files and folders
 
