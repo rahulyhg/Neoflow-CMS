@@ -685,7 +685,7 @@ $('form').on('submit', function () {
     var $this = $(this)
         .addClass('form-loading')
 
-    $this.find(':submit').blur();
+    $this.find(':focus').blur();
 
     var $placeholder = $('<div>')
         .css({

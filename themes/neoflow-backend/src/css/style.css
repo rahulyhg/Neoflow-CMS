@@ -15622,7 +15622,7 @@ body.prepage #content {
 }
 
 .form-loading .loader {
-  background: #f8f8f8 url(../img/loading-dark.gif) center center no-repeat;
+  background: #fff url(../img/loading-dark.gif) center center no-repeat;
   position: absolute;
   top: 0;
 }
