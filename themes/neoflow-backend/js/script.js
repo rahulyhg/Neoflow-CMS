@@ -681,6 +681,19 @@ $('.regexomat[data-regex]')
             $this.val(value);
         });
 
+$('form').on('submit', function() {
+    $(this)
+        .animate({
+            'opacity': 0
+        }, 150)
+        .parent()
+        .css({
+            'background-image': 'url(' + THEME_URL + '/img/loading-dark.gif)',
+            'background-position': 'center center',
+            'background-repeat': 'no-repeat'
+        });
+});
+
 (function () {
 
     var $sideNavigation = $('#sideNavigation')
