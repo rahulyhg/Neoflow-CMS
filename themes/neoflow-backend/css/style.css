@@ -10619,6 +10619,7 @@ body.prepage #content {
 }
 .form-loading {
   position: relative;
+  min-height: 64px;
 }
 .form-loading .loader {
   background: #fff url(../img/loading-dark.gif) center center no-repeat;

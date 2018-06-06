@@ -1,5 +1,6 @@
 .form-loading {
   position: relative;
+  min-height: 64px;
 
   .loader {
     background: #fff url(../img/loading-dark.gif) center center no-repeat;
