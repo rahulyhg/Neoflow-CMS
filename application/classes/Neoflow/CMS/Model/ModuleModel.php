@@ -304,7 +304,7 @@ class ModuleModel extends AbstractExtensionModel
                 }
                 throw new ValidationException(translate('{0} has at least one or more depending modules ({1}) and cannot be deleted', [$this->name, $this->getDependentModules()->mapProperty('name')]));
             }
-            throw new ValidationException(translate('The module ({0}) is in use and cannot be deleted', [$this->name]));
+            throw new ValidationException(translate('The module "{0}" is in use and cannot be deleted', [$this->name]));
         }
         throw new ValidationException(translate('{0} is a core module and cannot be deleted', [$this->name]));
     }

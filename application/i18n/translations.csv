@@ -1,14 +1,13 @@
 ﻿{0} has an error;{0} has an error;{0} hat einen Fehler
+{0} has at least one or more depending modules ({1}) and cannot be deleted;{0} has at least one or more depending modules ({1}) and cannot be deleted;{0} hat mindestens ein oder mehrere abhängige Module ({1}) und kann nicht gelöscht werden
+{0} has at least one or more depending modules ({1}) and cannot be disabled;{0} has at least one or more depending modules ({1}) and cannot be disabled;{0} hat mindestens ein oder mehrere abhängige Module ({1}) und kann nicht deaktiviert werden
 {0} has to be unique;{0} has to be unique;{0} muss einzigartig sein
+{0} is a core module and cannot be deleted;{0} is a core module and cannot be deleted;{0} ist ein Kernmodul und kann nicht gelöscht werden.
 {0} is an invalid email address;{0} is an invalid email address;{0} ist eine ungültige E-Mailadresse
 {0} is an invalid IP address;{0} is an invalid IP address;{0} ist eine ungültige IP-Adresse
 {0} is an invalid URL;{0} is an invalid URL;{0} ist eine ungültige URL
 {0} is not a valid date like {1};{0} is not a valid date like {1};{0} ist kein gültiges Datum wie {1}
 {0} is required;{0} is required;{0} wird benötigt
-Yes;Yes;Ja
-URL path;URL path|URL paths;URL-Pfad|URL-Pfade
-No;No;Nein
-Required field;Required field|Required fields;Pflichtfeld|Pflichtfelder
 {0} must be at least {1} characters or longer;{0} must be at least {1} characters or longer;{0} muss mindestens {1} Zeichen oder länger sein
 {0} must be before {1};{0} must be before {1};{0} muss früher sein als {1}
 {0} must be between {1} and {2};{0} must be between {1} and {2};{0} muss zwischen {1} und {2} sein
@@ -21,8 +20,6 @@ Required field;Required field|Required fields;Pflichtfeld|Pflichtfelder
 {0} must be one of {1};{0} must be one of {1};{0} muss {1} lauten
 {0} must consist of integer value;{0} must consist of integer value;{0} darf nur aus ganzen Zahlen bestehen
 {0} must consist of numbers only;{0} must consist of numbers only;{0} darf nur aus Nummern bestehen
-Core module;Core module|Core modules;Kernmodul|Kernmodule
-{0} is a core module and cannot be deleted;{0} is a core module and cannot be deleted;{0} ist ein Kernmodul und kann nicht gelöscht werden.
 {0} must consist only of digits;{0} must consist only of digits;{0} darf nur aus Ziffern bestehen
 "{0} must end with ""{1}""";"{0} must end with ""{1}""";"{0} muss mit ""{1}"" enden"
 {0} must have at least one letter;{0} must have at least one letter;{0} muss mindestens einen Buchstaben haben
@@ -32,11 +29,12 @@ Core module;Core module|Core modules;Kernmodul|Kernmodule
 "{0} must not start with ""{1}""";"{0} must not start with ""{1}""";"{0} darf nicht mit ""{1}"" beginnen"
 "{0} must start with ""{1}""";"{0} must start with ""{1}""";"{0} muss mit ""{1}"" beginnen"
 {0} not found;{0} not found;{0} nicht gefunden
-A file with the name ({0}) already exists;A file with the name ({0}) already exists;Eine Datei mit dem Namen ({0}) existiert bereits
-A folder with the name ({0}) already exists;A folder with the name ({0}) already exists;Ein Ordner mit dem Namen ({0}) existiert bereits
+"A file with the name ""{0}"" already exists";"A file with the name ""{0}"" already exists";"Eine Datei mit dem Namen ""{0}"" existiert bereits"
+"A folder with the name ""{0}"" already exists";"A folder with the name ""{0}"" already exists";"Ein Ordner mit dem Namen ""{0}"" existiert bereits"
 Access;Access;Zugriff
 Accessible only for authorized users;Accessible only for authorized users;Nur für autorisierte Benutzer zugänglich
 Account;Account|Accounts;Konto|Konten
+Active language;Active language|Active languages;Aktive Sprache|Aktive Sprachen
 Add;Add;Hinzufügen
 Add failed;Add failed;Hinzufügen fehlgeschlagen
 Add image;Add image|Add images;Bild hinzufügen|Bilder hinzufügen
@@ -48,10 +46,10 @@ Administrator successfully created;Administrator successfully created;Administra
 Advanced settings;Advanced settings;Erweiterterte Einstellungen
 Advanced settings description;Advanced settings (e.g. database connection or log level) can be configured in a config file, which can only be edited with a text editor.;Erweiterte Einstellungen (z.B. Datenbankverbindung oder der Log-Level) können in der Konfigurationsdatei konfiguriert werden, die aber nur mit einem Texteditor bearbeitet werden kann.
 All;All;Alle
+All (except the file of today);All (except the file of today);Alle (ausser die Datei von heute)
 All blocks;All blocks;Alle Blöcke
 All data;All data;Alle Daten
 All files;All files;Alle Dateien
-All (except the file of today);All (except the file of today);Alle (ausser die Datei von heute)
 All modules;All modules;Alle Module
 All navigations;All navigations;Alle Navigationen
 All pages;All pages;Alle Seiten
@@ -82,6 +80,7 @@ Are you sure you want to uninstall it?;Are you sure you want to uninstall it?;Bi
 Are you sure?;Are you sure?;Bist du sicher?
 At least one required module is unavailable;At least one required module is unavailable;Mindestens ein erforderliches Modul ist nicht vorhanden
 Author;Author|Authors;Autor|Autoren
+Author of the website (e.g. webmaster).;Author of the website (e.g. webmaster).;Autor der Webseite (zB. Webmaster)
 Authorization;Authorization;Autorisierung
 Authorized role;Authorized role|Authorized roles;Berechtige Rolle|Berechtigte Rollen
 Authorized roles;Authorized roles;Berechtigte Rollen
@@ -104,6 +103,7 @@ Clear cache;Clear cache;Cache leeren
 Clear failed;Clear failed;Leeren fehlgeschlagen
 Cleared;Cleared;Geleert
 Close;Close;Schliessen
+CMS successfully updated;CMS successfully updated;CMS erfolgreich aktualisiert
 Code;Code|Codes;Code|Codes
 Configuration;Configuration;Konfiguration
 Configure website;Configure website;Webseite konfigurieren
@@ -111,9 +111,11 @@ Confirm;Confirm;Bestätigen
 Confirm password;Confirm password;Passwort bestätigen
 Content;Content;Inhalt
 Copyright;Copyright|Copyrights;Copyright|Copyrights
+Core module;Core module|Core modules;Kernmodul|Kernmodule
 Create;Create;Erstellen
 Create administrator;Create administrator;Administrator erstellen
 Create block;Create block;Block erstellen
+Create database;Create database;Datenbank erstellen
 Create failed;Create failed;Erstellen fehlgeschlagen
 Create folder;Create folder;Ordner erstellen
 Create folder failed, see error message;Create folder failed, see error message;Ordner anlegen fehlgeschlagen, siehe Fehlermeldung
@@ -132,7 +134,6 @@ Current page;Current page;Aktuelle Seite
 Current section;Current section;Aktueller Abschnitt
 Custom CSS;Custom CSS;Benutzerdefiniertes CSS
 Custom JavaScript;Custom JavaScript;Benutzerdefiniertes JavaScript
-User for password reset not found.;User for password reset not found.;Benutzer für Passwortwechsel nicht gefunden.
 Dashboard;Dashboard;Dashboard
 Dashboard account title;Administrate the registered users and the roles with the permissions.;Administriere die registrierten Benutzer und die Rollen mit den Berechtigungen.
 Dashboard content title;Edit the content of the pages and the navigations of the website.;Bearbeite den Inhalt der Seiten und die Navigationen der Webseite.
@@ -144,13 +145,14 @@ Dashboard welcome description;In the backend of the Neoflow CMS you can administ
 Dashboard welcome title;Welcome to the Backend of your Website!;Willkommen im Backend deiner Webseite!
 Database;Database;Datenbank
 Database connection could not be established. Error message: {0};Database connection could not be established. Error message: {0};Datenbankverbindung konnte nicht aufgebaut werden. Fehlermeldung: {0}
-Database installation failed. Permission to use ({0}) is missing.;Database installation failed. Permission to use ({0}) is missing.;Die Datenbankinstallation ist fehlgeschlagen. Die Berechtigung zur Verwendung von ({0}) fehlt.
+"Database installation failed. Permission to use ""{0}"" is missing.";"Database installation failed. Permission to use ""{0}"" is missing.";"Die Datenbankinstallation ist fehlgeschlagen. Die Berechtigung zur Verwendung von ""{0}"" fehlt."
 Database name;Database name;Datenbankname
 Database successfully installed;Database successfully installed;Datenbank erfolgreich installiert
 Date;Date|Dates;Datum|Daten
 Day;Day|Days;Tag|Tage
 Default;Default;Standard
 Default language;Default language;Standardsprache
+Default sender of emails from the website.;Default sender of emails from the website.;Standardmässiger Absender von E-Mails der Webseite.
 Default setting;Default setting|Default settings;Standardeinstellung|Standardeinstellungen
 Delete;Delete;Löschen
 Delete block;Delete block;Block löschen
@@ -168,7 +170,7 @@ Delete section;Delete section;Abschnitt löschen
 Delete user;Delete user;Benutzer löschen
 Description;Description;Beschreibung
 Directory;Directory|Directories;Verzeichnis|Verzeichnisse
-Directory ({0}) not found;Directory ({0}) not found;Verzeichnis ({0}) nicht gefunden
+"Directory ""{0}"" not found";"Directory ""{0}"" not found";"Verzeichnis ""{0}"" nicht gefunden"
 Directory does not exist or is not accessible;Directory does not exist or is not accessible;Verzeichnis existiert nicht oder ist nicht zugänglich
 Directory not found;Directory not found;Verzeichnis nicht gefunden
 Disable;Disable;Deaktivieren
@@ -210,7 +212,7 @@ Executed;Executed;Ausgeführt
 Executing SQL failed. Error message: {0};Executing SQL failed. Error message: {0};SQL ausführen fehlgeschlagen. Fehlermeldung: {0}
 Extension;Extension|Extensions;Erweiterung|Erweiterungen
 File;File|Files;Datei|Dateien
-File ({0}) not found;File ({0}) not found;Datei ({0}) nicht gefunden
+"File ""{0}"" not found";"File ""{0}"" not found";"Datei ""{0}"" nicht gefunden"
 File extension;File extension|File extensions;Dateierweiterung|Dateierweiterungen
 File not found;File not found;Datei nicht gefunden
 File with the same name already exists;File with the same name already exists;Datei mit gleichem Namen existiert bereits
@@ -219,7 +221,7 @@ Files successfully uploaded;Files successfully uploaded;Dateien erfolgreich hoch
 Filesize;Filesize|Filesizes;Dateigrösse|Dateigrössen
 Firstname;Firstname|Firstnames;Vorname|Vornamen
 Folder;Folder|Folders;Ordner
-Folder name ({0}) is already in use;Folder name ({0}) is already in use;Ordername ({0}) wird schon verwendet
+"Folder name ""{0}"" is already in use";"Folder name ""{0}"" is already in use";"Ordername ""{0}"" wird schon verwendet"
 Folder name must be at least one character or longer;Folder name must be at least one character or longer;Ordnername muss mindestens ein Zeichen oder länger sein
 Folder permission;Folder permission|Folder permissions;Ordnerberechtigung|Ordnerberechtigungen
 Forbidden;Forbidden;Verboten
@@ -229,7 +231,6 @@ Frontend;Frontend;Frontend
 Frontend authorization;Frontend authorization;Frontend-Berechtigung
 Frontend route;Frontend route;Frontend-Route
 Frontend theme;Frontend theme;Frontend-Theme
-Default sender of emails from the website.;Default sender of emails from the website.;Standardmässiger Absender von E-Mails der Webseite.
 General setting;General setting|General settings;Allgemeine Einstellung|Allgemeine Einstellungen
 German;German;Deutsch
 Hidden;Hidden;Versteckt
@@ -243,10 +244,9 @@ Identifier;Identifier;Kennzeichen
 If you change the session name, you will be logged out automatically after saving.;If you change the session name, you will be logged out automatically after saving.;Wenn du den Sitzungsnamen änderst, wirst du nach dem Speichern automatisch ausgeloggt.
 Image;Image|Images;Bild|Bilder
 Information;Information;Information|Informationen
-Information file ({0}) is invalid;Information file ({0}) is invalid;Informationsdatei ({0}) ist ungültig
-Information file ({0}) not found;Information file ({0}) not found;Informationsdatei ({0}) nicht gefunden
+"Information file ""{0}"" is invalid";"Information file ""{0}"" is invalid";"Informationsdatei ""{0}"" ist ungültig"
+"Information file ""{0}"" not found";"Information file ""{0}"" not found";"Informationsdatei ""{0}"" nicht gefunden"
 Install;Install;Installieren
-Create database;Create database;Datenbank erstellen
 Install failed;Install failed;Installation fehlgeschlagen
 Install module;Install module;Modul installieren
 Install module failed;Install module failed;Modul installieren fehlgeschlagen
@@ -301,8 +301,8 @@ Maintenance;Maintenance;Wartung
 Make visible;Make visible;Sichtbar machen
 Making visible failed;Making visible failed;Sichtbar machen fehlgeschlagen
 Manage blocks;Manage blocks;Blöcke verwalten
-Manage media files and folders;Manage media files and folders;Medien-Dateien und Ordner verwalten
 Manage items;Manage items;Elemente verwalten
+Manage media files and folders;Manage media files and folders;Medien-Dateien und Ordner verwalten
 Manage modules;Manage modules;Module verwalten
 Manage navigations;Manage navigations;Navigationen verwalten
 Manage pages and page content;Manage pages and page content;Seiten und Seiteninhalte verwalten
@@ -311,12 +311,11 @@ Manage themes;Manage themes;Themes verwalten
 Manage user accounts;Manage user accounts;Benutzerkonten verwalten
 Manager class;Manager class;Manager-Klasse
 Manager Class;Manager Class;Manager Klasse
-Uploadable file size (defined in php.ini): max. {0}MB;Uploadable file size (defined in php.ini): max. {0}MB;Hochladbare Dateigrösse (gemäss php.ini): max. {0}MB
 Media;Media;Medien
-System information;System information;Systeminformation|Systeminformationen
 Message;Message|Messages;Nachricht|Nachrichten
 Minute;Minute|Minutes;Minute|Minuten
 Module;Module|Modules;Modul|Module
+Module successfully updated;Module successfully updated;Modul erfolgreich aktualisiert
 Month;Month|Months;Monat|Monate
 Move uploaded file(s) failed, see error message;Move uploaded file(s) failed, see error message;Verschieben der hochgeladenen Datei(en) ist fehlgeschlagen, siehe Fehlermeldung
 Name;Name|Names;Name|Namen
@@ -325,6 +324,7 @@ Navigation item;Navigation item|Navigation items;Navigationselement|Navigationse
 Navigation settings;Navigation settings;Navigationseinstellungen
 Navigation title;Navigation title;Navigationstitel
 New password;New password;Neues Passwort
+No;No;Nein
 No cache selected;No cache selected;Kein Cache ausgewählt
 No files found;No files found;Keine Dateien gefunden
 No folders and files found;No folders and files found;Keine Ordner und Dateien gefunden
@@ -333,13 +333,11 @@ None;None;Keine
 Not found;Not found;Nicht gefunden
 Not specified;Not specified;Nicht spezifiziert
 Note;Note|Notes;Hinweis|Hinweise
-Only database results;Only database results;Nur Datenbank-Resultate
 Only CMS data;Only CMS data;Nur CMS-Daten
-Only translations;Only translations;Nur Übersetzungen
+Only database results;Only database results;Nur Datenbank-Resultate
 Only older than {0} days;Only older than {0} days;Nur älter als {0} Tage
+Only translations;Only translations;Nur Übersetzungen
 Open folder;Open folder;Ordner öffnen
-PHP extensions;PHP extensions;PHP Erweiterungen
-PHP settings;PHP settings;PHP Einstellungen
 or;or;oder
 Overwrite existing files with same name;Overwrite existing files with same name;Bestehende Dateien mit demselben Namen überschreiben
 Package;Package|Packages;Paket|Pakete
@@ -366,6 +364,8 @@ Path;Path|Paths;Pfad|Pfade
 Path to the config file;Path to the configuration file;Pfad zur Konfigurationsdatei
 Permission;Permission|Permissions;Berechtigung|Berechtigungen
 PHP error level;PHP error level;PHP Error-Level
+PHP extensions;PHP extensions;PHP Erweiterungen
+PHP settings;PHP settings;PHP Einstellungen
 Placeholder;Placeholder|Placeholders;Platzhalter
 Placeholder is invalid. Please use only letters, underscores and hyphens.;Placeholder is invalid. Please use only letters, underscores and hyphens.;Platzhalter is ungültig. Bitte benutze nur Buchstaben sowie Unter- und Bindestrich.
 Please confirm;Please confirm;Bitte bestätigen
@@ -388,8 +388,8 @@ Reload failed;Reloaded failed;Neu laden fehlgeschlagen
 Reload failed for {0};Reload failed for {0};Neu laden fehlgeschlagen für {0}
 Reload module;Reload module|Reload modules;Modul neu laden|Module neu laden
 Reload modules information;Reload the information, which are configured in the configuration file <code>info.php</code> of the installed module (e.g. after FTP upload).|Reload the information, which are configured in the configuration files <code>info.php</code> of the installed modules (e.g. after FTP upload).;Lade die Informationen neu, die in der Konfigurationsdatei <code>info.php</code> des installierten Modules konfiguriert sind (z.B. nach FTP Upload).|Lade die Informationen neu, die in der Konfigurationsdateien <code>info.php</code> der installierten Module konfiguriert sind (z.B. nach FTP Upload).
-Reload themes information;Reload the information, which are configured in the configuration file <code>info.php</code> of the installed theme (e.g. after FTP upload).|Reload the information, which are configured in the configuration files <code>info.php</code> of the installed themes (e.g. after FTP upload).;Lade die Informationen neu, die in der Konfigurationsdatei <code>info.php</code> des installierten Themes konfiguriert sind (z.B. nach FTP Upload).|Lade die Informationen neu, die in der Konfigurationsdateien <code>info.php</code> der installierten Themes konfiguriert sind (z.B. nach FTP Upload).
 Reload theme;Reload theme|Reload themes;Theme neu laden|Themes neu laden
+Reload themes information;Reload the information, which are configured in the configuration file <code>info.php</code> of the installed theme (e.g. after FTP upload).|Reload the information, which are configured in the configuration files <code>info.php</code> of the installed themes (e.g. after FTP upload).;Lade die Informationen neu, die in der Konfigurationsdatei <code>info.php</code> des installierten Themes konfiguriert sind (z.B. nach FTP Upload).|Lade die Informationen neu, die in der Konfigurationsdateien <code>info.php</code> der installierten Themes konfiguriert sind (z.B. nach FTP Upload).
 Reload themes information;Reload the information, which are configured in the configuration files <code>info.php</code> of the installed themes (e.g. after FTP upload).;Lade die Informationen neu, die in der Konfigurationsdateien <code>info.php</code> der installierten Themes konfiguriert sind (z.B. nach FTP Upload).
 Reloaded;Reloaded;Neugeladen
 Relogin;Relogin;Erneut anmelden
@@ -402,6 +402,7 @@ Rename file;Rename file;Datei umbenennen
 Rename file failed, see error message;Rename file failed, see error message;Umbenennen der Datei fehlgeschlagen, siehe Fehlermeldung
 Rename folder;Rename folder;Ordner umbenennen
 Rename folder failed, see error message;Rename folder failed, see error message;Umbenennen des Ordners fehlgeschlagen, siehe Fehlermeldung
+Required field;Required field|Required fields;Pflichtfeld|Pflichtfelder
 Required module;Required module|Required modules;Erforderliches Modul|Erforderliche Module
 Reset;Reset;Zurücksetzen
 Reset failed;Reset failed;Zurücksetzen fehlgeschlagen
@@ -438,6 +439,8 @@ Show custom CSS;Show custom CSS;Benutzerdefiniertes CSS ausgeben
 Show custom JavaScript;Show custom JavaScript;Benutzerdefiniertes Javascript ausgeben
 Show debugbar;Show debugbar;Debugleiste anzeigen
 Show error details;Show error details;Fehlerdetails anzeigen
+Show module;Show module;Modul anzeigen
+Show theme;Show theme;Theme anzeigen
 Size;Size|Sizes;Grösse|Grössen
 Sorry, but you are not authorized to access this site.;Sorry, but you are not authorized to access this site.;Entschuldigung, aber du bist nicht für diese Seite autorisiert.
 Start installation;Start intallation;Installation starten
@@ -466,29 +469,27 @@ Successfully searched;Successfully searched;Erfolgreich gesucht
 Successfully uninstalled;Successfully uninstalled;Erfolgreich deinstalliert
 Successfully updated;Successfully updated;Erfolgreich aktualisiert
 Successfully uploaded;Successfully uploaded;Erfolgreich hochgeladen
-Active language;Active language|Active languages;Aktive Sprache|Aktive Sprachen
-Author of the website (e.g. webmaster).;Author of the website (e.g. webmaster).;Autor der Webseite (zB. Webmaster)
 Supported languages of the website. Each language requires separate pages.;Supported languages of the website. Each language requires separate pages.;Unterstützte Sprachen der Webseiten. Jede Sprache benötigt separate Seiten.
+System information;System information;Systeminformation|Systeminformationen
+"The  version {0} of the extension ""{1}"" is not supported";"The  version {0} of the extension ""{1}"" is not supported";"Die Version {0} der Erweiterung ""{1}"" wird nicht unterstützt"
 The CMS is already up to date;The CMS is already up to date;Das CMS ist bereits auf dem neuesten Stand
-The existing file ({0}) is not accessible and cannot be overwritten;The existing file ({0}) is not accessible and cannot be overwritten;Die vorhandene Datei ({0}) ist nicht zugänglich und kann nicht überschrieben werden
-The extension ({0}) is already up to date;The extension ({0}) is already up to date;Die Erweiterung ({0}) ist bereits auf dem neuesten Stand
-The extension ({0}) is not compatible;The extension ({0}) is not compatible;Die Erweiterung ({0}) ist nicht kompatibel
-The file ({0}) has not an allowed file extension;The file ({0}) has not an allowed file extension;Die Datei ({0}) hat keine erlaubte Dateiendung
-The file ({0}) is larger than allowed;The file ({0}) is larger than allowed;Die Datei ({0}) ist grösser als erlaubt
+"The existing file ""{0}"" is not accessible and cannot be overwritten";"The existing file ""{0}"" is not accessible and cannot be overwritten";"Die vorhandene Datei ""{0}"" ist nicht zugänglich und kann nicht überschrieben werden"
+"The extension ""{0}"" is already up to date";"The extension ""{0}"" is already up to date";"Die Erweiterung ""{0}"" ist bereits auf dem neuesten Stand"
+"The extension ""{0}"" is not compatible";"The extension ""{0}"" is not compatible";"Die Erweiterung ""{0}"" ist nicht kompatibel"
+"The file ""{0}"" has not an allowed file extension";"The file ""{0}"" has not an allowed file extension";"Die Datei ""{0}"" hat keine erlaubte Dateiendung"
+"The file ""{0}"" is larger than allowed";"The file ""{0}"" is larger than allowed";"Die Datei ""{0}"" ist grösser als erlaubt"
 The file cannot be previewed;The file cannot be previewed;Die Datei kann nicht als Vorschau angezeigt werden
-{0} has at least one or more depending modules ({1}) and cannot be deleted;{0} has at least one or more depending modules ({1}) and cannot be deleted;{0} hat mindestens ein oder mehrere abhängige Module ({1}) und kann nicht gelöscht werden
-{0} has at least one or more depending modules ({1}) and cannot be disabled;{0} has at least one or more depending modules ({1}) and cannot be disabled;{0} hat mindestens ein oder mehrere abhängige Module ({1}) und kann nicht deaktiviert werden
-The module ({0}) is in use and cannot be deleted;The module ({0}) is in use and cannot be deleted;Das Modul (Name: {0}) wird verwendet und kann nicht gelöscht werden
+"The module ""{0}"" is in use and cannot be deleted";"The module ""{0}"" is in use and cannot be deleted";"Das Modul ""{0}"" wird verwendet und kann nicht gelöscht werden"
 The navigation item or child items cannot be the parent item;The navigation item or child items cannot be the parent item;Das Navigationselement oder ein Unterelement kann nicht das Oberelement sein
 The package could not be uploaded;The package could not be uploaded;Das Paket konnte nicht hochgeladen werden
 The password must be at least 8 characters long and contain a special character or a number.;The password must be at least 8 characters long and contain a special character or a number.;Das Passwort muss mindestens 8 Zeichen lang sein und ein Sonderzeichen oder eine Nummer enthalten.
 The value defined in php. ini for session-timeout is {0} seconds.;The value defined in php. ini for session-timeout is {0} seconds.;Der in der php.ini definierte Wert für die Sessionlaufzeit ist {0} Sekunden.
 The value defined in php.ini for the maximum uploadable file size is {0}MB.;The value defined in php.ini for the maximum uploadable file size is {0}MB.;Der in der php.ini definierte Wert für die maximal hochladbare Dateigrösse ist {0}MB.
-The version ({0}) of the CMS is not supported;The version ({0}) of the CMS is not supported;Die Version ({0}) des CMS wird nicht unterstützt
-The version ({0}) of the extension ({1}) is not supported;The  version ({0}) of the extension ({1}) is not supported;Die Version ({0}) der Erweiterung ({1}) wird nicht unterstützt
+The version {0} of the CMS is not supported;The version {0} of the CMS is not supported;Die Version {0} des CMS wird nicht unterstützt
 Theme;Theme|Themes;Theme|Themes
 Theme is in use and cannot be deleted.;Theme is in use and cannot be deleted.;Theme wird schon verwendet und kann nicht gelöscht werdern.
 Theme setting;Theme setting|Theme settings;Theme-Einstellung|Theme-Einstellungen
+Theme successfully updated;Theme successfully updated;Theme erfolgreich aktualisiert
 This URL is already in use. Please change the URL.;This URL is already in use. Please change the URL.;Diese URL wird schon verwendet. Bitte ändere die URL.
 Timezone;Timezone;Zeitzone
 Title;Title|Titles;Titel|Titeln
@@ -515,10 +516,10 @@ Update failed;Update failed;Aktualisieren fehlgeschlagen
 Update module;Update module;Modul aktualisieren
 Update module failed;Update module failed;Modul aktualisieren fehlgeschlagen
 Update module failed, see error message;Update module failed, see error message;Modul aktualisieren fehlgeschlagen, siehe Fehlermeldung
-Update theme failed;Update theme failed;Theme aktualisieren fehlgeschlagen
-Update theme failed, see error message;Update theme failed, see error message;Theme aktualisieren fehlgeschlagen, siehe Fehlermeldung
 Update package;Update package;Update Paket
 Update theme;Update theme;Theme aktualisieren
+Update theme failed;Update theme failed;Theme aktualisieren fehlgeschlagen
+Update theme failed, see error message;Update theme failed, see error message;Theme aktualisieren fehlgeschlagen, siehe Fehlermeldung
 Update website settings;Update website settings;Webseiteneinstellungen aktualisieren
 Updated;Updated;Aktualisiert
 Updating password failed.;Updating password failed.;Passwort aktualisieren fehlgeschlagen
@@ -526,17 +527,18 @@ Upload;Upload;Hochladen
 Upload failed;Upload failed;Hochladen fehlgeschlagen
 Upload file(s) failed, see error message;Upload file(s) failed, see error message;Hochladen der Datei(en) fehlgeschlagen, siehe Fehlermeldung
 Upload files;Upload files;Dateien hochladen
+Uploadable file size (defined in php.ini): max. {0}MB;Uploadable file size (defined in php.ini): max. {0}MB;Hochladbare Dateigrösse (gemäss php.ini): max. {0}MB
 Uploaded;Uploaded;Hochgeladen
 URL;URL;URL
+URL path;URL path|URL paths;URL-Pfad|URL-Pfade
 Use cache;Use cache;Cache verwenden
 User;User|Users;Benutzer
+User for password reset not found.;User for password reset not found.;Benutzer für Passwortwechsel nicht gefunden.
 User not found;User not found;Benutzer nicht gefunden
 Username;Username;Benutzername
 Valid;Valid;Gültig
 Version;Version;Version
 Video;Video|Videos;Video|Videos
-Show module;Show module;Modul anzeigen
-Show theme;Show theme;Theme anzeigen
 Visibility;Visibility;Sichtbarkeit
 Visible;Visible;Sichtbar
 Website;Website|Websites;Webseite|Webseiten
@@ -545,10 +547,8 @@ Website description;Website description;Webseiten-Beschreibung
 Website keyword;Website keyword|Website keywords;Webseiten-Kennwort|Webseiten-Kennwörter
 Website successfully configured;Website successfully configured;Webseite erfolgreich konfiguriert
 Website title;Website title;Webseiten-Titel
-CMS successfully updated;CMS successfully updated;CMS erfolgreich aktualisiert
-Module successfully updated;Module successfully updated;Modul erfolgreich aktualisiert
-Theme successfully updated;Theme successfully updated;Theme erfolgreich aktualisiert
 Week;Week|Weeks;Woche|Wochen
 Year;Year|Years;Jahr|Jahre
+Yes;Yes;Ja
 Your session has expired. Please login again.;Your session has expired. Please login again.;Deine Session ist abgelaufen. Bitte melde dich erneut an.
-Zip archive ({0}) is invalid;Zip archive ({0}) is invalid;ZIP-Archiv ({0}) ist ungültig
+"Zip archive ""{0}"" is invalid";"Zip archive ""{0}"" is invalid";"ZIP-Archiv ""{0}"" ist ungültig"

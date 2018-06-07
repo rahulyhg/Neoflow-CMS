@@ -67,9 +67,9 @@ class UpdateManager
             if (isset($info['version']) && isset($info['for']) && isset($info['path']['sql']) && isset($info['path']['files']) && isset($info['path']['modules']) && isset($info['path']['themes'])) {
                 return $info;
             }
-            throw new ValidationException(translate('Information file ({0}) is invalid', ['info.php']));
+            throw new ValidationException(translate('Information file "{0}" is invalid', ['info.php']));
         }
-        throw new ValidationException(translate('Information file ({0}) not found', ['info.php']));
+        throw new ValidationException(translate('Information file "{0}" not found', ['info.php']));
     }
 
     /**
@@ -91,7 +91,7 @@ class UpdateManager
             }
         }
 
-        throw new ValidationException(translate('The version ({0}) of the CMS is not supported', [$this->config()->get('app')->get('version')]));
+        throw new ValidationException(translate('The version {0} of the CMS is not supported', [$this->config()->get('app')->get('version')]));
     }
 
     /**
@@ -136,9 +136,7 @@ class UpdateManager
                     $packageFile->delete();
                 }
             } catch (Throwable $ex) {
-                $this->logger()->warning('Module update installation for '.$packageName.' failed.', [
-                    'Exception message' => $ex->getMessage(),
-                ]);
+                $this->logger()->warning('Module update installation for '.$packageName.' failed.', ['Exception message' => $ex->getMessage()]);
             }
         }
 
@@ -166,9 +164,7 @@ class UpdateManager
                     $packageFile->delete();
                 }
             } catch (Throwable $ex) {
-                $this->logger()->warning('Theme update installation for '.$packageName.' failed.', [
-                    'Exception message' => $ex->getMessage(),
-                ]);
+                $this->logger()->warning('Theme update installation for '.$packageName.' failed.', ['Exception message' => $ex->getMessage()]);
             }
         }
 
@@ -208,9 +204,7 @@ class UpdateManager
                 exit;
             }
         } catch (Throwable $ex) {
-            $this->logger()->error('Update installation failed.', [
-                'Exception message' => $ex->getMessage(),
-            ]);
+            $this->logger()->error('Update installation failed.', ['Exception message' => $ex->getMessage()]);
         }
 
         return false;
@@ -242,9 +236,7 @@ class UpdateManager
     {
         $sqlFilePath = $this->folder->getPath($this->info['path']['sql']);
 
-        return (bool) $this
-                        ->database()
-                        ->executeFile($sqlFilePath);
+        return (bool) $this->database()->executeFile($sqlFilePath);
     }
 
     /**
@@ -267,19 +259,7 @@ class UpdateManager
         $config->get('app')->set('version', $this->newVersion);
 
         // Register services
-        $config->set('services', [
-            'alert' => 'Neoflow\\CMS\\Service\\AlertService',
-            'mail' => 'Neoflow\\CMS\\Service\\MailService',
-            'navitem' => 'Neoflow\\CMS\\Service\\NavitemService',
-            'section' => 'Neoflow\\CMS\\Service\\SectionService',
-            'auth' => 'Neoflow\\CMS\\Service\\AuthService',
-            'page' => 'Neoflow\\CMS\\Service\\PageService',
-            'upload' => 'Neoflow\\CMS\\Service\\UploadService',
-            'filesystem' => 'Neoflow\\CMS\\Service\\FilesystemService',
-            'validation' => 'Neoflow\\CMS\\Service\\ValidationService',
-            'install' => 'Neoflow\\CMS\\Service\\InstallService',
-            'update' => 'Neoflow\\CMS\\Service\\UpdateService',
-        ]);
+        $config->set('services', ['alert' => 'Neoflow\\CMS\\Service\\AlertService', 'mail' => 'Neoflow\\CMS\\Service\\MailService', 'navitem' => 'Neoflow\\CMS\\Service\\NavitemService', 'section' => 'Neoflow\\CMS\\Service\\SectionService', 'auth' => 'Neoflow\\CMS\\Service\\AuthService', 'page' => 'Neoflow\\CMS\\Service\\PageService', 'upload' => 'Neoflow\\CMS\\Service\\UploadService', 'filesystem' => 'Neoflow\\CMS\\Service\\FilesystemService', 'validation' => 'Neoflow\\CMS\\Service\\ValidationService', 'install' => 'Neoflow\\CMS\\Service\\InstallService', 'update' => 'Neoflow\\CMS\\Service\\UpdateService']);
 
         // Replace auto with true
         if ('auto' === $config->get('cache')->get('type')) {

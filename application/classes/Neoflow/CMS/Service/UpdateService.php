@@ -44,7 +44,7 @@ class UpdateService extends AbstractService
 
             return $updateFolder;
         }
-        throw new ValidationException(translate('Zip archive ({0}) is invalid', [$updatePackageFile->getName()]));
+        throw new ValidationException(translate('Zip archive "{0}" is invalid', [$updatePackageFile->getName()]));
     }
 
     /**

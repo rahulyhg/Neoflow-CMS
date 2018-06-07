@@ -69,9 +69,9 @@ abstract class AbstractExtensionModel extends AbstractModel
             if (is_array($info)) {
                 return $info;
             }
-            throw new ValidationException(translate('Information file ({0}) is invalid', ['info.php']));
+            throw new ValidationException(translate('Information file "{0}" is invalid', ['info.php']));
         }
-        throw new ValidationException(translate('Information file ({0}) not found', ['info.php']));
+        throw new ValidationException(translate('Information file "{0}" not found', ['info.php']));
     }
 
     /**
@@ -158,7 +158,7 @@ abstract class AbstractExtensionModel extends AbstractModel
 
             return $extensionFolder;
         }
-        throw new ValidationException(translate('Zip archive ({0}) is invalid', [$extensionPackageFile->getName()]));
+        throw new ValidationException(translate('Zip archive "{0}" is invalid', [$extensionPackageFile->getName()]));
     }
 
     /**
@@ -200,7 +200,7 @@ abstract class AbstractExtensionModel extends AbstractModel
 
                 return $this->save();
             }
-            throw new ValidationException(translate('Folder name ({0}) is already in use', [$this->folder_name]));
+            throw new ValidationException(translate('Folder name "{0}" is already in use', [$this->folder_name]));
         } finally {
             // Delete extension folder
             $installFolder->delete();
@@ -233,7 +233,7 @@ abstract class AbstractExtensionModel extends AbstractModel
             if (isset($info['identifier']) && $this->identifier === $info['identifier']) {
                 // Check if extension is up to date
                 if (isset($info['version']) && $this->version === $info['version']) {
-                    throw new ValidationException(translate('The extension ({0}) is already up to date', [$this->name]));
+                    throw new ValidationException(translate('The extension "{0}" is already up to date', [$this->name]));
                 }
 
                 // Check if supported version for update
@@ -257,9 +257,9 @@ abstract class AbstractExtensionModel extends AbstractModel
 
                     return $this->save();
                 }
-                throw new ValidationException(translate('The version ({0}) of the extension ({1}) is not supported', [$this->version, $this->name]));
+                throw new ValidationException(translate('The version {0} of the extension "{1}" is not supported', [$this->version, $this->name]));
             }
-            throw new ValidationException(translate('The extension ({0}) is not compatible', [$this->name]));
+            throw new ValidationException(translate('The extension "{0}" is not compatible', [$this->name]));
         } finally {
             // Delete extension folder
             $updateFolder->delete();
