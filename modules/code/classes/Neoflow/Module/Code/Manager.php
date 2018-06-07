@@ -16,11 +16,7 @@ class Manager extends AbstractPageModuleManager
      */
     public function add(SectionModel $section): bool
     {
-        return (bool) Model::create([
-                            'section_id' => $section->id(),
-                            'content' => '',
-                        ])
-                        ->save();
+        return (bool) Model::create(['section_id' => $section->id(), 'content' => ''])->save();
     }
 
     /**
@@ -55,9 +51,7 @@ class Manager extends AbstractPageModuleManager
     public function uninstall(): bool
     {
         if ($this->database()->hasTable('mod_code')) {
-            return $this
-                            ->database()
-                            ->exec('DROP TABLE `mod_code`');
+            return $this->database()->exec('DROP TABLE `mod_code`');
         }
 
         return true;
@@ -85,7 +79,6 @@ class Manager extends AbstractPageModuleManager
      */
     public function update(): bool
     {
-        // Nothing todo
         return true;
     }
 }

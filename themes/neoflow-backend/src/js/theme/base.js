@@ -41,6 +41,4 @@ $('form').on('submit', function () {
         .addClass('loader');
 
     $this.append($placeholder.fadeIn(200));
-
-
 });

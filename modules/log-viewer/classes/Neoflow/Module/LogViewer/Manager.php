@@ -13,7 +13,6 @@ class Manager extends AbstractModuleManager
      */
     public function install(): bool
     {
-        // Nothing todo
         return true;
     }
 
@@ -24,7 +23,6 @@ class Manager extends AbstractModuleManager
      */
     public function uninstall(): bool
     {
-        // Nothing todo
         return true;
     }
 
@@ -35,7 +33,6 @@ class Manager extends AbstractModuleManager
      */
     public function update(): bool
     {
-        // Nothing todo
         return true;
     }
 }
