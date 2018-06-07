@@ -3,7 +3,7 @@
   min-height: 64px;
 
   .loader {
-    background: #fff url(../img/loading-dark.gif) center center no-repeat;
+    background: rgba(255, 255, 255, .75) url(../img/loading-dark.gif) center center no-repeat;
     position: absolute;
     top: 0;
   }
