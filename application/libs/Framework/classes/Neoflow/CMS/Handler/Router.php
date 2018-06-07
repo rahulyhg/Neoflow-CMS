@@ -26,7 +26,7 @@ class Router extends FrameworkRouter
     {
         // Check whether routes are already cached
         if ($this->cache()->exists('routes')) {
-            $this->cached = false;
+            $this->cached = true;
 
             // Fetch routes from cache
             $this->routes = $this->cache()->fetch('routes');
@@ -50,9 +50,9 @@ class Router extends FrameworkRouter
     /**
      * Add routes.
      *
-     * @param array  $routes    One or multiple route arrays
+     * @param array $routes One or multiple route arrays
      * @param string $namespace Namespace for route controller
-     * @param string $prefix    Prefix for route identifier
+     * @param string $prefix Prefix for route identifier
      *
      * @return self
      */
