@@ -24,16 +24,16 @@ Required field;Required field|Required fields;Pflichtfeld|Pflichtfelder
 Core module;Core module|Core modules;Kernmodul|Kernmodule
 {0} is a core module and cannot be deleted;{0} is a core module and cannot be deleted;{0} ist ein Kernmodul und kann nicht gelöscht werden.
 {0} must consist only of digits;{0} must consist only of digits;{0} darf nur aus Ziffern bestehen
-{0} must end with "{1}";{0} must end with "{1}";{0} muss mit "{1}" enden
+"{0} must end with ""{1}""";"{0} must end with ""{1}""";"{0} muss mit ""{1}"" enden"
 {0} must have at least one letter;{0} must have at least one letter;{0} muss mindestens einen Buchstaben haben
 {0} must match {1};{0} must match {1};{0} muss gleich sein wie {1}
-{0} must not end with "{1}";{0} must not end with "{1}";{0} darf nicht mit "{1}" enden
+"{0} must not end with ""{1}""";"{0} must not end with ""{1}""";"{0} darf nicht mit ""{1}"" enden"
 {0} must not match {1};{0} must not match {1};{0} darf nicht gleich sein wie {1}
-{0} must not start with "{1}";{0} must not start with "{1}";{0} darf nicht mit "{1}" beginnen
-{0} must start with "{1}";{0} must start with "{1}";{0} muss mit "{1}" beginnen
+"{0} must not start with ""{1}""";"{0} must not start with ""{1}""";"{0} darf nicht mit ""{1}"" beginnen"
+"{0} must start with ""{1}""";"{0} must start with ""{1}""";"{0} muss mit ""{1}"" beginnen"
 {0} not found;{0} not found;{0} nicht gefunden
-A file with the name "{0}" already exists;A file with the name "{0}" already exists;Eine Datei mit dem Namen "{0}" existiert bereits
-A folder with the name "{0}" already exists;A folder with the name "{0}" already exists;Ein Ordner mit dem Namen "{0}" existiert bereits
+A file with the name ({0}) already exists;A file with the name ({0}) already exists;Eine Datei mit dem Namen ({0}) existiert bereits
+A folder with the name ({0}) already exists;A folder with the name ({0}) already exists;Ein Ordner mit dem Namen ({0}) existiert bereits
 Access;Access;Zugriff
 Accessible only for authorized users;Accessible only for authorized users;Nur für autorisierte Benutzer zugänglich
 Account;Account|Accounts;Konto|Konten
@@ -132,6 +132,7 @@ Current page;Current page;Aktuelle Seite
 Current section;Current section;Aktueller Abschnitt
 Custom CSS;Custom CSS;Benutzerdefiniertes CSS
 Custom JavaScript;Custom JavaScript;Benutzerdefiniertes JavaScript
+User for password reset not found.;User for password reset not found.;Benutzer für Passwortwechsel nicht gefunden.
 Dashboard;Dashboard;Dashboard
 Dashboard account title;Administrate the registered users and the roles with the permissions.;Administriere die registrierten Benutzer und die Rollen mit den Berechtigungen.
 Dashboard content title;Edit the content of the pages and the navigations of the website.;Bearbeite den Inhalt der Seiten und die Navigationen der Webseite.
@@ -143,7 +144,7 @@ Dashboard welcome description;In the backend of the Neoflow CMS you can administ
 Dashboard welcome title;Welcome to the Backend of your Website!;Willkommen im Backend deiner Webseite!
 Database;Database;Datenbank
 Database connection could not be established. Error message: {0};Database connection could not be established. Error message: {0};Datenbankverbindung konnte nicht aufgebaut werden. Fehlermeldung: {0}
-"Database installation failed. Permission to use "{0}" is missing.";Database installation failed. Permission to use "{0}" is missing.";Die Datenbankinstallation ist fehlgeschlagen. Die Berechtigung zur Verwendung von "{0}" fehlt."
+Database installation failed. Permission to use ({0}) is missing.;Database installation failed. Permission to use ({0}) is missing.;Die Datenbankinstallation ist fehlgeschlagen. Die Berechtigung zur Verwendung von ({0}) fehlt.
 Database name;Database name;Datenbankname
 Database successfully installed;Database successfully installed;Datenbank erfolgreich installiert
 Date;Date|Dates;Datum|Daten
@@ -167,7 +168,7 @@ Delete section;Delete section;Abschnitt löschen
 Delete user;Delete user;Benutzer löschen
 Description;Description;Beschreibung
 Directory;Directory|Directories;Verzeichnis|Verzeichnisse
-"Directory "{0}" not found";Directory "{0}" not found";Verzeichnis "{0}" nicht gefunden"
+Directory ({0}) not found;Directory ({0}) not found;Verzeichnis ({0}) nicht gefunden
 Directory does not exist or is not accessible;Directory does not exist or is not accessible;Verzeichnis existiert nicht oder ist nicht zugänglich
 Directory not found;Directory not found;Verzeichnis nicht gefunden
 Disable;Disable;Deaktivieren
@@ -191,8 +192,8 @@ Edit user;Edit user;Benutzer bearbeiten
 Edited;Edited;Bearbeitet
 Editor;Editor|Editors;Editor|Editoren
 Email address;Email address;E-Mailadresse
-Email already sent, you can reset your password once per hour;Email already sent, you can reset your password once per hour;E-Mail wurde schon versendet, du kannst das Passwort nur einmal pro Stunde zurücksetzen
-Email successfully sent;Email successfully sent;E-Mail erfolgreich versendet
+Email already sent, you can reset your password once per hour.;Email already sent, you can reset your password once per hour.;E-Mail wurde schon versendet, du kannst das Passwort nur einmal pro Stunde zurücksetzen.
+Email for password reset successfully sent.;Email for password reset successfully sent.;E-Mail für Passwortwechsel erfolgreich versendet.
 Empty;Empty;Leer
 Enable;Enable;Aktivieren
 Enable failed;Enable failed;Aktivieren fehlgeschlagen
@@ -209,7 +210,7 @@ Executed;Executed;Ausgeführt
 Executing SQL failed. Error message: {0};Executing SQL failed. Error message: {0};SQL ausführen fehlgeschlagen. Fehlermeldung: {0}
 Extension;Extension|Extensions;Erweiterung|Erweiterungen
 File;File|Files;Datei|Dateien
-File "{0}" not found;File "{0}" not found";Datei "{0}" nicht gefunden"
+File ({0}) not found;File ({0}) not found;Datei ({0}) nicht gefunden
 File extension;File extension|File extensions;Dateierweiterung|Dateierweiterungen
 File not found;File not found;Datei nicht gefunden
 File with the same name already exists;File with the same name already exists;Datei mit gleichem Namen existiert bereits
@@ -358,7 +359,7 @@ Password must contain at least one lowercase character;Password must contain at 
 Password must contain at least one number;Password must contain at least one number;Passwort muss mindestens eine Nummer enthalten
 Password must contain at least one special character;Password must contain at least one special character;Passwort muss mindestens ein Sonderzeichen beinhalten
 Password must contain at least one uppercase character;Password must contain at least one uppercase character;Passwort muss mindestens einen Grossbuchstaben enthalten
-Password reset email message;<p>Hi {0}!</p><p>Forgot your password? No problem.</p><p>Just click here to create a new password for your user account:</p><a href="{1}">{1}</a><p>If you didn\'t request a password change, you don\'t have to do anything.</p><p>Best regards.</p>;<p>Hallo, {0}!</p><p>Dein Passwort vergessen? Kein Problem.</p><p>Klicke einfach here um ein neues Passwort für deinen Benutzerkonto zu erstellen:</p><a href="{1}">{1}</a><p>Wenn du kein Passwortwechsel angefragt hast, musst du garnichts machen.</p><p>Beste Grüsse.</p>
+Password reset email message;"<p>Hi {0}!</p><p>Forgot your password? No problem.</p><p>Just click here to create a new password for your user account:</p><a href=""{1}"">{1}</a><p>If you didn\'t request a password change, you don\'t have to do anything.</p><p>Best regards.</p>";"<p>Hallo, {0}!</p><p>Dein Passwort vergessen? Kein Problem.</p><p>Klicke einfach hier um ein neues Passwort für deinen Benutzerkonto zu erstellen:</p><a href=""{1}"">{1}</a><p>Wenn du kein Passwortwechsel angefragt hast, musst du garnichts machen.</p><p>Beste Grüsse.</p>"
 Password reset email subject;Create new password;Neues Passwort erstellen
 Password successfully updated;Password successfully updated;Passwort erfolgreich aktualisiert
 Path;Path|Paths;Pfad|Pfade
@@ -469,11 +470,11 @@ Active language;Active language|Active languages;Aktive Sprache|Aktive Sprachen
 Author of the website (e.g. webmaster).;Author of the website (e.g. webmaster).;Autor der Webseite (zB. Webmaster)
 Supported languages of the website. Each language requires separate pages.;Supported languages of the website. Each language requires separate pages.;Unterstützte Sprachen der Webseiten. Jede Sprache benötigt separate Seiten.
 The CMS is already up to date;The CMS is already up to date;Das CMS ist bereits auf dem neuesten Stand
-"The existing file "{0}" is not accessible and cannot be overwritten";The existing file "{0}" is not accessible and cannot be overwritten";Die vorhandene Datei "{0}" ist nicht zugänglich und kann nicht überschrieben werden"
+The existing file ({0}) is not accessible and cannot be overwritten;The existing file ({0}) is not accessible and cannot be overwritten;Die vorhandene Datei ({0}) ist nicht zugänglich und kann nicht überschrieben werden
 The extension ({0}) is already up to date;The extension ({0}) is already up to date;Die Erweiterung ({0}) ist bereits auf dem neuesten Stand
 The extension ({0}) is not compatible;The extension ({0}) is not compatible;Die Erweiterung ({0}) ist nicht kompatibel
-"The file "{0}" has not an allowed file extension";The file "{0}" has not an allowed file extension";Die Datei "{0}" hat keine erlaubte Dateiendung"
-"The file "{0}" is larger than allowed";The file "{0}" is larger than allowed";Die Datei "{0}" ist grösser als erlaubt"
+The file ({0}) has not an allowed file extension;The file ({0}) has not an allowed file extension;Die Datei ({0}) hat keine erlaubte Dateiendung
+The file ({0}) is larger than allowed;The file ({0}) is larger than allowed;Die Datei ({0}) ist grösser als erlaubt
 The file cannot be previewed;The file cannot be previewed;Die Datei kann nicht als Vorschau angezeigt werden
 {0} has at least one or more depending modules ({1}) and cannot be deleted;{0} has at least one or more depending modules ({1}) and cannot be deleted;{0} hat mindestens ein oder mehrere abhängige Module ({1}) und kann nicht gelöscht werden
 {0} has at least one or more depending modules ({1}) and cannot be disabled;{0} has at least one or more depending modules ({1}) and cannot be disabled;{0} hat mindestens ein oder mehrere abhängige Module ({1}) und kann nicht deaktiviert werden
@@ -530,7 +531,6 @@ URL;URL;URL
 Use cache;Use cache;Cache verwenden
 User;User|Users;Benutzer
 User not found;User not found;Benutzer nicht gefunden
-No user with this email found.;No user with this email found.;Kein Benutzer mit dieser E-Mailadresse gefunden.
 Username;Username;Benutzername
 Valid;Valid;Gültig
 Version;Version;Version

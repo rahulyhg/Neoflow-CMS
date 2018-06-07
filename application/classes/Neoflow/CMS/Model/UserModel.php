@@ -25,9 +25,7 @@ class UserModel extends AbstractModel
     /**
      * @var array
      */
-    public static $properties = ['user_id', 'email', 'firstname', 'lastname',
-        'role_id', 'reset_key', 'reseted_when', 'password',
-        'failed_logins', ];
+    public static $properties = ['user_id', 'email', 'firstname', 'lastname', 'role_id', 'reset_key', 'reseted_when', 'password', 'failed_logins'];
 
     /**
      * @var string
@@ -97,28 +95,15 @@ class UserModel extends AbstractModel
     {
         $validator = new EntityValidator($this);
 
-        $validator
-            ->required()
-            ->email()
-            ->callback(function ($email, $id) {
-                return 0 === UserModel::repo()
-                    ->where('email', '=', $email)
-                    ->where('user_id', '!=', $id)
-                    ->count();
-            }, '{0} has to be unique', [$this->id()])
-            ->set('email', 'Email address');
+        $validator->required()->email()->callback(function ($email, $id) {
+            return 0 === UserModel::repo()->where('email', '=', $email)->where('user_id', '!=', $id)->count();
+        }, '{0} has to be unique', [$this->id()])->set('email', 'Email address');
 
-        $validator
-            ->maxLength(50)
-            ->set('firstname', 'Firstname');
+        $validator->maxLength(50)->set('firstname', 'Firstname');
 
-        $validator
-            ->maxLength(50)
-            ->set('lastname', 'Lastname');
+        $validator->maxLength(50)->set('lastname', 'Lastname');
 
-        $validator
-            ->required()
-            ->set('role_id', 'Role');
+        $validator->required()->set('role_id', 'Role');
 
         if ($this->newPassword && $this->confirmPassword) {
             $this->validateNewPassword();
@@ -137,9 +122,7 @@ class UserModel extends AbstractModel
     public function verifyPassword(string $password): bool
     {
         if ($password === $this->password) {
-            $this
-                ->setNewPassword($password, $password)
-                ->save();
+            $this->setNewPassword($password, $password)->save();
 
             return true;
         }
@@ -156,27 +139,15 @@ class UserModel extends AbstractModel
      */
     public function validateNewPassword(): bool
     {
-        $validator = new Validator([
-            'newPassword' => $this->newPassword,
-            'confirmPassword' => $this->confirmPassword,
-            self::$primaryKey => $this->id(),
-        ]);
+        $validator = new Validator(['newPassword' => $this->newPassword, 'confirmPassword' => $this->confirmPassword, self::$primaryKey => $this->id()]);
 
-        $validator
-            ->required()
-            ->set('confirmPassword', 'Confirm password');
+        $validator->required()->set('confirmPassword', 'Confirm password');
 
-        $validator
-            ->required()
-            ->minLength(8)
-            //->pregMatch('/[a-z]+/', 'Password must contain at least one lowercase character')
-            //->pregMatch('/[A-Z]+/', 'Password must contain at least one uppercase character')
-            ->pregMatch('/[0-9]+/', 'Password must contain at least one number')
-            ->pregMatch('/[\!\"\§\$\%\&\/\(\)\=\?\\\,\.\-\_\:\;\]\+\*\~\<\>\|]+/', 'Password must contain at least one special character')
-            ->callback(function ($password, $confirmPassword) {
-                return $password === $confirmPassword;
-            }, 'Password is not matching confirm password', [$this->confirmPassword])
-            ->set('newPassword', 'Password');
+        $validator->required()->minLength(8)//->pregMatch('/[a-z]+/', 'Password must contain at least one lowercase character')
+        //->pregMatch('/[A-Z]+/', 'Password must contain at least one uppercase character')
+        ->pregMatch('/[0-9]+/', 'Password must contain at least one number')->pregMatch('/[\!\"\§\$\%\&\/\(\)\=\?\\\,\.\-\_\:\;\]\+\*\~\<\>\|]+/', 'Password must contain at least one special character')->callback(function ($password, $confirmPassword) {
+            return $password === $confirmPassword;
+        }, 'Password is not matching confirm password', [$this->confirmPassword])->set('newPassword', 'Password');
 
         return (bool) $validator->validate();
     }
@@ -280,23 +251,21 @@ class UserModel extends AbstractModel
     }
 
     /**
-     * Update password of user entity.
+     * Update password of user by id.
      *
-     * @param string     $newPassword     New Password of user entity
-     * @param string     $confirmPassword Confirm password of user entity
-     * @param string|int $id              Identifier of user entity
+     * @param string     $newPassword     New Password
+     * @param string     $confirmPassword Confirm password
+     * @param string|int $id              User ID
      *
-     * @return static
+     * @return self
      *
      * @throws RuntimeException
      */
-    public static function updatePassword(string $newPassword, string $confirmPassword, $id): self
+    public static function updatePasswordById(string $newPassword, string $confirmPassword, $id): self
     {
         $user = self::findById($id);
         if ($user) {
-            return $user
-                    ->setNewPassword($newPassword, $confirmPassword)
-                    ->deleteResetKey();
+            return $user->setNewPassword($newPassword, $confirmPassword);
         }
         throw new RuntimeException('Cannot update password of user (ID: '.$id.')');
     }

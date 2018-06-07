@@ -24,9 +24,7 @@ class UserController extends BackendController
         parent::__construct($view, $args);
 
         // Set title and breadcrumb
-        $this->view
-            ->setTitle(translate('User', [], true))
-            ->addBreadcrumb(translate('Account', [], true));
+        $this->view->setTitle(translate('User', [], true))->addBreadcrumb(translate('Account', [], true));
     }
 
     /**
@@ -36,10 +34,7 @@ class UserController extends BackendController
      */
     public function indexAction(): Response
     {
-        return $this->render('backend/user/index', [
-                'roles' => RoleModel::findAll(),
-                'users' => UserModel::findAll(),
-        ]);
+        return $this->render('backend/user/index', ['roles' => RoleModel::findAll(), 'users' => UserModel::findAll()]);
     }
 
     /**
@@ -56,14 +51,7 @@ class UserController extends BackendController
             $postData = $this->request()->getPostData();
 
             // Create user
-            $user = UserModel::create([
-                    'email' => $postData->get('email'),
-                    'firstname' => $postData->get('firstname'),
-                    'lastname' => $postData->get('lastname'),
-                    'role_id' => $postData->get('role_id'),
-                    'password' => $postData->get('password'),
-                    'confirmPassword' => $postData->get('confirmPassword'),
-            ]);
+            $user = UserModel::create(['email' => $postData->get('email'), 'firstname' => $postData->get('firstname'), 'lastname' => $postData->get('lastname'), 'role_id' => $postData->get('role_id'), 'password' => $postData->get('password'), 'confirmPassword' => $postData->get('confirmPassword')]);
 
             // Validate and save user
             if ($user && $user->validate() && $user->save()) {
@@ -96,18 +84,12 @@ class UserController extends BackendController
 
         if ($user) {
             // Set title and breadcrumb
-            $this->view
-                ->setTitle($user->lastname ? $user->getFullname() : $user->email)
-                ->setSubtitle('ID: '.$user->id())
-                ->addBreadcrumb(translate('User', [], true), generate_url('backend_user_index'));
+            $this->view->setTitle($user->lastname ? $user->getFullname() : $user->email)->setSubtitle('ID: '.$user->id())->addBreadcrumb(translate('User', [], true), generate_url('backend_user_index'));
 
             // Set back url
             $this->view->setBackRoute('backend_user_index');
 
-            return $this->render('backend/user/edit', [
-                    'user' => $user,
-                    'roles' => RoleModel::findAll(),
-            ]);
+            return $this->render('backend/user/edit', ['user' => $user, 'roles' => RoleModel::findAll()]);
         }
 
         throw new RuntimeException('User not found (ID: '.$this->args['id'].')');
@@ -127,12 +109,7 @@ class UserController extends BackendController
             $postData = $this->request()->getPostData();
 
             // Update user
-            $user = UserModel::updateById([
-                    'email' => $postData->get('email'),
-                    'firstname' => $postData->get('firstname'),
-                    'lastname' => $postData->get('lastname'),
-                    'role_id' => $postData->get('role_id'),
-                    ], $postData->get('user_id'));
+            $user = UserModel::updateById(['email' => $postData->get('email'), 'firstname' => $postData->get('firstname'), 'lastname' => $postData->get('lastname'), 'role_id' => $postData->get('role_id')], $postData->get('user_id'));
 
             // Validate and save user
             if ($user && $user->validate() && $user->save()) {
@@ -144,9 +121,7 @@ class UserController extends BackendController
             $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
         }
 
-        return $this->redirectToRoute('backend_user_edit', [
-                'id' => $postData->get('user_id'),
-        ]);
+        return $this->redirectToRoute('backend_user_edit', ['id' => $postData->get('user_id')]);
     }
 
     /**
@@ -163,7 +138,7 @@ class UserController extends BackendController
             $postData = $this->request()->getPostData();
 
             // Update user password
-            $user = UserModel::updateByIdPassword($postData->get('newPassword'), $postData->get('confirmPassword'), $postData->get('user_id'));
+            $user = UserModel::updatePasswordById($postData->get('newPassword'), $postData->get('confirmPassword'), $postData->get('user_id'));
 
             // Validate and save user password
             if ($user->validateNewPassword() && $user->save()) {
@@ -175,9 +150,7 @@ class UserController extends BackendController
             $this->service('alert')->warning($ex->getErrors());
         }
 
-        return $this->redirectToRoute('backend_user_edit', [
-                'id' => $postData->get('user_id'),
-        ]);
+        return $this->redirectToRoute('backend_user_edit', ['id' => $postData->get('user_id')]);
     }
 
     /**

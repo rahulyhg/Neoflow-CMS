@@ -25,8 +25,8 @@ class App extends FrameworkApp
     /**
      * Publish application.
      *
-     * @param float $startTime Application start time in milliseconds
-     * @param Loader $loader Loader instance
+     * @param float  $startTime      Application start time in milliseconds
+     * @param Loader $loader         Loader instance
      * @param string $configFilePath Config file path
      *
      * @return self
@@ -122,14 +122,15 @@ class App extends FrameworkApp
         try {
             $response = $this->get('router')->routeByKey('error_index', ['exception' => $ex]);
 
-            $this->execute($response)->publish();
-
             if ($ex instanceof HttpException) {
                 $context = ['url' => function_exists('request_url') ? request_url() : 'Unknown'];
                 $this->get('logger')->warning($ex->getMessage(), $context);
             } else {
                 $this->get('logger')->logException($ex);
             }
+
+            $this->execute($response)->publish();
+
             exit;
         } catch (Throwable $e) {
             parent::exceptionHandler($ex);
@@ -244,11 +245,11 @@ class App extends FrameworkApp
 
                 if (!$translator->isCached()) {
                     // Load translation file
-                    $translationFilePath = $module->getPath('/i18n/' . $translator->getCurrentLanguageCode() . '.php');
+                    $translationFilePath = $module->getPath('/i18n/'.$translator->getCurrentLanguageCode().'.php');
                     $translator->loadTranslationFile($translationFilePath, false, true);
 
                     // Load fallback translation file
-                    $fallbackTranslationFilePath = $module->getPath('/i18n/' . $translator->getFallbackLanguageCode() . '.php');
+                    $fallbackTranslationFilePath = $module->getPath('/i18n/'.$translator->getFallbackLanguageCode().'.php');
                     $translator->loadTranslationFile($fallbackTranslationFilePath, true, true);
                 }
 
@@ -294,11 +295,11 @@ class App extends FrameworkApp
             $translator = $this->get('translator');
 
             // Load translation file
-            $translationFile = $theme->getPath('/i18n/' . $translator->getCurrentLanguageCode() . '.php');
+            $translationFile = $theme->getPath('/i18n/'.$translator->getCurrentLanguageCode().'.php');
             $translator->loadTranslationFile($translationFile, false, true);
 
             // Load fallback translation file
-            $fallbackTranslationFile = $theme->getPath('/i18n/' . $translator->getFallbackLanguageCode() . '.php');
+            $fallbackTranslationFile = $theme->getPath('/i18n/'.$translator->getFallbackLanguageCode().'.php');
             $translator->loadTranslationFile($fallbackTranslationFile, true, true);
         });
 

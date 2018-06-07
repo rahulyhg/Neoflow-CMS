@@ -5,6 +5,7 @@ namespace Neoflow\CMS\Service;
 use Neoflow\CMS\Core\AbstractService;
 use Neoflow\CMS\Exception\AuthException;
 use Neoflow\CMS\Model\UserModel;
+use Neoflow\Validation\ValidationException;
 use RuntimeException;
 use function array_in_array;
 use function generate_url;
@@ -15,7 +16,7 @@ class AuthService extends AbstractService
     /**
      * Authenticate and authorize user by email address and password.
      *
-     * @param string $email User email address
+     * @param string $email    User email address
      * @param string $password User password
      *
      * @return bool
@@ -66,8 +67,8 @@ class AuthService extends AbstractService
     /**
      * Create reset key for user.
      *
-     * @param string $email User email address
-     * @param bool $sendMail Set FALSE to prevent sending an email with password reset link
+     * @param string $email    User email address
+     * @param bool   $sendMail Set FALSE to prevent sending an email with password reset link
      *
      * @return bool
      *
@@ -78,9 +79,9 @@ class AuthService extends AbstractService
         $user = UserModel::repo()->where('email', '=', $email)->fetch();
 
         if ($user) {
-            if (!$user->reset_key || 1 === 1 || $user->reseted_when < microtime(true) - 60 * 60) {
+            if (!$user->reset_key || $user->reseted_when < microtime(true) - 60 * 60) {
                 if ($user->generateResetKey() && $user->save()) {
-                    $link = generate_url('backend_auth_new_password', ['reset_key' => $user->reset_key,]);
+                    $link = generate_url('backend_auth_new_password', ['reset_key' => $user->reset_key]);
                     $message = translate('Password reset email message', [$user->getFullName(), $link]);
                     $subject = translate('Password reset email subject');
 
@@ -93,7 +94,32 @@ class AuthService extends AbstractService
             }
             throw new AuthException(translate('Email already sent, you can reset your password once per hour.'));
         }
-        throw new AuthException(translate('No user with this email found.'));
+        throw new AuthException(translate('User for password reset not found.'));
+    }
+
+    /**
+     * Update password of user by reset key.
+     *
+     * @param string $newPassword     New password
+     * @param string $confirmPassword Confirm password
+     * @param string $resetKey        Reset key
+     *
+     * @return bool
+     *
+     * @throws AuthException
+     * @throws ValidationException
+     */
+    public function updatePasswordByResetKey(string $newPassword, string $confirmPassword, string $resetKey)
+    {
+        $user = UserModel::findByColumn('reset_key', $resetKey);
+
+        if ($user) {
+            $user->setNewPassword($newPassword, $confirmPassword)->deleteResetKey();
+
+            // Validate and save user password
+            return $user->validateNewPassword() && $user->save();
+        }
+        throw new AuthException(translate('User for password reset not found.'));
     }
 
     /**
@@ -115,7 +141,7 @@ class AuthService extends AbstractService
     /**
      * Authenticate user with email and password.
      *
-     * @param string $email Email address
+     * @param string $email    Email address
      * @param string $password User password
      *
      * @return bool

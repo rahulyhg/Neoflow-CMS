@@ -41,9 +41,7 @@ class AuthController extends BackendController
 
         $this->view->setTitle(translate('Login'));
 
-        return $this->render('backend/auth/login', [
-                'url' => $url,
-        ]);
+        return $this->render('backend/auth/login', ['url' => $url]);
     }
 
     /**
@@ -100,12 +98,10 @@ class AuthController extends BackendController
         $user = UserModel::findByColumn('reset_key', $this->args['reset_key']);
 
         if ($user) {
-            $this->service('alert')->info(translate('Please enter the new password for your user account, registered under the email address {0}.', [$user->email]));
-
             return $this->render('backend/auth/new-password', ['user' => $user]);
         }
 
-        $this->service('alert')->danger(translate('User not found'));
+        $this->service('alert')->danger(translate('User for password reset not found.'));
 
         return $this->redirectToRoute('backend_auth_login');
     }
@@ -124,7 +120,7 @@ class AuthController extends BackendController
 
         // Authenticate and authorize user
         try {
-            if ($this->service('auth')->updatePassword($newPassword, $confirmPassword, $resetKey)) {
+            if ($this->service('auth')->updatePasswordByResetKey($newPassword, $confirmPassword, $resetKey)) {
                 $this->service('alert')->success(translate('Password successfully updated'));
 
                 return $this->redirectToRoute('backend_auth_login');
@@ -135,9 +131,7 @@ class AuthController extends BackendController
             $this->service('alert')->warning($ex->getErrors());
         }
 
-        return $this->redirectToRoute('backend_auth_new_password', [
-                'reset_key' => $resetKey,
-        ]);
+        return $this->redirectToRoute('backend_auth_new_password', ['reset_key' => $resetKey]);
     }
 
     /**
@@ -151,7 +145,7 @@ class AuthController extends BackendController
 
         try {
             if ($this->service('auth')->createResetKey($email)) {
-                $this->service('alert')->success(translate('Email successfully sent'));
+                $this->service('alert')->success(translate('Email for password reset successfully sent.'));
             } else {
                 throw new RuntimeException('Resetting password failed');
             }
