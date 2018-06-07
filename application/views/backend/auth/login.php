@@ -3,14 +3,13 @@
 <div class="row">
     <div class="col-md-6 mx-md-auto col-lg-4 col-xl-3">
 
+        <?= $view->renderAlertTemplate(); ?>
+
         <div class="card">
             <h4 class="card-header">
                 <?= translate('Login'); ?>
             </h4>
             <div class="card-body">
-
-                <?= $view->renderAlertTemplate(); ?>
-
                 <form method="post" action="<?= generate_url('backend_auth_authenticate'); ?>">
                     <input name="url" value="<?= $url; ?>" type="hidden">
                     <div class="form-group">
@@ -35,7 +34,7 @@
                     </div>
                 </form>
 
-                <hr />
+                <hr/>
 
                 <a href="<?= generate_url('backend_auth_lost_password'); ?>"><?= translate('Lost your password?'); ?></a>
             </div>
