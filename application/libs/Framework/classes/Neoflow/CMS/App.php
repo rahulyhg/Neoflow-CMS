@@ -25,8 +25,8 @@ class App extends FrameworkApp
     /**
      * Publish application.
      *
-     * @param float  $startTime      Application start time in milliseconds
-     * @param Loader $loader         Loader instance
+     * @param float $startTime Application start time in milliseconds
+     * @param Loader $loader Loader instance
      * @param string $configFilePath Config file path
      *
      * @return self
@@ -61,7 +61,7 @@ class App extends FrameworkApp
         // Set and create cache
         $this->setCache();
 
-        // Etablish connection and set database
+        // Establish connection and set database
         $this->setDatabase();
 
         // Create and set request
@@ -77,19 +77,7 @@ class App extends FrameworkApp
         $this->set('engine', new Engine());
 
         // Set CMS-specific meta properties
-        $this->get('engine')
-                ->addMetaTagProperties([
-                    'name' => 'description',
-                    'content' => $this->get('settings')->website_description,
-                        ], 'description')
-                ->addMetaTagProperties([
-                    'name' => 'keywords',
-                    'content' => $this->get('settings')->website_keywords,
-                        ], 'keywords')
-                ->addMetaTagProperties([
-                    'name' => 'author',
-                    'content' => $this->get('settings')->website_author,
-                        ], 'author');
+        $this->get('engine')->addMetaTagProperties(['name' => 'description', 'content' => $this->get('settings')->website_description], 'description')->addMetaTagProperties(['name' => 'keywords', 'content' => $this->get('settings')->website_keywords], 'keywords')->addMetaTagProperties(['name' => 'author', 'content' => $this->get('settings')->website_author], 'author');
 
         // Create and set translator
         $this->set('translator', new Translator());
@@ -134,14 +122,10 @@ class App extends FrameworkApp
         try {
             $response = $this->get('router')->routeByKey('error_index', ['exception' => $ex]);
 
-            $this
-                    ->execute($response)
-                    ->publish();
+            $this->execute($response)->publish();
 
             if ($ex instanceof HttpException) {
-                $context = [
-                    'url' => function_exists('request_url') ? request_url() : 'Unknown',
-                ];
+                $context = ['url' => function_exists('request_url') ? request_url() : 'Unknown'];
                 $this->get('logger')->warning($ex->getMessage(), $context);
             } else {
                 $this->get('logger')->logException($ex);
@@ -201,7 +185,7 @@ class App extends FrameworkApp
      */
     protected function setSettings(): self
     {
-        // Fetch only when database connection is etablished
+        // Fetch only when database connection is established
         if ($this->get('database')) {
             // Fetch CMS settings
             $settings = SettingModel::findById(1);
@@ -253,20 +237,18 @@ class App extends FrameworkApp
             $modules = ModuleModel::findAllByColumn('is_active', true);
             $modules->each(function ($module) {
                 // Load functions and add class directory
-                $this->get('loader')
-                        ->loadFunctionsFromDirectory($module->getPath('functions'))
-                        ->addClassDirectory($module->getPath('classes'));
+                $this->get('loader')->loadFunctionsFromDirectory($module->getPath('functions'))->addClassDirectory($module->getPath('classes'));
 
                 // Get translator
                 $translator = $this->get('translator');
 
                 if (!$translator->isCached()) {
                     // Load translation file
-                    $translationFilePath = $module->getPath('/i18n/'.$translator->getCurrentLanguageCode().'.php');
+                    $translationFilePath = $module->getPath('/i18n/' . $translator->getCurrentLanguageCode() . '.php');
                     $translator->loadTranslationFile($translationFilePath, false, true);
 
                     // Load fallback translation file
-                    $fallbackTranslationFilePath = $module->getPath('/i18n/'.$translator->getFallbackLanguageCode().'.php');
+                    $fallbackTranslationFilePath = $module->getPath('/i18n/' . $translator->getFallbackLanguageCode() . '.php');
                     $translator->loadTranslationFile($fallbackTranslationFilePath, true, true);
                 }
 
@@ -306,19 +288,17 @@ class App extends FrameworkApp
 
         $themes->each(function ($theme) {
             // Load functions and add class directory
-            $this->get('loader')
-                    ->loadFunctionsFromDirectory($theme->getPath('functions'))
-                    ->addClassDirectory($theme->getPath('classes'));
+            $this->get('loader')->loadFunctionsFromDirectory($theme->getPath('functions'))->addClassDirectory($theme->getPath('classes'));
 
             // Get translator
             $translator = $this->get('translator');
 
             // Load translation file
-            $translationFile = $theme->getPath('/i18n/'.$translator->getCurrentLanguageCode().'.php');
+            $translationFile = $theme->getPath('/i18n/' . $translator->getCurrentLanguageCode() . '.php');
             $translator->loadTranslationFile($translationFile, false, true);
 
             // Load fallback translation file
-            $fallbackTranslationFile = $theme->getPath('/i18n/'.$translator->getFallbackLanguageCode().'.php');
+            $fallbackTranslationFile = $theme->getPath('/i18n/' . $translator->getFallbackLanguageCode() . '.php');
             $translator->loadTranslationFile($fallbackTranslationFile, true, true);
         });
 
