@@ -530,6 +530,7 @@ URL;URL;URL
 Use cache;Use cache;Cache verwenden
 User;User|Users;Benutzer
 User not found;User not found;Benutzer nicht gefunden
+No user with this email found.;No user with this email found.;Kein Benutzer mit dieser E-Mailadresse gefunden.
 Username;Username;Benutzername
 Valid;Valid;Gültig
 Version;Version;Version

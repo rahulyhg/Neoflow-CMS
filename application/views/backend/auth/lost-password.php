@@ -26,9 +26,9 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-icon-left">
                             <span class="btn-icon">
-                                <i class="fa fa-save"></i>
+                                <i class="fa fa-cog"></i>
                             </span>
-                                <?= translate('Save'); ?>
+                                <?= translate('Execute'); ?>
                             </button>
                         </div>
                     </form>

@@ -15,7 +15,7 @@ class AuthService extends AbstractService
     /**
      * Authenticate and authorize user by email address and password.
      *
-     * @param string $email    User email address
+     * @param string $email User email address
      * @param string $password User password
      *
      * @return bool
@@ -66,8 +66,8 @@ class AuthService extends AbstractService
     /**
      * Create reset key for user.
      *
-     * @param string $email    User email address
-     * @param bool   $sendMail Set FALSE to prevent sending an email with password reset link
+     * @param string $email User email address
+     * @param bool $sendMail Set FALSE to prevent sending an email with password reset link
      *
      * @return bool
      *
@@ -75,32 +75,25 @@ class AuthService extends AbstractService
      */
     public function createResetKey(string $email, bool $sendMail = true): bool
     {
-        $user = UserModel::repo()
-            ->where('email', '=', $email)
-            ->fetch();
+        $user = UserModel::repo()->where('email', '=', $email)->fetch();
 
         if ($user) {
             if (!$user->reset_key || 1 === 1 || $user->reseted_when < microtime(true) - 60 * 60) {
                 if ($user->generateResetKey() && $user->save()) {
-                    $link = generate_url('backend_auth_new_password', [
-                        'reset_key' => $user->reset_key,
-                    ]);
+                    $link = generate_url('backend_auth_new_password', ['reset_key' => $user->reset_key,]);
                     $message = translate('Password reset email message', [$user->getFullName(), $link]);
                     $subject = translate('Password reset email subject');
 
                     if ($sendMail) {
-                        return $this
-                                ->service('mail')
-                                ->create($user->email, $subject, $message)
-                                ->send();
+                        return $this->service('mail')->create($user->email, $subject, $message)->send();
                     }
 
                     return true;
                 }
             }
-            throw new AuthException(translate('Email already sent, you can reset your password once per hour'));
+            throw new AuthException(translate('Email already sent, you can reset your password once per hour.'));
         }
-        throw new AuthException(translate('User not found'));
+        throw new AuthException(translate('No user with this email found.'));
     }
 
     /**
@@ -122,7 +115,7 @@ class AuthService extends AbstractService
     /**
      * Authenticate user with email and password.
      *
-     * @param string $email    Email address
+     * @param string $email Email address
      * @param string $password User password
      *
      * @return bool
@@ -131,10 +124,7 @@ class AuthService extends AbstractService
      */
     protected function authenticate($email, $password): bool
     {
-        $user = UserModel::repo()
-            ->caching(false)
-            ->where('email', '=', $email)
-            ->fetch();
+        $user = UserModel::repo()->caching(false)->where('email', '=', $email)->fetch();
 
         if ($user) {
             if ($user->failed_logins <= $this->settings()->login_attempts) {
@@ -171,21 +161,15 @@ class AuthService extends AbstractService
         $user = $this->getUser();
 
         if ($user) {
-            $role = $user
-                ->role()
-                ->fetch();
+            $role = $user->role()->fetch();
 
-            $permissions = $role
-                ->permissions()
-                ->fetchAll();
+            $permissions = $role->permissions()->fetchAll();
 
             $permissionKeys = $permissions->map(function ($permission) {
                 return $permission->permission_key;
             });
 
-            $this->session()
-                ->regenerateId()
-                ->set('_PERMISSION_KEYS', $permissionKeys);
+            $this->session()->regenerateId()->set('_PERMISSION_KEYS', $permissionKeys);
 
             return true;
         }
