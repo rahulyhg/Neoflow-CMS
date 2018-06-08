@@ -3,8 +3,6 @@
 namespace Neoflow\CMS\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
-use Neoflow\Filesystem\Exception\FileException;
-use Neoflow\Filesystem\Exception\FolderException;
 use Neoflow\Filesystem\File;
 use Neoflow\Filesystem\Folder;
 use Neoflow\Framework\Core\AbstractModel as FrameworkAbstractModel;
@@ -30,9 +28,6 @@ abstract class AbstractExtensionModel extends AbstractModel
      * Delete extension.
      *
      * @return bool
-     *
-     * @throws FolderException
-     * @throws FolderException
      */
     public function delete(): bool
     {
@@ -78,32 +73,20 @@ abstract class AbstractExtensionModel extends AbstractModel
      * Validate extension.
      *
      * @return bool
-     *
-     * @throws ValidationException
      */
     public function validate(): bool
     {
         $validator = new EntityValidator($this);
 
-        $validator
-            ->maxLength(100)
-            ->set('author', 'Author');
+        $validator->maxLength(100)->set('author', 'Author');
 
-        $validator
-            ->maxLength(100)
-            ->set('copyright', 'Copyright');
+        $validator->maxLength(100)->set('copyright', 'Copyright');
 
-        $validator
-            ->maxLength(250)
-            ->set('description', 'Description');
+        $validator->maxLength(250)->set('description', 'Description');
 
-        $validator
-            ->maxLength(50)
-            ->set('version', 'Version');
+        $validator->maxLength(50)->set('version', 'Version');
 
-        $validator
-            ->maxLength(100)
-            ->set('license', 'License');
+        $validator->maxLength(100)->set('license', 'License');
 
         return (bool) $validator->validate();
     }
@@ -112,8 +95,6 @@ abstract class AbstractExtensionModel extends AbstractModel
      * Reload the informatione of the extension.
      *
      * @return bool
-     *
-     * @throws ValidationException
      */
     public function reload(): bool
     {
@@ -136,8 +117,6 @@ abstract class AbstractExtensionModel extends AbstractModel
      * @return Folder
      *
      * @throws ValidationException
-     * @throws FileException
-     * @throws FolderException
      */
     protected function unpack(File $extensionPackageFile, bool $delete = true): Folder
     {
@@ -169,16 +148,14 @@ abstract class AbstractExtensionModel extends AbstractModel
      * @return bool
      *
      * @throws ValidationException
-     * @throws FolderException
-     * @throws FileException
      */
     public function install(File $extensionPackageFile): bool
     {
-        $installFolder = $this->unpack($extensionPackageFile);
+        $folder = $this->unpack($extensionPackageFile);
 
         try {
             // Get info file path
-            $infoFilePath = $installFolder->getPath('info.php');
+            $infoFilePath = $folder->getPath('info.php');
 
             // Fetch and set info data
             $info = $this->fetchInfoFile($infoFilePath);
@@ -190,7 +167,7 @@ abstract class AbstractExtensionModel extends AbstractModel
                 $this->validate();
 
                 // Copy folder to
-                $installFolder->copy($this->getPath());
+                $folder->copy($this->getPath());
 
                 // Add class directory to loader
                 $classPath = $this->getPath('/classes');
@@ -203,7 +180,7 @@ abstract class AbstractExtensionModel extends AbstractModel
             throw new ValidationException(translate('Folder name "{0}" is already in use', [$this->folder_name]));
         } finally {
             // Delete extension folder
-            $installFolder->delete();
+            $folder->delete();
         }
     }
 
@@ -215,8 +192,6 @@ abstract class AbstractExtensionModel extends AbstractModel
      * @return bool
      *
      * @throws ValidationException
-     * @throws FolderException
-     * @throws FolderException
      */
     public function installUpdate(File $extensionPackageFile): bool
     {
@@ -257,7 +232,10 @@ abstract class AbstractExtensionModel extends AbstractModel
 
                     return $this->save();
                 }
-                throw new ValidationException(translate('The version {0} of the extension "{1}" is not supported', [$this->version, $this->name]));
+                throw new ValidationException(translate('The version {0} of the extension "{1}" is not supported', [
+                    $this->version,
+                    $this->name,
+                ]));
             }
             throw new ValidationException(translate('The extension "{0}" is not compatible', [$this->name]));
         } finally {

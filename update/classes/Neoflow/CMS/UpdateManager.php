@@ -39,8 +39,6 @@ class UpdateManager
      *
      * @param Folder $folder Update folder
      * @param array  $info   Old info data (only needed for update from 1.0.0-a1 to 1.0.0-a2).
-     *
-     * @throws ValidationException
      */
     public function __construct(Folder $folder, array $info = [])
     {
@@ -98,8 +96,6 @@ class UpdateManager
      * Install extension updates (update step 2).
      *
      * @return bool
-     *
-     * @throws \Neoflow\Filesystem\Exception\FolderException
      */
     public function installExtensionUpdates(): bool
     {
@@ -185,8 +181,6 @@ class UpdateManager
      * Update files and database (update step 1).
      *
      * @return bool
-     *
-     * @throws ValidationException
      */
     public function installUpdate(): bool
     {
@@ -243,8 +237,6 @@ class UpdateManager
      * Update CMS config.
      *
      * @return bool
-     *
-     * @throws \Neoflow\Filesystem\Exception\FileException
      */
     protected function updateConfig(): bool
     {

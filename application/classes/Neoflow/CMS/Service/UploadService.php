@@ -20,8 +20,6 @@ class UploadService extends AbstractService
      * @param int    $allowedFileSize       Allowed file size in bytes (-1 = unlimited)
      *
      * @return array
-     *
-     * @throws UploadException
      */
     public function moveMultiple(array $uploadedItems, string $directoryPath, bool $overwrite = true, array $allowedFileExtensions = [], int $allowedFileSize = -1): array
     {

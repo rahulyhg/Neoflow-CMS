@@ -59,8 +59,6 @@ class RoleModel extends AbstractModel
      * Validate setting entity.
      *
      * @return bool
-     *
-     * @throws ValidationException
      */
     public function validate(): bool
     {

@@ -2,6 +2,7 @@
 
 namespace Neoflow\CMS\Controller\Backend;
 
+use Exception;
 use Neoflow\CMS\Controller\BackendController;
 use Neoflow\CMS\Model\ModuleModel;
 use Neoflow\CMS\View\BackendView;
@@ -23,9 +24,7 @@ class ModuleController extends BackendController
         parent::__construct($view, $args);
 
         // Set title and breadcrumb
-        $this->view
-            ->setTitle(translate('Module', [], true))
-            ->addBreadcrumb(translate('Extension', [], true));
+        $this->view->setTitle(translate('Module', [], true))->addBreadcrumb(translate('Extension', [], true));
     }
 
     /**
@@ -36,7 +35,7 @@ class ModuleController extends BackendController
     public function indexAction(): Response
     {
         return $this->render('backend/module/index', [
-                'modules' => ModuleModel::findAll(),
+            'modules' => ModuleModel::findAll(),
         ]);
     }
 
@@ -119,7 +118,10 @@ class ModuleController extends BackendController
         } catch (ValidationException $ex) {
             $this->service('alert')->warning([translate('Install module failed'), [$ex->getMessage()]]);
         } catch (Exception $ex) {
-            $this->service('alert')->danger([translate('Install module failed, see error message'), [$ex->getMessage()]]);
+            $this->service('alert')->danger([
+                translate('Install module failed, see error message'),
+                [$ex->getMessage()],
+            ]);
         }
 
         return $this->redirectToRoute('backend_module_index');
@@ -150,7 +152,10 @@ class ModuleController extends BackendController
         } catch (ValidationException $ex) {
             $this->service('alert')->warning([translate('Update module failed'), [$ex->getMessage()]]);
         } catch (Exception $ex) {
-            $this->service('alert')->danger([translate('Update module failed, see error message'), [$ex->getMessage()]]);
+            $this->service('alert')->danger([
+                translate('Update module failed, see error message'),
+                [$ex->getMessage()],
+            ]);
         }
 
         return $this->redirectToRoute('backend_module_view', ['id' => $module_id]);
@@ -170,10 +175,7 @@ class ModuleController extends BackendController
 
         if ($module) {
             // Set title and breadcrumb
-            $this->view
-                ->setTitle($module->name)
-                ->setSubtitle('ID: '.$module->id())
-                ->addBreadcrumb(translate('Module', [], true), generate_url('backend_module_index'));
+            $this->view->setTitle($module->name)->setSubtitle('ID: '.$module->id())->addBreadcrumb(translate('Module', [], true), generate_url('backend_module_index'));
 
             // Set back url
             $this->view->setBackRoute('backend_module_index');
@@ -185,8 +187,8 @@ class ModuleController extends BackendController
             }
 
             return $this->render('backend/module/view', [
-                    'module' => $module,
-                    'requiredModules' => $requiredModules,
+                'module' => $module,
+                'requiredModules' => $requiredModules,
             ]);
         }
 

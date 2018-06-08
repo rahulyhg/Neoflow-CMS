@@ -2,6 +2,7 @@
 
 namespace Neoflow\CMS\Controller\Backend;
 
+use Exception;
 use Neoflow\CMS\Controller\BackendController;
 use Neoflow\CMS\Model\ThemeModel;
 use Neoflow\CMS\View\BackendView;
@@ -23,9 +24,7 @@ class ThemeController extends BackendController
         parent::__construct($view, $args);
 
         // Set title and breadcrumb
-        $this->view
-            ->setTitle(translate('Theme', [], true))
-            ->addBreadcrumb(translate('Extension', [], true));
+        $this->view->setTitle(translate('Theme', [], true))->addBreadcrumb(translate('Extension', [], true));
     }
 
     /**
@@ -36,7 +35,7 @@ class ThemeController extends BackendController
     public function indexAction(): Response
     {
         return $this->render('backend/theme/index', [
-                'themes' => ThemeModel::findAll(),
+            'themes' => ThemeModel::findAll(),
         ]);
     }
 
@@ -90,7 +89,10 @@ class ThemeController extends BackendController
         } catch (ValidationException $ex) {
             $this->service('alert')->warning([translate('Install theme failed'), [$ex->getMessage()]]);
         } catch (Exception $ex) {
-            $this->service('alert')->danger([translate('Install theme failed, see error message'), [$ex->getMessage()]]);
+            $this->service('alert')->danger([
+                translate('Install theme failed, see error message'),
+                [$ex->getMessage()],
+            ]);
         }
 
         return $this->redirectToRoute('backend_theme_index');
@@ -141,16 +143,13 @@ class ThemeController extends BackendController
 
         if ($theme) {
             // Set title and breadcrumb
-            $this->view
-                ->setTitle($theme->name)
-                ->setSubtitle('ID: '.$theme->id())
-                ->addBreadcrumb(translate('Theme', [], true), generate_url('backend_theme_index'));
+            $this->view->setTitle($theme->name)->setSubtitle('ID: '.$theme->id())->addBreadcrumb(translate('Theme', [], true), generate_url('backend_theme_index'));
 
             // Set back url
             $this->view->setBackRoute('backend_theme_index');
 
             return $this->render('backend/theme/view', [
-                    'theme' => $theme,
+                'theme' => $theme,
             ]);
         }
 

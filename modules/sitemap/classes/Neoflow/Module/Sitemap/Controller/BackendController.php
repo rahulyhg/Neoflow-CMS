@@ -39,8 +39,6 @@ class BackendController extends AbstractToolModuleController
      * Index action.
      *
      * @return Response
-     *
-     * @throws \Neoflow\Filesystem\Exception\FileException
      */
     public function indexAction(): Response
     {
@@ -131,7 +129,6 @@ class BackendController extends AbstractToolModuleController
      * @return RedirectResponse
      *
      * @throws RuntimeException
-     * @throws \Neoflow\Filesystem\Exception\FileException
      */
     public function deleteSitemapAction(): RedirectResponse
     {

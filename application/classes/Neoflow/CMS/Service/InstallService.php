@@ -50,32 +50,42 @@ class InstallService extends AbstractService
      * Install modules.
      *
      * @return self
-     *
-     * @throws \Neoflow\Filesystem\Exception\FolderException
      */
     public function installModules(): self
     {
         // Get modules folder
-        $modulesPath = $this->config()->getPath('/installation/modules');
-        $modulesFolder = new Folder($modulesPath);
+        $modulesFolder = new Folder($this->config()->getModulesPath());
 
         // Get installation info
         $info = include $this->config()->getPath('/installation/info.php');
 
         // Install each module package file
-        foreach ($info['modules'] as $filename) {
-            $file = $modulesFolder->findFiles($filename)->first();
-            if (!empty($file)) {
+        foreach ($info['modules'] as $folderName) {
+            $folder = $modulesFolder->findFolders($folderName)->first();
+            if (!empty($folder)) {
                 try {
-                    $module = new ModuleModel();
-                    $module->install($file);
+                    // Create module
+                    $info = include $folder->getPath('info.php');
+                    $module = ModuleModel::create($info);
+
+                    // Validate info data
+                    $module->validate();
+
+                    // Add class directory to loader
+                    $classPath = $module->getPath('/classes');
+                    if (is_dir($classPath)) {
+                        $this->app()->get('loader')->addClassDirectory($classPath);
+                    }
+
+                    // Save and install module
+                    if ($module->save()) {
+                        $module->getManager()->install();
+                    }
                 } catch (Throwable $ex) {
-                    $this->logger()->error('Module installation for package '.$file->getName().' failed.', [
-                        'Exception message' => $ex->getMessage(),
-                    ]);
+                    $this->logger()->error('Module installation for '.$folder->getName().' failed.', ['Exception message' => $ex->getMessage()]);
                 }
             } else {
-                $this->logger()->warning('Module package '.$filename.' not found.');
+                $this->logger()->warning('Module folder '.$folderName.' not found.');
             }
         }
 
@@ -86,39 +96,39 @@ class InstallService extends AbstractService
      * Install themes.
      *
      * @return self
-     *
-     * @throws \Neoflow\Filesystem\Exception\FolderException
      */
     public function installThemes(): self
     {
         // Get themes folder
-        $themesPath = $this->config()->getPath('/installation/themes');
-        $themesFolder = new Folder($themesPath);
+        $themesFolder = new Folder($this->config()->getThemesPath());
 
         // Get installation info
         $info = include $this->config()->getPath('/installation/info.php');
 
         // Install each theme package file
-        foreach ($info['themes'] as $filename) {
-            $file = $themesFolder->findFiles($filename)->first();
-            if (!empty($file)) {
+        foreach ($info['themes'] as $folderName) {
+            $folder = $themesFolder->findFolders($folderName)->first();
+            if (!empty($folder)) {
                 try {
-                    $theme = new ThemeModel();
-                    $theme->install($file);
+                    // Create theme
+                    $info = include $folder->getPath('info.php');
+                    $theme = ThemeModel::create($info);
+
+                    // Validate info data
+                    $theme->validate();
+
+                    // Save theme
+                    $theme->save();
                 } catch (Throwable $ex) {
-                    $this->logger()->error('Theme installation for package '.$file->getName().' failed.', [
-                        'Exception message' => $ex->getMessage(),
-                    ]);
+                    $this->logger()->error('Theme installation for '.$folder->getName().' failed.', ['Exception message' => $ex->getMessage()]);
                 }
             } else {
-                $this->logger()->warning('Theme package '.$filename.' not found.');
+                $this->logger()->warning('Theme folder '.$folderName.' not found.');
             }
         }
 
         // Update frontend theme
-        SettingModel::updateById([
-            'theme_id' => 2,
-                ], 1)->save();
+        SettingModel::updateById(['theme_id' => 2], 1)->save();
 
         return $this;
     }
@@ -173,8 +183,6 @@ class InstallService extends AbstractService
      * @param array $config
      *
      * @return self
-     *
-     * @throws \Neoflow\Filesystem\Exception\FileException
      */
     public function createConfigFile(array $config): self
     {

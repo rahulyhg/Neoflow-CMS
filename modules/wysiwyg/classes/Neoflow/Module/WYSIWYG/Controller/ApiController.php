@@ -27,8 +27,6 @@ class ApiController extends AbstractPageModuleController
      * Upload file action.
      *
      * @return JsonResponse
-     *
-     * @throws \Neoflow\Filesystem\Exception\FolderException
      */
     public function uploadFileAction(): JsonResponse
     {
@@ -80,8 +78,6 @@ class ApiController extends AbstractPageModuleController
      * Get files.
      *
      * @return JsonResponse
-     *
-     * @throws \Neoflow\Filesystem\Exception\FolderException
      */
     public function filesAction(): JsonResponse
     {
@@ -141,9 +137,6 @@ class ApiController extends AbstractPageModuleController
      * Delete file action.
      *
      * @return JsonResponse
-     *
-     * @throws \Neoflow\Filesystem\Exception\FileException
-     * @throws \Neoflow\Filesystem\Exception\FileException
      */
     public function deleteFileAction(): JsonResponse
     {

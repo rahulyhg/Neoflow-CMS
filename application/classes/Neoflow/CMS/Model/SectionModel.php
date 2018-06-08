@@ -207,8 +207,6 @@ class SectionModel extends AbstractModel
      * Validate section.
      *
      * @return bool
-     *
-     * @throws \Neoflow\Validation\ValidationException
      */
     public function validate(): bool
     {

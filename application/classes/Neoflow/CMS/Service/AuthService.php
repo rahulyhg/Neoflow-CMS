@@ -5,7 +5,6 @@ namespace Neoflow\CMS\Service;
 use Neoflow\CMS\Core\AbstractService;
 use Neoflow\CMS\Exception\AuthException;
 use Neoflow\CMS\Model\UserModel;
-use Neoflow\Validation\ValidationException;
 use RuntimeException;
 use function array_in_array;
 use function generate_url;
@@ -20,8 +19,6 @@ class AuthService extends AbstractService
      * @param string $password User password
      *
      * @return bool
-     *
-     * @throws AuthException
      */
     public function login(string $email, string $password): bool
     {
@@ -107,7 +104,6 @@ class AuthService extends AbstractService
      * @return bool
      *
      * @throws AuthException
-     * @throws ValidationException
      */
     public function updatePasswordByResetKey(string $newPassword, string $confirmPassword, string $resetKey)
     {

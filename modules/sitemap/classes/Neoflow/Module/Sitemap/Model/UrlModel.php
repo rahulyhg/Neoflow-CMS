@@ -54,8 +54,6 @@ class UrlModel extends AbstractModel
      * Validate url.
      *
      * @return bool
-     *
-     * @throws \Neoflow\Validation\ValidationException
      */
     public function validate(): bool
     {

@@ -21,9 +21,6 @@ class BackendController extends AbstractToolModuleController
      *
      * @param BackendView $view
      * @param array       $args
-     *
-     * @throws \Neoflow\Filesystem\Exception\FileException
-     * @throws \Neoflow\Filesystem\Exception\FileException
      */
     public function __construct(BackendView $view = null, array $args = [])
     {

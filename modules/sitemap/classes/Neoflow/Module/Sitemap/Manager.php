@@ -71,8 +71,6 @@ class Manager extends AbstractModuleManager
      * Initialize Sitemap module.
      *
      * @return bool
-     *
-     * @throws \Neoflow\Filesystem\Exception\FileException
      */
     public function initialize(): bool
     {

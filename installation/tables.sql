@@ -38,68 +38,6 @@ CREATE TABLE IF NOT EXISTS `modules` (
   PRIMARY KEY (`module_id`)
 ) ENGINE=InnoDB;
 
--- DROP TABLE IF EXISTS `mod_code`;
--- CREATE TABLE IF NOT EXISTS `mod_code` (
---   `code_id` int(11) NOT NULL AUTO_INCREMENT,
---   `content` text DEFAULT NULL,
---   `section_id` int(11) NOT NULL,
---   PRIMARY KEY (`code_id`)
--- ) ENGINE=InnoDB;
---
--- DROP TABLE IF EXISTS `mod_search_settings`;
--- CREATE TABLE `mod_search_settings` (
---   `setting_id` INT NOT NULL AUTO_INCREMENT,
---   `url_path` VARCHAR(200) NOT NULL DEFAULT "/search" ,
---   `is_active` tinyint(1) NOT NULL DEFAULT 1,
--- PRIMARY KEY (`setting_id`)
--- ) ENGINE=InnoDB;
---
--- DROP TABLE IF EXISTS `mod_search_entities`;
--- CREATE TABLE `mod_search_entities` (
---   `entity_id` INT NOT NULL AUTO_INCREMENT,
---   `entity_class` VARCHAR(255) NOT NULL,
--- PRIMARY KEY (`entity_id`)
--- ) ENGINE=InnoDB;
---
--- DROP TABLE IF EXISTS `mod_sitemap_settings`;
--- CREATE TABLE IF NOT EXISTS `mod_sitemap_settings` (
---   `setting_id` int(11) NOT NULL AUTO_INCREMENT,
---   `default_changefreq` enum('always','hourly','daily','weekly','monthly','yearly','never') NOT NULL DEFAULT 'monthly',
---   `default_priority` varchar(5) NOT NULL DEFAULT '0.5',
---   `sitemap_lifetime` int(11) NOT NULL DEFAULT 72,
---   `automated_creation` tinyint(1) NOT NULL DEFAULT 1,
---   PRIMARY KEY (`setting_id`)
--- ) ENGINE=InnoDB;
---
--- DROP TABLE IF EXISTS `mod_sitemap_urls`;
--- CREATE TABLE IF NOT EXISTS `mod_sitemap_urls` (
---   `url_id` int(11) NOT NULL AUTO_INCREMENT,
---   `loc` varchar(255) NOT NULL,
---   `lastmod` varchar(20) NOT NULL,
---   `changefreq` enum('always','hourly','daily','weekly','monthly','yearly','never') NOT NULL DEFAULT 'monthly',
---   `priority` varchar(5) NOT NULL,
---   PRIMARY KEY (`url_id`)
--- ) ENGINE=InnoDB;
---
--- DROP TABLE IF EXISTS `mod_snippets`;
--- CREATE TABLE IF NOT EXISTS `mod_snippets` (
---   `snippet_id` int(11) NOT NULL AUTO_INCREMENT,
---   `title` varchar(100) NOT NULL,
---   `code` text NOT NULL,
---   `placeholder` varchar(100) NOT NULL,
---   `description` text DEFAULT NULL,
---   `parameters` varchar(100) DEFAULT NULL,
---   PRIMARY KEY (`snippet_id`) USING BTREE
--- ) ENGINE=InnoDB;
---
--- DROP TABLE IF EXISTS `mod_wysiwyg`;
--- CREATE TABLE IF NOT EXISTS `mod_wysiwyg` (
---   `wysiwyg_id` int(11) NOT NULL AUTO_INCREMENT,
---   `content` longtext DEFAULT NULL,
---   `section_id` int(11) NOT NULL,
---   PRIMARY KEY (`wysiwyg_id`)
--- ) ENGINE=InnoDB;
-
 DROP TABLE IF EXISTS `navigations`;
 CREATE TABLE IF NOT EXISTS `navigations` (
   `navigation_id` int(11) NOT NULL AUTO_INCREMENT,

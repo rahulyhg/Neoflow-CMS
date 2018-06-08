@@ -193,8 +193,6 @@ class SettingModel extends AbstractModel
      * Validate setting.
      *
      * @return bool
-     *
-     * @throws \Neoflow\Validation\ValidationException
      */
     public function validate(): bool
     {

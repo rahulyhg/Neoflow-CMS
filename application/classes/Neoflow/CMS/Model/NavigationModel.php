@@ -56,25 +56,16 @@ class NavigationModel extends AbstractModel
      * Validate navigation.
      *
      * @return bool
-     *
-     * @throws \Neoflow\Validation\ValidationException
      */
     public function validate(): bool
     {
         $validator = new EntityValidator($this);
 
-        $validator
-                ->required()
-                ->set('title', translate('Title'));
+        $validator->required()->set('title', translate('Title'));
 
-        $validator
-                ->callback(function ($navigationKey, $id) {
-                    return 0 === NavigationModel::repo()
-                            ->where('navigation_key', '=', $navigationKey)
-                            ->where('navigation_id', '!=', $id)
-                            ->count();
-                }, '{0} has to be unique', [$this->id()])
-                ->set('navigation_key', 'Key');
+        $validator->callback(function ($navigationKey, $id) {
+            return 0 === NavigationModel::repo()->where('navigation_key', '=', $navigationKey)->where('navigation_id', '!=', $id)->count();
+        }, '{0} has to be unique', [$this->id()])->set('navigation_key', 'Key');
 
         return (bool) $validator->validate();
     }
@@ -87,8 +78,6 @@ class NavigationModel extends AbstractModel
      * @param bool   $silent   Set TRUE to prevent the tracking of the change
      *
      * @return self
-     *
-     * @throws RuntimeException
      */
     public function set(string $property, $value = null, bool $silent = false): FrameworkAbstractModel
     {
@@ -114,9 +103,7 @@ class NavigationModel extends AbstractModel
         $navigationTree = [];
 
         if ($strict) {
-            $navitems
-                    ->where('is_active', true)
-                    ->sortByProperty('position');
+            $navitems->where('is_active', true)->sortByProperty('position');
         }
 
         foreach ($navitems as $navitem) {
@@ -174,17 +161,16 @@ class NavigationModel extends AbstractModel
      */
     public function getNavigationTree(int $startLevel = 0, int $maxLevel = 5, bool $strict = true, int $language_id = 0): array
     {
-        $navitems = $this->navitems()
-                ->where('parent_navitem_id', '=', null)
-                ->where('language_id', '=', $language_id)
-                ->orderByAsc('position')
-                ->fetchAll();
+        $navitems = $this->navitems()->where('parent_navitem_id', '=', null)->where('language_id', '=', $language_id)->orderByAsc('position')->fetchAll();
 
         $navigationTree = $this->buildNavigationTree($navitems, $maxLevel, $strict);
 
         for ($i = 1; $i <= $startLevel; ++$i) {
             foreach ($navigationTree as $navTreeItem) {
-                if ($navTreeItem['level'] < $startLevel && in_array($navTreeItem['status'], ['active', 'active-parent'])) {
+                if ($navTreeItem['level'] < $startLevel && in_array($navTreeItem['status'], [
+                        'active',
+                        'active-parent',
+                    ])) {
                     $navigationTree = $navTreeItem['children'];
                     break;
                 }

@@ -61,8 +61,6 @@ class BlockModel extends AbstractModel
      * Validate block.
      *
      * @return bool
-     *
-     * @throws \Neoflow\Validation\ValidationException
      */
     public function validate(): bool
     {

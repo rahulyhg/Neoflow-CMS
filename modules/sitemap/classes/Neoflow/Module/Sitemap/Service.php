@@ -80,8 +80,6 @@ class Service extends AbstractService
      * Get sitemap file.
      *
      * @return File|null
-     *
-     * @throws \Neoflow\Filesystem\Exception\FileException
      */
     public function getFile()
     {

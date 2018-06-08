@@ -183,8 +183,6 @@ class NavitemModel extends AbstractModel
      * Validate navitem.
      *
      * @return bool
-     *
-     * @throws \Neoflow\Validation\ValidationException
      */
     public function validate(): bool
     {
