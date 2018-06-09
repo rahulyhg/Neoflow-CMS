@@ -10,7 +10,6 @@ node_modules/
 
 logs/log_*
 *config.php
-!installation/config.php
 *config-backup-*.php
 robots.txt
 sitemap.xml
@@ -25,9 +24,6 @@ media/public/*
 !media/public/.gitkeep
 
 neoflow-cms-*.zip
-
-installation/*
-!installation/*/.gitkeep
 
 update/delivery/*
 !update/delivery/*/.gitkeep

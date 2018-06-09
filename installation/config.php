@@ -5,7 +5,9 @@ return [
         'url' => '',
         'version' => '1.0.0-a2',
         'languages' => [
-            'en', 'de', 'fr',
+            'en',
+            'de',
+            'fr',
         ],
         'email' => '',
         'timezone' => date_default_timezone_get(),
