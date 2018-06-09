@@ -77,7 +77,16 @@ class App extends FrameworkApp
         $this->set('engine', new Engine());
 
         // Set CMS-specific meta properties
-        $this->get('engine')->addMetaTagProperties(['name' => 'description', 'content' => $this->get('settings')->website_description], 'description')->addMetaTagProperties(['name' => 'keywords', 'content' => $this->get('settings')->website_keywords], 'keywords')->addMetaTagProperties(['name' => 'author', 'content' => $this->get('settings')->website_author], 'author');
+        $this->get('engine')->addMetaTagProperties([
+            'name' => 'description',
+            'content' => $this->get('settings')->website_description,
+        ], 'description')->addMetaTagProperties([
+            'name' => 'keywords',
+            'content' => $this->get('settings')->website_keywords,
+        ], 'keywords')->addMetaTagProperties([
+            'name' => 'author',
+            'content' => $this->get('settings')->website_author,
+        ], 'author');
 
         // Create and set translator
         $this->set('translator', new Translator());
@@ -101,7 +110,12 @@ class App extends FrameworkApp
         $this->get('logger')->info('CMS modules initialized');
 
         // Add frontend index route
-        $this->get('router')->addRoutes(['frontend_index', 'any', '/(url:uri)', 'Neoflow\\CMS\\Controller\\Frontend@index']);
+        $this->get('router')->addRoutes([
+            'frontend_index',
+            'any',
+            '/(url:uri)',
+            'Neoflow\\CMS\\Controller\\Frontend@index',
+        ]);
 
         $this->get('logger')->info('Application created');
 
@@ -164,7 +178,7 @@ class App extends FrameworkApp
     /**
      * Establish connection and set database.
      *
-     * @param Database $database Precreated and etablished database connection
+     * @param Database $database Precreated and established database connection
      *
      * @return self
      */
@@ -281,7 +295,7 @@ class App extends FrameworkApp
     {
         $themes = new EntityCollection();
 
-        // Fetch and add only when database connection is etablished
+        // Fetch and add only when database connection is established
         if ($this->get('database')) {
             $themes->add($this->get('settings')->getFrontendTheme());
             $themes->add($this->get('settings')->getBackendTheme());

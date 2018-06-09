@@ -18,7 +18,7 @@ use const APP_MODE;
 class InstallService extends AbstractService
 {
     /**
-     * Etablish database connection, create tables and insert data.
+     * Establish database connection, create tables and insert data.
      *
      * @param array $config Database configuration
      *
@@ -26,7 +26,7 @@ class InstallService extends AbstractService
      */
     public function createDatabase(array $config): self
     {
-        // Etablish connection to database
+        // Establish connection to database
         $database = Database::connect($config['host'], $config['dbname'], $config['username'], $config['password'], $config['charset']);
         $this->app()->set('database', $database);
 

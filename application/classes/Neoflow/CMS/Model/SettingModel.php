@@ -317,7 +317,7 @@ class SettingModel extends AbstractModel
      */
     public function getLanguageCodes(): array
     {
-        // Get language codes from database if connection is etablished
+        // Get language codes from database if connection is established
         if ($this->app()->get('database') && self::findById(1)) {
             return $this->getLanguages()->mapProperty('code');
         }

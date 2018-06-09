@@ -44,7 +44,7 @@ class DatabaseController extends InstallController
         $config = $this->request()->getPostData()->toArray();
 
         try {
-            // Etablish database connection and create tables
+            // Establish database connection and create tables
             $this->service('install')->createDatabase($config['database']);
 
             // Create config file

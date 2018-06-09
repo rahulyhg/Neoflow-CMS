@@ -142,7 +142,7 @@ class Translator extends FrameworkTranslator
      */
     public function getCurrentLanguageCode(): string
     {
-        // Get current language code from database if connection is etablished
+        // Get current language code from database if connection is established
         if ($this->app()->get('database')) {
             $activeLanguage = $this->settings()->getLanguages()->where('code', $this->languageCode)->first();
             if ($activeLanguage) {
@@ -165,7 +165,7 @@ class Translator extends FrameworkTranslator
      */
     public function getDefaultLanguageCode(): string
     {
-        // Get default language code from database if connection is etablished
+        // Get default language code from database if connection is established
         if ($this->app()->get('database')) {
             $defaultLanguage = $this->settings()->defaultLanguage()->fetch();
             if ($defaultLanguage) {
