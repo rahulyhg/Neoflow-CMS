@@ -193,9 +193,10 @@ class UpdateManager
         try {
             $this->updateDatabase();
             if ($this->updateFiles() && $this->updateConfig()) {
-                $this->cache()->clear();
-                header('Location:'.$url);
-                exit;
+                if ($this->cache()->clear()) {
+                    header('Location:'.$url);
+                    exit;
+                }
             }
         } catch (Throwable $ex) {
             $this->logger()->error('Update installation failed.', ['Exception message' => $ex->getMessage()]);
@@ -251,7 +252,19 @@ class UpdateManager
         $config->get('app')->set('version', $this->newVersion);
 
         // Register services
-        $config->set('services', ['alert' => 'Neoflow\\CMS\\Service\\AlertService', 'mail' => 'Neoflow\\CMS\\Service\\MailService', 'navitem' => 'Neoflow\\CMS\\Service\\NavitemService', 'section' => 'Neoflow\\CMS\\Service\\SectionService', 'auth' => 'Neoflow\\CMS\\Service\\AuthService', 'page' => 'Neoflow\\CMS\\Service\\PageService', 'upload' => 'Neoflow\\CMS\\Service\\UploadService', 'filesystem' => 'Neoflow\\CMS\\Service\\FilesystemService', 'validation' => 'Neoflow\\CMS\\Service\\ValidationService', 'install' => 'Neoflow\\CMS\\Service\\InstallService', 'update' => 'Neoflow\\CMS\\Service\\UpdateService']);
+        $config->set('services', [
+            'alert' => 'Neoflow\\CMS\\Service\\AlertService',
+            'mail' => 'Neoflow\\CMS\\Service\\MailService',
+            'navitem' => 'Neoflow\\CMS\\Service\\NavitemService',
+            'section' => 'Neoflow\\CMS\\Service\\SectionService',
+            'auth' => 'Neoflow\\CMS\\Service\\AuthService',
+            'page' => 'Neoflow\\CMS\\Service\\PageService',
+            'upload' => 'Neoflow\\CMS\\Service\\UploadService',
+            'filesystem' => 'Neoflow\\CMS\\Service\\FilesystemService',
+            'validation' => 'Neoflow\\CMS\\Service\\ValidationService',
+            'install' => 'Neoflow\\CMS\\Service\\InstallService',
+            'update' => 'Neoflow\\CMS\\Service\\UpdateService',
+        ]);
 
         // Replace auto with true
         if ('auto' === $config->get('cache')->get('type')) {
