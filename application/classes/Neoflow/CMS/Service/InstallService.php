@@ -2,6 +2,7 @@
 
 namespace Neoflow\CMS\Service;
 
+use Exception;
 use Neoflow\CMS\Core\AbstractService;
 use Neoflow\CMS\Handler\Translator;
 use Neoflow\CMS\Model\ModuleModel;
@@ -64,22 +65,15 @@ class InstallService extends AbstractService
             $folder = $modulesFolder->findFolders($folderName)->first();
             if (!empty($folder)) {
                 try {
-                    // Create module
+                    // Create and validate module
                     $info = include $folder->getPath('info.php');
                     $module = ModuleModel::create($info);
 
-                    // Validate info data
-                    $module->validate();
-
-                    // Add class directory to loader
-                    $classPath = $module->getPath('/classes');
-                    if (is_dir($classPath)) {
-                        $this->app()->get('loader')->addClassDirectory($classPath);
-                    }
-
                     // Save and install module
-                    if ($module->save()) {
-                        $module->getManager()->install();
+                    if ($module && $module->validate() && $module->loadClassesAndFunctions() && $module->save() && $module->getManager()->install()) {
+                        $this->logger()->info($module->name.' successfully installed.');
+                    } else {
+                        $this->logger()->error('Installing module '.$module->name.' failed for unknown reasons.');
                     }
                 } catch (Throwable $ex) {
                     $this->logger()->error('Module installation for '.$folder->getName().' failed.', ['Exception message' => $ex->getMessage()]);
@@ -110,15 +104,16 @@ class InstallService extends AbstractService
             $folder = $themesFolder->findFolders($folderName)->first();
             if (!empty($folder)) {
                 try {
-                    // Create theme
+                    // Create and validate theme
                     $info = include $folder->getPath('info.php');
                     $theme = ThemeModel::create($info);
 
-                    // Validate info data
-                    $theme->validate();
-
                     // Save theme
-                    $theme->save();
+                    if ($theme && $theme->validate() && $theme->save()) {
+                        $this->logger()->info($theme->name.' successfully installed.');
+                    } else {
+                        $this->logger()->error('Installing theme '.$theme->name.' failed for unknown reasons.');
+                    }
                 } catch (Throwable $ex) {
                     $this->logger()->error('Theme installation for '.$folder->getName().' failed.', ['Exception message' => $ex->getMessage()]);
                 }
