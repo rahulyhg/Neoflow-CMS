@@ -1,13 +1,13 @@
 # IDE files and folders
 .php_cs.cache
-nbproject/
 node_modules/
+vendor/
 .idea/
 
 # Application files and folders
 logs/log_*
-*config.php
-*config-backup-*.php
+config.php
+config-backup-*.php
 robots.txt
 sitemap.xml
 
@@ -24,8 +24,3 @@ neoflow-cms-*.zip
 
 update/delivery/*
 !update/delivery/*/.gitkeep
-
-vendor/
-composer.lock
-package-lock.json
-themes/neoflow-backend/package-lock.json

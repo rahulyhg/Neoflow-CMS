@@ -1,0 +1,247 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "d0c49df3f89ccd7903c35b08023ceac5",
+    "packages": [
+        {
+            "name": "neoflow/filesystem",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/neoflow/Neoflow-Filesystem.git",
+                "reference": "d4a1518c96c5483180f03d665879d772ac49be3f"
+            },
+            "require": {
+                "neoflow/functions": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/classes/"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Nessier",
+                    "email": "jonathan.nessier@neoflow.ch"
+                }
+            ],
+            "description": "PHP library to manage files and folders.",
+            "time": "2018-06-13T11:12:13+00:00"
+        },
+        {
+            "name": "neoflow/framework",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/neoflow/Neoflow-Framework.git",
+                "reference": "b7206360b9e46071f3d42d1e8f624443631800f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Neoflow/Neoflow-Framework/zipball/b5eb8bd3415824e05a77531646e13cb17eb17dcf",
+                "reference": "b5eb8bd3415824e05a77531646e13cb17eb17dcf",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/classes/"
+                ],
+                "files": [
+                    "src/functions/array_export.php",
+                    "src/functions/array_filter_recursive.php",
+                    "src/functions/array_in_array.php",
+                    "src/functions/base_path.php",
+                    "src/functions/convert_php2js.php",
+                    "src/functions/ends_with.php",
+                    "src/functions/format_datetime.php",
+                    "src/functions/format_timestamp.php",
+                    "src/functions/generate_url.php",
+                    "src/functions/get_exception_trace.php",
+                    "src/functions/is_assoc.php",
+                    "src/functions/is_current_route.php",
+                    "src/functions/is_json.php",
+                    "src/functions/is_url.php",
+                    "src/functions/is_valid_path.php",
+                    "src/functions/normalize_class_name.php",
+                    "src/functions/normalize_path.php",
+                    "src/functions/normalize_post_files.php",
+                    "src/functions/normalize_url.php",
+                    "src/functions/random_string.php",
+                    "src/functions/recursive_copy.php",
+                    "src/functions/replace_array_key.php",
+                    "src/functions/request_url.php",
+                    "src/functions/sanitize_file_extension.php",
+                    "src/functions/sanitize_file_name.php",
+                    "src/functions/slugify.php",
+                    "src/functions/starts_with.php",
+                    "src/functions/translate.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Nessier",
+                    "email": "jonathan.nessier@neoflow.ch"
+                }
+            ],
+            "description": "PHP framework for small MVC based applications. ",
+            "time": "2018-05-16T13:33:46+00:00"
+        },
+        {
+            "name": "neoflow/functions",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/neoflow/Neoflow-Functions.git",
+                "reference": "4e17c13849f39cc53bac0f20e0430fe85778c7e4"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/functions/array_export.php",
+                    "src/functions/array_filter_recursive.php",
+                    "src/functions/array_in_array.php",
+                    "src/functions/base_path.php",
+                    "src/functions/convert_php2js.php",
+                    "src/functions/ends_with.php",
+                    "src/functions/format_datetime.php",
+                    "src/functions/format_timestamp.php",
+                    "src/functions/get_exception_trace.php",
+                    "src/functions/is_assoc.php",
+                    "src/functions/is_json.php",
+                    "src/functions/is_url.php",
+                    "src/functions/is_valid_path.php",
+                    "src/functions/normalize_class_name.php",
+                    "src/functions/normalize_path.php",
+                    "src/functions/normalize_post_files.php",
+                    "src/functions/normalize_url.php",
+                    "src/functions/random_string.php",
+                    "src/functions/recursive_copy.php",
+                    "src/functions/replace_array_key.php",
+                    "src/functions/request_url.php",
+                    "src/functions/sanitize_file_extension.php",
+                    "src/functions/sanitize_file_name.php",
+                    "src/functions/slugify.php",
+                    "src/functions/starts_with.php"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Nessier",
+                    "email": "jonathan.nessier@neoflow.ch"
+                }
+            ],
+            "description": "PHP library with a variety of additional functions.",
+            "time": "2018-05-25T08:13:06+00:00"
+        },
+        {
+            "name": "neoflow/image",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/neoflow/Neoflow-Image.git",
+                "reference": "937e082d6cc04528a9eb6b48a3ff17a9b6cc4f51"
+            },
+            "require": {
+                "neoflow/filesystem": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/classes/"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Nessier",
+                    "email": "jonathan.nessier@neoflow.ch"
+                }
+            ],
+            "description": "PHP library to handle JPG, PNG, BMP and GIF images.",
+            "time": "2018-05-25T09:53:12+00:00"
+        },
+        {
+            "name": "neoflow/mailer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/neoflow/Neoflow-Mailer.git",
+                "reference": "770ba5cec079eb0b670d8b6f23e1aa56a116786c"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/classes/"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Nessier",
+                    "email": "jonathan.nessier@neoflow.ch"
+                }
+            ],
+            "description": "PHP library for sending mails.",
+            "time": "2018-05-09T20:25:46+00:00"
+        },
+        {
+            "name": "neoflow/validation",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/neoflow/Neoflow-Validation.git",
+                "reference": "337aaaa19af692d2c380b7c5dc52bcdb4242e05c"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/classes/"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Nessier",
+                    "email": "jonathan.nessier@neoflow.ch"
+                }
+            ],
+            "description": "PHP library to validate data.",
+            "time": "2018-05-16T13:36:49+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "neoflow/framework": 20,
+        "neoflow/validation": 20,
+        "neoflow/filesystem": 20,
+        "neoflow/image": 20,
+        "neoflow/mailer": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
