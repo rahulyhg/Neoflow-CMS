@@ -151,10 +151,10 @@ abstract class AbstractExtensionModel extends AbstractModel
             $zipFile->extractTo($folderPath);
             $zipFile->close();
 
-            // Delete update package
+            // Delete unpacked package
             $file->delete();
 
-            return Folder::create($folderPath);
+            return Folder::load($folderPath);
         }
         throw new ValidationException(translate('Zip archive "{0}" is invalid', [$file->getName()]));
     }
@@ -244,9 +244,9 @@ abstract class AbstractExtensionModel extends AbstractModel
                     return $this->save();
                 }
                 throw new ValidationException(translate('The version {0} of the extension "{1}" is not supported', [
-                        $this->version,
-                        $this->name,
-                    ]));
+                    $this->version,
+                    $this->name,
+                ]));
             }
             throw new ValidationException(translate('The extension "{0}" is not compatible', [$this->name]));
         } finally {
