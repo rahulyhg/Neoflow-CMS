@@ -4,8 +4,37 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d0c49df3f89ccd7903c35b08023ceac5",
+    "content-hash": "abeb3070a861265d6b59f9f00b4cad4f",
     "packages": [
+        {
+            "name": "neoflow/data-structures",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/neoflow/Neoflow-Data-Structures.git",
+                "reference": "550fb9891729965d5a17c44b81a3a6b148c1e7cd"
+            },
+            "require": {
+                "neoflow/functions": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/classes/"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Nessier",
+                    "email": "jonathan.nessier@neoflow.ch"
+                }
+            ],
+            "description": "PHP library with data structure classes.",
+            "time": "2018-06-14T11:11:11+00:00"
+        },
         {
             "name": "neoflow/filesystem",
             "version": "dev-master",
@@ -43,11 +72,9 @@
                 "url": "https://github.com/neoflow/Neoflow-Framework.git",
                 "reference": "b7206360b9e46071f3d42d1e8f624443631800f8"
             },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Neoflow/Neoflow-Framework/zipball/b5eb8bd3415824e05a77531646e13cb17eb17dcf",
-                "reference": "b5eb8bd3415824e05a77531646e13cb17eb17dcf",
-                "shasum": ""
+            "require": {
+                "neoflow/data-structures": "dev-master",
+                "neoflow/functions": "dev-master"
             },
             "type": "library",
             "autoload": {
@@ -55,37 +82,11 @@
                     "src/classes/"
                 ],
                 "files": [
-                    "src/functions/array_export.php",
-                    "src/functions/array_filter_recursive.php",
-                    "src/functions/array_in_array.php",
-                    "src/functions/base_path.php",
-                    "src/functions/convert_php2js.php",
-                    "src/functions/ends_with.php",
-                    "src/functions/format_datetime.php",
-                    "src/functions/format_timestamp.php",
                     "src/functions/generate_url.php",
-                    "src/functions/get_exception_trace.php",
-                    "src/functions/is_assoc.php",
                     "src/functions/is_current_route.php",
-                    "src/functions/is_json.php",
-                    "src/functions/is_url.php",
-                    "src/functions/is_valid_path.php",
-                    "src/functions/normalize_class_name.php",
-                    "src/functions/normalize_path.php",
-                    "src/functions/normalize_post_files.php",
-                    "src/functions/normalize_url.php",
-                    "src/functions/random_string.php",
-                    "src/functions/recursive_copy.php",
-                    "src/functions/replace_array_key.php",
-                    "src/functions/request_url.php",
-                    "src/functions/sanitize_file_extension.php",
-                    "src/functions/sanitize_file_name.php",
-                    "src/functions/slugify.php",
-                    "src/functions/starts_with.php",
                     "src/functions/translate.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -95,8 +96,8 @@
                     "email": "jonathan.nessier@neoflow.ch"
                 }
             ],
-            "description": "PHP framework for small MVC based applications. ",
-            "time": "2018-05-16T13:33:46+00:00"
+            "description": "PHP framework for small MVC based applications.",
+            "time": "2018-06-14T11:29:05+00:00"
         },
         {
             "name": "neoflow/functions",
@@ -238,7 +239,8 @@
         "neoflow/validation": 20,
         "neoflow/filesystem": 20,
         "neoflow/image": 20,
-        "neoflow/mailer": 20
+        "neoflow/mailer": 20,
+        "neoflow/data-structures": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

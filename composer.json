@@ -1,49 +1,54 @@
 {
-    "name": "neoflow/cms",
-    "description": "Module-based content management system with a user friendly interface, based on a perfect optimized MVC framework.",
-    "license": "MIT",
-    "version": "1.0.0-a2",
-    "minimum-stability": "dev",
-    "authors": [
-        {
-            "name": "Jonathan Nessier",
-            "email": "jonathan.nessier@neoflow.ch"
-        }
-    ],
-    "config": {
-        "optimize-autoloader": true
-    },
-    "repositories": [
-        {
-            "url": "https://github.com/neoflow/Neoflow-Framework.git",
-            "type": "git"
-        },
-        {
-            "url": "https://github.com/neoflow/Neoflow-Filesystem.git",
-            "type": "git"
-        },
-        {
-            "url": "https://github.com/neoflow/Neoflow-Validation.git",
-            "type": "git"
-        },
-        {
-            "url": "https://github.com/neoflow/Neoflow-Image.git",
-            "type": "git"
-        },
-        {
-            "url": "https://github.com/neoflow/Neoflow-Mailer.git",
-            "type": "git"
-        },
-        {
-            "url": "https://github.com/neoflow/Neoflow-Functions.git",
-            "type": "git"
-        }
-    ],
-    "require": {
-        "neoflow/framework": "dev-master",
-        "neoflow/validation": "dev-master",
-        "neoflow/filesystem": "dev-master",
-        "neoflow/image": "dev-master",
-        "neoflow/mailer": "dev-master"
+  "name": "neoflow/cms",
+  "description": "Module-based content management system with a user friendly interface, based on a perfect optimized MVC framework.",
+  "license": "MIT",
+  "version": "1.0.0-a2",
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "Jonathan Nessier",
+      "email": "jonathan.nessier@neoflow.ch"
     }
+  ],
+  "config": {
+    "optimize-autoloader": true
+  },
+  "repositories": [
+    {
+      "url": "https://github.com/neoflow/Neoflow-Framework.git",
+      "type": "git"
+    },
+    {
+      "url": "https://github.com/neoflow/Neoflow-Filesystem.git",
+      "type": "git"
+    },
+    {
+      "url": "https://github.com/neoflow/Neoflow-Validation.git",
+      "type": "git"
+    },
+    {
+      "url": "https://github.com/neoflow/Neoflow-Image.git",
+      "type": "git"
+    },
+    {
+      "url": "https://github.com/neoflow/Neoflow-Mailer.git",
+      "type": "git"
+    },
+    {
+      "url": "https://github.com/neoflow/Neoflow-Functions.git",
+      "type": "git"
+    },
+    {
+      "url": "https://github.com/neoflow/Neoflow-Data-Structures.git",
+      "type": "git"
+    }
+  ],
+  "require": {
+    "neoflow/framework": "dev-master",
+    "neoflow/validation": "dev-master",
+    "neoflow/filesystem": "dev-master",
+    "neoflow/image": "dev-master",
+    "neoflow/mailer": "dev-master",
+    "neoflow/data-structures": "dev-master"
+  }
 }
