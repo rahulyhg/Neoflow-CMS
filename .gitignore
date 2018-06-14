@@ -2,12 +2,9 @@
 .php_cs.cache
 nbproject/
 node_modules/
-*package-lock.json
-*composer.lock
 .idea/
 
 # Application files and folders
-
 logs/log_*
 *config.php
 *config-backup-*.php
@@ -29,3 +26,6 @@ update/delivery/*
 !update/delivery/*/.gitkeep
 
 vendor/
+composer.lock
+package-lock.json
+themes/neoflow-backend/package-lock.json
