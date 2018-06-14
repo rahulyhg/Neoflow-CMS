@@ -8,21 +8,24 @@ use Neoflow\CMS\Model\SectionModel;
 class Manager extends AbstractPageModuleManager
 {
     /**
-     * Add Code module to section.
+     * Add module to section.
      *
-     * @param SectionModel $section
+     * @param SectionModel $section Added section
      *
      * @return bool
      */
     public function add(SectionModel $section): bool
     {
-        return (bool) Model::create(['section_id' => $section->id(), 'content' => ''])->save();
+        return (bool) Model::create([
+            'section_id' => $section->id(),
+            'content' => '',
+        ])->save();
     }
 
     /**
-     * Remove Code module from section.
+     * Remove module from section.
      *
-     * @param SectionModel $section
+     * @param SectionModel $section Removed section
      *
      * @return bool
      */
@@ -32,33 +35,39 @@ class Manager extends AbstractPageModuleManager
     }
 
     /**
-     * Install Code module.
+     * Install module.
      *
      * @return bool
      */
     public function install(): bool
     {
-        $sqlFilePath = $this->module->getPath('install.sql');
+        $this->database()->exec('
+                    CREATE TABLE `mod_code` (
+                        `code_id` INT NOT NULL AUTO_INCREMENT,
+                        `content` TEXT,
+                        `section_id` INT NOT NULL,
+                    PRIMARY KEY (`code_id`));
+                ');
 
-        return (bool) $this->database()->executeFile($sqlFilePath);
+        return true;
     }
 
     /**
-     * Uninstall Code module.
+     * Uninstall module.
      *
      * @return bool
      */
     public function uninstall(): bool
     {
         if ($this->database()->hasTable('mod_code')) {
-            return $this->database()->exec('DROP TABLE `mod_code`');
+            $this->database()->exec('DROP TABLE `mod_code`');
         }
 
         return true;
     }
 
     /**
-     * Initialize Code module.
+     * Initialize module.
      *
      * @return bool
      */
@@ -73,7 +82,7 @@ class Manager extends AbstractPageModuleManager
     }
 
     /**
-     * Update Code module.
+     * Update module.
      *
      * @return bool
      */

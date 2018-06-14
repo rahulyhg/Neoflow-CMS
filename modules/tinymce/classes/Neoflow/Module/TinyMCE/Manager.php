@@ -7,7 +7,7 @@ use Neoflow\CMS\Manager\AbstractModuleManager;
 class Manager extends AbstractModuleManager
 {
     /**
-     * Install TinyMCE module.
+     * Install module.
      *
      * @return bool
      */
@@ -17,7 +17,7 @@ class Manager extends AbstractModuleManager
     }
 
     /**
-     * Uninstall TinyMCE module.
+     * Uninstall module.
      *
      * @return bool
      */
@@ -27,7 +27,7 @@ class Manager extends AbstractModuleManager
     }
 
     /**
-     * Initialize TinyMCE module.
+     * Initialize module.
      *
      * @return bool
      */
@@ -40,7 +40,7 @@ class Manager extends AbstractModuleManager
     }
 
     /**
-     * Update TinyMCE module.
+     * Update module.
      *
      * @return bool
      */

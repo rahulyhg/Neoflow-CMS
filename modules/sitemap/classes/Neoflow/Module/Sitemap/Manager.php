@@ -8,15 +8,13 @@ use Neoflow\Module\Sitemap\Model\SettingModel;
 class Manager extends AbstractModuleManager
 {
     /**
-     * Install Sitemap module.
+     * Install module.
      *
      * @return bool
      */
     public function install(): bool
     {
-        $this
-            ->database()
-            ->prepare('
+        $this->database()->exec('
                     CREATE TABLE `mod_sitemap_urls` (
                         `url_id` INT NOT NULL AUTO_INCREMENT,
                         `loc` VARCHAR(255) NOT NULL,
@@ -32,8 +30,7 @@ class Manager extends AbstractModuleManager
                         `sitemap_lifetime` INT NOT NULL DEFAULT "72",
                         `automated_creation` TINYINT(1) NOT NULL DEFAULT "1",
                     PRIMARY KEY (`setting_id`));
-            ')
-            ->execute();
+                ');
 
         SettingModel::create([
             'default_changefreq' => 'monthly',
@@ -44,31 +41,25 @@ class Manager extends AbstractModuleManager
     }
 
     /**
-     * Uninstall Sitemap module.
+     * Uninstall module.
      *
      * @return bool
      */
     public function uninstall(): bool
     {
         if ($this->database()->hasTable('mod_sitemap_urls')) {
-            $this
-                ->database()
-                ->prepare('DROP TABLE `mod_sitemap_urls`')
-                ->execute();
+            $this->database()->exec('DROP TABLE `mod_sitemap_urls`');
         }
 
         if ($this->database()->hasTable('mod_sitemap_settings')) {
-            $this
-                ->database()
-                ->prepare('DROP TABLE `mod_sitemap_settings`')
-                ->execute();
+            $this->database()->exec('DROP TABLE `mod_sitemap_settings`');
         }
 
         return true;
     }
 
     /**
-     * Initialize Sitemap module.
+     * Initialize module.
      *
      * @return bool
      */
@@ -104,7 +95,7 @@ class Manager extends AbstractModuleManager
     }
 
     /**
-     * Update Sitemap module.
+     * Update module.
      *
      * @return bool
      */

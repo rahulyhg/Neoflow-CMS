@@ -7,7 +7,7 @@ use Neoflow\CMS\Manager\AbstractModuleManager;
 class Manager extends AbstractModuleManager
 {
     /**
-     * Install CodeMirror module.
+     * Install module.
      *
      * @return bool
      */
@@ -17,7 +17,7 @@ class Manager extends AbstractModuleManager
     }
 
     /**
-     * Uninstall CodeMirror module.
+     * Uninstall module.
      *
      * @return bool
      */
@@ -27,20 +27,19 @@ class Manager extends AbstractModuleManager
     }
 
     /**
-     * Initialize CodeMirror module.
+     * Initialize module.
      *
      * @return bool
      */
     public function initialize(): bool
     {
-        // Register service
         $this->app()->get('services')->set('datetimepicker', new Service($this->module));
 
         return true;
     }
 
     /**
-     * Update CodeMirror module.
+     * Update module.
      *
      * @return bool
      */

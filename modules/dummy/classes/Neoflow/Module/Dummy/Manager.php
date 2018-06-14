@@ -7,7 +7,7 @@ use Neoflow\CMS\Manager\AbstractModuleManager;
 class Manager extends AbstractModuleManager
 {
     /**
-     * Install Dummy module.
+     * Install module.
      *
      * @return bool
      */
@@ -19,7 +19,7 @@ class Manager extends AbstractModuleManager
     }
 
     /**
-     * Uninstall Dummy module.
+     * Uninstall module.
      *
      * @return bool
      */
@@ -31,7 +31,7 @@ class Manager extends AbstractModuleManager
     }
 
     /**
-     * Initialize Dummy module.
+     * Initialize module.
      *
      * @return bool
      */
@@ -43,14 +43,13 @@ class Manager extends AbstractModuleManager
     }
 
     /**
-     * Update Dummy module.
+     * Update module.
      *
      * @return bool
      */
     public function update(): bool
     {
         // Alter tables
-
         if ('1.0.0' === $this->module->oldVersion) {
             $this->logger()->info('Dummy update of Dummy module :)');
         }

@@ -10,9 +10,9 @@ use Neoflow\Module\Search\Model\EntityModel;
 class Manager extends AbstractPageModuleManager
 {
     /**
-     * Add WYSWYG module to section.
+     * Add module to section.
      *
-     * @param SectionModel $section
+     * @param SectionModel $section Added section
      *
      * @return bool
      */
@@ -24,16 +24,15 @@ class Manager extends AbstractPageModuleManager
         }
 
         return (bool) Model::create([
-                            'section_id' => $section->id(),
-                            'content' => '',
-                        ])
-                        ->save();
+            'section_id' => $section->id(),
+            'content' => '',
+        ])->save();
     }
 
     /**
-     * Remove WYSWIYG module from section.
+     * Remove module from section.
      *
-     * @param SectionModel $section
+     * @param SectionModel $section Removed section
      *
      * @return bool
      */
@@ -48,7 +47,7 @@ class Manager extends AbstractPageModuleManager
     }
 
     /**
-     * Install WYSIWYG module.
+     * Install module.
      *
      * @return bool
      */
@@ -58,21 +57,20 @@ class Manager extends AbstractPageModuleManager
         Folder::create($mediaPath);
 
         if (!$this->database()->hasTable('mod_wysiwyg')) {
-            return $this
-                            ->database()
-                            ->prepare('CREATE TABLE `mod_wysiwyg` (
-                                    `wysiwyg_id` INT NOT NULL AUTO_INCREMENT,
-                                    `content` TEXT,
-                                    `section_id` INT NOT NULL,
-                                PRIMARY KEY (`wysiwyg_id`));')
-                            ->execute();
+            $this->database()->exec('
+                        CREATE TABLE `mod_wysiwyg` (
+                            `wysiwyg_id` INT NOT NULL AUTO_INCREMENT,
+                            `content` TEXT,
+                            `section_id` INT NOT NULL,
+                        PRIMARY KEY (`wysiwyg_id`));
+                    ');
         }
 
-        return false;
+        return true;
     }
 
     /**
-     * Uninstall WYSIWYG module.
+     * Uninstall module.
      *
      * @return bool
      */
@@ -82,17 +80,14 @@ class Manager extends AbstractPageModuleManager
         Folder::unlink($mediaPath, true);
 
         if ($this->database()->hasTable('mod_wysiwyg')) {
-            return $this
-                            ->database()
-                            ->prepare('DROP TABLE `mod_wysiwyg`')
-                            ->execute();
+            return $this->database()->exec('DROP TABLE `mod_wysiwyg`');
         }
 
         return true;
     }
 
     /**
-     * Initialize WYSIWYG module.
+     * Initialize module.
      *
      * @return bool
      */
@@ -107,7 +102,7 @@ class Manager extends AbstractPageModuleManager
     }
 
     /**
-     * Update WYSIWYG module.
+     * Update module.
      *
      * @return bool
      */

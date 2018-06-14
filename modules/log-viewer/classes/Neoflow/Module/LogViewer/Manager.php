@@ -7,7 +7,7 @@ use Neoflow\CMS\Manager\AbstractModuleManager;
 class Manager extends AbstractModuleManager
 {
     /**
-     * Install Log Viewer module.
+     * Install module.
      *
      * @return bool
      */
@@ -17,7 +17,7 @@ class Manager extends AbstractModuleManager
     }
 
     /**
-     * Uninstall Log Viewer module.
+     * Uninstall module.
      *
      * @return bool
      */
@@ -27,7 +27,7 @@ class Manager extends AbstractModuleManager
     }
 
     /**
-     * Update Log Viewer module.
+     * Update module.
      *
      * @return bool
      */

@@ -7,7 +7,7 @@ use Neoflow\CMS\Manager\AbstractModuleManager;
 class Manager extends AbstractModuleManager
 {
     /**
-     * Install Robots module.
+     * Install module.
      *
      * @return bool
      */
@@ -17,7 +17,7 @@ class Manager extends AbstractModuleManager
     }
 
     /**
-     * Uninstall Robots module.
+     * Uninstall module.
      *
      * @return bool
      */
@@ -27,7 +27,7 @@ class Manager extends AbstractModuleManager
     }
 
     /**
-     * Initialize Robots module.
+     * Initialize module.
      *
      * @return bool
      */
@@ -37,7 +37,7 @@ class Manager extends AbstractModuleManager
     }
 
     /**
-     * Update Robots module.
+     * Update module.
      *
      * @return bool
      */

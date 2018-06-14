@@ -15,21 +15,18 @@ class Manager extends AbstractModuleManager
      */
     public function install(): bool
     {
-        $this
-            ->database()
-            ->prepare('
-                        CREATE TABLE `mod_search_entities` (
-                            `entity_id` INT NOT NULL AUTO_INCREMENT,
-                            `entity_class` VARCHAR(255) NOT NULL,
-                        PRIMARY KEY (`entity_id`));
+        $this->database()->exec('
+                    CREATE TABLE `mod_search_entities` (
+                        `entity_id` INT NOT NULL AUTO_INCREMENT,
+                        `entity_class` VARCHAR(255) NOT NULL,
+                    PRIMARY KEY (`entity_id`));
 
-                        CREATE TABLE `mod_search_settings` (
-                            `setting_id` INT NOT NULL AUTO_INCREMENT,
-                            `url_path` VARCHAR(200) NOT NULL DEFAULT "/search" ,
-                            `is_active` tinyint(1) NOT NULL DEFAULT 1,
-                        PRIMARY KEY (`setting_id`));
-                ')
-            ->execute();
+                    CREATE TABLE `mod_search_settings` (
+                        `setting_id` INT NOT NULL AUTO_INCREMENT,
+                        `url_path` VARCHAR(200) NOT NULL DEFAULT "/search" ,
+                        `is_active` tinyint(1) NOT NULL DEFAULT 1,
+                    PRIMARY KEY (`setting_id`));
+                ');
 
         EntityModel::create([
             'entity_class' => 'Neoflow\\Module\\WYSIWYG\\Model',
@@ -51,17 +48,11 @@ class Manager extends AbstractModuleManager
     public function uninstall(): bool
     {
         if ($this->database()->hasTable('mod_search_entities')) {
-            $this
-                ->database()
-                ->prepare('DROP TABLE `mod_search_entities`')
-                ->execute();
+            $this->database()->exec('DROP TABLE `mod_search_entities`');
         }
 
         if ($this->database()->hasTable('mod_search_settings')) {
-            $this
-                ->database()
-                ->prepare('DROP TABLE `mod_search_settings`')
-                ->execute();
+            $this->database()->exce('DROP TABLE `mod_search_settings`');
         }
 
         return true;
@@ -84,7 +75,12 @@ class Manager extends AbstractModuleManager
         if ($service->getSettings()->is_active) {
             // Add custom url path as route
             $this->router()->addRoutes([
-                ['tmod_search_frontend_index', 'get', $service->getSettings()->url_path, 'Neoflow\\Module\\Search\\Controller\\Frontend@index'],
+                [
+                    'tmod_search_frontend_index',
+                    'get',
+                    $service->getSettings()->url_path,
+                    'Neoflow\\Module\\Search\\Controller\\Frontend@index',
+                ],
             ]);
         }
 
