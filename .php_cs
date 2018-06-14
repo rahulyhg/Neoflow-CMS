@@ -1,11 +1,15 @@
 <?php
+
+PhpCsFixer\Config::create()
+    ->setCacheFile(__DIR__.'/.php_cs.cache');
+
 // Define excludes
 $excludes = [
     'update',
     'temp',
     'vendor',
     'application/templates',
-    'application/views'
+    'application/views',
 ];
 foreach (glob('./{modules,themes}/*/{templates,views}', GLOB_BRACE + GLOB_ONLYDIR) as $folder) {
     $excludes[] = str_replace('./', '', $folder);

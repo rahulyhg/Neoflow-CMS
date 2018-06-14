@@ -5,32 +5,30 @@
     </span>
 
     <ul class="navbar-nav navbar-expand ml-auto">
+ 
+        <?php if (!is_current_route('install_*')) { ?>
 
-        <?php if (!is_current_route('install_*')) {
-    ?>
-
-            <?php if ($view->settings()->getLanguages()->count() > 1) {
-        ?>
+            <?php if ($view->settings()->getLanguages()->count() > 1) { ?>
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                         <span class="nav-link-icon">
-                            <?= $view->translator()->getCurrentLanguage()->renderFlagIcon(); ?>
+                            <?= $view->translator()
+                                ->getCurrentLanguage()
+                                ->renderFlagIcon(); ?>  
                         </span>
                     </a>
                     <div class="dropdown-menu">
-                        <?php foreach ($view->settings()->getLanguages() as $language) {
-            ?>
+                        <?php foreach ($view->settings()->getLanguages() as $language) { ?>
                             <a class="dropdown-item<?= ($language->code === $view->translator()->getCurrentLanguageCode() ? ' active' : ''); ?>" href="<?= generate_url('', [], $_GET, $language->code); ?>">
                                 <?= $language->renderFlagIcon(); ?>
                             </a>
-                        <?php
-        } ?>
+                            <?php  } ?>
                     </div>
                 </li>
                 <?php
-    }
-    if ($view->service('auth')->isAuthenticated()) {
-        ?>
+                    }
+                    if ($view->service('auth')->isAuthenticated()) {
+                ?>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= generate_url('backend_profile_index'); ?>" title="<?= translate('Profile'); ?>">
                         <span class="nav-link-icon">
@@ -41,8 +39,7 @@
                         </span>
                     </a>
                 </li>
-            <?php
-    } ?>
+                <?php } ?>
 
             <li class="nav-item">
                 <a class="nav-link" target="_blank" href="<?= generate_url('frontend_index'); ?>" title="<?= translate('To the frontend'); ?>">
@@ -55,7 +52,8 @@
                 </a>
             </li>
 
-            <?php if ($view->service('auth')->isAuthenticated()) {
+            <?php if ($view->service('auth')
+                ->isAuthenticated()) {
         ?>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= generate_url('backend_auth_logout'); ?>" title="<?= translate('Logout'); ?>">
@@ -67,10 +65,10 @@
                         </span>
                     </a>
                 </li>
-            <?php
+                <?php
     } ?>
 
-        <?php
+            <?php
 } ?>
 
     </ul>
