@@ -2,7 +2,7 @@
 
 namespace Neoflow\Module\Search;
 
-use Neoflow\Framework\Common\Collection;
+use Neoflow\DataStructure\Collection;
 
 class Results extends Collection
 {
