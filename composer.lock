@@ -12,7 +12,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/neoflow/Neoflow-Data-Structures.git",
-                "reference": "550fb9891729965d5a17c44b81a3a6b148c1e7cd"
+                "reference": "841d21047c6513f53bde392cfcbfd5442c0d9279"
             },
             "require": {
                 "neoflow/functions": "dev-master"
@@ -33,7 +33,7 @@
                 }
             ],
             "description": "PHP library with data structure classes.",
-            "time": "2018-06-14T11:11:11+00:00"
+            "time": "2018-06-14T19:09:27+00:00"
         },
         {
             "name": "neoflow/filesystem",
@@ -41,9 +41,10 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/neoflow/Neoflow-Filesystem.git",
-                "reference": "d4a1518c96c5483180f03d665879d772ac49be3f"
+                "reference": "3512fb8c1e8d1ae04d80a9419290ab39850e3063"
             },
             "require": {
+                "neoflow/data-structures": "dev-master",
                 "neoflow/functions": "dev-master"
             },
             "type": "library",
@@ -62,7 +63,7 @@
                 }
             ],
             "description": "PHP library to manage files and folders.",
-            "time": "2018-06-13T11:12:13+00:00"
+            "time": "2018-06-14T18:36:41+00:00"
         },
         {
             "name": "neoflow/framework",
