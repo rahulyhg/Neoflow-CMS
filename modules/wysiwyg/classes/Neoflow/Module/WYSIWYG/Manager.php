@@ -5,7 +5,6 @@ namespace Neoflow\Module\WYSIWYG;
 use Neoflow\CMS\Manager\AbstractPageModuleManager;
 use Neoflow\CMS\Model\SectionModel;
 use Neoflow\Filesystem\Folder;
-use Neoflow\Module\Search\Model\EntityModel;
 
 class Manager extends AbstractPageModuleManager
 {
@@ -109,7 +108,7 @@ class Manager extends AbstractPageModuleManager
     public function update(): bool
     {
         if ('1.0' === $this->module->oldVersion) {
-            $entity = new EntityModel();
+            $entity = new Model();
             $entity->entity_class = 'Neoflow\\Module\\WYSIWYG\\Model';
             $entity->validate();
             $entity->save();

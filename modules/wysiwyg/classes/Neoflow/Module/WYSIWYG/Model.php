@@ -56,15 +56,15 @@ class Model extends AbstractModel implements ModelSearchInterface
     /**
      * Search for results.
      *
-     * @param string $query Seach query string
+     * @param string $query Search query string
      *
      * @return Results
      */
     public static function search(string $query): Results
     {
         $wysiwygs = static::findAllByColumns([
-                'content' => '%'.$query.'%',
-                ], 'LIKE');
+            'content' => '%'.$query.'%',
+        ], 'LIKE');
 
         $language_id = App::instance()->get('translator')->getCurrentLanguage()->id();
 

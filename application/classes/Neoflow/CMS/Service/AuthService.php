@@ -199,6 +199,16 @@ class AuthService extends AbstractService
     }
 
     /**
+     * Reauthorize authenticated user.
+     *
+     * @return bool
+     */
+    public function reauthorize(): bool
+    {
+        return $this->authorize();
+    }
+
+    /**
      * Get permission keys of authenticated user.
      *
      * @return array

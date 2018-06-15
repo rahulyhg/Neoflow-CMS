@@ -55,7 +55,7 @@ class UpdateService extends AbstractService
         $folder = $this->unpack($file);
 
         // Install CMS update
-        return $this->manager($folder)->installUpdate();
+        return $this->getManager($folder)->installUpdate();
     }
 
     /**
@@ -71,11 +71,11 @@ class UpdateService extends AbstractService
         $folder = Folder::load($folderPath);
 
         // Install extension updates
-        return $this->manager($folder)->installExtensionUpdates();
+        return $this->getManager($folder)->installExtensionUpdates();
     }
 
     /**
-     * Create update manager.
+     * Get update manager.
      *
      * @param Folder $folder Update folder
      *
@@ -83,7 +83,7 @@ class UpdateService extends AbstractService
      *
      * @throws RuntimeException
      */
-    protected function manager(Folder $folder): UpdateManager
+    protected function getManager(Folder $folder): UpdateManager
     {
         // Add class directory to loader
         $classPath = $folder->getPath('/classes');

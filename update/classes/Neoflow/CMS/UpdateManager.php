@@ -71,6 +71,34 @@ class UpdateManager
     }
 
     /**
+     * Update files and database (update step 1).
+     *
+     * @return bool
+     */
+    public function installUpdate(): bool
+    {
+        $this->validateVersion();
+
+        $url = generate_url('backend_maintenance_index');
+
+        $this->session()->setNewFlash('updateFolderPath', $this->folder->getPath());
+
+        try {
+            $this->updateDatabase();
+            if ($this->updateFiles() && $this->updateConfig()) {
+                if ($this->cache()->clear()) {
+                    header('Location:'.$url);
+                    exit;
+                }
+            }
+        } catch (Throwable $ex) {
+            $this->logger()->error('Update installation failed.', ['Exception message' => $ex->getMessage()]);
+        }
+
+        return false;
+    }
+
+    /**
      * Validate version compatibility.
      *
      * @return bool
@@ -104,6 +132,11 @@ class UpdateManager
 
             $this->service('alert')->success(translate('CMS successfully updated'));
             $this->cache()->clear();
+
+            // Reauthorize user (permission changed)
+            $this->service('auth')->reauthorize();
+            $this->cache()->clear();
+
             header('Location:'.generate_url('backend_maintenance_index'));
             exit;
         }
@@ -120,20 +153,28 @@ class UpdateManager
     {
         foreach ($this->info['modules'] as $identifier => $packageName) {
             $file = $this->folder->findFiles($this->info['path']['modules'].'/'.$packageName)->first();
-            try {
-                if ($file) {
+            if ($file) {
+                try {
                     $module = ModuleModel::findByColumn('identifier', $identifier);
                     if ($module) {
                         $module->installUpdatePackage($file);
                     } else {
                         ModuleModel::installPackage($file);
                     }
+                } catch (Throwable $ex) {
+                    $this->logger()
+                        ->warning('Module update installation for '.$packageName.' failed.', ['Exception message' => $ex->getMessage()]);
+                } finally {
+                    $file->delete();
                 }
-            } catch (Throwable $ex) {
-                $this->logger()->warning('Module update installation for '.$packageName.' failed.', ['Exception message' => $ex->getMessage()]);
-            } finally {
-                $file->delete();
             }
+        }
+
+        // Delete dummy module
+        $dummyModule = ModuleModel::findByColumn('identifier', 'dummy');
+        if ($dummyModule) {
+            $dummyModule->loadClassesAndFunctions();
+            $dummyModule->delete();
         }
 
         return true;
@@ -152,7 +193,7 @@ class UpdateManager
                 if ($file) {
                     $theme = ThemeModel::findByColumn('identifier', $identifier);
                     if ($theme) {
-                        $theme->installUpdate($file);
+                        $theme->installUpdatePackage($file);
                     } else {
                         ThemeModel::installPackage($file);
                     }

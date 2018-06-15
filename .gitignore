@@ -22,5 +22,7 @@ media/public/*
 
 neoflow-cms-*.zip
 
-update/delivery/*
+update/delivery/files/*
+update/delivery/modules/*
+update/delivery/themes/*
 !update/delivery/*/.gitkeep

@@ -107,7 +107,7 @@ gulp.task('update:_createModuleZipPackages', function () {
     return gulp
         .src([
             './modules/*',
-            '!./modules/dummy'
+            // '!./modules/dummy'
         ])
         .pipe(flatmap(function (stream, file) {
             if (fs.statSync(file.path).isDirectory()) {
