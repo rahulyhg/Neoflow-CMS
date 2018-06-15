@@ -1,2 +1,2 @@
-<?= $code->executeCode(); ?>
+<?= $code->executeCode() ?>
 

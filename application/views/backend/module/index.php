@@ -3,22 +3,22 @@
 
         <div class="card">
             <h4 class="card-header">
-                <?= translate('All modules'); ?>
+                <?= translate('All modules') ?>
             </h4>
 
             <table class="datatable table display responsive no-wrap" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th data-priority="0" data-order="true">
-                            <?= translate('Name'); ?>
+                            <?= translate('Name') ?>
                         </th>
                         <th data-priority="3">
-                            <?= translate('Version'); ?></th>
+                            <?= translate('Version') ?></th>
                         <th data-priority="1">
-                            <?= translate('Type'); ?>
+                            <?= translate('Type') ?>
                         </th>
                         <th class="none" data-priority="1">
-                            <?= translate('Description'); ?>
+                            <?= translate('Description') ?>
                         </th>
                         <th data-orderable="false" data-filterable="false" data-priority="0"></th>
                     </tr>
@@ -28,12 +28,12 @@
                     foreach ($modules as $module) {
                         $requiredModuleStatus = $module->getRequiredModuleStatus();
                         ?>
-                        <tr class="<?= ($module->is_active ?: 'table-muted'); ?>">
+                        <tr class="<?= ($module->is_active ?: 'table-muted') ?>">
                             <td class="nowrap">
-                                <a href="<?= generate_url('backend_module_view', ['id' => $module->id()]); ?>">
-                                    <?= $module->name; ?>
+                                <a href="<?= generate_url('backend_module_view', ['id' => $module->id()]) ?>">
+                                    <?= $module->name ?>
                                 </a>
-                                <span class="<?= ($requiredModuleStatus ? 'text-success' : 'text-danger'); ?>">
+                                <span class="<?= ($requiredModuleStatus ? 'text-success' : 'text-danger') ?>">
                                     <?php if ($requiredModuleStatus) { ?>
                                         <i class="fa fa-fw fa-check"></i>
                                     <?php } else { ?>
@@ -42,31 +42,31 @@
                                 </span>
                             </td>
                             <td>
-                                <?= $module->version; ?>
+                                <?= $module->version ?>
                             </td>
                             <td>
-                                <?= $module->type; ?>
+                                <?= $module->type ?>
                             </td>
                             <td>
-                                <?= translate($module->description, [], false, false, false); ?>
+                                <?= translate($module->description, [], false, false, false) ?>
                             </td>
                             <td class="text-left-xs text-right nowrap">
-                                <a href="<?= generate_url('backend_module_view', ['id' => $module->id()]); ?>" class="btn btn-outline-light btn-sm btn-icon-left d-none d-xl-inline-block" title="<?= translate('Show module'); ?>">
+                                <a href="<?= generate_url('backend_module_view', ['id' => $module->id()]) ?>" class="btn btn-outline-light btn-sm btn-icon-left d-none d-xl-inline-block" title="<?= translate('Show module') ?>">
                                     <span class="btn-icon">
                                         <i class="fa fa-info"></i>
                                     </span>
-                                    <?= translate('Show'); ?>
+                                    <?= translate('Show') ?>
                                 </a>
                                 <?php if ($module->is_active) { ?>
-                                    <a href="<?= generate_url('backend_module_toggle_activation', ['id' => $module->id()]); ?>" class="btn btn-outline-light btn-sm confirm-modal <?= ($module->is_core ? 'disabled' : ''); ?>" data-message="<?= translate('Are you sure you want to disable it?'); ?>" title="<?= translate('Disable module'); ?>">
+                                    <a href="<?= generate_url('backend_module_toggle_activation', ['id' => $module->id()]) ?>" class="btn btn-outline-light btn-sm confirm-modal <?= ($module->is_core ? 'disabled' : '') ?>" data-message="<?= translate('Are you sure you want to disable it?') ?>" title="<?= translate('Disable module') ?>">
                                         <i class="fa fa-fw fa-toggle-on"></i>
                                     </a>
                                 <?php } else { ?>
-                                    <a href="<?= generate_url('backend_module_toggle_activation', ['id' => $module->id()]); ?>" class="btn btn-outline-light btn-sm confirm-modal <?= ($module->is_core ? 'disabled' : ''); ?>" data-message="<?= translate('Are you sure you want to enable it?'); ?>" title="<?= translate('Enable module'); ?>">
+                                    <a href="<?= generate_url('backend_module_toggle_activation', ['id' => $module->id()]) ?>" class="btn btn-outline-light btn-sm confirm-modal <?= ($module->is_core ? 'disabled' : '') ?>" data-message="<?= translate('Are you sure you want to enable it?') ?>" title="<?= translate('Enable module') ?>">
                                         <i class="fa fa-fw fa-toggle-off"></i>
                                     </a>
                                 <?php } ?>
-                                <a href="<?= generate_url('backend_module_delete', ['id' => $module->id()]); ?>" class="btn btn-primary btn-sm confirm-modal <?= ($module->is_core ? 'disabled' : ''); ?>" data-message="<?= translate('Are you sure you want to delete it?'); ?>" title="<?= translate('Uninstall module'); ?>">
+                                <a href="<?= generate_url('backend_module_delete', ['id' => $module->id()]) ?>" class="btn btn-primary btn-sm confirm-modal <?= ($module->is_core ? 'disabled' : '') ?>" data-message="<?= translate('Are you sure you want to delete it?') ?>" title="<?= translate('Uninstall module') ?>">
                                     <i class="fa fa-fw fa-trash-alt"></i>
                                 </a>
                             </td>
@@ -78,10 +78,10 @@
             <div class="dataTable_info_src">
                 <ul class="list-inline small">
                     <li>
-                        <span class="text-success"><i class="fa fa-fw fa-check"></i></span> = <?= translate('All required modules are available'); ?>
+                        <span class="text-success"><i class="fa fa-fw fa-check"></i></span> = <?= translate('All required modules are available') ?>
                     </li>
                     <li>
-                        <span class="text-danger"><i class="fa fa-fw fa-times"></i></span> = <?= translate('At least one required module is unavailable'); ?>
+                        <span class="text-danger"><i class="fa fa-fw fa-times"></i></span> = <?= translate('At least one required module is unavailable') ?>
                     </li>
                 </ul>
             </div>
@@ -92,22 +92,22 @@
 
         <div class="card">
             <h4 class="card-header">
-                <?= translate('Install module'); ?>
+                <?= translate('Install module') ?>
             </h4>
             <div class="card-body">
-                <form method="post" enctype="multipart/form-data" action="<?= generate_url('backend_module_install'); ?>">
+                <form method="post" enctype="multipart/form-data" action="<?= generate_url('backend_module_install') ?>">
                     <div class="form-group row">
                         <label for="inputPackage" class="col-sm-3 col-form-label">
-                            <?= translate('Package'); ?> *
+                            <?= translate('Package') ?> *
                         </label>
                         <div class="col-sm-9">
-                            <input type="file" name="package" data-allowed-File-Extensions="zip" data-allowed-File-Size="<?= ((int) ini_get('upload_max_filesize')) * 1024 * 1024; ?>" id="inputPackage" required class="form-control" />
+                            <input type="file" name="package" data-allowed-File-Extensions="zip" data-allowed-File-Size="<?= ((int) ini_get('upload_max_filesize')) * 1024 * 1024 ?>" id="inputPackage" required class="form-control" />
                             <ul class="list-unstyled form-text text-muted small mb-0">
                                 <li>
-                                    <?= translate('Uploadable file size (defined in php.ini): max. {0}MB', [(int) ini_get('upload_max_filesize')]); ?>
+                                    <?= translate('Uploadable file size (defined in php.ini): max. {0}MB', [(int) ini_get('upload_max_filesize')]) ?>
                                 </li>
                                 <li>
-                                    <?= translate('Allowed file extensions: {0}', ['zip']); ?>
+                                    <?= translate('Allowed file extensions: {0}', ['zip']) ?>
                                 </li>
                             </ul>
                         </div>
@@ -118,11 +118,11 @@
                                 <span class="btn-icon">
                                     <i class="fa fa-save"></i>
                                 </span>
-                                <?= translate('Upload'); ?>
+                                <?= translate('Upload') ?>
                             </button>
 
                             <span class="small float-right">
-                                * = <?= translate('Required field', [], true); ?>
+                                * = <?= translate('Required field', [], true) ?>
                             </span>
                         </div>
                     </div>
@@ -132,15 +132,15 @@
 
         <div class="card">
             <h4 class="card-header">
-                <?= translate('Reload all modules'); ?>
+                <?= translate('Reload all modules') ?>
             </h4>
             <div class="card-body">
-                <p><?= translate('Reload modules information', [], true); ?></p>
-                <a href="<?= generate_url('backend_module_reload_all'); ?>" class="btn btn-primary btn-icon-left confirm-modal" data-message="<?= translate('Are you sure you want to reload all modules?'); ?>" title="<?= translate('Reload module', [], true); ?>">
+                <p><?= translate('Reload modules information', [], true) ?></p>
+                <a href="<?= generate_url('backend_module_reload_all') ?>" class="btn btn-primary btn-icon-left confirm-modal" data-message="<?= translate('Are you sure you want to reload all modules?') ?>" title="<?= translate('Reload module', [], true) ?>">
                     <span class="btn-icon">
                         <i class="fa fa-sync"></i>
                     </span>
-                    <?= translate('Reload'); ?>
+                    <?= translate('Reload') ?>
                 </a>
             </div>
         </div>

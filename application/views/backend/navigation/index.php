@@ -3,7 +3,7 @@
 
         <div class="card">
             <h4 class="card-header">
-                <?= translate('All navigations'); ?>
+                <?= translate('All navigations') ?>
             </h4>
 
             <?php if ($navigations->count()) { ?>
@@ -12,10 +12,10 @@
                     <thead>
                         <tr>
                             <th data-priority="0" data-order="true">
-                                <?= translate('Title'); ?>
+                                <?= translate('Title') ?>
                             </th>
                             <th  data-priority="1">
-                                <?= translate('Key'); ?>
+                                <?= translate('Key') ?>
                             </th>
                             <th data-orderable="false" data-filterable="false" data-priority="0"></th>
                         </tr>
@@ -24,25 +24,25 @@
                         <?php foreach ($navigations as $navigation) { ?>
                             <tr>
                                 <td class="nowrap">
-                                    <a href="<?= generate_url('backend_navitem_index', ['id' => $navigation->id()]); ?>" <?= (1 === $navigation->id() ? 'class="disabled"' : ''); ?>  title="<?= translate('Manage items'); ?>">
-                                        <?= (1 === $navigation->id() ? translate($navigation->title) : $navigation->title); ?>
+                                    <a href="<?= generate_url('backend_navitem_index', ['id' => $navigation->id()]) ?>" <?= (1 === $navigation->id() ? 'class="disabled"' : '') ?>  title="<?= translate('Manage items') ?>">
+                                        <?= (1 === $navigation->id() ? translate($navigation->title) : $navigation->title) ?>
                                     </a>
                                 </td>
                                 <td>
-                                    <?= $navigation->navigation_key; ?>
+                                    <?= $navigation->navigation_key ?>
                                 </td>
                                 <td class="text-right nowrap">
 
-                                    <a href="<?= generate_url('backend_navitem_index', ['id' => $navigation->id()]); ?>" class="btn btn-outline-light d-none d-xl-inline-block btn-sm btn-icon-left" title="<?= translate('Navigation item', [], true); ?>">
+                                    <a href="<?= generate_url('backend_navitem_index', ['id' => $navigation->id()]) ?>" class="btn btn-outline-light d-none d-xl-inline-block btn-sm btn-icon-left" title="<?= translate('Navigation item', [], true) ?>">
                                         <span class="btn-icon">
                                             <i class="fa fa-th-list"></i>
                                         </span>
-                                        <?= translate('Item', [], true); ?>
+                                        <?= translate('Item', [], true) ?>
                                     </a>
-                                    <a href="<?= generate_url('backend_navigation_edit', ['id' => $navigation->id()]); ?>" class="btn btn-outline-light btn-sm d-none d-xl-inline-block <?= (1 === $navigation->id() ? 'disabled' : ''); ?>" title="<?= translate('Edit navigation'); ?>">
+                                    <a href="<?= generate_url('backend_navigation_edit', ['id' => $navigation->id()]) ?>" class="btn btn-outline-light btn-sm d-none d-xl-inline-block <?= (1 === $navigation->id() ? 'disabled' : '') ?>" title="<?= translate('Edit navigation') ?>">
                                         <i class="fa fa-fw fa-pencil-alt"></i>
                                     </a>
-                                    <a href="<?= generate_url('backend_navigation_delete', ['id' => $navigation->id()]); ?>" class="btn btn-primary btn-sm confirm-modal <?= (1 === $navigation->id() ? 'disabled' : ''); ?>" data-message="<?= translate('Are you sure you want to delete it?'); ?>" title="<?= translate('Delete navigation'); ?>">
+                                    <a href="<?= generate_url('backend_navigation_delete', ['id' => $navigation->id()]) ?>" class="btn btn-primary btn-sm confirm-modal <?= (1 === $navigation->id() ? 'disabled' : '') ?>" data-message="<?= translate('Are you sure you want to delete it?') ?>" title="<?= translate('Delete navigation') ?>">
                                         <i class="fa fa-fw fa-trash-alt"></i>
                                     </a>
                                 </td>
@@ -53,7 +53,7 @@
 
             <?php } else { ?>
                 <div class="card-body">
-                    <p class="text-center text-muted"><?= translate('No results found'); ?></p>
+                    <p class="text-center text-muted"><?= translate('No results found') ?></p>
                 </div>
             <?php } ?>
 
@@ -63,13 +63,13 @@
 
         <div class="card">
             <h4 class="card-header">
-                <?= translate('Create navigation'); ?>
+                <?= translate('Create navigation') ?>
             </h4>
             <div class="card-body">
-                <form method="post" action="<?= generate_url('backend_navigation_create'); ?>">
+                <form method="post" action="<?= generate_url('backend_navigation_create') ?>">
                     <div class="form-group row">
                         <label for="inputTitle" class="col-sm-3 col-form-label">
-                            <?= translate('Title'); ?> *
+                            <?= translate('Title') ?> *
                         </label>
                         <div class="col-sm-9">
                             <input id="inputTitle" type="text" required class="form-control" name="title" maxlength="50" minlength="3" />
@@ -77,7 +77,7 @@
                     </div>
                     <div class="form-group row">
                         <label for="inputNavigationKey" class="col-sm-3 col-form-label">
-                            <?= translate('Key'); ?> *
+                            <?= translate('Key') ?> *
                         </label>
                         <div class="col-sm-9">
                             <input id="inputNavigationKey" type="text" required class="form-control" name="navigation_key" maxlength="50" minlength="3" />
@@ -89,11 +89,11 @@
                                 <span class="btn-icon">
                                     <i class="fa fa-save"></i>
                                 </span>
-                                <?= translate('Save'); ?>
+                                <?= translate('Save') ?>
                             </button>
 
                             <span class="small float-right">
-                                * = <?= translate('Required field', [], true); ?>
+                                * = <?= translate('Required field', [], true) ?>
                             </span>
                         </div>
                     </div>
@@ -103,17 +103,17 @@
 
         <div class="card">
             <h4 class="card-header">
-                <?= translate('Load navigation', [], true); ?>
+                <?= translate('Load navigation', [], true) ?>
             </h4>
             <div class="card-body">
 
-                <p><?= translate('Load navigations message'); ?></p>
+                <p><?= translate('Load navigations message') ?></p>
 
-                <a href="<?= generate_url('backend_navigation_load'); ?>" class="btn btn-primary btn-icon-left confirm-modal" data-message="<?= translate('Are you sure you want to load the navigations of the current frontend theme and maybe rename or even delete the existing navigations?'); ?>" title="<?= translate('Load navigation', [], true); ?>">
+                <a href="<?= generate_url('backend_navigation_load') ?>" class="btn btn-primary btn-icon-left confirm-modal" data-message="<?= translate('Are you sure you want to load the navigations of the current frontend theme and maybe rename or even delete the existing navigations?') ?>" title="<?= translate('Load navigation', [], true) ?>">
                     <span class="btn-icon">
                         <i class="fa fa-sync"></i>
                     </span>
-                    <?= translate('Load'); ?>
+                    <?= translate('Load') ?>
                 </a>
 
             </div>

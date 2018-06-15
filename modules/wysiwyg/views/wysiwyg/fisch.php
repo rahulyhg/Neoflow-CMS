@@ -1,4 +1,4 @@
-<?= $wysiwyg.' - SectionID: '.$section->id(); ?>
+<?= $wysiwyg.' - SectionID: '.$section->id() ?>
 
 <?php
 

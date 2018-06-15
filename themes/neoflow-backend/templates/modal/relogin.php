@@ -2,22 +2,22 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><?= translate('Relogin'); ?></h5>
+                <h5 class="modal-title"><?= translate('Relogin') ?></h5>
             </div>
 
-            <form method="post" action="<?= generate_url('api_user_auth'); ?>">
+            <form method="post" action="<?= generate_url('api_user_auth') ?>">
 
                 <div class="modal-body">
-                    <p><?= translate('Your session has expired. Please login again.'); ?></p>
+                    <p><?= translate('Your session has expired. Please login again.') ?></p>
                     <div class="form-group">
                         <label for="inputEmail">
-                            <?= translate('Email address'); ?>
+                            <?= translate('Email address') ?>
                         </label>
                         <input id="inputEmail" class="form-control" disabled name="email" type="text">
                     </div>
                     <div class="form-group">
                         <label for="inputPassword">
-                            <?= translate('Password'); ?>
+                            <?= translate('Password') ?>
                         </label>
                         <input id="inputPassword2" class="form-control" disabled name="password" type="password" value="">
                     </div>
@@ -28,7 +28,7 @@
                         <span class="btn-icon">
                             <i class="fa fa-sign-in-alt"></i>
                         </span>
-                        <?= translate('Login'); ?>
+                        <?= translate('Login') ?>
                     </button>
                 </div>
             </form>

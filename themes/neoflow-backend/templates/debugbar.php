@@ -18,7 +18,7 @@ $executionTime = round(\Neoflow\CMS\App::instance()->getExecutionTime(), 3);
 
     <ul class="list-inline d-inline">
         <li class="list-inline-item">
-            Execution time: <small><?= $executionTime; ?></small>
+            Execution time: <small><?= $executionTime ?></small>
         </li>
     </ul>
 
@@ -28,25 +28,25 @@ $executionTime = round(\Neoflow\CMS\App::instance()->getExecutionTime(), 3);
                 <div class="col-sm-4">
                     <h4>General</h4>
                     <ul class="list-inline">
-                        <li class="list-inline-item">Execution time: <small><?= $executionTime; ?></small></li>
-                        <li class="list-inline-item">Cache: <small><?= $cacheName; ?></small></li>
-                        <li class="list-inline-item">Log level: <small><?= ($view->logger()->getLoglevel() ?: 'none'); ?></small></li>
+                        <li class="list-inline-item">Execution time: <small><?= $executionTime ?></small></li>
+                        <li class="list-inline-item">Cache: <small><?= $cacheName ?></small></li>
+                        <li class="list-inline-item">Log level: <small><?= ($view->logger()->getLoglevel() ?: 'none') ?></small></li>
                     </ul>
                 </div>
                 <div class="col-sm-5">
                     <h4>Language</h4>
                     <ul class="list-inline">
-                        <li class="list-inline-item">Language: <small><?= $view->translator()->getCurrentLanguageCode(); ?></small></li>
-                        <li class="list-inline-item">Date format: <small><?= $view->translator()->getDateFormat(); ?></small></li>
-                        <li class="list-inline-item">Default language: <small><?= $view->translator()->getDefaultLanguageCode(); ?></small></li>
-                        <li class="list-inline-item">Fallback language: <small><?= $view->translator()->getFallbackLanguageCode(); ?></small></li>
+                        <li class="list-inline-item">Language: <small><?= $view->translator()->getCurrentLanguageCode() ?></small></li>
+                        <li class="list-inline-item">Date format: <small><?= $view->translator()->getDateFormat() ?></small></li>
+                        <li class="list-inline-item">Default language: <small><?= $view->translator()->getDefaultLanguageCode() ?></small></li>
+                        <li class="list-inline-item">Fallback language: <small><?= $view->translator()->getFallbackLanguageCode() ?></small></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
                     <h4>Database</h4>
                     <ul class="list-inline">
-                        <li class="list-inline-item">Executed queries: <small><?= App::instance()->get('executedQueries'); ?></small></li>
-                        <li class="list-inline-item">Cached queries: <small><?= App::instance()->get('cachedQueries'); ?></small></li>
+                        <li class="list-inline-item">Executed queries: <small><?= App::instance()->get('executedQueries') ?></small></li>
+                        <li class="list-inline-item">Cached queries: <small><?= App::instance()->get('cachedQueries') ?></small></li>
                     </ul>
                 </div>
             </div>

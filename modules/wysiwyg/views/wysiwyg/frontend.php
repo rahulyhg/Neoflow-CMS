@@ -1,2 +1,2 @@
-<?= $wysiwyg->content; ?>
+<?= $wysiwyg->content ?>
 

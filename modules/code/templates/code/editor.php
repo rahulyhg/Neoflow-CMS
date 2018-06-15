@@ -1,1 +1,1 @@
-<textarea name="<?= $name; ?>" <?= ($id ? 'id="'.$id.'"' : ''); ?> <?= ($height ? 'height="'.$height.'"' : ''); ?> class="form-control" width="100%"><?= $content; ?></textarea>
+<textarea name="<?= $name ?>" <?= ($id ? 'id="'.$id.'"' : '') ?> <?= ($height ? 'height="'.$height.'"' : '') ?> class="form-control" width="100%"><?= $content ?></textarea>

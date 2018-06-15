@@ -3,13 +3,13 @@
 
         <div class="card">
             <h4 class="card-header">
-                <?= translate('Dummy page'); ?>
+                <?= translate('Dummy page') ?>
             </h4>
 
             <div class="card-body">
 
                 <p>
-                    <?= translate('Dummy page description'); ?>
+                    <?= translate('Dummy page description') ?>
                 </p>
 
             </div>

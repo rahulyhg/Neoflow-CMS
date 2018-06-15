@@ -11,13 +11,13 @@
 
             </div>
             <div class="modal-footer d-flex justify-content-between">
-                <button data-dismiss="modal" class="btn btn-primary btn-icon-left" title="<?= translate('Close'); ?>">
+                <button data-dismiss="modal" class="btn btn-primary btn-icon-left" title="<?= translate('Close') ?>">
                     <span class="btn-icon">
                         <i class="fa fa-times"></i>
                     </span>
-                    <?= translate('Close'); ?>
+                    <?= translate('Close') ?>
                 </button>
-                <a href="#" class="btn btn-outline-light btn-download" title="<?= translate('Download file'); ?>">
+                <a href="#" class="btn btn-outline-light btn-download" title="<?= translate('Download file') ?>">
                     <i class="fa fa-fw fa-download"></i>
                 </a>
             </div>

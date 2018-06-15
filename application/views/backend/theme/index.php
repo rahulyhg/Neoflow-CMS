@@ -3,23 +3,23 @@
 
         <div class="card">
             <h4 class="card-header">
-                <?= translate('All themes'); ?>
+                <?= translate('All themes') ?>
             </h4>
 
             <table class="datatable table display responsive no-wrap" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th data-priority="0" data-order="true">
-                            <?= translate('Name'); ?>
+                            <?= translate('Name') ?>
                         </th>
                         <th data-priority="3">
-                            <?= translate('Version'); ?>
+                            <?= translate('Version') ?>
                         </th>
                         <th data-priority="1">
-                            <?= translate('Type'); ?>
+                            <?= translate('Type') ?>
                         </th>
                         <th class="none" data-priority="1">
-                            <?= translate('Description'); ?>
+                            <?= translate('Description') ?>
                         </th>
                         <th data-orderable="false" data-filterable="false" data-priority="0"></th>
                     </tr>
@@ -29,12 +29,12 @@
     ?>
                         <tr>
                             <td>
-                                <a href="<?= generate_url('backend_theme_view', ['id' => $theme->id()]); ?>">
-                                    <?= translate($theme->name, [], false, false, false); ?>
+                                <a href="<?= generate_url('backend_theme_view', ['id' => $theme->id()]) ?>">
+                                    <?= translate($theme->name, [], false, false, false) ?>
                                 </a>
                             </td>
                             <td>
-                                <?= $theme->version; ?>
+                                <?= $theme->version ?>
                             </td>
                             <td>
                                 <?php
@@ -47,16 +47,16 @@
                                 } ?>
                             </td>
                             <td>
-                                <?= translate($theme->description, [], false, false, false); ?>
+                                <?= translate($theme->description, [], false, false, false) ?>
                             </td>
                             <td class="text-right nowrap">
-                                <a href="<?= generate_url('backend_theme_view', ['id' => $theme->id()]); ?>" class="btn btn-outline-light btn-sm btn-icon-left d-none d-xl-inline-block" title="<?= translate('Show theme'); ?>">
+                                <a href="<?= generate_url('backend_theme_view', ['id' => $theme->id()]) ?>" class="btn btn-outline-light btn-sm btn-icon-left d-none d-xl-inline-block" title="<?= translate('Show theme') ?>">
                                     <span class="btn-icon">
                                         <i class="fa fa-info"></i>
                                     </span>
-                                    <?= translate('Show'); ?>
+                                    <?= translate('Show') ?>
                                 </a>
-                                <a href="<?= generate_url('backend_theme_delete', ['id' => $theme->id()]); ?>" class="btn btn-primary btn-sm confirm-modal" data-message="<?= translate('Are you sure you want to uninstall it?'); ?>" title="<?= translate('Uninstall theme'); ?>">
+                                <a href="<?= generate_url('backend_theme_delete', ['id' => $theme->id()]) ?>" class="btn btn-primary btn-sm confirm-modal" data-message="<?= translate('Are you sure you want to uninstall it?') ?>" title="<?= translate('Uninstall theme') ?>">
                                     <i class="fa fa-fw fa-trash-alt"></i>
                                 </a>
                             </td>
@@ -74,22 +74,22 @@
 
         <div class="card">
             <h4 class="card-header">
-                <?= translate('Install theme'); ?>
+                <?= translate('Install theme') ?>
             </h4>
             <div class="card-body">
-                <form method="post" enctype="multipart/form-data" action="<?= generate_url('backend_theme_install'); ?>">
+                <form method="post" enctype="multipart/form-data" action="<?= generate_url('backend_theme_install') ?>">
                     <div class="form-group row">
                         <label for="inputPackage" class="col-sm-3 col-form-label">
-                            <?= translate('Package'); ?> *
+                            <?= translate('Package') ?> *
                         </label>
                         <div class="col-sm-9">
-                            <input type="file" name="package" data-allowed-File-Extensions="zip" data-allowed-File-Size="<?= ((int) ini_get('upload_max_filesize')) * 1024 * 1024; ?>" id="inputPackage" required class="form-control" />
+                            <input type="file" name="package" data-allowed-File-Extensions="zip" data-allowed-File-Size="<?= ((int) ini_get('upload_max_filesize')) * 1024 * 1024 ?>" id="inputPackage" required class="form-control" />
                             <ul class="list-unstyled form-text text-muted small mb-0">
                                 <li>
-                                    <?= translate('Uploadable file size (defined in php.ini): max. {0}MB', [(int) ini_get('upload_max_filesize')]); ?>
+                                    <?= translate('Uploadable file size (defined in php.ini): max. {0}MB', [(int) ini_get('upload_max_filesize')]) ?>
                                 </li>
                                 <li>
-                                    <?= translate('Allowed file extensions: {0}', ['zip']); ?>
+                                    <?= translate('Allowed file extensions: {0}', ['zip']) ?>
                                 </li>
                             </ul>
                         </div>
@@ -100,11 +100,11 @@
                                 <span class="btn-icon">
                                     <i class="fa fa-save"></i>
                                 </span>
-                                <?= translate('Upload'); ?>
+                                <?= translate('Upload') ?>
                             </button> 
 
                             <span class="small float-right">
-                                * = <?= translate('Required field', [], true); ?>
+                                * = <?= translate('Required field', [], true) ?>
                             </span>
                         </div>
                     </div>
@@ -115,15 +115,15 @@
 
         <div class="card">
             <h4 class="card-header">
-                <?= translate('Reload all themes'); ?>
+                <?= translate('Reload all themes') ?>
             </h4>
             <div class="card-body">
-                <p><?= translate('Reload themes information'); ?></p>
-                <a href="<?= generate_url('backend_theme_reload_all'); ?>" class="btn btn-primary btn-icon-left confirm-modal" data-message="<?= translate('Are you sure you want to reload all themes?'); ?>" title="<?= translate('Reload theme', [], true); ?>">
+                <p><?= translate('Reload themes information') ?></p>
+                <a href="<?= generate_url('backend_theme_reload_all') ?>" class="btn btn-primary btn-icon-left confirm-modal" data-message="<?= translate('Are you sure you want to reload all themes?') ?>" title="<?= translate('Reload theme', [], true) ?>">
                     <span class="btn-icon">
                         <i class="fa fa-sync"></i>
                     </span>
-                    <?= translate('Reload'); ?>
+                    <?= translate('Reload') ?>
                 </a>
             </div>
         </div>

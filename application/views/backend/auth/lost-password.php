@@ -1,25 +1,25 @@
-<?php $engine->startBlock('prepage'); ?>
+<?php $engine->startBlock('prepage') ?>
 
 
     <div class="row">
         <div class="col-md-6 mx-md-auto col-lg-5 col-xl-4">
 
-            <?= $view->renderAlertTemplate(); ?>
+            <?= $view->renderAlertTemplate() ?>
 
             <div class="card">
                 <h4 class="card-header">
-                    <?= translate('Lost your password?'); ?>
+                    <?= translate('Lost your password?') ?>
                 </h4>
                 <div class="card-body">
 
                     <p>
-                        <?= translate('Please enter the email address of your user account. You will receive a link to create a new password via email.'); ?>
+                        <?= translate('Please enter the email address of your user account. You will receive a link to create a new password via email.') ?>
                     </p>
 
-                    <form method="post" action="<?= generate_url('backend_auth_reset_password'); ?>">
+                    <form method="post" action="<?= generate_url('backend_auth_reset_password') ?>">
                         <div class="form-group">
                             <label for="inputEmail">
-                                <?= translate('Email address'); ?>
+                                <?= translate('Email address') ?>
                             </label>
                             <input id="inputEmail" class="form-control" name="email" type="text">
                         </div>
@@ -28,17 +28,17 @@
                             <span class="btn-icon">
                                 <i class="fa fa-cog"></i>
                             </span>
-                                <?= translate('Execute'); ?>
+                                <?= translate('Execute') ?>
                             </button>
                         </div>
                     </form>
 
                     <hr/>
 
-                    <a href="<?= generate_url('backend_auth_login'); ?>"><?= translate('Login'); ?></a>
+                    <a href="<?= generate_url('backend_auth_login') ?>"><?= translate('Login') ?></a>
                 </div>
             </div>
         </div>
     </div>
 
-<?php $engine->stopBlock(); ?>
+<?php $engine->stopBlock() ?>
