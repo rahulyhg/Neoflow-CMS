@@ -24,8 +24,10 @@ abstract class AbstractPageModuleController extends FrontendController
     /**
      * Constructor.
      *
-     * @param FrontendView $view
-     * @param array        $args
+     * @param FrontendView $view Frontend view
+     * @param array        $args Route arguments
+     *
+     * @throws RuntimeException
      */
     public function __construct(FrontendView $view = null, array $args = [])
     {
@@ -64,7 +66,8 @@ abstract class AbstractPageModuleController extends FrontendController
         $parameters = array_merge([
             'section' => $this->section,
             'page' => $this->page,
-            'module' => $module, ], $parameters);
+            'module' => $module,
+        ], $parameters);
 
         $this->view->renderView($viewFile, $parameters, 'section-content');
 

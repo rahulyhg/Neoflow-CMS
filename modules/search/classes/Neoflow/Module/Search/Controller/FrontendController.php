@@ -10,7 +10,13 @@ use function translate;
 
 class FrontendController extends CmsFrontendController
 {
-    public function __construct(FrontendView $view = null, array $args = array())
+    /**
+     * Constructor.
+     *
+     * @param FrontendView $view Frontend view
+     * @param array        $args Route arguments
+     */
+    public function __construct(FrontendView $view = null, array $args = [])
     {
         parent::__construct($view, $args);
 
@@ -35,8 +41,8 @@ class FrontendController extends CmsFrontendController
         }
 
         return $this->render('search/frontend/index', [
-                'query' => $query,
-                'results' => $results,
+            'query' => $query,
+            'results' => $results,
         ]);
     }
 }

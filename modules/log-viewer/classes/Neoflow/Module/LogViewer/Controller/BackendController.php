@@ -3,6 +3,7 @@
 namespace Neoflow\Module\LogViewer\Controller;
 
 use Neoflow\CMS\Controller\Backend\AbstractToolModuleController;
+use Neoflow\CMS\Model\ModuleModel;
 use Neoflow\CMS\View\BackendView;
 use Neoflow\Filesystem\File;
 use Neoflow\Filesystem\Folder;
@@ -12,11 +13,17 @@ use Neoflow\Framework\HTTP\Responsing\StreamResponse;
 
 class BackendController extends AbstractToolModuleController
 {
+    /**
+     * Constructor.
+     *
+     * @param BackendView $view Backend view
+     * @param array       $args Route arguments
+     */
     public function __construct(BackendView $view = null, array $args = [])
     {
         parent::__construct($view, $args);
 
-        $module = \Neoflow\CMS\Model\ModuleModel::findByColumn('identifier', 'log-viewer');
+        $module = ModuleModel::findByColumn('identifier', 'log-viewer');
 
         $this->engine()->addJavascriptUrl($module->getUrl('/statics/log-viewer.js'));
 
@@ -34,7 +41,7 @@ class BackendController extends AbstractToolModuleController
         $logfiles = $logfileFolder->find('*.'.$this->config()->get('logger')->get('extension'));
 
         return $this->render('module/log-viewer/index', [
-                'logfiles' => $logfiles,
+            'logfiles' => $logfiles,
         ]);
     }
 
@@ -57,7 +64,7 @@ class BackendController extends AbstractToolModuleController
                 ->addBreadcrumb(translate('Log Viewer'), generate_url('tmod_log_viewer_backend_index'));
 
             return $this->render('module/log-viewer/show', [
-                    'logfile' => $this->args['logfile'],
+                'logfile' => $this->args['logfile'],
             ]);
         }
 
@@ -70,6 +77,8 @@ class BackendController extends AbstractToolModuleController
      * Show action.
      *
      * @return Response
+     *
+     * @throws NotFoundException
      */
     public function getAction(): Response
     {
@@ -81,6 +90,6 @@ class BackendController extends AbstractToolModuleController
             return new StreamResponse($logfile);
         }
 
-        return new NotFoundException();
+        throw new NotFoundException();
     }
 }
