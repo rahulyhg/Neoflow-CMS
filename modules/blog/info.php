@@ -4,7 +4,7 @@
 return [
     'name' => 'Blog',
     'identifier' => 'blog',
-    'dependencies' => 'wysiwyg,datetimepicker',
+    'dependencies' => 'wysiwyg,datetimepicker,search',
     'description' => 'Page module with an article system for blogs and news.',
     'version' => '1.0.0',
     'for' => [],
