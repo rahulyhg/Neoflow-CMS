@@ -2,10 +2,11 @@
 
 return [
     'modules' => [
-        'code',
-        'codemirror',
         'wysiwyg',
         'tinymce',
+        'blog',
+        'code',
+        'codemirror',
         'datetimepicker',
         'log-viewer',
         'robots',
