@@ -135,15 +135,21 @@ class UserModel extends AbstractModel
      */
     public function validateNewPassword(): bool
     {
-        $validator = new Validator(['newPassword' => $this->newPassword, 'confirmPassword' => $this->confirmPassword, self::$primaryKey => $this->id()]);
+        $validator = new Validator([
+            'newPassword' => $this->newPassword, 'confirmPassword' => $this->confirmPassword, self::$primaryKey => $this->id(),
+        ]);
 
         $validator->required()->set('confirmPassword', 'Confirm password');
 
-        $validator->required()->minLength(8)//->pregMatch('/[a-z]+/', 'Password must contain at least one lowercase character')
-        //->pregMatch('/[A-Z]+/', 'Password must contain at least one uppercase character')
-        ->pregMatch('/[0-9]+/', 'Password must contain at least one number')->pregMatch('/[\!\"\§\$\%\&\/\(\)\=\?\\\,\.\-\_\:\;\]\+\*\~\<\>\|]+/', 'Password must contain at least one special character')->callback(function ($password, $confirmPassword) {
-            return $password === $confirmPassword;
-        }, 'Password is not matching confirm password', [$this->confirmPassword])->set('newPassword', 'Password');
+        $validator->required()
+            ->minLength(8)//->pregMatch('/[a-z]+/', 'Password must contain at least one lowercase character')
+            //->pregMatch('/[A-Z]+/', 'Password must contain at least one uppercase character')
+            ->pregMatch('/[0-9]+/', 'Password must contain at least one number')
+            ->pregMatch('/[\!\"\§\$\%\&\/\(\)\=\?\\\,\.\-\_\:\;\]\+\*\~\<\>\|]+/', 'Password must contain at least one special character')
+            ->callback(function ($password, $confirmPassword) {
+                return $password === $confirmPassword;
+            }, 'Password is not matching confirm password', [$this->confirmPassword])
+            ->set('newPassword', 'Password');
 
         return (bool) $validator->validate();
     }
