@@ -71,7 +71,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/neoflow/Neoflow-Framework.git",
-                "reference": "b7206360b9e46071f3d42d1e8f624443631800f8"
+                "reference": "42359cd2a04d3e7eaccc24d0292c38e56e7c92a3"
             },
             "require": {
                 "neoflow/data-structures": "dev-master",
@@ -98,7 +98,7 @@
                 }
             ],
             "description": "PHP framework for small MVC based applications.",
-            "time": "2018-06-14T11:29:05+00:00"
+            "time": "2018-06-19T14:18:11+00:00"
         },
         {
             "name": "neoflow/functions",
