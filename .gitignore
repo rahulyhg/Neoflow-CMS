@@ -1,28 +1,26 @@
 # IDE files and folders
 .php_cs.cache
 node_modules/
-vendor/
-.idea/
+/vendor
+/.idea
 
 # Application files and folders
-logs/log_*
-config.php
-config-backup-*.php
-robots.txt
-sitemap.xml
+/config.php
+/config-backup-*.php
+/robots.txt
+/sitemap.xml
 
-temp/cache/cache_*
+/logs/log_*
+/temp/cache/cache_*
 
-media/modules/*/section-*
-!media/modules/.gitkeep
-!media/modules/*/.gitkeep
+/media/modules/*
+/media/public/*
+/media/users/*
 
-media/public/*
-!media/public/.gitkeep
+/neoflow-cms-*.zip
 
-neoflow-cms-*.zip
+/update/delivery/files/*
+/update/delivery/modules/*
+/update/delivery/themes/*
 
-update/delivery/files/*
-update/delivery/modules/*
-update/delivery/themes/*
-!update/delivery/*/.gitkeep
+!.gitkeep
