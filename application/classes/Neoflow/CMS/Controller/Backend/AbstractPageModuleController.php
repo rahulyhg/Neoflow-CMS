@@ -12,8 +12,8 @@ abstract class AbstractPageModuleController extends SectionController
     /**
      * Constructor.
      *
-     * @param SectionView $view
-     * @param array       $args
+     * @param SectionView $view Section view
+     * @param array       $args Request arguments
      *
      * @throws RuntimeException
      */
@@ -31,25 +31,29 @@ abstract class AbstractPageModuleController extends SectionController
             $section_id = $this->args['section_id'];
         }
 
-        $this->section = SectionModel::findById($section_id);
-        if ($this->section) {
-            $page = $this->section->page()->fetch();
-            $module = $this->section->module()->fetch();
-            $block = $this->section->block()->fetch();
+        if ($section_id) {
+            $this->section = SectionModel::findById($section_id);
+            if ($this->section) {
+                $page = $this->section->page()->fetch();
+                $module = $this->section->module()->fetch();
+                $block = $this->section->block()->fetch();
 
-            // Set title and breadcrumb for view
-            $this->view
-                ->setTitle($module->name)
-                ->setSubtitle('ID: '.$this->section->id().' '.translate('Block').': '.($block ? $block->title : translate('Not specified')))
-                ->addBreadcrumb(translate('Page', [], true), generate_url('backend_page_index', ['language_id' => $page->language_id]))
-                ->addBreadcrumb($page->title, generate_url('backend_section_index', ['page_id' => $page->id()]));
+                // Set title and breadcrumb for view
+                $this->view
+                    ->setTitle($module->name)
+                    ->setSubtitle('ID: '.$this->section->id().' '.translate('Block').': '.($block ? $block->title : translate('Not specified')))
+                    ->addBreadcrumb(translate('Page', [], true), generate_url('backend_page_index', ['language_id' => $page->language_id]))
+                    ->addBreadcrumb($page->title, generate_url('backend_section_index', ['page_id' => $page->id()]));
 
-            // Set back and preview url
-            $this->view
-                ->setBackRoute('backend_section_index', ['page_id' => $page->id()])
-                ->setPreviewUrl($page->getUrl().'#section-'.$this->section->id());
+                // Set back and preview url
+                $this->view
+                    ->setBackRoute('backend_section_index', ['page_id' => $page->id()])
+                    ->setPreviewUrl($page->getUrl().'#section-'.$this->section->id());
+            } else {
+                throw new RuntimeException('Section (ID: '.$section_id.') not found');
+            }
         } else {
-            throw new RuntimeException('Section not found in request params (GET/POST)');
+            throw new RuntimeException('Section ID not found in request params (GET/POST)');
         }
     }
 
@@ -70,7 +74,8 @@ abstract class AbstractPageModuleController extends SectionController
         $parameters = array_merge([
             'section' => $this->section,
             'page' => $page,
-            'module' => $module, ], $parameters);
+            'module' => $module,
+        ], $parameters);
 
         $this->view->renderView($viewFile, $parameters, 'backend-page-module-view');
 

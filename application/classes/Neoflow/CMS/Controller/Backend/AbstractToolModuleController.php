@@ -4,17 +4,14 @@ namespace Neoflow\CMS\Controller\Backend;
 
 use Neoflow\CMS\Controller\BackendController;
 use Neoflow\CMS\View\BackendView;
-use RuntimeException;
 
 abstract class AbstractToolModuleController extends BackendController
 {
     /**
      * Constructor.
      *
-     * @param BackendView $view
-     * @param array       $args
-     *
-     * @throws RuntimeException
+     * @param BackendView $view Backend view
+     * @param array       $args Request arguments
      */
     public function __construct(BackendView $view = null, array $args = [])
     {

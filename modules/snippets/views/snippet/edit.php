@@ -10,7 +10,7 @@
                 <form method="post" action="<?= generate_url('tmod_snippets_backend_update') ?>" class="form-horizontal">
                     <input value="<?= $snippet->id() ?>" type="hidden" name="snippet_id" />
 
-                    <div class="form-group row <?= has_validation_error('title', 'has-error') ?>">
+                    <div class="form-group row <?= has_validation_error('title', 'is-invalid') ?>">
                         <label for="inputTitle" class="col-sm-3 control-label">
                             <?= translate('Title') ?>
                         </label>
@@ -19,7 +19,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row <?= has_validation_error('placeholder', 'has-error') ?>">
+                    <div class="form-group row <?= has_validation_error('placeholder', 'is-invalid') ?>">
                         <label for="inputPlaceholder" class="col-sm-3 control-label">
                             <?= translate('Placeholder') ?>
                         </label>
@@ -40,7 +40,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row <?= has_validation_error('description', 'has-error') ?>">
+                    <div class="form-group row <?= has_validation_error('description', 'is-invalid') ?>">
                         <label for="textareaDescription" class="col-sm-3 control-label">
                             <?= translate('Description') ?>
                         </label>
@@ -50,7 +50,7 @@
                     </div>
 
 
-                    <div class="form-group row <?= has_validation_error('params', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('params', 'is-invalid') ?>">
                         <label for="inputParameters" class="col-sm-3 col-form-label">
                             <?= translate('Parameter', [], true) ?>
                         </label>
@@ -69,7 +69,7 @@
 
 
 
-                    <div class="form-group row <?= has_validation_error('code', 'has-error') ?>">
+                    <div class="form-group row <?= has_validation_error('code', 'is-invalid') ?>">
                         <label for="textareaCode" class="col-sm-3 control-label">
                             <?= translate('Code') ?>
                         </label>

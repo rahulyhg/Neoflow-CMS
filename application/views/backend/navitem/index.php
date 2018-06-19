@@ -50,7 +50,7 @@ if (1 !== $navigation->id()) {
                     <form method="post" action="<?= generate_url('backend_navitem_create') ?>">
                         <input type="hidden" value="<?= $navigationLanguage->id() ?>" name="language_id" />
                         <input type="hidden" value="<?= $navigation->id() ?>" name="navigation_id" />
-                        <div class="form-group row <?= has_validation_error('title', 'has-danger') ?>">
+                        <div class="form-group row <?= has_validation_error('title', 'is-invalid') ?>">
                             <label for="inputTitle" class="col-sm-3 col-form-label">
                                 <?= translate('Title') ?>
                             </label>
@@ -59,7 +59,7 @@ if (1 !== $navigation->id()) {
                             </div>
                         </div>
 
-                        <div class="form-group row <?= has_validation_error('parent_navitem_id', 'has-danger') ?>">
+                        <div class="form-group row <?= has_validation_error('parent_navitem_id', 'is-invalid') ?>">
                             <label for="selectPage" class="col-sm-3 col-form-label">
                                 <?= translate('Page') ?>
                             </label>
@@ -70,7 +70,7 @@ if (1 !== $navigation->id()) {
                             </div>
                         </div>
 
-                        <div class="form-group row <?= has_validation_error('parent_navitem_id', 'has-danger') ?>">
+                        <div class="form-group row <?= has_validation_error('parent_navitem_id', 'is-invalid') ?>">
                             <label for="selectParentNavitem" class="col-sm-3 col-form-label">
                                 <?= translate('Top item') ?>
                             </label>

@@ -9,19 +9,21 @@
             <div class="card-body">
 
                 <form method="post" action="<?= generate_url('tmod_sitemap_backend_update_settings') ?>" class="form-horizontal">
-                    <div class="form-group row <?= has_validation_error('default_changefreq', 'has-error') ?>">
+                    <div class="form-group row">
                         <label for="selectDefaultChangefreq" class="col-sm-3 col-form-label">
                             <?= translate('Change frequency') ?> *
                         </label>
                         <div class="col-sm-9">
-                            <select id="selectDefaultChangefreq" class="form-control" name="default_changefreq">
+                            <select id="selectDefaultChangefreq" class="form-control <?= has_validation_error('default_changefreq', 'is-invalid') ?>"
+                                    name="default_changefreq">
                                 <?php foreach ($changeFrequencies as $changeFrequency) {
-    ?>
-                                    <option <?= ($changeFrequency === $settings->default_changefreq ? 'selected' : '') ?> value="<?= $changeFrequency ?>">
+                                    ?>
+                                    <option <?= ($changeFrequency === $settings->default_changefreq ? 'selected' : '') ?>
+                                            value="<?= $changeFrequency ?>">
                                         <?= translate($changeFrequency) ?>
                                     </option>
                                     <?php
-}
+                                }
 
                                 ?>
                             </select>
@@ -31,21 +33,22 @@
                         </div>
                     </div>
 
-                    <div class="form-group row <?= has_validation_error('default_priority', 'has-error') ?>">
+                    <div class="form-group row <?= has_validation_error('default_priority', 'is-invalid') ?>">
                         <label for="inputDefaultPriority" class="col-sm-3 col-form-label">
                             <?= translate('Priority') ?> *
                         </label>
                         <div class="col-sm-9">
-                            <input value="<?= $settings->default_priority ?>" id="inputDefaultPriority" type="text" class="form-control" required name="default_priority" maxlength="20" />
+                            <input value="<?= $settings->default_priority ?>" id="inputDefaultPriority" type="text" class="form-control" required
+                                   name="default_priority" maxlength="20"/>
                             <small class="form-text text-muted">
                                 <?= translate('Applies to URLs that are registered without priority.') ?>
                             </small>
                         </div>
                     </div>
 
-                    <hr />
+                    <hr/>
 
-                    <div class="form-group row <?= has_validation_error('default_changefreq', 'has-error') ?>">
+                    <div class="form-group row <?= has_validation_error('default_changefreq', 'is-invalid') ?>">
                         <label for="selectSitemapLifetime" class="col-sm-3 col-form-label">
                             <?= translate('Sitemap lifetime') ?> *
                         </label>
@@ -53,7 +56,7 @@
                             <select id="selectSitemapLifetime" class="form-control" name="sitemap_lifetime">
                                 <?php foreach ($sitemapLifetimes as $key => $value) {
                                     ?>
-                                    <option <?= ($key === (int) $settings->sitemap_lifetime ? 'selected' : '') ?> value="<?= $key ?>">
+                                    <option <?= ($key === (int)$settings->sitemap_lifetime ? 'selected' : '') ?> value="<?= $key ?>">
                                         <?= translate($value) ?>
                                     </option>
                                     <?php
@@ -68,10 +71,11 @@
                     </div>
 
                     <div class="form-group row">
-                        <div class="offset-sm-3 col-sm-9 <?= has_validation_error('automated_creation', 'has-danger') ?>">
-                            <input type="hidden" value="0" name="automated_creation" />
+                        <div class="offset-sm-3 col-sm-9 <?= has_validation_error('automated_creation', 'is-invalid') ?>">
+                            <input type="hidden" value="0" name="automated_creation"/>
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" value="1" id="checkboxAutomatedCreation" name="automated_creation" <?= ($settings->automated_creation ? 'checked' : '') ?>>
+                                <input type="checkbox" class="custom-control-input" value="1" id="checkboxAutomatedCreation"
+                                       name="automated_creation" <?= ($settings->automated_creation ? 'checked' : '') ?>>
                                 <label class="custom-control-label" for="checkboxAutomatedCreation"><?= translate('Auto generation') ?></label>
                             </div>
                         </div>
@@ -110,9 +114,10 @@
                     <?php
                     if ($sitemapFile) {
                         ?>
-                        <li><?= translate('Status') ?>: <a href="<?= $sitemapFile->getUrl() ?>" target="_blank" title="<?= translate('Show sitemap') ?>"><?= translate('Available') ?></a></li>
+                        <li><?= translate('Status') ?>: <a href="<?= $sitemapFile->getUrl() ?>" target="_blank"
+                                                           title="<?= translate('Show sitemap') ?>"><?= translate('Available') ?></a></li>
                         <li><?= translate('Last creation') ?>: <?= format_timestamp($sitemapFile->getModificationTime()) ?>
-                            <?php
+                        <?php
                     } else {
                         ?>
                         <li><?= translate('Status') ?>: <?= translate('Unavailable') ?></li>
@@ -123,7 +128,8 @@
                     ?>
                 </ul>
 
-                <a href="<?= generate_url('tmod_sitemap_backend_recreate') ?>" class="btn btn-primary btn-icon-left" title="<?= translate('Recreate sitemap') ?>">
+                <a href="<?= generate_url('tmod_sitemap_backend_recreate') ?>" class="btn btn-primary btn-icon-left"
+                   title="<?= translate('Recreate sitemap') ?>">
                     <span class="btn-icon">
                         <i class="fa fa-sync"></i>
                     </span>
@@ -131,15 +137,16 @@
                 </a>
 
                 <?php if (!$settings->automated_creation) {
-                        ?>
-                    <a href="<?= generate_url('tmod_sitemap_backend_delete') ?>" class="btn btn-outline-light btn-icon-left confirm-modal" data-message="<?= translate('Are you sure you want to delete it?') ?>" title="<?= translate('Delete sitemap') ?>">
+                    ?>
+                    <a href="<?= generate_url('tmod_sitemap_backend_delete') ?>" class="btn btn-outline-light btn-icon-left confirm-modal"
+                       data-message="<?= translate('Are you sure you want to delete it?') ?>" title="<?= translate('Delete sitemap') ?>">
                         <span class="btn-icon">
                             <i class="fa fa-trash-alt"></i>
                         </span>
                         <?= translate('Delete') ?>
                     </a>
                     <?php
-                    }
+                }
 
                 ?>
             </div>

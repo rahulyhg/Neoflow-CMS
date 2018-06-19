@@ -71,7 +71,7 @@
             </h4>
             <div class="card-body">
                 <form method="post" action="<?= generate_url('backend_role_create') ?>">
-                    <div class="form-group row <?= has_validation_error('title', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('title', 'is-invalid') ?>">
                         <label for="inputTitle" class="col-sm-3 col-form-label">
                             <?= translate('Title') ?> *
                         </label>
@@ -80,7 +80,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row <?= has_validation_error('description', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('description', 'is-invalid') ?>">
                         <label for="textareaDescription" class="col-sm-3 col-form-label">
                             <?= translate('Description') ?>
                         </label>
@@ -89,7 +89,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row <?= has_validation_error('permission_ids', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('permission_ids', 'is-invalid') ?>">
                         <label for="selectPermissions" class="col-sm-3 col-form-label">
                             <?= translate('Permission', [], true) ?>
                         </label>

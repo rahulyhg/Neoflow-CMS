@@ -11,7 +11,7 @@
 
                 <form method="post" action="<?= generate_url('backend_section_update') ?>">
                     <input value="<?= $section->id() ?>" type="hidden" name="section_id" />
-                    <div class="form-group row <?= has_validation_error('block_key', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('block_key', 'is-invalid') ?>">
                         <label for="selectBlock" class="col-sm-3 col-form-label">
                             <?= translate('Block') ?> *
                         </label>

@@ -13,7 +13,7 @@
             <div class="card-body">
 
                 <form class="form-horizontal" method="post" action="<?= generate_url('install_website_create') ?>">
-                    <div class="form-group <?= has_validation_error('website_title', 'has-danger') ?>">
+                    <div class="form-group <?= has_validation_error('website_title', 'is-invalid') ?>">
                         <label for="inputWebsiteTitle">
                             <?= translate('Title') ?> *
                         </label>
@@ -22,7 +22,7 @@
 
                     <hr />
 
-                    <div class="form-group <?= has_validation_error('emailaddress', 'has-danger') ?>">
+                    <div class="form-group <?= has_validation_error('emailaddress', 'is-invalid') ?>">
                         <label for="inputSenderEmailaddress">
                             <?= translate('Email address') ?> *
                         </label>

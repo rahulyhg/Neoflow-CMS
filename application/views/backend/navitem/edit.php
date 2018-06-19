@@ -25,7 +25,7 @@ if (1 !== $navigation->id()) {
                         </div>
                     </div>
 
-                    <div class="form-group row <?= has_validation_error('parent_navitem_id', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('parent_navitem_id', 'is-invalid') ?>">
                         <label for="selectPage" class="col-sm-3 col-form-label">
                             <?= translate('Page') ?>
                         </label>
@@ -36,7 +36,7 @@ if (1 !== $navigation->id()) {
                         </div>
                     </div>
 
-                    <div class="form-group row <?= has_validation_error('parent_navitem_id', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('parent_navitem_id', 'is-invalid') ?>">
                         <label for="selectParentNavitem" class="col-sm-3 col-form-label">
                             <?= translate('Top item') ?>
                         </label>

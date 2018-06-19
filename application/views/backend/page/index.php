@@ -42,7 +42,7 @@
                 <div class="card-body">
                     <form method="post" action="<?= generate_url('backend_page_create') ?>">
                         <input type="hidden" value="<?= $activeLanguage->id() ?>" name="language_id" />
-                        <div class="form-group row <?= has_validation_error('title', 'has-danger') ?>">
+                        <div class="form-group row <?= has_validation_error('title', 'is-invalid') ?>">
                             <label for="inputTitle" class="col-sm-3 col-form-label">
                                 <?= translate('Title') ?> *
                             </label>
@@ -51,7 +51,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row <?= has_validation_error('parent_navitem_id', 'has-danger') ?>">
+                        <div class="form-group row <?= has_validation_error('parent_navitem_id', 'is-invalid') ?>">
                             <label for="selectPage" class="col-sm-3 col-form-label">
                                 <?= translate('Top page') ?>
                             </label>
@@ -76,7 +76,7 @@
                         <hr />
 
 
-                        <div class="form-group row <?= has_validation_error('module_id', 'has-danger') ?>">
+                        <div class="form-group row <?= has_validation_error('module_id', 'is-invalid') ?>">
                             <label for="selectModule" class="col-sm-3 col-form-label">
                                 <?= translate('Module') ?> *
                             </label>
@@ -93,7 +93,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row <?= has_validation_error('block_key', 'has-danger') ?>">
+                        <div class="form-group row <?= has_validation_error('block_key', 'is-invalid') ?>">
                             <label for="selectBlock" class="col-sm-3 col-form-label">
                                 <?= translate('Block') ?> *
                             </label>

@@ -13,19 +13,19 @@
             <div class="card-body">
 
                 <form method="post" action="<?= generate_url('install_administrator_create') ?>">
-                    <div class="form-group <?= has_validation_error('email', 'has-danger') ?>">
+                    <div class="form-group <?= has_validation_error('email', 'is-invalid') ?>">
                         <label for="inputEmail">
                             <?= translate('Email address') ?> *
                         </label>
                         <input id="inputEmail" value="<?= $user->email ?>" required type="email" required class="form-control" name="email" />
                     </div>
-                    <div class="form-group <?= has_validation_error('firstname', 'has-danger') ?>">
+                    <div class="form-group <?= has_validation_error('firstname', 'is-invalid') ?>">
                         <label for="inputFirstname">
                             <?= translate('Firstname') ?>
                         </label>
                         <input id="inputFirstname" value="<?= $user->firstname ?>" type="text" maxlength="50" class="form-control" name="firstname" maxlength="50" />
                     </div>
-                    <div class="form-group <?= has_validation_error('lastname', 'has-danger') ?>">
+                    <div class="form-group <?= has_validation_error('lastname', 'is-invalid') ?>">
                         <label for="inputLastname">
                             <?= translate('Lastname') ?>
                         </label>
@@ -34,7 +34,7 @@
 
                     <hr />
 
-                    <div class="form-group <?= has_validation_error('password', 'has-danger') ?>">
+                    <div class="form-group <?= has_validation_error('password', 'is-invalid') ?>">
                         <label for="inputPassword">
                             <?= translate('Password') ?> *
                         </label>
@@ -43,7 +43,7 @@
                             <?= translate('The password must be at least 8 characters long and contain a special character or a number.') ?>
                         </small>
                     </div>
-                    <div class="form-group <?= has_validation_error('password2', 'has-danger') ?>">
+                    <div class="form-group <?= has_validation_error('password2', 'is-invalid') ?>">
                         <label for="inputConfirmPassword">
                             <?= translate('Confirm password') ?>
                         </label>

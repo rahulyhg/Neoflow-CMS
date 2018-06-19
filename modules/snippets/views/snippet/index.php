@@ -94,7 +94,7 @@
             <div class="card-body">
                 <form method="post" action="<?= generate_url('tmod_snippets_backend_create') ?>"
                       class="form-horizontal">
-                    <div class="form-group row <?= has_validation_error('title', 'has-error') ?>">
+                    <div class="form-group row <?= has_validation_error('title', 'is-invalid') ?>">
                         <label for="inputTitle" class="col-sm-3 control-label">
                             <?= translate('Title') ?>
                         </label>
@@ -104,7 +104,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row <?= has_validation_error('placeholder', 'has-error') ?>">
+                    <div class="form-group row <?= has_validation_error('placeholder', 'is-invalid') ?>">
                         <label for="inputPlaceholder" class="col-sm-3 control-label">
                             <?= translate('Placeholder') ?>
                         </label>

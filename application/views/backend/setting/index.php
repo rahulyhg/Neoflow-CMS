@@ -8,7 +8,7 @@
 
                 <form method="post" action="<?= generate_url('backend_setting_update') ?>">
                     <input type="hidden" value="general" name="type"/>
-                    <div class="form-group row <?= has_validation_error('website_title', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('website_title', 'is-invalid') ?>">
                         <label for="inputWebsiteTitle" class="col-sm-3 col-form-label">
                             <?= translate('Website title') ?> *
                         </label>
@@ -17,7 +17,7 @@
                                    name="website_title" maxlength="50" minlength="3"/>
                         </div>
                     </div>
-                    <div class="form-group row <?= has_validation_error('website_description', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('website_description', 'is-invalid') ?>">
                         <label for="textareaWebsiteDescription" class="col-sm-3 col-form-label">
                             <?= translate('Website description') ?>
                         </label>
@@ -26,7 +26,7 @@
                                       rows="3"><?= $setting->website_description ?></textarea>
                         </div>
                     </div>
-                    <div class="form-group row <?= has_validation_error('website_keywords', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('website_keywords', 'is-invalid') ?>">
                         <label for="selectWebsiteKeywords" class="col-sm-3 col-form-label">
                             <?= translate('Website keyword', [], true) ?>
                         </label>
@@ -39,7 +39,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group row <?= has_validation_error('website_author', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('website_author', 'is-invalid') ?>">
                         <label for="inputWebsiteAuthor" class="col-sm-3 col-form-label">
                             <?= translate('Website author') ?>
                         </label>
@@ -51,7 +51,7 @@
 
                     <hr/>
 
-                    <div class="form-group row <?= has_validation_error('emailaddress', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('emailaddress', 'is-invalid') ?>">
                         <label for="inputSenderEmailaddress" class="col-sm-3 col-form-label">
                             <?= translate('Email address') ?> *
                         </label>
@@ -119,7 +119,7 @@
 
                     <hr/>
 
-                    <div class="form-group row <?= has_validation_error('allowed_file_extensions', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('allowed_file_extensions', 'is-invalid') ?>">
                         <label for="inputAllowedFileExtensions" class="col-sm-3 col-form-label">
                             <?= translate('Allowed file extension', [], true) ?>
                         </label>
@@ -161,7 +161,7 @@
 
                 <form method="post" action="<?= generate_url('backend_setting_update') ?>">
                     <input type="hidden" value="security" name="type"/>
-                    <div class="form-group row <?= has_validation_error('login_attempts', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('login_attempts', 'is-invalid') ?>">
                         <label for="inputLoginAttempts" class="col-sm-3 col-form-label">
                             <?= translate('Login attempt', [], true) ?> *
                         </label>
@@ -170,7 +170,7 @@
                                    name="login_attempts"/>
                         </div>
                     </div>
-                    <div class="form-group row <?= has_validation_error('session_lifetime', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('session_lifetime', 'is-invalid') ?>">
                         <label for="inputSessionLifetime" class="col-sm-3 col-form-label">
                             <?= translate('Session lifetime') ?> *
                         </label>
@@ -187,7 +187,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row <?= has_validation_error('session_name', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('session_name', 'is-invalid') ?>">
                         <label for="inputSessionName" class="col-sm-3 col-form-label">
                             <?= translate('Session name') ?>
                         </label>
@@ -248,7 +248,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row <?= has_validation_error('custom_css', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('custom_css', 'is-invalid') ?>">
                         <label for="textareaCustomCss" class="col-sm-3 col-form-label">
                             <?= translate('Custom CSS') ?>
                         </label>
@@ -267,7 +267,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <div class="offset-sm-3 col-sm-9 <?= has_validation_error('show_custom_css', 'has-danger') ?>">
+                        <div class="offset-sm-3 col-sm-9 <?= has_validation_error('show_custom_css', 'is-invalid') ?>">
                             <input type="hidden" value="0" name="show_custom_css"/>
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" id="checkboxShowCustomCss" class="custom-control-input" value="1"
@@ -277,7 +277,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row <?= has_validation_error('custom_js', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('custom_js', 'is-invalid') ?>">
                         <label for="textareaCustomJs" class="col-sm-3 col-form-label">
                             <?= translate('Custom JavaScript') ?>
                         </label>
@@ -296,7 +296,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <div class="offset-sm-3 col-sm-9 <?= has_validation_error('show_custom_js', 'has-danger') ?>">
+                        <div class="offset-sm-3 col-sm-9 <?= has_validation_error('show_custom_js', 'is-invalid') ?>">
                             <input type="hidden" value="0" name="show_custom_js"/>
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" id="checkboxShowCustomJs" class="custom-control-input" value="1"
@@ -330,7 +330,7 @@
                     <hr/>
 
                     <div class="form-group row">
-                        <div class="offset-sm-3 col-sm-4 <?= has_validation_error('show_debugbar', 'has-danger') ?>">
+                        <div class="offset-sm-3 col-sm-4 <?= has_validation_error('show_debugbar', 'is-invalid') ?>">
                             <input type="hidden" value="0" name="show_debugbar"/>
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" id="checkboxShowDebugbar" class="custom-control-input" value="1"
@@ -338,7 +338,7 @@
                                 <label class="custom-control-label" for="checkboxShowDebugbar"><?= translate('Show debugbar') ?></label>
                             </div>
                         </div>
-                        <div class="col-sm-5 <?= has_validation_error('show_error_details', 'has-danger') ?>">
+                        <div class="col-sm-5 <?= has_validation_error('show_error_details', 'is-invalid') ?>">
                             <input type="hidden" value="0" name="show_error_details"/>
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" value="1" id="checkboxShowErrorDetails"

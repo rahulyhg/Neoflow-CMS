@@ -10,7 +10,7 @@
 
                 <form method="post" action="<?= generate_url('tmod_robots_backend_update') ?>" class="form-horizontal">
 
-                    <div class="form-group <?= has_validation_error('custom_css', 'has-danger') ?>">
+                    <div class="form-group <?= has_validation_error('custom_css', 'is-invalid') ?>">
                         <textarea name="content" class="form-control vresize" rows="8"><?= $content ?></textarea>
                     </div>
 

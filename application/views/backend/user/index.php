@@ -72,7 +72,7 @@
             </h4>
             <div class="card-body">
                 <form method="post" action="<?= generate_url('backend_user_create') ?>">
-                    <div class="form-group row <?= has_validation_error('email', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('email', 'is-invalid') ?>">
                         <label for="inputTitle" class="col-sm-3 col-form-label">
                             <?= translate('Email address') ?> *
                         </label>
@@ -80,7 +80,7 @@
                             <input type="email" name="email" id="inputTitle" required class="form-control"/>
                         </div>
                     </div>
-                    <div class="form-group row <?= has_validation_error('firstname', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('firstname', 'is-invalid') ?>">
                         <label for="inputFirstname" class="col-sm-3 col-form-label">
                             <?= translate('Firstname') ?>
                         </label>
@@ -89,7 +89,7 @@
                                    maxlength="50"/>
                         </div>
                     </div>
-                    <div class="form-group row <?= has_validation_error('lastname', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('lastname', 'is-invalid') ?>">
                         <label for="inputLastname" class="col-sm-3 col-form-label">
                             <?= translate('Lastname') ?>
                         </label>
@@ -97,7 +97,7 @@
                             <input id="inputLastname" type="text" class="form-control" name="lastname" maxlength="50"/>
                         </div>
                     </div>
-                    <div class="form-group row <?= has_validation_error('password', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('password', 'is-invalid') ?>">
                         <label for="inputPassword" class="col-sm-3 col-form-label">
                             <?= translate('Password') ?>
                         </label>
@@ -109,7 +109,7 @@
                             </small>
                         </div>
                     </div>
-                    <div class="form-group row <?= has_validation_error('password2', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('password2', 'is-invalid') ?>">
                         <label for="inputConfirmPassword" class="col-sm-3 col-form-label">
                             <?= translate('Confirm password') ?>
                         </label>
@@ -118,7 +118,7 @@
                                    name="confirmPassword"/>
                         </div>
                     </div>
-                    <div class="form-group row <?= has_validation_error('role_id', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('role_id', 'is-invalid') ?>">
                         <label for="selectRole" class="col-sm-3 col-form-label">
                             <?= translate('Role') ?> *
                         </label>

@@ -11,7 +11,7 @@
                 <form method="post" action="<?= generate_url('backend_page_update') ?>">
                     <input value="<?= $page->id() ?>" type="hidden" name="page_id" />
 
-                    <div class="form-group row <?= has_validation_error('title', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('title', 'is-invalid') ?>">
                         <label for="inputTitle" class="col-sm-3 col-form-label">
                             <?= translate('Title') ?> *
                         </label>
@@ -20,7 +20,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row <?= has_validation_error('url', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('url', 'is-invalid') ?>">
                         <label for="inputCustomSlug" class="col-sm-3 col-form-label">
                             <?= translate('URL') ?>
                         </label>
@@ -48,7 +48,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row <?= has_validation_error('description', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('description', 'is-invalid') ?>">
                         <label for="textareaDescription" class="col-sm-3 col-form-label">
                             <?= translate('Description') ?>
                         </label>
@@ -57,7 +57,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row <?= has_validation_error('keywords', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('keywords', 'is-invalid') ?>">
                         <label for="selectKeywords" class="col-sm-3 col-form-label">
                             <?= translate('Keyword', [], true) ?>
                         </label>
@@ -104,7 +104,7 @@
 
                     <hr />
 
-                    <div class="form-group row <?= has_validation_error('navigation_title', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('navigation_title', 'is-invalid') ?>">
                         <label for="inputNavigationTitle" class="col-sm-3 col-form-label">
                             <?= translate('Navigation title') ?>
                         </label>

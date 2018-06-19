@@ -94,7 +94,7 @@
                 <form method="post" action="<?= generate_url('backend_section_create') ?>">
                     <input value="<?= $page->id() ?>" type="hidden" name="page_id" />
 
-                    <div class="form-group row <?= has_validation_error('block_key', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('block_key', 'is-invalid') ?>">
                         <label for="selectBlock" class="col-sm-3 col-form-label">
                             <?= translate('Block') ?> *
                         </label>
@@ -107,7 +107,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row <?= has_validation_error('module_id', 'has-danger') ?>">
+                    <div class="form-group row <?= has_validation_error('module_id', 'is-invalid') ?>">
                         <label for="selectModule" class="col-sm-3 col-form-label">
                             <?= translate('Module') ?> *
                         </label>

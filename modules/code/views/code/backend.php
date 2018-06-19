@@ -2,7 +2,7 @@
     <h4 class="card-header"><?= translate('Code editor') ?></h4>
     <div class="card-body">
         <form method="post" action="<?= generate_url('pmod_code_backend_update') ?>" class="form-horizontal">
-            <div class="form-group <?= has_validation_error('code', 'has-error') ?>">
+            <div class="form-group <?= has_validation_error('code', 'is-invalid') ?>">
                 <input type="hidden" value="<?= $code->id() ?>" name="code_id"/>
                 <input type="hidden" value="<?= $section->id() ?>" name="section_id"/>
 
