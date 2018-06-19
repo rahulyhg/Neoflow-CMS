@@ -56,7 +56,7 @@ class Manager extends AbstractPageModuleManager
 
         $this->database()->exec('
                     CREATE TABLE `mod_blog_articles` (
-                      `article_id` INT NOT NULL AUTO_INCREMENT,
+                      `blog_id` INT NOT NULL AUTO_INCREMENT,
                       `section_id` INT NULL,
                       `title` VARCHAR(100) NOT NULL,
                       `title_slug` VARCHAR(100) NOT NULL,
@@ -118,7 +118,9 @@ class Manager extends AbstractPageModuleManager
     public function uninstall(): bool
     {
         $mediaPath = $this->config()->getMediaPath('/modules/blog');
-        Folder::unlink($mediaPath, true);
+        if (is_dir($mediaPath)) {
+            Folder::unlink($mediaPath, true);
+        }
 
         $this->database()->exec('
                     DROP TABLE `mod_blog_articles`;

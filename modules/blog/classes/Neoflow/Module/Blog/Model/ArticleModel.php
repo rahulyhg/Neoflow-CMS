@@ -4,16 +4,19 @@ namespace Neoflow\Module\Blog\Model;
 
 use Neoflow\CMS\App;
 use Neoflow\CMS\Core\AbstractModel;
-use Neoflow\CMS\Model\PageModel;
-use Neoflow\CMS\Model\SectionModel;
 use Neoflow\Framework\ORM\EntityValidator;
-use Neoflow\Framework\ORM\Repository;
 use Neoflow\Module\Search\ModelSearchInterface;
 use Neoflow\Module\Search\Result;
 use Neoflow\Module\Search\Results;
 
 class ArticleModel extends AbstractModel implements ModelSearchInterface
 {
+    /**
+     * Traits.
+     */
+    use SectionTrait;
+    use UrlTrait;
+
     /**
      * @var string
      */
@@ -34,78 +37,6 @@ class ArticleModel extends AbstractModel implements ModelSearchInterface
     ];
 
     /**
-     * Get repository to fetch section.
-     *
-     * @return Repository
-     */
-    public function section(): Repository
-    {
-        return $this->belongsTo('Neoflow\\CMS\\Model\\SectionModel', 'section_id');
-    }
-
-    /**
-     * Get section.
-     *
-     * @return SectionModel|null
-     */
-    public function getSection()
-    {
-        $section = $this->section()->fetch();
-
-        if ($section) {
-            return $section;
-        }
-
-        return null;
-    }
-
-    /**
-     * Get page.
-     *
-     * @return PageModel|null
-     */
-    public function getPage()
-    {
-        $section = $this->getSection();
-
-        if ($section) {
-            return $section->getPage();
-        }
-
-        return null;
-    }
-
-    /**
-     * Get article URL.
-     *
-     * @return string
-     */
-    public function getUrl(): string
-    {
-        $page = $this->getSection()->getPage();
-
-        if ($page) {
-            return normalize_url($page->getUrl().'/'.$this->title_slug);
-        }
-
-        return '#';
-    }
-
-    /**
-     * Save article.
-     *
-     * @param bool $preventCacheClearing Prevent that the cached database results will get deleted
-     *
-     * @return bool
-     */
-    public function save(bool $preventCacheClearing = false): bool
-    {
-        $this->title_slug = slugify($this->title);
-
-        return parent::save($preventCacheClearing);
-    }
-
-    /**
      * Search for results.
      *
      * @param string $query Search query string
@@ -115,7 +46,7 @@ class ArticleModel extends AbstractModel implements ModelSearchInterface
     public static function search(string $query): Results
     {
         $articles = static::repo()->whereRaw(
-            '`content` LIKE "%:?% OR `title` LIKE "%:?% OR `abstract` LIKE "%:?%', [$query, $query, $query]);
+            '`content` LIKE "%?% OR `title` LIKE "%?% OR `abstract` LIKE "%?%', [$query, $query, $query]);
 
         $language_id = App::instance()->get('translator')->getCurrentLanguage()->id();
 
@@ -151,6 +82,10 @@ class ArticleModel extends AbstractModel implements ModelSearchInterface
     public function validate(): bool
     {
         $validator = new EntityValidator($this);
+
+        $validator
+            ->required()
+            ->set('section_id');
 
         $validator
             ->required()

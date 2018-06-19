@@ -8,6 +8,11 @@ use Neoflow\Framework\ORM\EntityValidator;
 class SettingModel extends AbstractModel
 {
     /**
+     * Traits.
+     */
+    use SectionTrait;
+
+    /**
      * @var string
      */
     public static $tableName = 'mod_blog_settings';
@@ -35,8 +40,12 @@ class SettingModel extends AbstractModel
 
         $validator
             ->required()
+            ->set('section_id');
+
+        $validator
+            ->required()
             ->min(3)
-            ->set('articles_per_page');
+            ->set('articles_per_page', 'Articles per page');
 
         return (bool) $validator->validate();
     }

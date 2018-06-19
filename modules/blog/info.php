@@ -13,7 +13,7 @@ return [
     'license' => 'MIT',
     'type' => 'page',
     'folder_name' => 'blog',
-    'manager_class' => 'Neoflow\\Module\\Articles\\Manager',
+    'manager_class' => 'Neoflow\\Module\\Blog\\Manager',
     'backend_route' => 'pmod_blog_backend_index',
     'frontend_route' => 'pmod_blog_frontend_index',
 ];

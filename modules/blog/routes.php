@@ -12,6 +12,8 @@ return [
             ['pmod_blog_backend_category_create', 'post', '/backend/module/blog/(section_id:num)/category/create', 'Category@create'],
             ['pmod_blog_backend_category_update', 'post', '/backend/module/blog/(section_id:num)/category/update', 'Category@update'],
             ['pmod_blog_backend_category_delete', 'get', '/backend/module/blog/(section_id:num)/category/delete/(id:num)', 'Category@delete'],
+            ['pmod_blog_backend_setting_index', 'get', '/backend/module/blog/(section_id:num)/settings', 'Setting@index'],
+            ['pmod_blog_backend_setting_create', 'post', '/backend/module/blog/(section_id:num)/setting/update', 'Setting@create'],
         ],
         'namespace' => 'Neoflow\\Module\\Blog\\Controller\\Backend\\',
     ],
