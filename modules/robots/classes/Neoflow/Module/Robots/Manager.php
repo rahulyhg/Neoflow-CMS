@@ -43,11 +43,6 @@ class Manager extends AbstractModuleManager
      */
     public function update(): bool
     {
-        if ('1.0.0' === $this->module->oldVersion) {
-            echo $this->module->oldVersion;
-            exit;
-        }
-
         return true;
     }
 }

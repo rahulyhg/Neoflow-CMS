@@ -7,9 +7,7 @@ return [
     'dependencies' => 'wysiwyg',
     'description' => 'HTML text editor, designed to simplify website content creation. Extends the WYSIWYG editor module.',
     'version' => '4.7.11',
-    'for' => [
-        '4.7.1',
-    ],
+    'for' => [],
     'author' => 'Jonathan Nessier <jonathan.nessier@neoflow.ch>',
     'copyright' => '(c) Jonathan Nessier, Neoflow.ch',
     'license' => 'MIT',

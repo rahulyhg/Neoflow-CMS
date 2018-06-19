@@ -107,13 +107,6 @@ class Manager extends AbstractPageModuleManager
      */
     public function update(): bool
     {
-        if ('1.0' === $this->module->oldVersion) {
-            $entity = new Model();
-            $entity->entity_class = 'Neoflow\\Module\\WYSIWYG\\Model';
-            $entity->validate();
-            $entity->save();
-        }
-
         return true;
     }
 }

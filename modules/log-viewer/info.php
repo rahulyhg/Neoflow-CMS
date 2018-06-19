@@ -6,9 +6,9 @@ return [
     'identifier' => 'log-viewer',
     'dependencies' => '',
     'description' => 'User-friendly and simple viewer for in-depth analysis of log files.',
-    'version' => '1.0.1',
+    'version' => '1.0.2',
     'for' => [
-        '1.0',
+        '1.0.1',
     ],
     'author' => 'Jonathan Nessier <jonathan.nessier@neoflow.ch>',
     'copyright' => '(c) Jonathan Nessier, Neoflow.ch',

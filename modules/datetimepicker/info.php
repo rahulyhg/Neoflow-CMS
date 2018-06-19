@@ -7,9 +7,7 @@ return [
     'dependencies' => '',
     'description' => 'Datetimepicker, datepicker or timepicker dropdown to your forms.',
     'version' => '1.3.4',
-    'for' => [
-        '5.27.4',
-    ],
+    'for' => [],
     'author' => 'Jonathan Nessier <jonathan.nessier@neoflow.ch>',
     'copyright' => '(c) Jonathan Nessier, Neoflow.ch',
     'license' => 'MIT',

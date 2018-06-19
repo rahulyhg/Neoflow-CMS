@@ -6,7 +6,10 @@ return [
     'identifier' => 'search',
     'dependencies' => '',
     'description' => 'Provides a dynamic search.',
-    'version' => '1.0.0',
+    'version' => '1.0.1',
+    'for' => [
+        '1.0.0',
+    ],
     'author' => 'Jonathan Nessier <jonathan.nessier@neoflow.ch>',
     'copyright' => '(c) Jonathan Nessier, Neoflow.ch',
     'license' => 'MIT',

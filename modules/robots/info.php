@@ -6,9 +6,9 @@ return [
     'identifier' => 'robots',
     'dependencies' => '',
     'description' => 'Editor to edit the content of robots.txt.',
-    'version' => '1.0.1',
+    'version' => '1.0.2',
     'for' => [
-        '1.0',
+        '1.0.1',
     ],
     'author' => 'Jonathan Nessier <jonathan.nessier@neoflow.ch>',
     'copyright' => '(c) Jonathan Nessier, Neoflow.ch',

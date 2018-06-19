@@ -6,9 +6,9 @@ return [
     'identifier' => 'code',
     'dependencies' => '',
     'description' => 'Page module for PHP code editing of website content.',
-    'version' => '1.0.1',
+    'version' => '1.0.2',
     'for' => [
-        '1.0',
+        '1.0.1',
     ],
     'author' => 'Jonathan Nessier <jonathan.nessier@neoflow.ch>',
     'copyright' => '(c) Jonathan Nessier, Neoflow.ch',
