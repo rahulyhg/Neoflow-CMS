@@ -16475,6 +16475,146 @@ legend {
   margin-left: 0;
 }
 
+.form-group.is-invalid .form-control,
+.form-group.is-invalid .custom-select {
+  border-color: #D9534F;
+}
+
+.form-group.is-invalid .form-control:focus,
+.form-group.is-invalid .custom-select:focus {
+  border-color: #D9534F;
+  box-shadow: 0 0 0 0.2rem rgba(217, 83, 79, 0.25);
+}
+
+.form-group.is-invalid .form-control ~ .invalid-feedback,
+.form-group.is-invalid .form-control ~ .invalid-tooltip,
+.form-group.is-invalid .custom-select ~ .invalid-feedback,
+.form-group.is-invalid .custom-select ~ .invalid-tooltip {
+  display: block;
+}
+
+.form-group.is-invalid .form-control-file ~ .invalid-feedback,
+.form-group.is-invalid .form-control-file ~ .invalid-tooltip {
+  display: block;
+}
+
+.form-group.is-invalid .form-check-input ~ .form-check-label {
+  color: #D9534F;
+}
+
+.form-group.is-invalid .form-check-input ~ .invalid-feedback,
+.form-group.is-invalid .form-check-input ~ .invalid-tooltip {
+  display: block;
+}
+
+.form-group.is-invalid .custom-control-input ~ .custom-control-label {
+  color: #D9534F;
+}
+
+.form-group.is-invalid .custom-control-input ~ .custom-control-label::before {
+  background-color: #f0b9b8;
+}
+
+.form-group.is-invalid .custom-control-input ~ .invalid-feedback,
+.form-group.is-invalid .custom-control-input ~ .invalid-tooltip {
+  display: block;
+}
+
+.form-group.is-invalid .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #e27c79;
+}
+
+.form-group.is-invalid .custom-control-input:focus ~ .custom-control-label::before {
+  box-shadow: 0 0 0 1px #32323A, 0 0 0 0.2rem rgba(217, 83, 79, 0.25);
+}
+
+.form-group.is-invalid .custom-file-input ~ .custom-file-label {
+  border-color: #D9534F;
+}
+
+.form-group.is-invalid .custom-file-input ~ .custom-file-label::before {
+  border-color: inherit;
+}
+
+.form-group.is-invalid .custom-file-input ~ .invalid-feedback,
+.form-group.is-invalid .custom-file-input ~ .invalid-tooltip {
+  display: block;
+}
+
+.form-group.is-invalid .custom-file-input:focus ~ .custom-file-label {
+  box-shadow: 0 0 0 0.2rem rgba(217, 83, 79, 0.25);
+}
+
+.form-group.is-valid .form-control,
+.form-group.is-valid .custom-select {
+  border-color: #5CB85C;
+}
+
+.form-group.is-valid .form-control:focus,
+.form-group.is-valid .custom-select:focus {
+  border-color: #5CB85C;
+  box-shadow: 0 0 0 0.2rem rgba(92, 184, 92, 0.25);
+}
+
+.form-group.is-valid .form-control ~ .valid-feedback,
+.form-group.is-valid .form-control ~ .valid-tooltip,
+.form-group.is-valid .custom-select ~ .valid-feedback,
+.form-group.is-valid .custom-select ~ .valid-tooltip {
+  display: block;
+}
+
+.form-group.is-valid .form-control-file ~ .valid-feedback,
+.form-group.is-valid .form-control-file ~ .valid-tooltip {
+  display: block;
+}
+
+.form-group.is-valid .form-check-input ~ .form-check-label {
+  color: #5CB85C;
+}
+
+.form-group.is-valid .form-check-input ~ .valid-feedback,
+.form-group.is-valid .form-check-input ~ .valid-tooltip {
+  display: block;
+}
+
+.form-group.is-valid .custom-control-input ~ .custom-control-label {
+  color: #5CB85C;
+}
+
+.form-group.is-valid .custom-control-input ~ .custom-control-label::before {
+  background-color: #b5dfb5;
+}
+
+.form-group.is-valid .custom-control-input ~ .valid-feedback,
+.form-group.is-valid .custom-control-input ~ .valid-tooltip {
+  display: block;
+}
+
+.form-group.is-valid .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #80c780;
+}
+
+.form-group.is-valid .custom-control-input:focus ~ .custom-control-label::before {
+  box-shadow: 0 0 0 1px #32323A, 0 0 0 0.2rem rgba(92, 184, 92, 0.25);
+}
+
+.form-group.is-valid .custom-file-input ~ .custom-file-label {
+  border-color: #5CB85C;
+}
+
+.form-group.is-valid .custom-file-input ~ .custom-file-label::before {
+  border-color: inherit;
+}
+
+.form-group.is-valid .custom-file-input ~ .valid-feedback,
+.form-group.is-valid .custom-file-input ~ .valid-tooltip {
+  display: block;
+}
+
+.form-group.is-valid .custom-file-input:focus ~ .custom-file-label {
+  box-shadow: 0 0 0 0.2rem rgba(92, 184, 92, 0.25);
+}
+
 .table td {
   vertical-align: middle;
 }

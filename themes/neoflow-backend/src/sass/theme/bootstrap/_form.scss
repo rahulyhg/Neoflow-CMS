@@ -1,10 +1,103 @@
 legend {
-    font-size: $font-size-lg;
-    font-family: $headings-font-family;
-    font-weight: 500;
-    color: $gray-700;
+  font-size: $font-size-lg;
+  font-family: $headings-font-family;
+  font-weight: 500;
+  color: $gray-700;
 }
 
 .input-group-btn:not(:first-child) > .btn, .input-group-btn:not(:first-child) > .btn-group {
-    margin-left: 0;
+  margin-left: 0;
+}
+
+@mixin form-group-validation-state($state, $color) {
+  &.is-#{$state} {
+
+    .form-control,
+    .custom-select {
+      border-color: $color;
+
+      &:focus {
+        border-color: $color;
+        box-shadow: 0 0 0 $input-focus-width rgba($color, .25);
+      }
+
+      ~ .#{$state}-feedback,
+      ~ .#{$state}-tooltip {
+        display: block;
+      }
+    }
+
+    .form-control-file {
+      ~ .#{$state}-feedback,
+      ~ .#{$state}-tooltip {
+        display: block;
+      }
+    }
+
+    .form-check-input {
+      ~ .form-check-label {
+        color: $color;
+      }
+
+      ~ .#{$state}-feedback,
+      ~ .#{$state}-tooltip {
+        display: block;
+      }
+    }
+
+    .custom-control-input {
+      ~ .custom-control-label {
+        color: $color;
+
+        &::before {
+          background-color: lighten($color, 25%);
+        }
+      }
+
+      ~ .#{$state}-feedback,
+      ~ .#{$state}-tooltip {
+        display: block;
+      }
+
+      &:checked {
+        ~ .custom-control-label::before {
+          @include gradient-bg(lighten($color, 10%));
+        }
+      }
+
+      &:focus {
+        ~ .custom-control-label::before {
+          box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-focus-width rgba($color, .25);
+        }
+      }
+    }
+
+    // custom file
+    .custom-file-input {
+      ~ .custom-file-label {
+        border-color: $color;
+
+        &::before {
+          border-color: inherit;
+        }
+      }
+
+      ~ .#{$state}-feedback,
+      ~ .#{$state}-tooltip {
+        display: block;
+      }
+
+      &:focus {
+        ~ .custom-file-label {
+          box-shadow: 0 0 0 $input-focus-width rgba($color, .25);
+        }
+      }
+
+    }
+  }
+}
+
+.form-group {
+  @include form-group-validation-state("invalid", $form-feedback-invalid-color);
+  @include form-group-validation-state("valid", $form-feedback-valid-color);
 }
