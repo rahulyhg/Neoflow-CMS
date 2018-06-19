@@ -4,7 +4,7 @@
     </h4>
     <div class="card-body">
         <form method="post" action="<?= generate_url('pmod_wysiwyg_backend_update') ?>" class="form-horizontal">
-            <div class="form-group <?= has_validation_error('content', 'has-error') ?>">
+            <div class="form-group <?= has_validation_error('content', 'is-invalid') ?>">
                 <input type="hidden" value="<?= $wysiwyg->id() ?>" name="wysiwyg_id" />
                 <input type="hidden" value="<?= $section->id() ?>" name="section_id" />
                 <?= Neoflow\CMS\App::instance()->service('wysiwyg')->renderEditor('content[section-'.$section->id().']', 'section-'.$section->id(), $wysiwyg->content) ?>

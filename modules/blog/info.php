@@ -14,6 +14,6 @@ return [
     'type' => 'page',
     'folder_name' => 'blog',
     'manager_class' => 'Neoflow\\Module\\Blog\\Manager',
-    'backend_route' => 'pmod_blog_backend_index',
-    'frontend_route' => 'pmod_blog_frontend_index',
+    'backend_route' => 'pmod_blog_backend_article_index',
+    'frontend_route' => 'pmod_blog_frontend_article_index',
 ];

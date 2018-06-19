@@ -92,8 +92,12 @@ class ArticleModel extends AbstractModel implements ModelSearchInterface
             ->minLength(3)
             ->maxLength(100)
             ->callback(function ($title, $id) {
-                return 0 === self::repo()->where('title', '=', $title)->where('article_id', '!=', $id)->count();
-            }, '{0} has to be unique', [$this->id()])->set('title', 'Title');
+                return 0 === ArticleModel::repo()
+                        ->where('title', '=', $title)
+                        ->where('article_id', '!=', $id)
+                        ->count();
+            }, '{0} has to be unique', [$this->id()])
+            ->set('title', 'Title');
 
         $validator
             ->maxLength(500)
