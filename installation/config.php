@@ -3,7 +3,7 @@
 return [
     'app' => [
         'url' => '',
-        'version' => '1.0.0-a2',
+        'version' => '1.0.0-b1',
         'languages' => [
             'en',
             'de',

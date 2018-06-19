@@ -1,12 +1,10 @@
 <?php
 
 return [
-    'version' => '1.0.0-a2',
+    'version' => '1.0.0-b1',
     'for' => [
-        '1.0.0-a1',
+        '1.0.0-a2',
     ],
-    'sql' => false, // Old param (only needed for update from 1.0.0-a1 to 1.0.0-a2).
-    'files' => false, // Old param (only needed for update from 1.0.0-a1 to 1.0.0-a2).
     'path' => [
         'sql' => '/delivery/changes.sql',
         'files' => '/delivery/files',
@@ -25,6 +23,7 @@ return [
         'robots' => 'robots.zip',
         'sitemap' => 'sitemap.zip',
         'snippets' => 'snippets.zip',
+        'blog' => 'blog.zip',
     ],
     'themes' => [
         'flatly' => 'flatly.zip',
