@@ -258,7 +258,7 @@ class MediaController extends BackendController
             $this->service('filesystem')->renameFile($this->currentFile, $name, false);
             $this->service('alert')->success(translate('Successfully renamed'));
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Rename failed'), $ex->getErrors()]);
+            $this->service('alert')->danger([translate('Rename failed'), $ex->getErrors()]);
         } catch (FilesystemException $ex) {
             $this->service('alert')->danger([translate('Rename file failed, see error message'), [$ex->getMessage()]]);
         }
@@ -280,7 +280,7 @@ class MediaController extends BackendController
             $this->service('filesystem')->renameFolder($this->currentFolder, $name, false);
             $this->service('alert')->success(translate('Successfully renamed'));
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Rename failed'), $ex->getErrors()]);
+            $this->service('alert')->danger([translate('Rename failed'), $ex->getErrors()]);
         } catch (FilesystemException $ex) {
             $this->service('alert')->danger([
                 translate('Rename folder failed, see error message'),
@@ -314,7 +314,7 @@ class MediaController extends BackendController
                 $this->service('alert')->success([translate('Successfully uploaded'), array_keys($result['success'])]);
             }
             if (count($result['error'])) {
-                $this->service('alert')->warning([translate('Upload failed'), $result['error']]);
+                $this->service('alert')->danger([translate('Upload failed'), $result['error']]);
             }
         } catch (Exception $ex) {
             $this->service('alert')->danger([
@@ -340,7 +340,7 @@ class MediaController extends BackendController
             $this->service('filesystem')->createNewFolder($name, $this->currentFolder->getPath());
             $this->service('alert')->success(translate('Successfully created'));
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Create failed'), $ex->getErrors()]);
+            $this->service('alert')->danger([translate('Create failed'), $ex->getErrors()]);
         } catch (FilesystemException $ex) {
             $this->service('alert')->danger([
                 translate('Create folder failed, see error message'),

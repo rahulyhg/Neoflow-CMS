@@ -143,7 +143,7 @@ class NavitemController extends BackendController
                 throw new RuntimeException('Creating navigation item failed or navigation is not editable');
             }
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Create failed'), $ex->getErrors()]);
+            $this->service('alert')->danger([translate('Create failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_navitem_index', [
@@ -269,7 +269,7 @@ class NavitemController extends BackendController
                 throw new RuntimeException('Updating navigation item failed (ID: '.$postData->get('navitem_id').')');
             }
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
+            $this->service('alert')->danger([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_navitem_edit', [

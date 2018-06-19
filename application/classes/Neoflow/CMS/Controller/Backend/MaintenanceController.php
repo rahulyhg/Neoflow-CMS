@@ -135,7 +135,7 @@ class MaintenanceController extends BackendController
 
             $this->service('update')->installUpdate($updatePackageFile);
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Update CMS failed'), [$ex->getMessage()]]);
+            $this->service('alert')->danger([translate('Update CMS failed'), [$ex->getMessage()]]);
         } catch (Exception $ex) {
             $this->service('alert')->danger([translate('Update CMS failed, see error message'), [$ex->getMessage()]]);
         }

@@ -69,7 +69,7 @@ class NavigationController extends BackendController
                 throw new RuntimeException('Creating navigation failed');
             }
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Create failed'), $ex->getErrors()]);
+            $this->service('alert')->danger([translate('Create failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_navigation_index');
@@ -160,7 +160,7 @@ class NavigationController extends BackendController
                 throw new RuntimeException('Updating navigation failed or navigation is not updatable (ID: '.$postData->get('navigation_id').')');
             }
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
+            $this->service('alert')->danger([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_navigation_edit', [

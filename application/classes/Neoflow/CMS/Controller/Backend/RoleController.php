@@ -72,7 +72,7 @@ class RoleController extends BackendController
                 throw new RuntimeException('Creating role failed');
             }
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Create failed'), $ex->getErrors()]);
+            $this->service('alert')->danger([translate('Create failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_role_index');
@@ -139,7 +139,7 @@ class RoleController extends BackendController
                 throw new RuntimeException('Updating role failed (ID: '.$postData->get('page_id').')');
             }
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
+            $this->service('alert')->danger([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_role_edit', [

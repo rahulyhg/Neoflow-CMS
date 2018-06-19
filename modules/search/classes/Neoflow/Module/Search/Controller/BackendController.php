@@ -74,7 +74,7 @@ class BackendController extends AbstractToolModuleController
                 throw new RuntimeException('Update settings failed (ID: 1)');
             }
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
+            $this->service('alert')->danger([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('tmod_search_backend_index');

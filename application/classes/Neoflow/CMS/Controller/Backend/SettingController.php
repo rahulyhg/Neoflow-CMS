@@ -106,7 +106,7 @@ class SettingController extends BackendController
                 throw new RuntimeException('Update settings failed (ID: 1)');
             }
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
+            $this->service('alert')->danger([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_setting_index');

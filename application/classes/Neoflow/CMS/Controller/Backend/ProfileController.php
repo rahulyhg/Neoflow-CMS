@@ -81,7 +81,7 @@ class ProfileController extends BackendController
                 throw new RuntimeException('Updating profile user failed (ID: '.$this->profileUser->id().')');
             }
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
+            $this->service('alert')->danger([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_profile_index');

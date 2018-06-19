@@ -113,7 +113,7 @@ class ModuleController extends BackendController
                 throw new RuntimeException('Installing module failed');
             }
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([
+            $this->service('alert')->danger([
                     translate('Install module failed'),
                     [$ex->getMessage()],
                 ]);
@@ -148,7 +148,7 @@ class ModuleController extends BackendController
                 throw new RuntimeException('Updating module failed (ID: '.$module_id.')');
             }
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([
+            $this->service('alert')->danger([
                     translate('Update module failed'),
                     [$ex->getMessage()],
                 ]);

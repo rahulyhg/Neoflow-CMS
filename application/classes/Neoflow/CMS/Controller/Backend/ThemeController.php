@@ -87,7 +87,7 @@ class ThemeController extends BackendController
                 throw new RuntimeException('Installing theme failed');
             }
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Install theme failed'), [$ex->getMessage()]]);
+            $this->service('alert')->danger([translate('Install theme failed'), [$ex->getMessage()]]);
         } catch (Exception $ex) {
             $this->service('alert')->danger([
                 translate('Install theme failed, see error message'),
@@ -121,7 +121,7 @@ class ThemeController extends BackendController
                 throw new RuntimeException('Updating theme failed (ID: '.$theme_id.')');
             }
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Update theme failed'), [$ex->getMessage()]]);
+            $this->service('alert')->danger([translate('Update theme failed'), [$ex->getMessage()]]);
         } catch (Exception $ex) {
             $this->service('alert')->danger([translate('Update theme failed, see error message'), [$ex->getMessage()]]);
         }

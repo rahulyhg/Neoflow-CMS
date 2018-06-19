@@ -67,7 +67,7 @@ class BackendController extends AbstractToolModuleController
                 throw new RuntimeException('Create snippet failed');
             }
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Create failed'), $ex->getErrors()]);
+            $this->service('alert')->danger([translate('Create failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('tmod_snippets_backend_index');
@@ -150,7 +150,7 @@ class BackendController extends AbstractToolModuleController
                 throw new RuntimeException('Updating snippet failed (ID: '.$postData->get('snippet_id').')');
             }
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
+            $this->service('alert')->danger([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('tmod_snippets_backend_edit', ['id' => $postData->get('snippet_id')]);

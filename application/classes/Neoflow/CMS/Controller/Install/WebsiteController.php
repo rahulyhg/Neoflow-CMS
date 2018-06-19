@@ -61,7 +61,7 @@ class WebsiteController extends InstallController
                 return $this->redirectToRoute('install_administrator_index');
             }
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Create failed'), $ex->getErrors()]);
+            $this->service('alert')->danger([translate('Create failed'), $ex->getErrors()]);
         } catch (Throwable $ex) {
             $this->service('alert')->danger([translate('Create failed'), [$ex->getMessage()]]);
         }

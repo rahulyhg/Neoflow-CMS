@@ -142,7 +142,7 @@ class SectionController extends BackendController
                 throw new RuntimeException('Updating section failed (ID: '.$postData->get('section_id').')');
             }
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
+            $this->service('alert')->danger([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_section_edit', [
@@ -178,7 +178,7 @@ class SectionController extends BackendController
                 throw new RuntimeException('Creating section failed');
             }
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Create failed'), $ex->getErrors()]);
+            $this->service('alert')->danger([translate('Create failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_section_index', [

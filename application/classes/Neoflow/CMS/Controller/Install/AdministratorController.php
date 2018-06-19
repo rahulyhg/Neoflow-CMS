@@ -56,7 +56,7 @@ class AdministratorController extends InstallController
 
             return $this->redirectToRoute('install_success');
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Create failed'), $ex->getErrors()]);
+            $this->service('alert')->danger([translate('Create failed'), $ex->getErrors()]);
         } catch (Throwable $ex) {
             $this->service('alert')->danger([translate('Create failed'), [$ex->getMessage()]]);
         }

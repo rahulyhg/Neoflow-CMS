@@ -61,7 +61,7 @@ class BlockController extends BackendController
                 throw new RuntimeException('Creating block failed');
             }
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Create failed'), $ex->getErrors()]);
+            $this->service('alert')->danger([translate('Create failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_block_index');
@@ -144,7 +144,7 @@ class BlockController extends BackendController
                 throw new RuntimeException('Updating block failed (ID: '.$postData->get('block_id').')');
             }
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning([translate('Update failed'), $ex->getErrors()]);
+            $this->service('alert')->danger([translate('Update failed'), $ex->getErrors()]);
         }
 
         return $this->redirectToRoute('backend_block_edit', ['id' => $block->id()]);
