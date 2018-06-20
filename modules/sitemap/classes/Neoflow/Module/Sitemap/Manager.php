@@ -21,7 +21,8 @@ class Manager extends AbstractModuleManager
                         `lastmod` VARCHAR(20) NOT NULL,
                         `changefreq` enum("always","hourly","daily","weekly","monthly","yearly","never") NOT NULL DEFAULT "monthly",
                         `priority` VARCHAR(5) NOT NULL,
-                    PRIMARY KEY (`url_id`));
+                    PRIMARY KEY (`url_id`))
+                    ENGINE=InnoDB;
 
                     CREATE TABLE `mod_sitemap_settings` (
                         `setting_id` INT NOT NULL AUTO_INCREMENT,
@@ -29,7 +30,8 @@ class Manager extends AbstractModuleManager
                         `default_priority` VARCHAR(5) NOT NULL DEFAULT "0.5",
                         `sitemap_lifetime` INT NOT NULL DEFAULT "72",
                         `automated_creation` TINYINT(1) NOT NULL DEFAULT "1",
-                    PRIMARY KEY (`setting_id`));
+                    PRIMARY KEY (`setting_id`))
+                    ENGINE=InnoDB;
                 ');
 
         SettingModel::create([

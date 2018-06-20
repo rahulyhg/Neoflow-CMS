@@ -46,7 +46,14 @@ class Manager extends AbstractPageModuleManager
                         `code_id` INT NOT NULL AUTO_INCREMENT,
                         `content` TEXT,
                         `section_id` INT NOT NULL,
-                    PRIMARY KEY (`code_id`));
+                    PRIMARY KEY (`code_id`),
+                    INDEX `section_id_idx` (`section_id` ASC),
+                    CONSTRAINT `fk_mod_code_section_id`
+                        FOREIGN KEY (`section_id`)
+                        REFERENCES `sections` (`section_id`)
+                        ON DELETE CASCADE 
+                        ON UPDATE NO ACTION)
+                    ENGINE=InnoDB;
                 ');
 
         return true;

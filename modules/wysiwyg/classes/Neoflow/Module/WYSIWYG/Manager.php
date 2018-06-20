@@ -61,7 +61,14 @@ class Manager extends AbstractPageModuleManager
                             `wysiwyg_id` INT NOT NULL AUTO_INCREMENT,
                             `content` TEXT,
                             `section_id` INT NOT NULL,
-                        PRIMARY KEY (`wysiwyg_id`));
+                        PRIMARY KEY (`wysiwyg_id`),
+                        INDEX `section_id_idx` (`section_id` ASC),
+                        CONSTRAINT `fk_mod_wysiwyg_section_id`
+                            FOREIGN KEY (`section_id`)
+                            REFERENCES `sections` (`section_id`)
+                            ON DELETE CASCADE 
+                            ON UPDATE NO ACTION)
+                        ENGINE=InnoDB;
                     ');
         }
 

@@ -19,13 +19,15 @@ class Manager extends AbstractModuleManager
                     CREATE TABLE `mod_search_entities` (
                         `entity_id` INT NOT NULL AUTO_INCREMENT,
                         `entity_class` VARCHAR(255) NOT NULL,
-                    PRIMARY KEY (`entity_id`));
+                    PRIMARY KEY (`entity_id`))
+                    ENGINE=InnoDB;
 
                     CREATE TABLE `mod_search_settings` (
                         `setting_id` INT NOT NULL AUTO_INCREMENT,
                         `url_path` VARCHAR(200) NOT NULL DEFAULT "/search" ,
                         `is_active` tinyint(1) NOT NULL DEFAULT 1,
-                    PRIMARY KEY (`setting_id`));
+                    PRIMARY KEY (`setting_id`))
+                    ENGINE=InnoDB;
                 ');
 
         EntityModel::create([

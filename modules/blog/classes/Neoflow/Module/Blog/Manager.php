@@ -5,6 +5,8 @@ namespace Neoflow\Module\Blog;
 use Neoflow\CMS\Manager\AbstractPageModuleManager;
 use Neoflow\CMS\Model\SectionModel;
 use Neoflow\Filesystem\Folder;
+use Neoflow\Module\Blog\Model\ArticleModel;
+use Neoflow\Module\Blog\Model\CategoryModel;
 use Neoflow\Module\Blog\Model\SettingModel;
 
 class Manager extends AbstractPageModuleManager
@@ -42,7 +44,11 @@ class Manager extends AbstractPageModuleManager
             Folder::unlink($mediaPath);
         }
 
-        return (bool) SettingModel::deleteAllByColumn('section_id', $section->id());
+        SettingModel::deleteAllByColumn('section_id', $section->id());
+        ArticleModel::deleteAllByColumn('section_id', $section->id());
+        CategoryModel::deleteAllByColumn('section_id', $section->id());
+
+        return true;
     }
 
     /**
@@ -73,11 +79,12 @@ class Manager extends AbstractPageModuleManager
                       CONSTRAINT `fk_mod_blog_articles_section_id`
                         FOREIGN KEY (`section_id`)
                         REFERENCES `sections` (`section_id`)
-                        ON DELETE NO ACTION
-                        ON UPDATE NO ACTION);
+                        ON DELETE CASCADE 
+                        ON UPDATE NO ACTION)
+                      ENGINE=InnoDB;
 
                     CREATE TABLE `mod_blog_categories` (
-                      `category_id` INT NOT NULL,
+                      `category_id` INT NOT NULL AUTO_INCREMENT,
                       `section_id` INT NOT NULL,
                       `title` VARCHAR(100) NOT NULL,
                       `title_slug` VARCHAR(100) NOT NULL,
@@ -92,11 +99,12 @@ class Manager extends AbstractPageModuleManager
                       CONSTRAINT `fk_mod_blog_categories_section_id`
                         FOREIGN KEY (`section_id`)
                         REFERENCES `sections` (`section_id`)
-                        ON DELETE NO ACTION
-                        ON UPDATE NO ACTION);
+                        ON DELETE CASCADE
+                        ON UPDATE NO ACTION)
+                      ENGINE=InnoDB;
                         
                     CREATE TABLE `neoflow-cms`.`mod_blog_articles_categories` (
-                      `article_category_id` INT NOT NULL,
+                      `article_category_id` INT NOT NULL AUTO_INCREMENT,
                       `article_id` INT NOT NULL,
                       `category_id` INT NOT NULL,
                       PRIMARY KEY (`article_category_id`),
@@ -105,16 +113,17 @@ class Manager extends AbstractPageModuleManager
                       CONSTRAINT `fk_mod_blog_articles_categories_article_id`
                         FOREIGN KEY (`article_id`)
                         REFERENCES `neoflow-cms`.`mod_blog_articles` (`article_id`)
-                        ON DELETE NO ACTION
+                        ON DELETE CASCADE
                         ON UPDATE NO ACTION,
                       CONSTRAINT `fk_mod_blog_articles_categories_category_id`
                         FOREIGN KEY (`category_id`)
                         REFERENCES `neoflow-cms`.`mod_blog_categories` (`category_id`)
-                        ON DELETE NO ACTION
-                        ON UPDATE NO ACTION);
+                        ON DELETE CASCADE
+                        ON UPDATE NO ACTION)
+                      ENGINE=InnoDB;
                         
                      CREATE TABLE `mod_blog_settings` (
-                      `setting_id` INT NOT NULL,
+                      `setting_id` INT NOT NULL AUTO_INCREMENT,
                       `section_id` INT NOT NULL,
                       `articles_per_page` INT NOT NULL DEFAULT 10,
                       PRIMARY KEY (`setting_id`),
@@ -122,8 +131,9 @@ class Manager extends AbstractPageModuleManager
                       CONSTRAINT `fk_mod_blog_settings_section_id`
                         FOREIGN KEY (`section_id`)
                         REFERENCES `sections` (`section_id`)
-                        ON DELETE NO ACTION
-                        ON UPDATE NO ACTION);
+                        ON DELETE CASCADE
+                        ON UPDATE NO ACTION)
+                      ENGINE=InnoDB;
                 ');
 
         return true;
