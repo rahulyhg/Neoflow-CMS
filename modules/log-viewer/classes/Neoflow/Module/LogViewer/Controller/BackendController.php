@@ -61,7 +61,7 @@ class BackendController extends AbstractToolModuleController
             // Set title and breadcrumb
             $this->view
                 ->setTitle(basename($logfile))
-                ->addBreadcrumb(translate('Log Viewer'), generate_url('tmod_log_viewer_backend_index'));
+                ->addBreadcrumb('Log Viewer', generate_url('tmod_log_viewer_backend_index'));
 
             return $this->render('module/log-viewer/show', [
                 'logfile' => $this->args['logfile'],
