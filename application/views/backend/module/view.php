@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                <hr />
+                <hr/>
 
                 <div class="row">
                     <div class="col-md-6">
@@ -65,10 +65,12 @@
                                 <?php foreach ($requiredModules as $requiredModuleIdentifier => $requiredModule) { ?>
                                     <li>
                                         <?php if ($requiredModule) { ?>
-                                            <a href="<?= generate_url('backend_module_view', ['id' => $requiredModule->id()]) ?>"><?= $requiredModule->name ?></a><span class="text-success"><i class="fa fa-fw fa-check"></i></span>
+                                            <a href="<?= generate_url('backend_module_view', ['id' => $requiredModule->id()]) ?>">
+                                                <?= $requiredModule->name ?></a>
+                                            <span class="text-success"><i class="fa fa-fw fa-check"></i></span>
                                         <?php } else { ?>
-                                                <?= $requiredModuleIdentifier ?><span class="text-danger"><i class="fa fa-fw fa-times"></i></span>
-                                            <?php } ?>
+                                            <?= $requiredModuleIdentifier ?> <span class="text-danger"><i class="fa fa-fw fa-times"></i></span>
+                                        <?php } ?>
                                     </li>
                                 <?php } ?>
                             </ul>
@@ -93,16 +95,18 @@
             <div class="card-body">
                 <p><?= translate('Please upload the latest update as a ZIP file to start the installation.') ?></p>
                 <form method="post" enctype="multipart/form-data" action="<?= generate_url('backend_module_update') ?>">
-                    <input value="<?= $module->id() ?>" type="hidden" name="module_id" />
+                    <input value="<?= $module->id() ?>" type="hidden" name="module_id"/>
                     <div class="form-group row">
                         <label for="inputUpdatePackage" class="col-sm-3 col-form-label">
                             <?= translate('Package') ?> *
                         </label>
                         <div class="col-sm-9">
-                            <input type="file" name="file" data-allowed-File-Extensions="zip" data-allowed-File-Size="<?= ((int) ini_get('upload_max_filesize')) * 1024 * 1024 ?>" id="inputUpdatePackage" required class="form-control" />
+                            <input type="file" name="file" data-allowed-File-Extensions="zip"
+                                   data-allowed-File-Size="<?= ((int)ini_get('upload_max_filesize')) * 1024 * 1024 ?>" id="inputUpdatePackage"
+                                   required class="form-control"/>
                             <ul class="list-unstyled form-text text-muted small mb-0">
                                 <li>
-                                    <?= translate('Uploadable file size (defined in php.ini): max. {0}MB', [(int) ini_get('upload_max_filesize')]) ?>
+                                    <?= translate('Uploadable file size (defined in php.ini): max. {0}MB', [(int)ini_get('upload_max_filesize')]) ?>
                                 </li>
                                 <li>
                                     <?= translate('Allowed file extensions: {0}', ['zip']) ?>
@@ -137,7 +141,9 @@
             <div class="card-body">
 
                 <p><?= translate('Reload modules information') ?></p>
-                <a href="<?= generate_url('backend_module_reload', ['id' => $module->id()]) ?>" class="btn btn-primary btn-icon-left d-none d-xl-inline-block confirm-modal" data-message="<?= translate('Are you sure you want to reload it?') ?>" title="<?= translate('Reload module') ?>">
+                <a href="<?= generate_url('backend_module_reload', ['id' => $module->id()]) ?>"
+                   class="btn btn-primary btn-icon-left d-none d-xl-inline-block confirm-modal"
+                   data-message="<?= translate('Are you sure you want to reload it?') ?>" title="<?= translate('Reload module') ?>">
                     <span class="btn-icon">
                         <i class="fa fa-sync"></i>
                     </span>
