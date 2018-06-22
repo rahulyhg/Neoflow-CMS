@@ -38,6 +38,9 @@ abstract class AbstractPageModuleController extends SectionController
                 $module = $this->section->module()->fetch();
                 $block = $this->section->block()->fetch();
 
+                // Store section for view
+                $this->view->set('section', $this->section);
+
                 // Set title and breadcrumb for view
                 $this->view
                     ->setTitle($module->name)
