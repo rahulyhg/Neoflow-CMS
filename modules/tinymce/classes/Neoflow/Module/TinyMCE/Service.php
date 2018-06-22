@@ -2,10 +2,11 @@
 
 namespace Neoflow\Module\TinyMCE;
 
+use Neoflow\CMS\Core\AbstractView;
 use Neoflow\CMS\Model\ModuleModel;
+use Neoflow\Filesystem\File;
 use Neoflow\Filesystem\Folder;
 use Neoflow\Module\WYSIWYG\Service as WysiwygService;
-use RuntimeException;
 
 class Service extends WysiwygService
 {
@@ -54,7 +55,7 @@ class Service extends WysiwygService
 
         $this->options['language'] = $this->translator()->getCurrentLanguageCode();
 
-        $this->options['link_list'] = generate_url('pmod_wysiwyg_backend_api_pages');
+        $this->options['link_list'] = generate_url('lmod_tinymce_backend_api_pages');
 
         $frontendTheme = $this->settings()->getFrontendTheme();
         if (is_file($frontendTheme->getPath('/css/editor.css'))) {
@@ -80,27 +81,141 @@ class Service extends WysiwygService
     }
 
     /**
-     * Render editor.
+     * Upload file.
      *
-     * @param string $name
-     * @param string $id
-     * @param string $content
-     * @param string $height
-     * @param array  $options
+     * @param string $dirPath Target directory path
+     * @param string $dirUrl  Target directory url
+     *
+     * @return array
+     */
+    public function uploadFile(string $dirPath, string $dirUrl): array
+    {
+        $uploadedItem = $this->request()->getFile('file');
+
+        $result = [
+            'status' => false,
+            'message' => '',
+            'content' => '',
+        ];
+
+        try {
+            $file = $this->service('upload')->move($uploadedItem, $dirPath, true, $this->settings()->getAllowedFileExtensions());
+
+            $fileUrl = normalize_url($dirUrl.'/'.$file->getName());
+
+            $result['status'] = true;
+            $result['message'] = translate('Successfully uploaded');
+            $result['content'] = $fileUrl;
+            $result['file'] = [
+                'name' => $file->getName(),
+                'size' => $file->getSize(),
+                'extension' => $file->getExtension(),
+                'url' => $fileUrl,
+            ];
+        } catch (ValidationException $ex) {
+            $result['message'] = $ex->getMessage();
+        } catch (Exception $ex) {
+            $result['message'] = translate('Upload file(s) failed, see error message').': '.$ex->getMessage();
+        }
+
+        return $result;
+    }
+
+    /**
+     * Delete file.
+     *
+     * @param string $dirPath Target directory path
+     *
+     * @return array
+     */
+    public function deleteFile(string $dirPath): array
+    {
+        $fileName = str_replace('../', '', $this->request()->getGet('name'));
+
+        $result = [
+            'status' => false,
+        ];
+
+        $filePath = normalize_path($dirPath.'/'.$fileName);
+        if (!is_file($filePath) || File::unlink($filePath)) {
+            $result['status'] = true;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get files.
+     *
+     * @param string $dirPath Target directory path
+     * @param string $dirUrl  Target directory url
+     *
+     * @return array
+     */
+    public function getFiles(string $dirPath, string $dirUrl): array
+    {
+        $targetDirFolder = Folder::load($dirPath);
+
+        $result = [];
+        $files = $targetDirFolder->findFiles('*.*', GLOB_MARK | GLOB_BRACE);
+        foreach ($files as $file) {
+            $result[] = [
+                'name' => $file->getName(),
+                'url' => normalize_url($dirUrl.'/'.$file->getName()),
+                'extension' => $file->getExtension(),
+                'size' => $file->getSize(),
+            ];
+        }
+
+        return $result;
+    }
+
+    /**
+     * Create session key.
+     *
+     * @param string $id Editor id
      *
      * @return string
-     *
-     * @throws RuntimeException
      */
-    public function renderEditor(string $name, string $id, string $content, string $height = '450px', array $options = []): string
+    public function generateKey(string $id)
+    {
+        return md5('tinymce-'.$id);
+    }
+
+    /**
+     * Render code editor.
+     *
+     * @param AbstractView $view    View
+     * @param string       $name    Editor name (form control / textarea)
+     * @param string       $id      Editor id (form control / textarea)
+     * @param string       $content Editor content
+     * @param string       $height  Editor height
+     * @param array        $options Editor options
+     *
+     * @return string
+     */
+    public function renderEditor(AbstractView $view, string $name, string $id, string $content, string $height = '450px', array $options = []): string
     {
         $this->engine()->addJavascriptUrl($this->module->getUrl('statics/tinymce/tinymce.min.js'));
 
         $options = array_merge($this->options, ['height' => $height], $options);
 
+        $key = $this->generateKey($id);
+
+        $fileUploadUrl = generate_url('lmod_tinymce_backend_api_file_upload', [
+            'key' => $key,
+        ]);
+        $filesUrl = generate_url('lmod_tinymce_backend_api_files', [
+            'key' => $key,
+        ]);
+        if (!isset($options['uploadDirectory']['path']) || !isset($options['uploadDirectory']['url'])) {
+            $options['image_upload'] = false;
+        }
+        $this->session()->set($key, $options);
+
         if ($options['image_upload']) {
             $options = array_merge($options, [
-                'images_upload_url' => generate_url('pmod_wysiwyg_backend_api_file_upload'),
+                'images_upload_url' => $fileUploadUrl,
                 'images_reuse_filename' => true,
                 'automatic_uploads' => true,
                 'relative_urls' => false,
@@ -126,7 +241,7 @@ class Service extends WysiwygService
                         $.ajax({
                             data: data,
                             type: "POST",
-                            url: "'.generate_url('pmod_wysiwyg_backend_api_file_upload', ['id' => $id]).'",
+                            url: "'.$fileUploadUrl.'",
                             cache: false,
                             contentType: false,
                             processData: false,
@@ -161,7 +276,7 @@ class Service extends WysiwygService
                     $.ajax({
                         data: data,
                         type: "POST",
-                        url: "'.generate_url('pmod_wysiwyg_backend_api_file_upload', ['id' => $id]).'",
+                        url: "'.$fileUploadUrl.'",
                         cache: false,
                         contentType: false,
                         processData: false,
@@ -188,7 +303,7 @@ class Service extends WysiwygService
 
                             $apiElement.empty();
 
-                            $.get("'.generate_url('pmod_wysiwyg_backend_api_files', ['id' => $id]).'", function(data) {
+                            $.get("'.$filesUrl.'", function(data) {
 
                                 if (data[0] != undefined) {
 
@@ -229,7 +344,7 @@ class Service extends WysiwygService
                                                 e.preventDefault();
                                                 tinymce.activeEditor.windowManager.confirm("'.translate('Are you sure you want to delete it?').'", function(status) {
                                                     if (status) {
-                                                        $.get("'.generate_url('pmod_wysiwyg_backend_api_file_delete', ['id' => $id]).'?name=" + file.name, function(data) {
+                                                        $.get("'.generate_url('lmod_tinymce_backend_api_file_delete', ['key' => $key]).'&name=" + file.name, function(data) {
                                                             if (data.status) {
                                                                 $fileColumn.remove();
                                                                 $actionColumn.remove();
@@ -323,6 +438,6 @@ class Service extends WysiwygService
             });
         ');
 
-        return parent::renderEditor($name, $id, $content, $height, $options);
+        return parent::renderEditor($view, $name, $id, $content, $height, $options);
     }
 }

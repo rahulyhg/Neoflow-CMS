@@ -18,11 +18,10 @@ class BackendController extends AbstractPageModuleController
      */
     public function indexAction(): Response
     {
-        // Get wysiwyg content
         $wysiwyg = Model::findByColumn('section_id', $this->section->id());
 
-        return $this->render('wysiwyg/backend', [
-                'wysiwyg' => $wysiwyg,
+        return $this->render('wysiwyg/backend/index', [
+            'wysiwyg' => $wysiwyg,
         ]);
     }
 
@@ -39,26 +38,25 @@ class BackendController extends AbstractPageModuleController
             // Get post data
             $postData = $this->request()->getPostData();
 
-            // Get section id from post data
-            $section_id = $postData->get('section_id');
-
             // Update wysiwyg content by id
             $wysiwyg = Model::updateById([
-                    'content' => $postData->get('content')->get('section-'.$section_id),
-                    ], $postData->get('wysiwyg_id'));
+                'content' => $postData
+                    ->get('content')
+                    ->get('section-'.$this->section->id()),
+            ], $postData->get('wysiwyg_id'));
 
             // Validate and save wysiwyg content
             if ($wysiwyg && $wysiwyg->save() && $this->updateModifiedWhen()) {
                 $this->service('alert')->success(translate('Successfully updated'));
             } else {
-                throw new RuntimeException('Update wysiwyg content failed (ID: '.$postData->get('editor_id').')');
+                throw new RuntimeException('Updating WYSIWYG content failed (ID: '.$postData->get('wysiwyg_id').')');
             }
         } catch (ValidationException $ex) {
-            $this->service('alert')->warning($ex->getErrors());
+            $this->service('alert')->danger($ex->getErrors());
         }
 
         return $this->redirectToRoute('pmod_wysiwyg_backend_index', [
-                'section_id' => $wysiwyg->section_id,
+            'section_id' => $wysiwyg->section_id,
         ]);
     }
 }

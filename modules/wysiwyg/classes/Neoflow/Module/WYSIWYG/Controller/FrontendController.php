@@ -17,13 +17,15 @@ class FrontendController extends AbstractPageModuleController
     {
         $wysiwyg = Model::findByColumn('section_id', $this->section->id());
 
-        return $this->render('wysiwyg/frontend', [
-                'wysiwyg' => $wysiwyg,
+        return $this->render('wysiwyg/frontend/index', [
+            'wysiwyg' => $wysiwyg,
         ]);
     }
 
     /**
      * Index action.
+     *
+     * @todo Remove this method when blog module is finished
      *
      * @return Response
      */
@@ -32,8 +34,8 @@ class FrontendController extends AbstractPageModuleController
         //$wysiwyg = Model::findByColumn('section_id', $this->section->id());
 
         return $this->render('wysiwyg/fisch', [
-                'wysiwyg' => 'lol',
-                'args' => $this->args,
+            'wysiwyg' => 'lol',
+            'args' => $this->args,
         ]);
     }
 }

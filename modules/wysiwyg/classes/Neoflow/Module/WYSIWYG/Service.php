@@ -3,6 +3,7 @@
 namespace Neoflow\Module\WYSIWYG;
 
 use Neoflow\CMS\Core\AbstractService;
+use Neoflow\CMS\Core\AbstractView;
 use RuntimeException;
 
 class Service extends AbstractService
@@ -15,30 +16,28 @@ class Service extends AbstractService
     /**
      * Render code editor.
      *
-     * @param string $name
-     * @param string $id
-     * @param string $content
-     * @param string $height
-     * @param array  $options
+     * @param AbstractView $view    View
+     * @param string       $name    Editor name (form control / textarea)
+     * @param string       $id      Editor id (form control / textarea)
+     * @param string       $content Editor content
+     * @param string       $height  Editor height
+     * @param array        $options Editor options
      *
      * @return string
      *
      * @throws RuntimeException
      */
-    public function renderEditor(string $name, string $id, string $content, string $height = '350px', array $options = []): string
+    public function renderEditor(AbstractView $view, string $name, string $id, string $content, string $height = '350px', array $options = []): string
     {
-        if ($this->app()->get('view')) {
-            if ($this->templateFile) {
-                return $this->app()->get('view')->renderTemplate($this->templateFile, [
-                            'name' => $name,
-                            'id' => $id,
-                            'content' => $content,
-                            'height' => $height,
-                            'options' => $options,
-                ]);
-            }
-            throw new RuntimeException('Template file not found');
+        if ($this->templateFile) {
+            return $view->renderTemplate($this->templateFile, [
+                'name' => $name,
+                'id' => $id,
+                'content' => $content,
+                'height' => $height,
+                'options' => $options,
+            ]);
         }
-        throw new RuntimeException('View not found');
+        throw new RuntimeException('Template file not found');
     }
 }
