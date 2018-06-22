@@ -64,6 +64,10 @@
                                 </span>
                                 <?= translate('Save') ?>
                             </button>
+
+                            <span class="small float-right">
+                                * = <?= translate('Required field', [], true) ?>
+                            </span>
                         </div>
                     </div>
                 </form>
