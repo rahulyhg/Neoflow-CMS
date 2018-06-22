@@ -12,7 +12,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/neoflow/Neoflow-Data-Structures.git",
-                "reference": "841d21047c6513f53bde392cfcbfd5442c0d9279"
+                "reference": "0dfc2a6cf0aeb78217f29bd5f75b66f7533c2876"
             },
             "require": {
                 "neoflow/functions": "dev-master"
@@ -33,7 +33,7 @@
                 }
             ],
             "description": "PHP library with data structure classes.",
-            "time": "2018-06-14T19:09:27+00:00"
+            "time": "2018-06-22T08:10:21+00:00"
         },
         {
             "name": "neoflow/filesystem",
@@ -71,7 +71,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/neoflow/Neoflow-Framework.git",
-                "reference": "42359cd2a04d3e7eaccc24d0292c38e56e7c92a3"
+                "reference": "c11a85e6c1361f276f310bbb9843c8a3bedde192"
             },
             "require": {
                 "neoflow/data-structures": "dev-master",
@@ -85,7 +85,9 @@
                 "files": [
                     "src/functions/generate_url.php",
                     "src/functions/is_current_route.php",
-                    "src/functions/translate.php"
+                    "src/functions/translate.php",
+                    "src/functions/format_timestamp.php",
+                    "src/functions/format_datetime.php"
                 ]
             },
             "license": [
@@ -98,7 +100,7 @@
                 }
             ],
             "description": "PHP framework for small MVC based applications.",
-            "time": "2018-06-19T14:18:11+00:00"
+            "time": "2018-06-22T11:37:43+00:00"
         },
         {
             "name": "neoflow/functions",
@@ -106,7 +108,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/neoflow/Neoflow-Functions.git",
-                "reference": "4e17c13849f39cc53bac0f20e0430fe85778c7e4"
+                "reference": "ae3882c5de576e0bcc268318ce5502a1c436ebb1"
             },
             "type": "library",
             "autoload": {
@@ -117,8 +119,6 @@
                     "src/functions/base_path.php",
                     "src/functions/convert_php2js.php",
                     "src/functions/ends_with.php",
-                    "src/functions/format_datetime.php",
-                    "src/functions/format_timestamp.php",
                     "src/functions/get_exception_trace.php",
                     "src/functions/is_assoc.php",
                     "src/functions/is_json.php",
@@ -148,7 +148,7 @@
                 }
             ],
             "description": "PHP library with a variety of additional functions.",
-            "time": "2018-05-25T08:13:06+00:00"
+            "time": "2018-06-22T11:35:18+00:00"
         },
         {
             "name": "neoflow/image",
