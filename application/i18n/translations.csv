@@ -414,6 +414,9 @@ Restricted;Restricted;Beschränkt
 Role;Role|Roles;Rolle|Rollen
 {0} is in use and cannot be deleted;{0} is in use and cannot be deleted;{0} wird verwendet und kann nicht gelöscht werden
 Run tools;Run tools;Tools ausführen
+Published on;Published on;Veröffentlicht am
+Created on;Created on;Erstellt am
+Edited on;Edited on;Bearbeitet am
 Save;Save;Speichern
 Save failed;Save failed;Speichern fehlgeschlagen
 Saved;Saved;Gespeichert
