@@ -67,6 +67,10 @@ class Manager extends AbstractPageModuleManager
                       `section_id` INT NULL,
                       `title` VARCHAR(100) NOT NULL,
                       `title_slug` VARCHAR(100) NOT NULL,
+                      `author_user_id` INT NULL,
+                      `created_when` FLOAT NOT NULL DEFAULT 0,
+                      `published_when` FLOAT NOT NULL DEFAULT 0,
+                      `modified_when` FLOAT NOT NULL DEFAULT 0,
                       `abstract` VARCHAR(500) NULL,
                       `content` TEXT NULL,
                       `website_keywords` VARCHAR(250) NULL,
@@ -80,6 +84,12 @@ class Manager extends AbstractPageModuleManager
                         FOREIGN KEY (`section_id`)
                         REFERENCES `sections` (`section_id`)
                         ON DELETE CASCADE 
+                        ON UPDATE NO ACTION,
+                      INDEX `fk_mod_blog_articles_author_user_id_idx` (`author_user_id` ASC),
+                      CONSTRAINT `fk_mod_blog_articles_author_user_id`
+                        FOREIGN KEY (`author_user_id`)
+                        REFERENCES `users` (`user_id`)
+                        ON DELETE SET NULL
                         ON UPDATE NO ACTION)
                       ENGINE=InnoDB;
 
@@ -103,7 +113,7 @@ class Manager extends AbstractPageModuleManager
                         ON UPDATE NO ACTION)
                       ENGINE=InnoDB;
                         
-                    CREATE TABLE `neoflow-cms`.`mod_blog_articles_categories` (
+                    CREATE TABLE `mod_blog_articles_categories` (
                       `article_category_id` INT NOT NULL AUTO_INCREMENT,
                       `article_id` INT NOT NULL,
                       `category_id` INT NOT NULL,
@@ -112,12 +122,12 @@ class Manager extends AbstractPageModuleManager
                       INDEX `fk_mod_blog_articles_categories_category_id_idx` (`category_id` ASC),
                       CONSTRAINT `fk_mod_blog_articles_categories_article_id`
                         FOREIGN KEY (`article_id`)
-                        REFERENCES `neoflow-cms`.`mod_blog_articles` (`article_id`)
+                        REFERENCES `mod_blog_articles` (`article_id`)
                         ON DELETE CASCADE
                         ON UPDATE NO ACTION,
                       CONSTRAINT `fk_mod_blog_articles_categories_category_id`
                         FOREIGN KEY (`category_id`)
-                        REFERENCES `neoflow-cms`.`mod_blog_categories` (`category_id`)
+                        REFERENCES `mod_blog_categories` (`category_id`)
                         ON DELETE CASCADE
                         ON UPDATE NO ACTION)
                       ENGINE=InnoDB;

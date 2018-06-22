@@ -4,8 +4,10 @@ namespace Neoflow\Module\Blog\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
 use Neoflow\Framework\ORM\EntityValidator;
+use Neoflow\Framework\ORM\Repository;
 use Neoflow\Module\Search\ModelSearchInterface;
 use Neoflow\Module\Search\Results;
+use Neoflow\Validation\ValidationException;
 
 class CategoryModel extends AbstractModel implements ModelSearchInterface
 {
@@ -13,7 +15,6 @@ class CategoryModel extends AbstractModel implements ModelSearchInterface
      * Traits.
      */
     use SectionTrait;
-    use UrlTrait;
 
     /**
      * @var string
@@ -35,6 +36,49 @@ class CategoryModel extends AbstractModel implements ModelSearchInterface
     ];
 
     /**
+     * Get URL.
+     *
+     * @param array $parameters URL query parameters
+     *
+     * @return string
+     */
+    public function getUrl(array $parameters = []): string
+    {
+        return generate_url('pmod_blog_frontend_article_index_category', [
+            'page' => $this->getSection()->getPage()->getRelativeUrl(),
+            'slug' => $this->title_slug,
+        ], $parameters);
+    }
+
+    /**
+     * Get website title.
+     *
+     * @return string
+     */
+    public function getWebsiteTitle(): string
+    {
+        if ($this->website_title) {
+            return $this->website_title;
+        }
+
+        return $this->title;
+    }
+
+    /**
+     * Get website descriptiomn.
+     *
+     * @return string
+     */
+    public function getWebsiteDescription(): string
+    {
+        if ($this->website_description) {
+            return $this->website_description;
+        }
+
+        return $this->description;
+    }
+
+    /**
      * Validate category.
      *
      * @return bool
@@ -51,6 +95,12 @@ class CategoryModel extends AbstractModel implements ModelSearchInterface
             ->required()
             ->minLength(3)
             ->maxLength(100)
+            ->callback(function ($title, $id) {
+                return 0 === CategoryModel::repo()
+                        ->where('title', '=', $title)
+                        ->where('category_id', '!=', $id)
+                        ->count();
+            }, '{0} has to be unique', [$this->id()])
             ->set('title', 'Title');
 
         $validator
@@ -106,5 +156,45 @@ class CategoryModel extends AbstractModel implements ModelSearchInterface
         }
 
         return $results;
+    }
+
+    /**
+     * Get repository to fetch articles.
+     *
+     * @return Repository
+     */
+    public function articles(): Repository
+    {
+        return $this->hasManyThrough('Neoflow\\Module\\Blog\\Model\\ArticleModel', 'Neoflow\\Module\\Blog\\Model\\ArticleCategoryModel', 'category_id', 'article_id');
+    }
+
+    /**
+     * Save category.
+     *
+     * @param bool $preventCacheClearing Prevent that the cached database results will get deleted
+     *
+     * @return bool
+     */
+    public function save(bool $preventCacheClearing = false): bool
+    {
+        $this->title = trim($this->title);
+        $this->title_slug = slugify($this->title);
+
+        return parent::save($preventCacheClearing);
+    }
+
+    /**
+     * Delete category.
+     *
+     * @return bool
+     *
+     * @throws ValidationException
+     */
+    public function delete(): bool
+    {
+        if (!$this->articles()->count()) {
+            return parent::delete();
+        }
+        throw new ValidationException(translate('{0} is in use and cannot be deleted', ['Category']));
     }
 }

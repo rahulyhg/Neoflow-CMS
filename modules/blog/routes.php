@@ -21,9 +21,9 @@ return [
     ],
     [
         'routes' => [
-            ['pmod_blog_frontend_article_index', 'get', '{url:blog}', 'Frontend@index'],
-            ['pmod_blog_frontend_article_index_category', 'get', '{url:blog}/(category_slug:any)', 'Frontend@index'],
-            ['pmod_blog_frontend_article_show', 'get', '{url:blog}/(slug:any)', 'Frontend@show'],
+            ['pmod_blog_frontend_article_index', 'get', '/{blog:uri}', 'Frontend@index'],
+            ['pmod_blog_frontend_article_index_category', 'get', '/(page:uri)/c/(slug:any)', 'Frontend@index'],
+            ['pmod_blog_frontend_article_show', 'get', '{blog:uri}/(slug:any)', 'Frontend@show'],
         ],
         'namespace' => 'Neoflow\\Module\\Blog\\Controller\\',
     ],

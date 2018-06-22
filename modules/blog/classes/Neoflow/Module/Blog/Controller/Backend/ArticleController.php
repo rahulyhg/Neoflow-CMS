@@ -23,10 +23,12 @@ class ArticleController extends AbstractPageModuleController
         $articles = ArticleModel::findAllByColumn('section_id', $this->section->id());
         $categories = CategoryModel::findAllByColumn('section_id', $this->section->id());
 
+        $users = UserModel::findAll();
+
         return $this->render('blog/backend/article/index', [
             'articles' => $articles,
             'categories' => $categories,
-            'section' => $this->section,
+            'users' => $users,
         ]);
     }
 
@@ -47,6 +49,8 @@ class ArticleController extends AbstractPageModuleController
             $article = ArticleModel::create([
                 'title' => $postData->get('title'),
                 'abstract' => $postData->get('abstract'),
+                'category_ids' => $postData->get('category_ids'),
+                'author_user_id' => $postData->get('author_user_id'),
                 'section_id' => $this->section->id(),
             ]);
 
@@ -140,36 +144,7 @@ class ArticleController extends AbstractPageModuleController
     }
 
     /**
-     * Update user password action.
-     *
-     * @return RedirectResponse
-     *
-     * @throws RuntimeException
-     */
-    public function updatePasswordAction(): RedirectResponse
-    {
-        try {
-            // Get post data
-            $postData = $this->request()->getPostData();
-
-            // Update user password
-            $user = UserModel::updatePasswordById($postData->get('newPassword'), $postData->get('confirmPassword'), $postData->get('user_id'));
-
-            // Validate and save user password
-            if ($user->validateNewPassword() && $user->save()) {
-                $this->service('alert')->success(translate('Password successfully updated'));
-            } else {
-                throw new RuntimeException('Updating password of user failed (ID: '.$postData->get('user_id').')');
-            }
-        } catch (ValidationException $ex) {
-            $this->service('alert')->warning($ex->getErrors());
-        }
-
-        return $this->redirectToRoute('backend_user_edit', ['id' => $postData->get('user_id')]);
-    }
-
-    /**
-     * Delete user action.
+     * Delete action.
      *
      * @return RedirectResponse
      *
@@ -177,23 +152,13 @@ class ArticleController extends AbstractPageModuleController
      */
     public function deleteAction(): RedirectResponse
     {
-        // Delete user
-        $result = UserModel::deleteById($this->args['id']);
-        if ($result) {
+        if (ArticleModel::deleteById($this->args['id'])) {
             $this->service('alert')->success(translate('Successfully deleted'));
 
-            return $this->redirectToRoute('backend_user_index');
+            return $this->redirectToRoute('pmod_blog_backend_article_index', [
+                'section_id' => $this->section->id(),
+            ]);
         }
-        throw new RuntimeException('Deleting user failed (ID: '.$this->args['id'].')');
-    }
-
-    /**
-     * Check permission.
-     *
-     * @return bool
-     */
-    protected function checkPermission(): bool
-    {
-        return has_permission('manage_users');
+        throw new RuntimeException('Deleting article failed (ID: '.$this->args['id'].')');
     }
 }

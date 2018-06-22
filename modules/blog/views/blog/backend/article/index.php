@@ -1,3 +1,6 @@
+<?= $view->renderTemplate('blog/backend/navbar') ?>
+
+
 <div class="row">
     <div class="col-xl-7">
 
@@ -11,6 +14,15 @@
                 <tr>
                     <th data-priority="0" data-order="true">
                         <?= translate('Title') ?>
+                    </th>
+                    <th data-priority="1" data-order="true" data-init-order="desc">
+                        <?= translate('Published on') ?>
+                    </th>
+                    <th class="none">
+                        <?= translate('Abstract') ?>
+                    </th>
+                    <th class="none">
+                        <?= translate('Category', [], true) ?>
                     </th>
                     <th data-orderable="false" data-filterable="false" data-priority="0"></th>
                 </tr>
@@ -27,6 +39,20 @@
                                 <?= $article->title ?>
                             </a>
                         </td>
+                        <td>
+                            <?= $article->getPublishedWhen() ?>
+                        </td>
+                        <td>
+                            <?= $article->abstract ?>
+                        </td>
+                        <td>
+                            <?= $article->getCategories()->implode(function (\Neoflow\Module\Blog\Model\CategoryModel $category) use ($view) {
+                                return '<a href="' . generate_url('pmod_blog_backend_category_edit', [
+                                        'section_id' => $view->get('section')->id(),
+                                        'id' => $category->id()
+                                    ]) . '">' . $category->title . '</a>';
+                            }) ?>
+                        </td>
                         <td class="text-right nowrap">
                             <a href="<?= generate_url('pmod_blog_backend_article_edit', [
                                 'section_id' => $article->section_id,
@@ -39,7 +65,7 @@
                                     </span>
                                 <?= translate('Edit') ?>
                             </a>
-                            <a href="<?= generate_url('pmod_blog_backend_article_edit', [
+                            <a href="<?= generate_url('pmod_blog_backend_article_delete', [
                                 'section_id' => $article->section_id,
                                 'id' => $article->id(),
                             ]) ?>"
@@ -65,7 +91,7 @@
             </h4>
             <div class="card-body">
                 <form method="post" action="<?= generate_url('pmod_blog_backend_article_create') ?>">
-                    <input type="hidden" name="section_id" value="<?= $section->id() ?>"/>
+                    <input type="hidden" name="section_id" value="<?= $view->get('section')->id() ?>"/>
                     <div class="form-group row <?= has_validation_error('title', 'is-invalid') ?>">
                         <label for="inputTitle" class="col-sm-3 col-form-label">
                             <?= translate('Title') ?> *
@@ -83,18 +109,35 @@
                         </div>
                     </div>
 
-                    <div class="form-group row <?= has_validation_error('role_id', 'is-invalid') ?>">
+                    <div class="form-group row <?= has_validation_error('category_ids', 'is-invalid') ?>">
                         <label for="selectCategories" class="col-sm-3 col-form-label">
                             <?= translate('Category', [], true) ?> *
                         </label>
                         <div class="col-sm-9">
-                            <select multiple class="form-control" name="role_id" id="selectCategories">
+                            <select multiple class="form-control" name="category_ids[]" id="selectCategories">
                                 <?php foreach ($categories as $category) { ?>
                                     <option value="<?= $category->id() ?>"><?= $category->title ?></option>
                                 <?php } ?>
                             </select>
                         </div>
                     </div>
+
+                    <div class="form-group row <?= has_validation_error('author_user_id', 'is-invalid') ?>">
+                        <label for="selectCategories" class="col-sm-3 col-form-label">
+                            <?= translate('Author') ?> *
+                        </label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="author_user_id" id="selectCategories">
+                                <?php
+                                $authUser = $view->service('auth')->getUser();
+                                foreach ($users as $user) {
+                                    ?>
+                                    <option value="<?= $user->id() ?>" <?= ($authUser->id() === $user->id() ? 'selected' : '') ?>><?= $user->getFullname() ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group row">
                         <div class="offset-sm-3 col-sm-9">
                             <button type="submit" class="btn btn-primary btn-icon-left">

@@ -16,5 +16,7 @@ return [
         'Delete category' => 'Kategorie löschen',
         'Edit category' => 'Kategorie bearbeiten',
         'Create category' => 'Kategorie erstellen',
+        'Only required if the description of the website should contain a different description than that of the category (e.g. because of SEO).' => 'Wird nur benötigt, wenn die Beschreibung der Webseite eine andere als die der Kategorie beinhalten soll (zB. wegen SEO).',
+        'Only required if the title of the website should contain a title other than that of the category (e.g. because of SEO).' => 'Wird nur benötigt, wenn der Titel der Webseite einen anderen als den der Kategorie beinhalten soll (zB. wegen SEO).',
     ],
 ];
