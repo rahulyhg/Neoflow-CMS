@@ -65,21 +65,21 @@ class RoleModel extends AbstractModel
         $validator = new EntityValidator($this);
 
         $validator
-                ->required()
-                ->betweenLength(3, 20)
-                ->callback(function ($title, $role) {
-                    $roles = RoleModel::repo()
-                            ->where('title', '=', $title)
-                            ->where('role_id', '!=', $role->id())
-                            ->fetchAll();
+            ->required()
+            ->betweenLength(3, 20)
+            ->callback(function ($title, $role) {
+                $roles = RoleModel::repo()
+                    ->where('title', '=', $title)
+                    ->where('role_id', '!=', $role->id())
+                    ->fetchAll();
 
-                    return 0 === $roles->count();
-                }, '{0} has to be unique', [$this])
-                ->set('title', 'Title');
+                return 0 === $roles->count();
+            }, '{0} has to be unique', [$this])
+            ->set('title', 'Title');
 
         $validator
-                ->maxLength(150)
-                ->set('description', 'Description');
+            ->maxLength(150)
+            ->set('description', 'Description');
 
         return (bool) $validator->validate();
     }
@@ -101,10 +101,10 @@ class RoleModel extends AbstractModel
                 // Create new role permissions
                 foreach ($this->permission_ids as $permission_id) {
                     RolePermissionModel::create([
-                                'role_id' => $this->id(),
-                                'permission_id' => $permission_id,
-                            ])
-                            ->save($preventCacheClearing);
+                        'role_id' => $this->id(),
+                        'permission_id' => $permission_id,
+                    ])
+                        ->save($preventCacheClearing);
                 }
             }
 
@@ -133,7 +133,7 @@ class RoleModel extends AbstractModel
 
                 return parent::delete();
             } else {
-                throw new ValidationException(translate('Role is in use and cannot be deleted'));
+                throw new ValidationException(translate('{0} is in use and cannot be deleted', ['Role']));
             }
         }
 

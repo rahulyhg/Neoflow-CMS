@@ -213,6 +213,6 @@ class ThemeModel extends AbstractExtensionModel
         if ($this->settings()->backend_theme_id != $this->id() && $this->settings()->theme_id != $this->id()) {
             return parent::delete();
         }
-        throw new ValidationException(translate('Theme is in use and cannot be deleted.'));
+        throw new ValidationException(translate('{0} is in use and cannot be deleted', ['Theme']));
     }
 }
