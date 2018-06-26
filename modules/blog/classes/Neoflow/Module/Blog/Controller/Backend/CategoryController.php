@@ -41,7 +41,7 @@ class CategoryController extends AbstractPageModuleController
             // Create category
             $category = CategoryModel::create([
                 'title' => $postData->get('title'),
-                'abstract' => $postData->get('abstract'),
+                'description' => $postData->get('description'),
                 'section_id' => $this->section->id(),
             ]);
 

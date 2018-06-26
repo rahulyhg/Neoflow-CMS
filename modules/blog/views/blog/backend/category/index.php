@@ -76,12 +76,12 @@
                             <input type="text" minlength="3" maxlength="100" name="title" id="inputTitle" required class="form-control"/>
                         </div>
                     </div>
-                    <div class="form-group row <?= has_validation_error('abstract', 'is-invalid') ?>">
-                        <label for="textareaAbstract" class="col-sm-3 col-form-label">
-                            <?= translate('Abstract') ?>
+                    <div class="form-group row <?= has_validation_error('description', 'is-invalid') ?>">
+                        <label for="textareaDescription" class="col-sm-3 col-form-label">
+                            <?= translate('Description') ?>
                         </label>
                         <div class="col-sm-9">
-                            <textarea maxlength="500" name="abstract" id="textareaAbstract" rows="4" class="form-control"></textarea>
+                            <textarea maxlength="250" name="description" id="textareaDescription" rows="4" class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="form-group row">

@@ -6,7 +6,7 @@
 
         <div class="card">
             <h4 class="card-header">
-                <?= translate('All articles') ?>
+                <?= translate('All articles') ?> (<?= $articles->count() ?>)
             </h4>
 
             <table class="datatable table display responsive no-wrap" width="100%" cellspacing="0">
