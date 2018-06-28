@@ -56,7 +56,10 @@ class NavitemView extends BackendView
             foreach ($navitems as $navitem) {
                 $page = $navitem->page()->fetch();
 
-                $output .= '<li class="nestable-item list-group-item '.(!$navitem->is_active ? 'list-groupd-item-muted' : '').'" data-collapsed="'.$this->app()->get('request')->getCookies()->exists($navitem->id()).'" data-id="'.$navitem->id().'">
+                $output .= '<li class="nestable-item list-group-item '.(!$navitem->is_active ? 'list-groupd-item-muted' : '').'" data-collapsed="'.$this->app()
+                        ->get('request')
+                        ->getCookies()
+                        ->exists($navitem->id()).'" data-id="'.$navitem->id().'">
                             <div class="nestable-handle">
                                 <i class="fa fa-fw fa-arrows-alt"></i>
                             </div>
@@ -83,7 +86,7 @@ class NavitemView extends BackendView
                                     <td class="text-right">';
 
                 if (1 != $navitem->navigation_id) {
-                    $output .= '<a href="'.generate_url('backend_navitem_edit', ['id' => $navitem->id()]).'" class="btn btn-outline-light btn-sm d-none d-xl-inline-block btn-icon-left" title="'.translate('Edit item').'">
+                    $output .= '<a href="'.generate_url('backend_navitem_edit', ['id' => $navitem->id()]).'" class="btn btn-outline-light btn-sm d-none d-xl-inline-block btn-icon-left" title="'.translate('Edit navigation item').'">
                                         <span class="btn-icon">
                                             <i class="fa fa-pencil-alt"></i>
                                         </span>
@@ -92,17 +95,17 @@ class NavitemView extends BackendView
                 }
 
                 if ($navitem->is_active) {
-                    $output .= ' <a href="'.generate_url('backend_navitem_toggle_activation', ['id' => $navitem->id()]).'" class="btn btn-outline-light btn-sm confirm-modal" data-message="'.translate('Are you sure you want to disable it?').'" title="'.translate('Disable item').'">
+                    $output .= ' <a href="'.generate_url('backend_navitem_toggle_activation', ['id' => $navitem->id()]).'" class="btn btn-outline-light btn-sm confirm-modal" data-message="'.translate('Are you sure you want to disable it?').'" title="'.translate('Disable navigation item').'">
                                     <i class="fa fa-fw fa-toggle-on"></i>
                                 </a> ';
                 } else {
-                    $output .= ' <a href="'.generate_url('backend_navitem_toggle_activation', ['id' => $navitem->id()]).'" class="btn btn-outline-light btn-sm confirm-modal" data-message="'.translate('Are you sure you want to enable it?').'" title="'.translate('Enable item').'">
+                    $output .= ' <a href="'.generate_url('backend_navitem_toggle_activation', ['id' => $navitem->id()]).'" class="btn btn-outline-light btn-sm confirm-modal" data-message="'.translate('Are you sure you want to enable it?').'" title="'.translate('Enable navigation item').'">
                                     <i class="fa fa-fw fa-toggle-off"></i>
                                 </a> ';
                 }
 
                 if (1 != $navitem->navigation_id) {
-                    $output .= '<a href="'.generate_url('backend_navitem_delete', ['id' => $navitem->id()]).'" class="btn btn-primary btn-sm confirm-modal" data-message="'.translate('Are you sure you want to delete this element all of its subelements?').'" title="'.translate('Delete item').'">
+                    $output .= '<a href="'.generate_url('backend_navitem_delete', ['id' => $navitem->id()]).'" class="btn btn-primary btn-sm confirm-modal" data-message="'.translate('Are you sure you want to delete this element all of its subelements?').'" title="'.translate('Delete navigation item').'">
                                 <i class="fa fa-fw fa-trash-alt"></i>
                             </a>';
                 }

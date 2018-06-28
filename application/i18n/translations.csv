@@ -421,6 +421,8 @@ Save;Save;Speichern
 Edit navigation item;Edit navigation item;Navigationselement bearbeiten
 Create navigation item;Create navigation item;Navigationselement erstellen
 Delete navigation item;Delete navigation item;Navigationselement löschen
+Enable navigation item;Enable navigation item;Navigationselement aktivieren
+Disable navigation item;Disable navigation item;Navigationselement deaktivieren
 Save failed;Save failed;Speichern fehlgeschlagen
 Saved;Saved;Gespeichert
 Search;Search;Suchen
