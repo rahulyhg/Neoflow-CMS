@@ -22,7 +22,6 @@ class ArticleController extends AbstractPageModuleController
     {
         $articles = ArticleModel::findAllByColumn('section_id', $this->section->id());
         $categories = CategoryModel::findAllByColumn('section_id', $this->section->id());
-
         $users = UserModel::findAll();
 
         return $this->render('blog/backend/article/index', [
@@ -103,8 +102,13 @@ class ArticleController extends AbstractPageModuleController
                 $this->section->id(),
             ]);
 
+            $categories = CategoryModel::findAllByColumn('section_id', $this->section->id());
+            $users = UserModel::findAll();
+
             return $this->render('blog/backend/article/edit', [
                 'article' => $article,
+                'categories' => $categories,
+                'users' => $users,
             ]);
         }
 
