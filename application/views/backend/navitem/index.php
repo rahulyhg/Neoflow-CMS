@@ -7,7 +7,7 @@ if (1 !== $navigation->id()) {
 <div class="row">
     <div class="col-xl-7">
         <div class="card">
-            <h4 class="card-header"> 
+            <h4 class="card-header">
                 <?= translate('Navigation item', [], true) ?>
             </h4>
 
@@ -15,7 +15,10 @@ if (1 !== $navigation->id()) {
                 <ul class="nav nav-tabs nav-fill">
                     <?php foreach ($languages as $language) { ?>
                         <li class="nav-item">
-                            <a class="nav-link<?= ($language->id() === $navigationLanguage->id() ? ' active' : '') ?>" href="<?= generate_url('backend_navitem_index', ['id' => $navigation->id(), 'language_id' => $language->id()]) ?>">
+                            <a class="nav-link<?= ($language->id() === $navigationLanguage->id() ? ' active' : '') ?>"
+                               href="<?= generate_url('backend_navitem_index', [
+                                   'navigation_id' => $navigation->id(), 'language_id' => $language->id()
+                               ]) ?>">
                                 <?= $language->renderFlagIcon() ?> <span class="d-none d-sm-inline-block"><?= translate($language->title) ?></span>
                             </a>
                         </li>
@@ -44,18 +47,18 @@ if (1 !== $navigation->id()) {
         <?php if (1 !== $navigation->id()) { ?>
             <div class="card">
                 <h4 class="card-header">
-                    <?= translate('Create item') ?>
+                    <?= translate('Create navigation item') ?>
                 </h4>
                 <div class="card-body">
                     <form method="post" action="<?= generate_url('backend_navitem_create') ?>">
-                        <input type="hidden" value="<?= $navigationLanguage->id() ?>" name="language_id" />
-                        <input type="hidden" value="<?= $navigation->id() ?>" name="navigation_id" />
+                        <input type="hidden" value="<?= $navigationLanguage->id() ?>" name="language_id"/>
+                        <input type="hidden" value="<?= $navigation->id() ?>" name="navigation_id"/>
                         <div class="form-group row <?= has_validation_error('title', 'is-invalid') ?>">
                             <label for="inputTitle" class="col-sm-3 col-form-label">
                                 <?= translate('Title') ?>
                             </label>
                             <div class="col-sm-9">
-                                <input id="inputTitle" type="text" class="form-control" name="title" maxlength="50" minlength="3" />
+                                <input id="inputTitle" type="text" class="form-control" name="title" maxlength="50" minlength="3"/>
                             </div>
                         </div>
 
@@ -84,7 +87,7 @@ if (1 !== $navigation->id()) {
 
                         <div class="form-group row">
                             <div class="offset-sm-3 col-sm-9">
-                                <input type="hidden" value="0" name="is_active" />
+                                <input type="hidden" value="0" name="is_active"/>
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" id="checkboxIsActive" class="custom-control-input" value="1" checked name="is_active">
                                     <label class="custom-control-label" for="checkboxIsActive"><?= translate('Item is active and visible') ?></label>

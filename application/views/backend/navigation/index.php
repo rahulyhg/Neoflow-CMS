@@ -24,7 +24,7 @@
                         <?php foreach ($navigations as $navigation) { ?>
                             <tr>
                                 <td class="nowrap">
-                                    <a href="<?= generate_url('backend_navitem_index', ['id' => $navigation->id()]) ?>" <?= (1 === $navigation->id() ? 'class="disabled"' : '') ?>  title="<?= translate('Manage items') ?>">
+                                    <a href="<?= generate_url('backend_navitem_index', ['navigation_id' => $navigation->id()]) ?>" <?= (1 === $navigation->id() ? 'class="disabled"' : '') ?>  title="<?= translate('Manage items') ?>">
                                         <?= (1 === $navigation->id() ? translate($navigation->title) : $navigation->title) ?>
                                     </a>
                                 </td>
@@ -33,7 +33,7 @@
                                 </td>
                                 <td class="text-right nowrap">
 
-                                    <a href="<?= generate_url('backend_navitem_index', ['id' => $navigation->id()]) ?>" class="btn btn-outline-light d-none d-xl-inline-block btn-sm btn-icon-left" title="<?= translate('Navigation item', [], true) ?>">
+                                    <a href="<?= generate_url('backend_navitem_index', ['navigation_id' => $navigation->id()]) ?>" class="btn btn-outline-light d-none d-xl-inline-block btn-sm btn-icon-left" title="<?= translate('Navigation item', [], true) ?>">
                                         <span class="btn-icon">
                                             <i class="fa fa-th-list"></i>
                                         </span>

@@ -9,19 +9,20 @@ if (1 !== $navigation->id()) {
 
         <div class="card">
             <h4 class="card-header">
-                <?= translate('Edit item') ?>
+                <?= translate('Edit navigation item') ?>
             </h4>
             <div class="card-body">
 
                 <form method="post" action="<?= generate_url('backend_navitem_update') ?>">
-                    <input value="<?= $navitem->id() ?>" type="hidden" name="navitem_id" />
+                    <input value="<?= $navitem->id() ?>" type="hidden" name="navitem_id"/>
 
                     <div class="form-group row">
                         <label for="inputTitle" class="col-sm-3 col-form-label">
                             <?= translate('Title') ?> *
                         </label>
                         <div class="col-sm-9">
-                            <input id="inputTitle" type="text" required class="form-control" name="title" maxlength="50" minlength="3" value="<?= $navitem->title ?>" />
+                            <input id="inputTitle" type="text" required class="form-control" name="title" maxlength="50" minlength="3"
+                                   value="<?= $navitem->title ?>"/>
                         </div>
                     </div>
 
@@ -50,9 +51,10 @@ if (1 !== $navigation->id()) {
 
                     <div class="form-group row">
                         <div class="offset-sm-3 col-sm-9">
-                            <input type="hidden" value="0" name="is_active" />
+                            <input type="hidden" value="0" name="is_active"/>
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="checkboxIsActive" value="1" name="is_active" <?= ($navitem->is_active ? 'checked' : '') ?>>
+                                <input type="checkbox" class="custom-control-input" id="checkboxIsActive" value="1"
+                                       name="is_active" <?= ($navitem->is_active ? 'checked' : '') ?>>
                                 <label class="custom-control-label" for="checkboxIsActive"><?= translate('Item is active and visible') ?></label>
                             </div>
                         </div>
