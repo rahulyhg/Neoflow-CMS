@@ -3,6 +3,7 @@
 namespace Neoflow\Module\Blog\Model;
 
 use Neoflow\CMS\Core\AbstractModel;
+use Neoflow\Framework\ORM\EntityCollection;
 use Neoflow\Framework\ORM\EntityValidator;
 use Neoflow\Framework\ORM\Repository;
 use Neoflow\Module\Search\ModelSearchInterface;
@@ -166,6 +167,16 @@ class CategoryModel extends AbstractModel implements ModelSearchInterface
     public function articles(): Repository
     {
         return $this->hasManyThrough('Neoflow\\Module\\Blog\\Model\\ArticleModel', 'Neoflow\\Module\\Blog\\Model\\ArticleCategoryModel', 'category_id', 'article_id');
+    }
+
+    /**
+     * Get articles.
+     *
+     * @return EntityCollection
+     */
+    public function getArticles(): EntityCollection
+    {
+        return $this->articles()->fetchAll();
     }
 
     /**
