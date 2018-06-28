@@ -12,7 +12,6 @@
                 <form method="post" action="<?= generate_url('pmod_blog_backend_category_update') ?>">
                     <input value="<?= $category->id() ?>" type="hidden" name="category_id"/>
                     <input value="<?= $category->section_id ?>" type="hidden" name="section_id"/>
-
                     <div class="form-group row <?= has_validation_error('title', 'is-invalid') ?>">
                         <label for="inputTitle" class="col-sm-3 col-form-label">
                             <?= translate('Title') ?> *

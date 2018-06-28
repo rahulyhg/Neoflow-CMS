@@ -6,6 +6,7 @@ return [
         'Articles per page' => 'Articles per page',
         'Blog' => 'Blog',
         'Article' => 'Article|Articles',
+        'Number of articles' => 'Number of articles',
         'Abstract' => 'Abstract',
         'All articles' => 'All articles',
         'Delete article' => 'Delete article',
@@ -18,5 +19,7 @@ return [
         'Create category' => 'Create category',
         'Only required if the description of the website should contain a different description than that of the category (e.g. because of SEO).' => 'Only required if the description of the website should contain a different description than that of the category (e.g. because of SEO).',
         'Only required if the title of the website should contain a title other than that of the category (e.g. because of SEO).' => 'Only required if the title of the website should contain a title other than that of the category (e.g. because of SEO).',
+        'Only required if the description of the website should contain a different description than that of the article (e.g. because of SEO).' => 'Only required if the description of the website should contain a different description than that of the article (e.g. because of SEO).',
+        'Only required if the title of the website should contain a title other than that of the article (e.g. because of SEO).' => 'Only required if the title of the website should contain a title other than that of the article (e.g. because of SEO).',
     ],
 ];

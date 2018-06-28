@@ -14,6 +14,9 @@
                     <th data-priority="0" data-order="true">
                         <?= translate('Title') ?>
                     </th>
+                    <th data-priority="0" data-order="true">
+                        <?= translate('Number of articles') ?>
+                    </th>
                     <th data-orderable="false" data-filterable="false" data-priority="0"></th>
                 </tr>
                 </thead>
@@ -28,6 +31,9 @@
                                title="<?= translate('Edit category') ?>">
                                 <?= $category->title ?>
                             </a>
+                        </td>
+                        <td>
+                            <?= $category->getArticles()->count() ?>
                         </td>
                         <td class="text-right nowrap">
                             <a href="<?= generate_url('pmod_blog_backend_category_edit', [
@@ -66,8 +72,7 @@
                 <?= translate('Create category') ?>
             </h4>
             <div class="card-body">
-                <form method="post" action="<?= generate_url('pmod_blog_backend_category_create') ?>">
-                    <input type="hidden" name="section_id" value="<?= $view->get('section')->id() ?>"/>
+                <form method="post" action="<?= generate_url('pmod_blog_backend_category_create', ['section_id' => $view->get('section')->id()]) ?>">
                     <div class="form-group row <?= has_validation_error('title', 'is-invalid') ?>">
                         <label for="inputTitle" class="col-sm-3 col-form-label">
                             <?= translate('Title') ?> *
