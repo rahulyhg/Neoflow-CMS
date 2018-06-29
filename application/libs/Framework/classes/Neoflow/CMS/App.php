@@ -111,10 +111,7 @@ class App extends FrameworkApp
 
         // Add frontend index route
         $this->get('router')->addRoutes([
-            'frontend_index',
-            'any',
-            '/(url:uri)',
-            'Neoflow\\CMS\\Controller\\Frontend@index',
+            'frontend_index', 'any', '/(url:uri)', 'Neoflow\\CMS\\Controller\\Frontend@index',
         ]);
 
         $this->get('logger')->info('Application created');

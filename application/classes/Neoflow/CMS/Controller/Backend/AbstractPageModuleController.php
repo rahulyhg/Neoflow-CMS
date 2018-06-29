@@ -10,6 +10,11 @@ use RuntimeException;
 abstract class AbstractPageModuleController extends SectionController
 {
     /**
+     * @var SectionModel
+     */
+    protected $section;
+
+    /**
      * Constructor.
      *
      * @param SectionView $view Section view
@@ -34,9 +39,9 @@ abstract class AbstractPageModuleController extends SectionController
         if ($section_id) {
             $this->section = SectionModel::findById($section_id);
             if ($this->section) {
-                $page = $this->section->page()->fetch();
-                $module = $this->section->module()->fetch();
-                $block = $this->section->block()->fetch();
+                $page = $this->section->getPage();
+                $module = $this->section->getModule();
+                $block = $this->section->getBlock();
 
                 // Store section for view
                 $this->view->set('section', $this->section);
@@ -44,10 +49,9 @@ abstract class AbstractPageModuleController extends SectionController
                 // Set title and breadcrumb for view
                 $this->view
                     ->setTitle($module->name)
-                    ->setSubtitle('ID: '.$this->section->id().' '.translate('Block').': '.($block ? $block->title : translate('Not specified')))
+                    ->setSubtitle('ID: '.$this->section->id().' / '.translate('Block').': '.($block ? $block->title : translate('Not specified')).' / '.translate('Module').': '.$module->name)
                     ->addBreadcrumb(translate('Page', [], true), generate_url('backend_page_index', ['language_id' => $page->language_id]))
                     ->addBreadcrumb($page->title, generate_url('backend_section_index', ['page_id' => $page->id()]));
-
                 // Set back and preview url
                 $this->view
                     ->setBackRoute('backend_section_index', ['page_id' => $page->id()])

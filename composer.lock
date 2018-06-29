@@ -108,7 +108,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/neoflow/Neoflow-Functions.git",
-                "reference": "ae3882c5de576e0bcc268318ce5502a1c436ebb1"
+                "reference": "cf549ce244968782c4391623819e5e2e987d713d"
             },
             "type": "library",
             "autoload": {
@@ -135,7 +135,8 @@
                     "src/functions/sanitize_file_extension.php",
                     "src/functions/sanitize_file_name.php",
                     "src/functions/slugify.php",
-                    "src/functions/starts_with.php"
+                    "src/functions/starts_with.php",
+                    "src/functions/shortify.php"
                 ]
             },
             "license": [
@@ -148,7 +149,7 @@
                 }
             ],
             "description": "PHP library with a variety of additional functions.",
-            "time": "2018-06-22T11:35:18+00:00"
+            "time": "2018-06-29T13:21:12+00:00"
         },
         {
             "name": "neoflow/image",

@@ -17,16 +17,6 @@ use RuntimeException;
 class SectionController extends BackendController
 {
     /**
-     * @var SectionModel
-     */
-    protected $section;
-
-    /**
-     * @var ModuleModel
-     */
-    protected $module;
-
-    /**
      * Constructor.
      *
      * @param SectionView $view
@@ -83,10 +73,10 @@ class SectionController extends BackendController
             $modules = ModuleModel::findAllByType('page');
 
             return $this->render('backend/section/index', [
-                    'page' => $page,
-                    'modules' => $modules,
-                    'sections' => $sections,
-                    'blocks' => $blocks,
+                'page' => $page,
+                'modules' => $modules,
+                'sections' => $sections,
+                'blocks' => $blocks,
             ]);
         }
 
@@ -131,9 +121,9 @@ class SectionController extends BackendController
 
             // Update section
             $section = SectionModel::updateById([
-                    'is_active' => $postData->get('is_active'),
-                    'block_id' => $postData->get('block_id'),
-                    ], $postData->get('section_id'));
+                'is_active' => $postData->get('is_active'),
+                'block_id' => $postData->get('block_id'),
+            ], $postData->get('section_id'));
 
             // Validate and save section
             if ($section && $section->validate() && $section->save()) {
@@ -146,7 +136,7 @@ class SectionController extends BackendController
         }
 
         return $this->redirectToRoute('backend_section_edit', [
-                'id' => $section->id(),
+            'id' => $section->id(),
         ]);
     }
 
@@ -165,10 +155,10 @@ class SectionController extends BackendController
 
             // Create section
             $section = SectionModel::create([
-                    'page_id' => $postData->get('page_id'),
-                    'module_id' => $postData->get('module_id'),
-                    'is_active' => $postData->get('is_active'),
-                    'block_id' => $postData->get('block_id'),
+                'page_id' => $postData->get('page_id'),
+                'module_id' => $postData->get('module_id'),
+                'is_active' => $postData->get('is_active'),
+                'block_id' => $postData->get('block_id'),
             ]);
 
             // Validate and save section
@@ -182,7 +172,7 @@ class SectionController extends BackendController
         }
 
         return $this->redirectToRoute('backend_section_index', [
-                'page_id' => $section->page_id,
+            'page_id' => $section->page_id,
         ]);
     }
 
@@ -201,7 +191,7 @@ class SectionController extends BackendController
             $this->service('alert')->success(translate('Successfully deleted'));
 
             return $this->redirectToRoute('backend_section_index', [
-                    'page_id' => $section->page_id,
+                'page_id' => $section->page_id,
             ]);
         }
         throw new RuntimeException('Deleting section failed (ID: '.$this->args['id'].')');
@@ -226,7 +216,7 @@ class SectionController extends BackendController
             }
 
             return $this->redirectToRoute('backend_section_index', [
-                    'page_id' => $section->page_id,
+                'page_id' => $section->page_id,
             ]);
         }
         throw new RuntimeException('Toggling activation for section failed (ID: '.$this->args['id'].')');
@@ -268,10 +258,10 @@ class SectionController extends BackendController
                 ->setPreviewUrl($page->getUrl().'#section-'.$section->id());
 
             return $this->render('backend/section/edit', [
-                    'section' => $section,
-                    'page' => $page,
-                    'module' => $module,
-                    'blocks' => BlockModel::findAll(),
+                'section' => $section,
+                'page' => $page,
+                'module' => $module,
+                'blocks' => BlockModel::findAll(),
             ]);
         }
 
