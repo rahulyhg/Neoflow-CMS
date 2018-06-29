@@ -348,7 +348,6 @@ class Service extends WysiwygService
                                                             if (data.status) {
                                                                 $fileColumn.remove();
                                                                 $actionColumn.remove();
-
                                                                 $content = $(tinymce.activeEditor.getContent());
 
                                                                 $content.find("[src$=\"" + file.name + "\"]").remove();
@@ -357,8 +356,11 @@ class Service extends WysiwygService
                                                                 $anchor.replaceWith($anchor.text());
 
                                                                 tinymce.activeEditor.setContent("");
+                                                                
+                                                                $dv = $("<div>").append($content);
+                                                                
                                                                 if ($content.length) {
-                                                                    tinymce.activeEditor.setContent($content[0].outerHTML);
+                                                                    tinymce.activeEditor.setContent($dv.html());
                                                                 }
                                                             }
                                                         });
