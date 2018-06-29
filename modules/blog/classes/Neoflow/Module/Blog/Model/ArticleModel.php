@@ -89,7 +89,7 @@ class ArticleModel extends AbstractModel implements ModelSearchInterface
     {
         return generate_url('pmod_blog_frontend_article_show', [
             'page' => $this->getSection()->getPage()->getRelativeUrl(),
-            'slug' => $this->title_slug,
+            'title_slug' => $this->title_slug,
         ], $parameters);
     }
 
@@ -183,7 +183,7 @@ class ArticleModel extends AbstractModel implements ModelSearchInterface
      */
     public function save(bool $preventCacheClearing = false): bool
     {
-        $this->title_slug = slugify($this->title);
+        $this->title_slug = mb_substr(slugify($this->title), 0, 100);
 
         $this->modified_when = microtime(true);
 

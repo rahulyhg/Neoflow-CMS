@@ -40,7 +40,7 @@
                         <div class="col-sm-9">
                             <input type="text" value="<?= $category->website_title ?>" minlength="3" maxlength="100" name="website_title"
                                    id="inputWebsiteTitle" class="form-control"/>
-                            <small class="form-text text-muted"><?= translate('Only required if the title of the website should contain a title other than that of the category (e.g. because of SEO).') ?></small>
+                            <small class="form-text text-muted"><?= translate('Only required if the title of the website should contain a title other than that of the category (e.g. for SEO).') ?></small>
                         </div>
                     </div>
                     <div class="form-group row <?= has_validation_error('website_description', 'is-invalid') ?>">
@@ -50,7 +50,7 @@
                         <div class="col-sm-9">
                             <textarea maxlength="250" name="website_description" id="textareaWebsiteDescription" rows="4"
                                       class="form-control"><?= $category->website_description ?></textarea>
-                            <small class="form-text text-muted"><?= translate('Only required if the description of the website should contain a different description than that of the category (e.g. because of SEO).') ?></small>
+                            <small class="form-text text-muted"><?= translate('Only required if the description of the website should contain a different description than that of the category (e.g. for SEO).') ?></small>
                         </div>
                     </div>
 

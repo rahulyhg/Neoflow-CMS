@@ -47,7 +47,7 @@ class CategoryModel extends AbstractModel implements ModelSearchInterface
     {
         return generate_url('pmod_blog_frontend_article_index_category', [
             'page' => $this->getSection()->getPage()->getRelativeUrl(),
-            'slug' => $this->title_slug,
+            'title_slug' => $this->title_slug,
         ], $parameters);
     }
 

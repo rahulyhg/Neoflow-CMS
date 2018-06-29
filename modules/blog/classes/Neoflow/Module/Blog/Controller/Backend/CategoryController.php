@@ -2,15 +2,29 @@
 
 namespace Neoflow\Module\Blog\Controller\Backend;
 
-use Neoflow\CMS\Controller\Backend\AbstractPageModuleController;
 use Neoflow\Framework\HTTP\Responsing\RedirectResponse;
 use Neoflow\Framework\HTTP\Responsing\Response;
+use Neoflow\Module\Blog\Controller\BackendController;
 use Neoflow\Module\Blog\Model\CategoryModel;
 use Neoflow\Validation\ValidationException;
 use RuntimeException;
 
-class CategoryController extends AbstractPageModuleController
+class CategoryController extends BackendController
 {
+    /**
+     * Constructor.
+     *
+     * @param SectionView $view Section view
+     * @param array       $args Request arguments
+     */
+    public function __construct(SectionView $view = null, array $args = [])
+    {
+        parent::__construct($view, $args);
+
+        $this->view
+            ->setTitle(translate('Category', [], true));
+    }
+
     /**
      * Index action.
      *
@@ -87,11 +101,6 @@ class CategoryController extends AbstractPageModuleController
                 ->addBreadcrumb(translate('Category', [], true), generate_url('pmod_blog_backend_category_index', [
                     'section_id' => $this->section->id(),
                 ]));
-
-            $url = generate_url('pmod_blog_frontend_article_index_category', [
-                'blog' => $this->section->getPage()->getRelativeUrl(),
-                'slug' => $category->title_slug,
-            ]);
 
             $this->view->setPreviewUrl($category->getUrl().'#section-'.$this->section->id());
 
