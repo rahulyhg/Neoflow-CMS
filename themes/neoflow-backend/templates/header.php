@@ -2,7 +2,8 @@
     <div class="container-fluid">
         <div class="title">
             <h1>
-                <?= $view->getTitle() ?> <small><?= $view->getSubtitle() ?></small>
+                <?= shortify($view->getTitle(), 25) ?>
+                <small><?= $view->getSubtitle() ?></small>
             </h1>
         </div>
 
@@ -16,7 +17,7 @@
                     if ($breadcrumb['url']) {
                         ?>
                         <li class="breadcrumb-item"><a href="<?= $breadcrumb['url'] ?>"><?= $breadcrumb['title'] ?></a></li>
-                    <?php
+                        <?php
                     } else {
                         ?>
                         <li class="breadcrumb-item"><?= $breadcrumb['title'] ?></li>
@@ -29,8 +30,7 @@
         if ($view->getBackUrl() || $view->getPreviewUrl()) {
             ?>
             <ul class="list-inline buttons">
-                <?php if ($view->getBackUrl()) {
-                ?>
+                <?php if ($view->getBackUrl()) { ?>
                     <li class="list-inline-item">
                         <a href="<?= $view->getBackUrl() ?>" class="btn btn-outline-light btn-sm btn-back btn-icon-left">
                             <span class="btn-icon">
@@ -38,10 +38,12 @@
                             </span>
                             <?= translate('Back') ?>
                         </a>
-                    </li><?php
-            }
-            if ($view->getPreviewUrl()) {
-                ?><li class="list-inline-item">
+                    </li>
+                    <?php
+                }
+                if ($view->getPreviewUrl()) {
+                    ?>
+                    <li class="list-inline-item">
                         <a href="<?= $view->getPreviewUrl() ?>" target="_blank" class="btn btn-outline-light btn-sm btn-icon-left">
                             <span class="btn-icon">
                                 <i class="fa fa-desktop"></i>
@@ -49,11 +51,9 @@
                             <?= translate('Preview') ?>
                         </a>
                     </li>
-                <?php
-            } ?>
+                <?php } ?>
             </ul>
-        <?php
-        } ?>
+        <?php } ?>
     </div>
 </header>
 
