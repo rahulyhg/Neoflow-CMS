@@ -1,5 +1,5 @@
 # Neoflow CMS
-Module-based content management system with a user friendly interface, based on a optimized MVC framework.
+Module-based content management system with a user friendly interface, based on a simplified MVC framework.
 
 ## Current state
 The Neoflow CMS is currently under development, but the first prerelease is already released.
