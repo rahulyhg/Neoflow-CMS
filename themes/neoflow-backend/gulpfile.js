@@ -14,46 +14,46 @@ var runSequence = require('run-sequence');
 var pjson = require('./package.json');
 
 var sourceHeader = fs
-        .readFileSync('./src/source-header.txt', 'utf8')
-        .replace('{VERSION}', pjson.version)
-        .replace('{YEAR}', new Date().getFullYear());
+    .readFileSync('./src/source-header.txt', 'utf8')
+    .replace('{VERSION}', pjson.version)
+    .replace('{YEAR}', new Date().getFullYear());
 
 gulp.task('scss:build', function () {
     return gulp.src('./src/sass/**/*.scss')
-            .pipe(sass({
-                outputStyle: 'expanded'
-            }).on('error', util.log))
-            .pipe(stripCssComments({
-                preserve: false
-            }))
-            .pipe(gulp.dest('./src/css'));
+        .pipe(sass({
+            outputStyle: 'expanded'
+        }).on('error', util.log))
+        .pipe(stripCssComments({
+            preserve: false
+        }))
+        .pipe(gulp.dest('./src/css'));
 });
 
 gulp.task('css:build', function () {
     return gulp.src(['./src/css/*.css'])
-            .pipe(postcss([
-                require('autoprefixer')({browsers: ['last 2 version', '> 10%']}),
-                require('css-mqpacker')(),
-                        //require('postcss-font-weights')()
-            ]))
-            .pipe(replace(/([\r\n]{2,})/igm, '\r\n'))
-            .pipe(injectString.after('@charset "UTF-8";', '\n' + sourceHeader))
-            .pipe(gulp.dest('./css'));
+        .pipe(postcss([
+            require('autoprefixer')({browsers: ['last 2 version', '> 10%']}),
+            require('css-mqpacker')(),
+            //require('postcss-font-weights')()
+        ]))
+        .pipe(replace(/([\r\n]{2,})/igm, '\r\n'))
+        .pipe(injectString.after('@charset "UTF-8";', '\n' + sourceHeader))
+        .pipe(gulp.dest('./css'));
 });
 
 gulp.task('css:minify', function () {
     return gulp.src(['./css/*.css', '!./css/*.min.css'])
-            .pipe(postcss([
-                require('cssnano')({
-                    safe: true,
-                    sourcemap: true
-                })
-            ]))
-            .pipe(injectString.after('@charset "UTF-8";', '\n' + sourceHeader + '\n'))
-            .pipe(rename({
-                suffix: '.min'
-            }))
-            .pipe(gulp.dest('./css'));
+        .pipe(postcss([
+            require('cssnano')({
+                safe: true,
+                sourcemap: true
+            })
+        ]))
+        .pipe(injectString.after('@charset "UTF-8";', '\n' + sourceHeader + '\n'))
+        .pipe(rename({
+            suffix: '.min'
+        }))
+        .pipe(gulp.dest('./css'));
 });
 
 gulp.task('js:build', function () {
@@ -66,9 +66,13 @@ gulp.task('js:build', function () {
         './src/js/vendor/jquery.nicescroll.min.js',
         './src/js/vendor/select2.full.min.js',
         './src/js/vendor/nestable.js',
+        './src/js/vendor/jquery.mark.min.js',
+
         './src/js/vendor/DataTables/jquery.dataTables.min.js',
         './src/js/vendor/DataTables/dataTables.bootstrap4.min.js',
         './src/js/vendor/DataTables/dataTables.responsive.min.js',
+        './src/js/vendor/DataTables/responsive.bootstrap4.min.js',
+        './src/js/vendor/DataTables/datatables.mark.js',
         './src/js/vendor/DataTables/responsive.bootstrap4.min.js',
 
         './src/js/theme/base.js',
@@ -87,18 +91,18 @@ gulp.task('js:build', function () {
         './src/js/theme/modal/confirm.js',
         './src/js/theme/modal/custom.js'
     ])
-            .pipe(stripComments())
-            .pipe(concat('script.js'))
-            .pipe(injectString.prepend(sourceHeader + '\n'))
-            .pipe(gulp.dest('./js'));
+        .pipe(stripComments())
+        .pipe(concat('script.js'))
+        .pipe(injectString.prepend(sourceHeader + '\n'))
+        .pipe(gulp.dest('./js'));
 });
 
 gulp.task('js:minify', function () {
     return gulp.src(['./js/script.js'])
-            .pipe(uglify().on('error', util.log))
-            .pipe(rename({suffix: '.min'}))
-            .pipe(injectString.prepend(sourceHeader + '\n'))
-            .pipe(gulp.dest('./js'));
+        .pipe(uglify().on('error', util.log))
+        .pipe(rename({suffix: '.min'}))
+        .pipe(injectString.prepend(sourceHeader + '\n'))
+        .pipe(gulp.dest('./js'));
 });
 
 gulp.task('css:rebuild', function () {

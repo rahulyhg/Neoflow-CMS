@@ -62,6 +62,10 @@ $('.datatable').each(function () {
             infoCallback: function (settings, start, end, max, total, pre) {
                 return infoContent;
             },
+            mark: {
+                element: 'mark',
+                className: 'highlight'
+            },
             dom:
             '<"card-body"<"row"<"col-sm-6"l><"col-sm-6"f>>>' +
             'tr' +

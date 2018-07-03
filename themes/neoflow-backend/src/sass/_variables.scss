@@ -183,6 +183,10 @@ $card-border-color: $gray-175;
 $component-active-color: $body-color;
 $component-active-bg: $gray-150;
 
+// Mark (Bootstrap)
+$mark-padding: .2em 0;
+$mark-bg: lighten(theme-color('primary'), 33%);
+
 // Dropdown (Bootstrap)
 $dropdown-border-width: 0;
 $dropdown-item-padding-x: .75rem;

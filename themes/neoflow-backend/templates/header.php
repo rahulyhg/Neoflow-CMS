@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="title">
             <h1>
-                <?= shortify($view->getTitle(), 25) ?>
+                <?= shortify($view->getTitle(), 35) ?>
                 <small><?= $view->getSubtitle() ?></small>
             </h1>
         </div>
