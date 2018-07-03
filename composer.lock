@@ -71,7 +71,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/neoflow/Neoflow-Framework.git",
-                "reference": "c11a85e6c1361f276f310bbb9843c8a3bedde192"
+                "reference": "9529fa10232d3de4afe01a935ee23dbbfc43065e"
             },
             "require": {
                 "neoflow/data-structures": "dev-master",
@@ -100,7 +100,7 @@
                 }
             ],
             "description": "PHP framework for small MVC based applications.",
-            "time": "2018-06-22T11:37:43+00:00"
+            "time": "2018-07-03T07:48:42+00:00"
         },
         {
             "name": "neoflow/functions",
@@ -108,7 +108,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/neoflow/Neoflow-Functions.git",
-                "reference": "cf549ce244968782c4391623819e5e2e987d713d"
+                "reference": "ad7fa4388b02d702c682c63acf82c0861b732195"
             },
             "type": "library",
             "autoload": {
@@ -116,6 +116,7 @@
                     "src/functions/array_export.php",
                     "src/functions/array_filter_recursive.php",
                     "src/functions/array_in_array.php",
+                    "src/functions/array_replace_key.php",
                     "src/functions/base_path.php",
                     "src/functions/convert_php2js.php",
                     "src/functions/ends_with.php",
@@ -130,7 +131,6 @@
                     "src/functions/normalize_url.php",
                     "src/functions/random_string.php",
                     "src/functions/recursive_copy.php",
-                    "src/functions/replace_array_key.php",
                     "src/functions/request_url.php",
                     "src/functions/sanitize_file_extension.php",
                     "src/functions/sanitize_file_name.php",
@@ -149,7 +149,7 @@
                 }
             ],
             "description": "PHP library with a variety of additional functions.",
-            "time": "2018-06-29T13:21:12+00:00"
+            "time": "2018-07-03T10:55:20+00:00"
         },
         {
             "name": "neoflow/image",

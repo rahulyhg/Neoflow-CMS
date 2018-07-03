@@ -30,7 +30,10 @@ if (1 !== $navigation->id()) {
 
                 <?php if ($navitems->count()) { ?>
                     <div class="nestable" data-save-url="<?= generate_url('backend_navitem_reorder') ?>">
-                        <?= $view->renderNavitemNestable($navitems) ?>
+                        <?= $view->renderTemplate('backend/navitem/nestable', [
+                            'navitems' => $navitems,
+                            'view' => $view
+                        ]) ?>
                     </div>
                     <ul class="list-inline small">
                         <li><i class="fa fa-lock"></i> = <?= translate('Accessible only for authorized users') ?></li>
