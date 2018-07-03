@@ -15,7 +15,7 @@
                     <th data-priority="0" data-order="true">
                         <?= translate('Title') ?>
                     </th>
-                    <th data-priority="1" data-order="true" data-init-order="desc">
+                    <th data-priority="1" data-order="true" data-init-order="desc" class="nowrap">
                         <?= translate('Published on') ?>
                     </th>
                     <th class="none">

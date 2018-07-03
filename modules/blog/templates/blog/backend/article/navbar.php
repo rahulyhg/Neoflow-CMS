@@ -1,24 +1,23 @@
 <div class="card">
     <ul class="nav nav-pills flex-column flex-sm-row">
         <li class="nav-item text-sm-center">
-            <a class="nav-link<?= is_current_route('pmod_blog_backend_article_*', ' active') ?>"
-               href="<?= generate_url('pmod_blog_backend_article_index', ['section_id' => $view->get('section')->id()]) ?>"
-               title="<?= translate('Article', [], true) ?>">
-                <i class="fa fa-fw fa-th-list"></i> <?= translate('Article', [], true) ?>
+            <a class="nav-link<?= is_current_route('pmod_blog_backend_article_edit', ' active') ?>"
+               href="<?= generate_url('pmod_blog_backend_article_edit', [
+                   'id' => $article->id(),
+                   'section_id' => $article->section_id
+               ]) ?>"
+               title="<?= translate('Content', [], true) ?>">
+                <i class="fa fa-fw fa-align-left"></i> <?= translate('Content') ?>
             </a>
         </li>
         <li class="nav-item text-sm-center">
-            <a class="nav-link<?= is_current_route('pmod_blog_backend_category_*', ' active') ?>"
-               href="<?= generate_url('pmod_blog_backend_category_index', ['section_id' => $view->get('section')->id()]) ?>"
-               title="<?= translate('Category', [], true) ?>">
-                <i class="fa fa-fw fa-list"></i> <?= translate('Category', [], true) ?>
-            </a>
-        </li>
-        <li class="nav-item text-sm-center">
-            <a class="nav-link<?= is_current_route('pmod_blog_backend_setting_*', ' active') ?>"
-               href="<?= generate_url('pmod_blog_backend_setting_index', ['section_id' => $view->get('section')->id()]) ?>"
-               title="<?= translate('Setting', [], true) ?>">
-                <i class="fa fa-fw fa-cogs"></i> <?= translate('Setting', [], true) ?>
+            <a class="nav-link<?= is_current_route('pmod_blog_backend_article_edit_metadata', ' active') ?>"
+               href="<?= generate_url('pmod_blog_backend_article_edit_metadata', [
+                   'id' => $article->id(),
+                   'section_id' => $article->section_id
+               ]) ?>"
+               title="<?= translate('Metadata', [], true) ?>">
+                <i class="fa fa-fw fa-database"></i> <?= translate('Metadata') ?>
             </a>
         </li>
     </ul>

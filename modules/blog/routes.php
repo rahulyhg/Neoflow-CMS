@@ -5,10 +5,11 @@ return [
     [
         'routes' => [
             ['pmod_blog_backend_article_index', 'get', '/backend/module/blog/articles', 'Article@index'],
-            ['pmod_blog_backend_article_edit', 'get', '/backend/module/blog/articles/edit/(id:num)', 'Article@edit'],
             ['pmod_blog_backend_article_create', 'post', '/backend/module/blog/articles/create', 'Article@create'],
+            ['pmod_blog_backend_article_edit', 'get', '/backend/module/blog/articles/edit/(id:num)', 'Article@edit'],
+            ['pmod_blog_backend_article_edit_metadata', 'get', '/backend/module/blog/articles/edit/(id:num)/metadata', 'Article@editMetadata'],
             ['pmod_blog_backend_article_update', 'post', '/backend/module/blog/articles/update', 'Article@update'],
-            ['pmod_blog_backend_article_update_website', 'post', '/backend/module/blog/articles/update/website', 'Article@updateWebsite'],
+            ['pmod_blog_backend_article_update_metadata', 'post', '/backend/module/blog/articles/update/metadata', 'Article@updateMetadata'],
             ['pmod_blog_backend_article_delete', 'get', '/backend/module/blog/articles/delete/(id:num)', 'Article@delete'],
             ['pmod_blog_backend_category_index', 'get', '/backend/module/blog/categories', 'Category@index'],
             ['pmod_blog_backend_category_edit', 'get', '/backend/module/blog/categories/edit/(id:num)', 'Category@edit'],
