@@ -90,7 +90,7 @@ class NavitemController extends BackendController
 
             // Set title and breadcrumb
             $this->view
-                ->setTitle(translate($navigation->title, [], false, false, false))
+                ->setTitle($navigation->title)
                 ->setSubtitle('ID: '.$navigation->id())
                 ->addBreadcrumb(translate('Navigation', [], true), generate_url('backend_navigation_index'));
 
